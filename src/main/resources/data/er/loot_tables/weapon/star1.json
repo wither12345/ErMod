@@ -1,0 +1,25 @@
+{
+  "type": "er:weapon",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:dull_blade",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:hunters_bow",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:waster_greatsword",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

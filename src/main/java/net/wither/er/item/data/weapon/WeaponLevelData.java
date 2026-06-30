@@ -1,4 +1,4 @@
-package net.wither.er.item.data;
+package net.wither.er.item.data.weapon;
 
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.Direction;

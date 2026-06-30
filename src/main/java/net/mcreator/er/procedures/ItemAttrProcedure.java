@@ -12,8 +12,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.BowInterface;
-import net.wither.er.item.data.WeaponAttributeData;
-import net.wither.er.item.data.WeaponLevelData;
+import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
 
 import java.util.UUID;
 

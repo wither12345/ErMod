@@ -37,7 +37,7 @@
       ]
     },
     {
-      "rolls": 4,
+      "rolls": 3,
       "entries": [
         {
           "type": "minecraft:item",
@@ -66,15 +66,20 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "er:artifact/star1",
+          "weight": 2
         },
         {
-          "type": "minecraft:item",
-          "name": "er:dull_blade",
-          "weight": 1
-        },
-        {
-          "type": "minecraft:item",
-          "name": "er:waster_greatsword",
+          "type": "minecraft:loot_table",
+          "name": "er:artifact/star2",
           "weight": 1
         }
       ]
@@ -84,7 +89,13 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "er:artifact/star1"
+          "name": "er:weapon/star1",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "er:weapon/star2",
+          "weight": 1
         }
       ]
     }

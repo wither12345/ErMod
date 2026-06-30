@@ -1,6 +1,7 @@
 package net.wither.er.item;
 
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -11,8 +12,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.wither.er.artifact_effect.ArtifactEffect;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.item.data.WeaponLevelData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
+import net.wither.er.item.weapons.AbilityWeapon;
 
 import java.util.List;
 
@@ -39,7 +41,10 @@ public class ModifyTooltip {
                         "experience : " + weaponLevelData.experience() + "/" + WeaponLevelData.getMaxExp(weaponLevelData.level(), WeaponLevelData.getItemWeaponStar(item))));
             else
                 list.add(2, Component.literal("§6Maxed")) ;
-
+            if(item.getItem() instanceof AbilityWeapon weapon){
+                CompoundTag tag = item.getOrCreateTag();
+                list.add(1, Component.translatable("lore.er.refinement").append(" " + (tag.contains("refinement") ? tag.getInt("refinement") : 1)));
+            }
         }
     }
 

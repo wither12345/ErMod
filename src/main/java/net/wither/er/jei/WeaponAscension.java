@@ -13,7 +13,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.wither.er.item.data.WeaponLevelData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 
 import javax.annotation.Nullable;
@@ -22,7 +22,7 @@ import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 import static net.mcreator.er.init.ErModItems.MORA_BAG;
 import static net.wither.er.init.DataComponentsRegister.WEAPON_LEVEL;
-import static net.wither.er.item.data.WeaponLevelData.create;
+import static net.wither.er.item.data.weapon.WeaponLevelData.create;
 import static net.wither.er.recipe.ascension.AscensionRecipe.Input;
 
 public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.AscensionEntry> {

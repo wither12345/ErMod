@@ -44,6 +44,10 @@ public class AuraContainer {
         }
     }
 
+    public boolean hasElementCategory(Element.Category category){
+        return !this.containersList.get(category.getId()).isEmpty();
+    }
+
     public void update(){
         if(owner instanceof AuraContainerInterface auraContainerInterface){
             auraContainerInterface.updateElements(this.toInt());

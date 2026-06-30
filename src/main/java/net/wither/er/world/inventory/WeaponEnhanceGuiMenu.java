@@ -1,6 +1,7 @@
 package net.wither.er.world.inventory;
 
 import net.mcreator.er.init.ErModItems;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -16,13 +17,14 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
-import net.wither.er.item.data.WeaponLevelData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
+import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.recipe.ascension.AscensionRecipe;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 import org.jetbrains.annotations.NotNull;
 
 import static net.wither.er.init.DataComponentsRegister.WEAPON_LEVEL;
-import static net.wither.er.item.data.WeaponLevelData.*;
+import static net.wither.er.item.data.weapon.WeaponLevelData.*;
 import static net.wither.er.recipe.ascension.AscensionRecipeListener.get;
 
 public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
@@ -163,12 +165,22 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
         ItemStack item_0 = this.getSlot(1).getItem();
         ItemStack output = ItemStack.EMPTY ;
         WeaponLevelData data = DataComponentsRegister.WEAPON_LEVEL.getData(item_0);
+        int refine = 0;
         if (data != null && !item_0.is(not_enhanceable)) {
             int level = data.level();
             int experience = data.experience();
             int total_experience = data.total_experience();
             int ascension = data.ascension();
             int star = WeaponLevelData.getItemWeaponStar(item_0) ;
+            if(item_0.getItem() instanceof AbilityWeapon abilityWeapon){
+                for (int index2 = 2; index2 <= 4; index2++) {
+                    ItemStack slotItem = this.getSlot(index2).getItem() ;
+                    if(abilityWeapon.getRefinementItem() == slotItem.getItem()){
+                        CompoundTag tag = slotItem.getOrCreateTag();
+                        refine += (tag.contains("refinement") ? tag.getInt("refinement") : 1) ;
+                    }
+                }
+            }
             if(this.getSlot(2).getItem().getItem() == ErModItems.ENCHANTED_MYSTIC_ENHANCEMENT_ORE.get()) {
                 mora_use = 0;
                 ascensionRecipe = null;
@@ -224,6 +236,15 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                     WEAPON_LEVEL.update(output, (d) -> d.update(final_level, final_ascension, final_experience, final_total_experience));
                 }
             }
+        }
+        if(refine > 0){
+            if(output == ItemStack.EMPTY)
+                output = item_0.copy();
+            CompoundTag tag = output.getOrCreateTag();
+            tag.putInt(
+                    "refinement",
+                    (tag.contains("refinement") ? tag.getInt("refinement") : 1) + refine
+            );
         }
         this.getSlot(5).set(output);
         this.broadcastChanges();

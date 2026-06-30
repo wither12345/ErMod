@@ -75,6 +75,7 @@ public class ExtraTabs {
 			tabData.accept(ErModItems.DULL_BLADE);
 			tabData.accept(ErModItems.WASTER_GREATSWORD);
 			tabData.accept(ErModItems.SILVER_SWORD);
+            tabData.accept(COOL_STEEL);
 		}
 	}
 

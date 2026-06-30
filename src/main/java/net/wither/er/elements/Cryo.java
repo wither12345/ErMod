@@ -71,7 +71,7 @@ public class Cryo extends Element{
             }
         }
         if(damageModifier != null)
-            damageModifier.multiply *= multiply;
+            damageModifier.reaction_multiply *= multiply;
         return gauge_reduction ;
     }
 

@@ -204,54 +204,6 @@
       }
     },
     {
-      "name": "Frozen",
-      "type": "potioneffect",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/potion/FrozenMobEffect.java"
-        ]
-      }
-    },
-    {
-      "name": "FrozenStart",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen_start",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/FrozenStartProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
-    },
-    {
-      "name": "FrozenEnd",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen_end",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/FrozenEndProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
-    },
-    {
       "name": "ElectroInfusionEnchantment",
       "type": "enchantment",
       "compiles": true,
@@ -383,25 +335,6 @@
       }
     },
     {
-      "name": "EntityHurt",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "entity_hurt",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/EntityHurtProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "sourceentity",
-            "type": "entity"
-          }
-        ]
-      },
-      "path": "~/Multiplys"
-    },
-    {
       "name": "Quicken",
       "type": "potioneffect",
       "compiles": true,
@@ -422,36 +355,6 @@
       "metadata": {
         "files": [
           "src/main/java/net/mcreator/er/potion/SuperconductMobEffect.java"
-        ]
-      }
-    },
-    {
-      "name": "FrozenZaiTick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen_zai_tick",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/FrozenZaiTickProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
         ]
       }
     },
@@ -5263,13 +5166,6 @@
   ],
   "sound_elements": [],
   "tag_elements": {
-    "DAMAGE_TYPES:minecraft:no_knockback": [
-      "CUSTOM:Reaction",
-      "#er:reaction",
-      "CUSTOM:ElementalSkill",
-      "CUSTOM:ElementalBurst",
-      "#minecraft:is_explosion"
-    ],
     "ITEMS:er:one_star_weapon": [
       "CUSTOM:DullBlade",
       "CUSTOM:WasterGreatsword",
@@ -5361,7 +5257,6 @@
     "ITEMS:er:sands_of_eon": [
       "CUSTOM:LuckyDogsHourglass"
     ],
-    "ITEMS:er:circlet_of_logos": [],
     "ITEMS:er:one_star_artifact": [
       "CUSTOM:LuckyDogsClover",
       "CUSTOM:LuckyDogsEagleFeather",
@@ -5527,6 +5422,13 @@
     ],
     "ITEMS:minecraft:logs": [
       "CUSTOM:CuihuaLog"
+    ],
+    "DAMAGE_TYPES:er:no_knockback": [
+      "CUSTOM:Reaction",
+      "CUSTOM:ElementalSkill",
+      "CUSTOM:ElementalBurst",
+      "#er:reaction",
+      "#minecraft:is_explosion"
     ]
   },
   "tab_element_order": {},
@@ -5642,7 +5544,6 @@
       "item.er.crystal_core": "Crystal Core",
       "item.er.cor_lapis": "Cor Lapis",
       "attribute.er.elemental_mastery": "Elemental Mastery",
-      "effect.er.frozen": "Frozen",
       "attribute.er.energy_recharge": "Energy Recharge",
       "item.er.unowned_vision": "Unowned Vision",
       "block.er.white_iron_ore": "White Iron Ore",
@@ -6015,7 +5916,6 @@
       "item.er.crystal_core": "晶核",
       "item.er.cor_lapis": "石珀",
       "attribute.er.elemental_mastery": "元素精通",
-      "effect.er.frozen": "冻结",
       "attribute.er.energy_recharge": "元素充能效率",
       "item.er.unowned_vision": "无主神之眼",
       "block.er.white_iron_ore": "白铁矿",
@@ -6267,7 +6167,7 @@
       "item.er.berserkers_indigo_feather": "战狂的翎羽",
       "item.er.berserkers_timepiece": "战狂的时计",
       "item.er.berserkers_bone_goblet": "战狂的骨杯",
-      "item.er.berserkers_battle_mask": "",
+      "item.er.berserkers_battle_mask": "战狂的鬼面",
       "death.attack.elemental_skill.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.elemental_skill.item": "%1$s was killed by %2$s using %3$s",
       "death.attack.elemental_skill": "%1$s died",
@@ -6319,7 +6219,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

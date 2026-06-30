@@ -7,6 +7,7 @@ import java.util.List;
 public class ERConfig {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 	public static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec.ConfigValue<Integer> MAX_REFINEMENT;
 	public static final ForgeConfigSpec.ConfigValue<Double> COMMON_DMG_SCALING;
 	public static final ForgeConfigSpec.ConfigValue<Double> UNCOMMON_DMG_SCALING;
 	public static final ForgeConfigSpec.ConfigValue<Double> RARE_DMG_SCALING;
@@ -40,6 +41,9 @@ public class ERConfig {
 	 * hp  : 2:9
 	*/
 	static {
+        BUILDER.push("weapon");
+        MAX_REFINEMENT = BUILDER.comment("Weapon's max refinement").define("max_refinement", 5);
+        BUILDER.pop();
 		BUILDER.push("artifacts");
 		BUILDER.push("damage");
 		COMMON_DMG_SCALING = BUILDER.comment("This control Artifact(1 Star)'s damage attributes scaling").define("scaling_dmg_1", 0.17);

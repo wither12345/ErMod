@@ -6,7 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public enum ErTiers implements Tier {
     STAR_1(250, 2.0F, 0.0F, 10),
-    STAR_2(250, 2.0F, 1.5F, 15);
+    STAR_2(250, 2.0F, 1.5F, 15),
+    STAR_3(250, 2.0F, 3F, 15);
 
     private final int uses;
     private final float speed;

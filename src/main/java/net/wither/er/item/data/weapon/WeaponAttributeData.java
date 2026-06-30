@@ -1,4 +1,4 @@
-package net.wither.er.item.data;
+package net.wither.er.item.data.weapon;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

@@ -12,6 +12,7 @@ package net.mcreator.er;
 
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.procedures.*;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -39,6 +40,7 @@ import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.shield.ShieldStack;
@@ -54,47 +56,53 @@ public class EntityHurtEvent {
 
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingHurtEvent event) {
-		if (event == null)
-			return;
-		DamageSource damagesource = event.getSource();
-		LivingEntity entity = event.getEntity();
-		Entity sourceentity = event.getSource().getEntity();
-		LevelAccessor world = entity.level();
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
-		float crit_mult = 1;
-		applyElementSource(damagesource) ;
-		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
-			double elemental_mastery = 0 ;
-			if (sourceentity instanceof LivingEntity && ((LivingEntity) sourceentity).getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
-				elemental_mastery = ((LivingEntity) sourceentity).getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
-			if(elementSourceInterface.getSource() != null && elementSourceInterface.getSource().getElement() != null) {
-				auraContainerInterface.getAuraContainer().addAura(elementSourceInterface.getSource(), world, x, y, z, getEntityLevel(sourceentity), elemental_mastery, modifierInterface.getModifier(), sourceentity);
-				ApplyElementMultiply(elementSourceInterface.getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());
-			}
+        if (event == null)
+            return;
+        DamageSource damagesource = event.getSource();
+        LivingEntity entity = event.getEntity();
+        Entity sourceentity = event.getSource().getEntity();
+        LevelAccessor world = entity.level();
+        double x = entity.getX();
+        double y = entity.getY();
+        double z = entity.getZ();
+        float crit_mult = 1;
+        applyElementSource(damagesource) ;
+        if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
+            if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon) {
+                CompoundTag tag = living.getMainHandItem().getOrCreateTag();
+                int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                abilityWeapon.getAbility().modify(damagesource, entity, modifierInterface.getModifier(), refinement);
+            }
 
-			if (!damagesource.is(noCritical) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
-				crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
-				modifierInterface.getModifier().critical = true;
-			}
+            double elemental_mastery = 0 ;
+            if (sourceentity instanceof LivingEntity && ((LivingEntity) sourceentity).getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
+                elemental_mastery = ((LivingEntity) sourceentity).getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
+            if(elementSourceInterface.getSource() != null && elementSourceInterface.getSource().getElement() != null) {
+                auraContainerInterface.getAuraContainer().addAura(elementSourceInterface.getSource(), world, x, y, z, getEntityLevel(sourceentity), elemental_mastery, modifierInterface.getModifier(), sourceentity);
+                ApplyElementMultiply(elementSourceInterface.getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());
+            }
 
-			if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
-				modifierInterface.getModifier().multiply = 0 ;
+            if (!damagesource.is(noCritical) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
+                crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
+                modifierInterface.getModifier().critical = true;
+            }
 
-			float final_amount = (event.getAmount() * modifierInterface.getModifier().multiply + modifierInterface.getModifier().additional_amount) * crit_mult;
-			if (entity instanceof ErEntityInterface enti) {
-				List<ShieldStack> shields = enti.getShieldStacks();
-				float shield_absorb = 0f;
-				for (ShieldStack shield : shields) {
-					if(elementSourceInterface.getSource() != null)
-						shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, elementSourceInterface.getSource().getCategory().getId()));
-					else
-						shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
-				}
-				event.setAmount(final_amount - shield_absorb);
-			}
-		}
+            if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
+                modifierInterface.getModifier().reaction_multiply = 0 ;
+
+            float final_amount = modifierInterface.getModifier().calculate(event.getAmount()) * crit_mult;
+            if (entity instanceof ErEntityInterface enti) {
+                List<ShieldStack> shields = enti.getShieldStacks();
+                float shield_absorb = 0f;
+                for (ShieldStack shield : shields) {
+                    if(elementSourceInterface.getSource() != null)
+                        shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, elementSourceInterface.getSource().getCategory().getId()));
+                    else
+                        shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
+                }
+                event.setAmount(final_amount - shield_absorb);
+            }
+        }
 	}
 
 	@SubscribeEvent
@@ -149,22 +157,28 @@ public class EntityHurtEvent {
 	private static void ApplyElementMultiply(Element element, LivingEntity entity, Entity sourceentity , DamageModifier modifier){
 		element.getDamageAttr();
 		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null){
-			modifier.multiply *= (float) living.getAttributeValue(element.getDamageAttr()) ;
+			modifier.reaction_multiply *= (float) living.getAttributeValue(element.getDamageAttr()) ;
 		}
 		if(element.getImmuneTag() != null && entity.getType().is(element.getImmuneTag())){
-			modifier.multiply = 0;
+			modifier.reaction_multiply = 0;
 		}
 		else if(element.getResAttr() != null && entity.getAttribute(element.getResAttr()) != null){
-			modifier.multiply *= (100f - (float) entity.getAttributeValue(element.getResAttr())) / 100f ;
+			modifier.reaction_multiply *= (100f - (float) entity.getAttributeValue(element.getResAttr())) / 100f ;
 		}
 	}
 
-	public static class DamageModifier {
-		public boolean locked = false ;
-		public boolean critical = false ;
-		public float multiply = 1;
-		public float additional_amount = 0;
-	}
+    public static class DamageModifier {
+        public boolean locked = false ;
+        public boolean critical = false ;
+        public float reaction_multiply = 1;
+        public float common_multiply = 1;
+        public float res_multiply = 1;
+        public float additional_amount = 0;
+
+        public float calculate(float dmg){
+            return (dmg + additional_amount) * reaction_multiply * common_multiply * res_multiply;
+        }
+    }
 
 	public static int getInfusion_Type(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
 		if (entity == null)

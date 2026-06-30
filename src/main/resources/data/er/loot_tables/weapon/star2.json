@@ -1,0 +1,15 @@
+{
+  "type": "er:weapon",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:silver_sword",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}
