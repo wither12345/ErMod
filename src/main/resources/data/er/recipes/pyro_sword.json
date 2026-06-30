@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "er:mora"
+  },
+  "base": {
+    "item": "minecraft:iron_sword"
+  },
+  "addition": {
+    "item": "er:condensed_pyro"
+  },
+  "result": {
+    "item": "er:pyro_sword"
+  }
+}

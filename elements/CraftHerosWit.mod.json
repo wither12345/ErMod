@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "heros_wit",
+    "unlockingItems": [
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": ""
+      },
+      {
+        "value": "Items.BOOK"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Items.BOOK"
+      },
+      {
+        "value": ""
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "Items.BOOK"
+    },
+    "name": "craft_heros_wit",
+    "namespace": "mod"
+  }
+}

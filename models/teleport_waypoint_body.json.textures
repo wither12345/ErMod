@@ -1,0 +1,12 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "teleport_waypoint_side",
+        "1": "teleport_waypoint_bottom",
+        "2": "teleport_waypoint_top"
+      },
+      "name": "default"
+    }
+  }
+}

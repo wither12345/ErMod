@@ -1,0 +1,24 @@
+package net.mcreator.er.world.features;
+
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.feature.RandomPatchFeature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.WorldGenLevel;
+
+import net.mcreator.er.procedures.LotusHead_Growth_SiteProcedure;
+
+public class LotusHeadFeatureFeature extends RandomPatchFeature {
+	public LotusHeadFeatureFeature() {
+		super(RandomPatchConfiguration.CODEC);
+	}
+
+	public boolean place(FeaturePlaceContext<RandomPatchConfiguration> context) {
+		WorldGenLevel world = context.level();
+		int x = context.origin().getX();
+		int y = context.origin().getY();
+		int z = context.origin().getZ();
+		if (!LotusHead_Growth_SiteProcedure.execute(world, x, y, z))
+			return false;
+		return super.place(context);
+	}
+}

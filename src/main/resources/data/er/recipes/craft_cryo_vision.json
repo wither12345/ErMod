@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "cryo_vision",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "er:condensed_cryo"
+    },
+    {
+      "item": "er:unowned_vision"
+    }
+  ],
+  "result": {
+    "item": "er:cryo_vision",
+    "count": 1
+  }
+}

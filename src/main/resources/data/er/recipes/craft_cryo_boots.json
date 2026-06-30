@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "er:mora"
+  },
+  "base": {
+    "item": "minecraft:iron_boots"
+  },
+  "addition": {
+    "item": "er:condensed_cryo"
+  },
+  "result": {
+    "item": "er:cryo_armor_boots"
+  }
+}

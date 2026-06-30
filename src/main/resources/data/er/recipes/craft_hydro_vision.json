@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "hydro_vision",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "er:condensed_hydro"
+    },
+    {
+      "item": "er:unowned_vision"
+    }
+  ],
+  "result": {
+    "item": "er:hydro_vision",
+    "count": 1
+  }
+}

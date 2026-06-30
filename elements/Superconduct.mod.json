@@ -1,0 +1,30 @@
+{
+  "_fv": 85,
+  "_type": "potioneffect",
+  "definition": {
+    "effectName": "Superconduct",
+    "icon": "superconduct",
+    "color": {
+      "value": -6749953,
+      "falpha": 0.0
+    },
+    "onAddedSound": {
+      "value": ""
+    },
+    "isInstant": false,
+    "mobEffectCategory": "HARMFUL",
+    "renderStatusInInventory": true,
+    "renderStatusInHUD": true,
+    "isCuredbyHoney": false,
+    "modifiers": [
+      {
+        "equipmentSlot": "any",
+        "attribute": {
+          "value": "CUSTOM:PhysicalRES"
+        },
+        "amount": -40.0,
+        "operation": "ADD_VALUE"
+      }
+    ]
+  }
+}

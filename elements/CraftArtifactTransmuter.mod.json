@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "artifact_transmuter",
+    "unlockingItems": [
+      {
+        "value": "Blocks.CRAFTING_TABLE"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:artifact"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:artifact"
+      },
+      {
+        "value": "Blocks.CRAFTING_TABLE"
+      },
+      {
+        "value": "TAG:er:artifact"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:artifact"
+      },
+      {
+        "value": ""
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:ArtifactTransmuter"
+    },
+    "name": "craft_artifact_transmuter",
+    "namespace": "mod"
+  }
+}

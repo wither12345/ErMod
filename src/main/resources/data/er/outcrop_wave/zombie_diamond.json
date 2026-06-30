@@ -1,0 +1,31 @@
+{
+  "quality": 350,
+  "pools": [
+    {
+      "type": "minecraft:zombie",
+      "count": 3,
+      "icon": "minecraft:rotten_flesh",
+      "modifiers": {
+        "er:helmet": {
+          "item": "minecraft:diamond_helmet"
+        },
+        "er:chestplate": {
+          "item": "minecraft:diamond_chestplate"
+        },
+        "er:leggings": {
+          "item": "minecraft:diamond_leggings"
+        },
+        "er:boots": {
+          "item": "minecraft:diamond_boots"
+        },
+        "er:main_hand": {
+          "item": "minecraft:diamond_sword"
+        }
+      }
+    }
+  ],
+  "global_modifiers": [
+    "melee",
+    "equipment_user"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "_fv": 85,
+  "_type": "attribute",
+  "definition": {
+    "name": "Energy Recharge",
+    "minValue": 0.0,
+    "maxValue": 1024.0,
+    "defaultValue": 100.0,
+    "sentiment": "POSITIVE",
+    "addToAllEntities": false,
+    "addToPlayers": true,
+    "entities": []
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "condensed_cryo",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "er:mist_flower_corolla"
+    },
+    "b": {
+      "item": "er:crystal_core"
+    }
+  },
+  "result": {
+    "item": "er:condensed_cryo",
+    "count": 1
+  }
+}

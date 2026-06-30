@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "id": "er:stained_mask",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "er:ominous_mask",
+    "count": 1
+  },
+  "mora": 50
+}

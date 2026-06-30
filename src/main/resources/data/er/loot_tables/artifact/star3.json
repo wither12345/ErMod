@@ -1,0 +1,175 @@
+{
+  "type": "er:artifact",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:lucky_dogs_clover",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:lucky_dogs_eagle_feather",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:lucky_dogs_goblet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:lucky_dogs_hourglass",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:lucky_dogs_silver_circlet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_flower",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_tail_feather",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_pocket_watch",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_golden_goblet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_bandana",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:traveling_doctors_silver_lotus",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:traveling_doctors_owl_feather",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:traveling_doctors_pocket_watch",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:traveling_doctors_medicine_pot",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:traveling_doctors_handkerchief",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "icon": {
+      "item": "er:primogem"
+    },
+    "title": {
+      "translate": "advancements.elemental_reaction.title"
+    },
+    "description": {
+      "translate": "advancements.elemental_reaction.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "elemental_reaction_0": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

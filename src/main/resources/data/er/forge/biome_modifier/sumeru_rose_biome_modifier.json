@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#is_overworld",
+  "features": "er:sumeru_rose",
+  "step": "vegetal_decoration"
+}

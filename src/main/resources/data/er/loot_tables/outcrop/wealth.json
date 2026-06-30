@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:a_bag_of_mora",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:outcrop_level_count",
+              "min_level" : 1 ,
+              "max_level" : 200 ,
+              "min_count" : 1000 ,
+              "max_count" : 1000 ,
+              "scaling" : true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

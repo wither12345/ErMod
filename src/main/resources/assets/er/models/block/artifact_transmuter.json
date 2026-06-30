@@ -1,0 +1,8 @@
+{
+  "parent": "er:custom/artifact_transmuter",
+  "textures": {
+    "all": "er:block/artifact_transmuter",
+    "particle": "er:block/artifact_transmuter"
+  },
+  "render_type": "cutout"
+}

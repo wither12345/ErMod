@@ -1,0 +1,10 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "particle": "er:block/cuihua_planks",
+    "bottom": "er:block/cuihua_planks",
+    "top": "er:block/cuihua_planks",
+    "side": "er:block/cuihua_planks"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,12 @@
+{
+  "_fv": 85,
+  "_type": "gamerule",
+  "definition": {
+    "type": "Logic",
+    "displayName": "Running Stamina Consumable",
+    "description": "Cost stamina when running.",
+    "category": "PLAYER",
+    "defaultValueLogic": true,
+    "defaultValueNumber": 0
+  }
+}

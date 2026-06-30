@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "er:elemental_burst",
+    "er:reaction",
+    {
+      "id": "#minecraft:is_explosion",
+      "required": false
+    },
+    {
+      "id": "#er:reaction",
+      "required": false
+    },
+    "er:elemental_skill"
+  ]
+}

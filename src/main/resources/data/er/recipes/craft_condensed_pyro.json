@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "condensed_pyro",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "er:flaming_flower_stamen"
+    },
+    "b": {
+      "item": "er:crystal_core"
+    }
+  },
+  "result": {
+    "item": "er:condensed_pyro",
+    "count": 1
+  }
+}

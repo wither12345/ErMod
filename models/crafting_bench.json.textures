@@ -1,0 +1,13 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "crafting_bench_side",
+        "1": "crafting_bench_top1",
+        "2": "crafting_bench_top",
+        "3": "crafting_bench_bottom"
+      },
+      "name": "default"
+    }
+  }
+}

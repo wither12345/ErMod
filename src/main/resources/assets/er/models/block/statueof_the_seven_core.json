@@ -1,0 +1,11 @@
+{
+  "parent": "er:custom/statue_of_the_seven_2",
+  "textures": {
+    "all": "er:block/statue_of_the_seven_2_side",
+    "particle": "er:block/statue_of_the_seven_2_side",
+    "0": "er:block/statue_of_the_seven_2_side",
+    "1": "er:block/statue_of_the_seven_2_top",
+    "2": "er:block/statue_of_the_seven_2_side_2"
+  },
+  "render_type": "solid"
+}

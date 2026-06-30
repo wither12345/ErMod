@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "er:unowned_vision"
+    },
+    "title": {
+      "translate": "advancements.favor_from_the_gods.title"
+    },
+    "description": {
+      "translate": "advancements.favor_from_the_gods.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "favor_from_the_gods_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "er:unowned_vision"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "er:elemental_reaction"
+}

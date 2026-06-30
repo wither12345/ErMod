@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "package": "net.wither.er.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "er.refmap.json",
+  "mixins": [
+    "AbstractSkeletonMixin",
+    "CombatRulesMixin",
+    "DamageSourceMixin",
+    "ErPlayerMixin",
+    "FireworkPocketEntityMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "ServerPlayerMixin"
+  ],
+  "client": [
+    "PlayerModelMixin",
+    "LocalPlayerMixin"
+  ],
+  "minVersion": "0.8"
+}

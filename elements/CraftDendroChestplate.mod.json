@@ -1,0 +1,33 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Smithing",
+    "recipeRetstackSize": 1,
+    "group": "dendro_chestplate",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CondensedDendro"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "smithingInputStack": {
+      "value": "Items.IRON_CHESTPLATE"
+    },
+    "smithingInputAdditionStack": {
+      "value": "CUSTOM:CondensedDendro"
+    },
+    "smithingInputTemplateStack": {
+      "value": "CUSTOM:Mora"
+    },
+    "smithingReturnStack": {
+      "value": "CUSTOM:DendroArmor.body"
+    },
+    "name": "craft_dendro_chestplate",
+    "namespace": "mod"
+  }
+}

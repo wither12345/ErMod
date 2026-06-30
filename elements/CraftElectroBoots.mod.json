@@ -1,0 +1,33 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Smithing",
+    "recipeRetstackSize": 1,
+    "group": "electro_boots",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CondensedElectro"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "smithingInputStack": {
+      "value": "Items.IRON_BOOTS"
+    },
+    "smithingInputAdditionStack": {
+      "value": "CUSTOM:CondensedElectro"
+    },
+    "smithingInputTemplateStack": {
+      "value": "CUSTOM:Mora"
+    },
+    "smithingReturnStack": {
+      "value": "CUSTOM:ElectroArmor.boots"
+    },
+    "name": "craft_electro_boots",
+    "namespace": "mod"
+  }
+}

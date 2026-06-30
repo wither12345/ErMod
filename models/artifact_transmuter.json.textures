@@ -1,0 +1,10 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "particle": "artifact_transmuter"
+      },
+      "name": "default"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "item": "er:mora",
+  "count": 1,
+  "convertibles": [
+    "er:iron_chunk",
+    "minecraft:raw_iron"
+  ]
+}

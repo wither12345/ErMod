@@ -1,0 +1,7 @@
+{
+    "parent": "item/bow",
+    "textures": 
+    {
+        "layer0": "er:item/polar_star_1"
+    }
+}

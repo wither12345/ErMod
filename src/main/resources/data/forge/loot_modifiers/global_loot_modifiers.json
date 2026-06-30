@@ -1,0 +1,9 @@
+{
+    "replace": false, 
+    "entries": [
+        "er:common_chest_addition",
+        "er:rare_chest_addition",
+        "er:legendary_chest_addition"  ,
+        "er:mob_addition"
+  ]
+}

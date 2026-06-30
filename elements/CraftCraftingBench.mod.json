@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "crafting_bench",
+    "unlockingItems": [
+      {
+        "value": "Blocks.CRAFTING_TABLE"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Blocks.COBBLESTONE"
+      },
+      {
+        "value": "Blocks.STONE_SLAB#0"
+      },
+      {
+        "value": "Blocks.COBBLESTONE"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Blocks.CRAFTING_TABLE"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:material"
+      },
+      {
+        "value": "Blocks.COBBLESTONE"
+      },
+      {
+        "value": "TAG:er:material"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:CraftingBench"
+    },
+    "name": "craft_crafting_bench",
+    "namespace": "mod"
+  }
+}

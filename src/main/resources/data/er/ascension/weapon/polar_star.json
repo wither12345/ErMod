@@ -1,0 +1,107 @@
+{
+  "item" : "er:polar_star",
+  "ascension" : [
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:wither_skeleton_skull",
+          "count": 5
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 5
+        },
+        {
+          "item": "minecraft:string",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "minecraft:wither_skeleton_skull",
+          "count": 15
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 18
+        },
+        {
+          "item": "minecraft:string",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "minecraft:wither_skeleton_skull",
+          "count": 27
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 27
+        },
+        {
+          "item": "minecraft:string",
+          "count": 27
+        }
+      ]
+    },
+    {
+      "mora": 45000,
+      "ingredient": [
+        {
+          "item": "minecraft:nether_star",
+          "count": 5
+        },
+        {
+          "item": "minecraft:bone_block",
+          "count": 18
+        },
+        {
+          "item": "minecraft:string",
+          "count": 64
+        }
+      ]
+    },
+    {
+      "mora": 55000,
+      "ingredient": [
+        {
+          "item": "minecraft:nether_star",
+          "count": 9
+        },
+        {
+          "item": "minecraft:bone_block",
+          "count": 42
+        },
+        {
+          "item": "minecraft:string",
+          "count": 64
+        }
+      ]
+    },
+    {
+      "mora": 65000,
+      "ingredient": [
+        {
+          "item": "minecraft:nether_star",
+          "count": 18
+        },
+        {
+          "item": "minecraft:bone_block",
+          "count": 64
+        },
+        {
+          "item": "minecraft:string",
+          "count": 64
+        }
+      ]
+    }
+  ]
+}

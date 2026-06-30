@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "er:hilichurl_outpost_hut",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 12,
+    "separation": 7,
+    "salt": 393154209
+  }
+}

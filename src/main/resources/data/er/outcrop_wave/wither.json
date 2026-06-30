@@ -1,0 +1,13 @@
+{
+  "quality": 1500,
+  "pools": [
+    {
+      "type": "minecraft:wither",
+      "count": 1,
+      "icon": "minecraft:nether_star"
+    }
+  ],
+  "global_modifiers": [
+    "ranged"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "er:anemo_sword",
+    "er:geo_sword",
+    "er:dendro_sword",
+    "er:pyro_sword",
+    "er:electro_sword",
+    "er:hydro_sword",
+    "er:cryo_sword"
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "condensed_anemo",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      },
+      {
+        "value": "CUSTOM:DandelionSeed"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:CondensedAnemo"
+    },
+    "name": "craft_condensed_anemo",
+    "namespace": "mod"
+  }
+}

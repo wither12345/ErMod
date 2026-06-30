@@ -1,0 +1,31 @@
+{
+  "quality": 500,
+  "pools": [
+    {
+      "type": "minecraft:zombie",
+      "count": 3,
+      "icon": "minecraft:rotten_flesh",
+      "modifiers": {
+        "er:helmet": {
+          "item": "minecraft:netherite_helmet"
+        },
+        "er:chestplate": {
+          "item": "minecraft:netherite_chestplate"
+        },
+        "er:leggings": {
+          "item": "minecraft:netherite_leggings"
+        },
+        "er:boots": {
+          "item": "minecraft:netherite_boots"
+        },
+        "er:main_hand": {
+          "item": "minecraft:netherite_sword"
+        }
+      }
+    }
+  ],
+  "global_modifiers": [
+    "melee",
+    "equipment_user"
+  ]
+}

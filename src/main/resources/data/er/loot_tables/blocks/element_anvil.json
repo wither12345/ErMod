@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "er:blocks/element_anvil",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:element_anvil"
+        }
+      ]
+    }
+  ]
+}

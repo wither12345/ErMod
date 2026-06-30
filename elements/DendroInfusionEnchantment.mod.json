@@ -1,0 +1,41 @@
+{
+  "_fv": 85,
+  "_type": "enchantment",
+  "definition": {
+    "name": "Dendro Infusion",
+    "supportedSlots": "mainhand",
+    "weight": 1,
+    "anvilCost": 8,
+    "maxLevel": 3,
+    "damageModifier": 0,
+    "incompatibleEnchantments": [
+      {
+        "value": "CUSTOM:ElectroInfusionEnchantment"
+      },
+      {
+        "value": "CUSTOM:AnemoInfusionEnchantment"
+      },
+      {
+        "value": "CUSTOM:CryoInfusionEnchantment"
+      },
+      {
+        "value": "CUSTOM:GeoInfusionEnchantment"
+      },
+      {
+        "value": "CUSTOM:HydroInfusionEnchantment"
+      },
+      {
+        "value": "CUSTOM:PyroInfusionEnchantment"
+      }
+    ],
+    "supportedItems": [
+      {
+        "value": "TAG:enchantable/weapon"
+      }
+    ],
+    "isTreasureEnchantment": true,
+    "isCurse": false,
+    "canGenerateInLootTables": true,
+    "canVillagerTrade": true
+  }
+}

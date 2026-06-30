@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "ley_line_map",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CrystalCore"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "Items.MAP"
+      },
+      {
+        "value": "Items.MAP"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:EmptyLeyLineMap"
+    },
+    "name": "craft_ley_line_map",
+    "namespace": "mod"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "_fv": 85,
+  "_type": "feature",
+  "definition": {
+    "skipPlacement": false,
+    "generationStep": "VEGETAL_DECORATION",
+    "restrictionBiomes": [
+      {
+        "value": "#is_overworld"
+      }
+    ],
+    "generateCondition": {
+      "name": "LotusHead_Growth_Site"
+    },
+    "featurexml": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><xml><block deletable=\"false\" type=\"feature_container\" x=\"40\" y=\"40\">\r\n<value name=\"feature\"><block type=\"feature_random_patch_simple\">\r\n\t<field name=\"tries\">64</field><field name=\"xzSpread\">7</field><field name=\"ySpread\">3</field>\r\n\t<value name=\"block\"><block type=\"blockstate_selector\"><mutation inputs=\"0\"/><field name=\"block\">CUSTOM:LotusHead</field></block></value>\r\n\t<value name=\"condition\"><block type=\"block_predicate_is_air\"/></value>\r\n</block>\r\n</value>\r\n<next><block type=\"placement_count\"><value name=\"count\"><block type=\"int_provider_constant\"><field name=\"value\">5</field></block></value><next><block type=\"placement_rarity\"><field name=\"rarity\">32</field><next><block type=\"placement_in_square\"><next><block type=\"placement_heightmap\"><field name=\"heightmap\">WORLD_SURFACE_WG</field><next><block type=\"placement_biome_filter\"/></next></block></next></block></next></block></next></block></next></block></xml>"
+  }
+}

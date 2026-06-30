@@ -1,0 +1,25 @@
+package net.wither.er.shield;
+
+import net.minecraft.world.entity.Entity;
+import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.Element;
+import net.wither.er.elements.ElementSource;
+
+public abstract class ElementalShield extends ErShield{
+    abstract Element getElement() ;
+
+    abstract float getGauge() ;
+
+    @Override
+    public void start(Entity owner) {
+        super.start(owner);
+        if(owner instanceof AuraContainerInterface auraContainerInterface){
+            auraContainerInterface.getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true));
+        }
+    }
+
+    @Override
+    public boolean tick(ShieldStack stack, Entity owner) {
+        return owner instanceof AuraContainerInterface containerInterface && containerInterface.getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
+    }
+}

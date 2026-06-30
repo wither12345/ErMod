@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "enhancement_ore",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:IronChunk"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": true,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:IronChunk"
+      },
+      {
+        "value": "CUSTOM:IronChunk"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "CUSTOM:Mora"
+      },
+      {
+        "value": "CUSTOM:Mora"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:EnhancementOre"
+    },
+    "name": "craft_enhancement_ore",
+    "namespace": "mod"
+  }
+}

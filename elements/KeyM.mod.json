@@ -1,0 +1,12 @@
+{
+  "_fv": 85,
+  "_type": "keybind",
+  "definition": {
+    "triggerKey": "M",
+    "keyBindingName": "Open Er Equipment GUI",
+    "keyBindingCategoryKey": "gameplay",
+    "onKeyPressed": {
+      "name": "KeyM_Down"
+    }
+  }
+}

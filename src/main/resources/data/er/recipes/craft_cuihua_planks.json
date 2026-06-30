@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "planks",
+  "category": "building",
+  "pattern": [
+    "a"
+  ],
+  "key": {
+    "a": {
+      "item": "er:cuihua_log"
+    }
+  },
+  "result": {
+    "item": "er:cuihua_planks",
+    "count": 4
+  }
+}

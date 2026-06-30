@@ -1,0 +1,33 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Smithing",
+    "recipeRetstackSize": 1,
+    "group": "hydro_leggings",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CondensedHydro"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "smithingInputStack": {
+      "value": "Items.IRON_LEGGINGS"
+    },
+    "smithingInputAdditionStack": {
+      "value": "CUSTOM:CondensedHydro"
+    },
+    "smithingInputTemplateStack": {
+      "value": "CUSTOM:Mora"
+    },
+    "smithingReturnStack": {
+      "value": "CUSTOM:HydroArmor.legs"
+    },
+    "name": "craft_hydro_leggings",
+    "namespace": "mod"
+  }
+}

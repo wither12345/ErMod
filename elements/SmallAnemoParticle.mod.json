@@ -1,0 +1,25 @@
+{
+  "_fv": 85,
+  "_type": "particle",
+  "definition": {
+    "texture": "anemo_particle",
+    "animate": true,
+    "frameDuration": 3,
+    "width": 0.2,
+    "height": 0.2,
+    "scale": {
+      "fixedValue": 2.0
+    },
+    "fixedScale": false,
+    "speedFactor": 0.0,
+    "gravity": 0.0,
+    "maxAge": 21,
+    "maxAgeDiff": 3,
+    "angularVelocity": 0.0,
+    "angularAcceleration": 0.0,
+    "canCollide": true,
+    "alwaysShow": false,
+    "emissiveRendering": true,
+    "renderType": "OPAQUE"
+  }
+}

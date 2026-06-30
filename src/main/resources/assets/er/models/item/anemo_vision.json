@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "er:item/vision",
+    "layer1": "er:item/anemo_vision"
+  }
+}

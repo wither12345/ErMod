@@ -1,0 +1,14 @@
+{
+  "_fv": 85,
+  "_type": "attribute",
+  "definition": {
+    "name": "Hydro Res",
+    "minValue": -512.0,
+    "maxValue": 100.0,
+    "defaultValue": 0.0,
+    "sentiment": "POSITIVE",
+    "addToAllEntities": true,
+    "addToPlayers": false,
+    "entities": []
+  }
+}

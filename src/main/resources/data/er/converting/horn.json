@@ -1,0 +1,38 @@
+{
+  "item": "er:dust_of_azoth",
+  "count": 3,
+  "convertibles": [
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:ponder_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:sing_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:seek_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:feel_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:admire_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:call_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:yearn_goat_horn"}
+    },
+    {
+      "id": "minecraft:goat_horn",
+      "components":{"minecraft:instrument":"minecraft:dream_goat_horn"}
+    }
+  ]
+}

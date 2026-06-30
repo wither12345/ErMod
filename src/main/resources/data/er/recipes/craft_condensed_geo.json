@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "condensed_geo",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "er:cor_lapis"
+    },
+    "b": {
+      "item": "er:crystal_core"
+    }
+  },
+  "result": {
+    "item": "er:condensed_geo",
+    "count": 1
+  }
+}

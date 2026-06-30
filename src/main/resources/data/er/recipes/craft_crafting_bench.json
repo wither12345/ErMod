@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "crafting_bench",
+  "category": "misc",
+  "pattern": [
+    "aba",
+    " c ",
+    "dad"
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:cobblestone"
+    },
+    "b": {
+      "item": "minecraft:smooth_stone_slab"
+    },
+    "c": {
+      "item": "minecraft:crafting_table"
+    },
+    "d": {
+      "tag": "er:material"
+    }
+  },
+  "result": {
+    "item": "er:crafting_bench",
+    "count": 1
+  }
+}

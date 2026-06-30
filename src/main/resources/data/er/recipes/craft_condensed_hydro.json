@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "condensed_hydro",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "er:lotus_head"
+    },
+    "b": {
+      "item": "er:crystal_core"
+    }
+  },
+  "result": {
+    "item": "er:condensed_hydro",
+    "count": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "er:block/deepslate_white_iron_ore",
+    "up": "er:block/deepslate_white_iron_ore",
+    "north": "er:block/deepslate_white_iron_ore",
+    "east": "er:block/deepslate_white_iron_ore",
+    "south": "er:block/deepslate_white_iron_ore",
+    "west": "er:block/deepslate_white_iron_ore",
+    "particle": "er:block/deepslate_white_iron_ore"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,36 @@
+{
+  "display": {
+    "icon": {
+      "item": "er:crafting_bench"
+    },
+    "title": {
+      "translate": "advancements.alchemist.title"
+    },
+    "description": {
+      "translate": "advancements.alchemist.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "alchemist_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "er:crafting_bench"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "parent": "er:elemental_reaction"
+}

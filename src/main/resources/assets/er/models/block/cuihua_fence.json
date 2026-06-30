@@ -1,0 +1,8 @@
+{
+  "parent": "block/fence_side",
+  "textures": {
+    "texture": "er:block/cuihua_planks",
+    "particle": "er:block/cuihua_planks"
+  },
+  "render_type": "solid"
+}

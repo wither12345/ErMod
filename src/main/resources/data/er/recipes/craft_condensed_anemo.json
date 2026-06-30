@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "condensed_anemo",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "aba",
+    "aaa"
+  ],
+  "key": {
+    "a": {
+      "item": "er:dandelion_seed"
+    },
+    "b": {
+      "item": "er:crystal_core"
+    }
+  },
+  "result": {
+    "item": "er:condensed_anemo",
+    "count": 1
+  }
+}

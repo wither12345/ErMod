@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "adventurers_experience",
+    "unlockingItems": [
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Items.PAPER"
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": "Items.PAPER"
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": "Items.PAPER"
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": "Items.PAPER"
+      },
+      {
+        "value": "Items.EXPERIENCE_BOTTLE"
+      },
+      {
+        "value": "Items.PAPER"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "Items.EXPERIENCE_BOTTLE"
+    },
+    "name": "craft_adventurers_experience",
+    "namespace": "mod"
+  }
+}

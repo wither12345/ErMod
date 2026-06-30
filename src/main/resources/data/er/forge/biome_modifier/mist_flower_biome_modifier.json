@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": {
+    "type": "forge:any"
+  },
+  "spawners": {
+    "type": "er:mist_flower",
+    "weight": 5,
+    "minCount": 4,
+    "maxCount": 4
+  }
+}

@@ -1,0 +1,18 @@
+mixin {
+    if (file("src/main/resources/usermixins.er.json").exists()) {
+        config 'usermixins.er.json'
+    }
+}
+
+jar {
+    var mixins = new ArrayList<String>()
+    if (file("src/main/resources/er.mixins.json").exists()) {
+        mixins.add("er.mixins.json")
+    }
+    if (file("src/main/resources/usermixins.er.json").exists()) {
+        mixins.add("usermixins.er.json")
+    }
+    manifest.attributes([
+            "MixinConfigs": String.join(",",mixins)
+    ])
+}

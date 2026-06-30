@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "er:elemental_burst",
+    "mob_attack",
+    "arrow",
+    "er:reaction",
+    "fireworks",
+    "mob_projectile",
+    {
+      "id": "#er:reaction",
+      "required": false
+    },
+    "er:elemental_skill",
+    "player_attack"
+  ]
+}

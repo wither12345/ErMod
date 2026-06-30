@@ -1,0 +1,56 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "condensed_dendro",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      },
+      {
+        "value": "CUSTOM:SumeruRose"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:CondensedDendro"
+    },
+    "name": "craft_condensed_dendro",
+    "namespace": "mod"
+  }
+}

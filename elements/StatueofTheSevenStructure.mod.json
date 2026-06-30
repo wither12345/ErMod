@@ -1,0 +1,26 @@
+{
+  "_fv": 85,
+  "_type": "structure",
+  "definition": {
+    "structure": "statue_of_the_seven",
+    "projection": "rigid",
+    "ignoredBlocks": [],
+    "spacing": 32,
+    "separation": 28,
+    "restrictionBiomes": [
+      {
+        "value": "#minecraft:is_overworld"
+      }
+    ],
+    "terrainAdaptation": "none",
+    "generationStep": "SURFACE_STRUCTURES",
+    "surfaceDetectionType": "OCEAN_FLOOR_WG",
+    "useStartHeight": false,
+    "startHeightProviderType": "UNIFORM",
+    "startHeightMin": 0,
+    "startHeightMax": 128,
+    "size": 1,
+    "maxDistanceFromCenter": 64,
+    "jigsawPools": []
+  }
+}

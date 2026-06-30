@@ -1,0 +1,24 @@
+package net.wither.er.init;
+
+import net.mcreator.er.init.ErModEntities;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.slimes.AnemoSlime;
+import net.wither.er.entity.slimes.ElementalSlime;
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+public class RegisterAttributes {
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(ErModEntities.BLOOM_ENTITY.get(), BloomEntityEntity.createAttributes().build());
+        event.put(ErModEntities.ELECTRO_SLIME.get(),  ElementalSlime.createAttributes().build());
+        event.put(ErModEntities.GEO_SLIME.get(),  ElementalSlime.createAttributes().build());
+        event.put(ErModEntities.PYRO_SLIME.get(),  ElementalSlime.createAttributes().build());
+        event.put(ErModEntities.HYDRO_SLIME.get(),  ElementalSlime.createAttributes().build());
+        event.put(ErModEntities.CRYO_SLIME.get(),  ElementalSlime.createAttributes().build());
+        event.put(ErModEntities.DENDRO_SLIME.get(),  ElementalSlime.createAttributes().build());
+        event.put(ErModEntities.ANEMO_SLIME.get(),  AnemoSlime.createAttributes().build());
+    }
+}
