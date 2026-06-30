@@ -345,6 +345,7 @@ public class ErModItems {
 			registerWeapon(DULL_BLADE.get());
 			registerWeapon(SILVER_SWORD.get());
 			registerWeapon(WASTER_GREATSWORD.get());
+            registerWeapon(COOL_STEEL.get());
 		}
 
 		private static void registerBowItem(Item bowItem) {

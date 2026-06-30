@@ -102,7 +102,7 @@ public class EntityHurtEvent {
 				event.setAmount(final_amount - shield_absorb);
 			}
 		}
-		PacketDistributor.sendToAllPlayers(new ErData(entity.getId(), entity.getPersistentData().getInt("Frozen")));
+		//PacketDistributor.sendToAllPlayers(new ErData(entity.getId(), entity.getPersistentData().getInt("Frozen")));
 	}
 
 	@SubscribeEvent

@@ -179,7 +179,8 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                     if(weaponRefinement.refinementItem().value() == slotItem.getItem()){
                         WeaponRefinement refinement = slotItem.get(DataComponentsRegister.WEAPON_REFINEMENT.get());
                         refine += (refinement == null ? 1 : refinement.refineLevel()) ;
-                }}
+                    }
+                }
             }
             if(this.getSlot(2).getItem().getItem() == ErModItems.ENCHANTED_MYSTIC_ENHANCEMENT_ORE.get()){
                 mora_use = 0 ;
