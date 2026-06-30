@@ -1,0 +1,73 @@
+{
+  "item" : "er:wooden_club",
+  "ascension" : [
+    {
+      "mora": 0,
+      "ingredient": [
+        {
+          "item": "minecraft:stick",
+          "count": 1
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 2
+        },
+        {
+          "item": "er:damaged_mask",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:stick",
+          "count": 3
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 4
+        },
+        {
+          "item": "er:damaged_mask",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:stick",
+          "count": 6
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 6
+        },
+        {
+          "item": "er:stained_mask",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:oak_planks",
+          "count": 1
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 12
+        },
+        {
+          "item": "er:stained_mask",
+          "count": 3
+        }
+      ]
+    }
+  ]
+}

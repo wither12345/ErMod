@@ -1,0 +1,11 @@
+{
+  "_fv": 85,
+  "_type": "potion",
+  "definition": {
+    "potionName": "Empty Damage Potion Type 1",
+    "splashName": "Splash Empty Damage Potion Type 1",
+    "lingeringName": "Lingering Empty Damage Potion Type 1",
+    "arrowName": "Arrow of Empty Damage Potion Type 1",
+    "effects": []
+  }
+}

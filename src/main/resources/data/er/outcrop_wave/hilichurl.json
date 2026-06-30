@@ -1,0 +1,15 @@
+{
+  "quality": 50,
+  "pools": [
+    {
+      "type": "er:hilichurl",
+      "count": 3,
+      "icon": "er:damaged_mask"
+    }
+  ],
+  "global_modifiers": [
+    "ranged",
+    "melee",
+    "equipment_user"
+  ]
+}

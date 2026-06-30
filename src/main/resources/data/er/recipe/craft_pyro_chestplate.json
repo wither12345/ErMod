@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "er:mora"
+  },
+  "base": {
+    "item": "minecraft:iron_chestplate"
+  },
+  "addition": {
+    "item": "er:condensed_pyro"
+  },
+  "result": {
+    "id": "er:pyro_armor_chestplate"
+  }
+}

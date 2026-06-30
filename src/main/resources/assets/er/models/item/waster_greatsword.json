@@ -1,0 +1,14 @@
+{
+  "parent": "er:item/claymores",
+  "textures": {
+    "layer0": "er:item/waster_greatsword"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:ascension": 2
+      },
+      "model": "er:item/waster_greatsword_0"
+    }
+  ]
+}

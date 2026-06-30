@@ -1,0 +1,18 @@
+{
+  "_fv": 85,
+  "_type": "attribute",
+  "definition": {
+    "name": "Cryo DMG Bonus",
+    "minValue": 0.0,
+    "maxValue": 65536.0,
+    "defaultValue": 1.0,
+    "sentiment": "POSITIVE",
+    "addToAllEntities": true,
+    "addToPlayers": false,
+    "entities": [
+      {
+        "value": "EntityMonster"
+      }
+    ]
+  }
+}

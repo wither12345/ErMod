@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "mob_attack",
+    "arrow",
+    "er:reaction",
+    "fireworks",
+    "mob_projectile",
+    {
+      "id": "#er:reaction",
+      "required": false
+    },
+    "player_attack"
+  ]
+}

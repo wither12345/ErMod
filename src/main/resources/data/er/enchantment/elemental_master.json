@@ -1,0 +1,35 @@
+{
+  "description": {
+    "translate": "enchantment.er.elemental_master"
+  },
+  "supported_items": "#enchantable/weapon",
+  "weight": 5,
+  "max_level": 5,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 6,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 2,
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": [],
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 25,
+          "per_level_above_first": 25
+        },
+        "attribute": "er:elemental_mastery",
+        "id": "enchantment.elemental_mastery",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/wooden_club"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:wooden_club_pyro": 1
+      },
+      "model": "er:item/wooden_club_0"
+    }
+  ]
+}

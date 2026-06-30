@@ -1,0 +1,19 @@
+{
+  "quality": 50,
+  "pools": [
+    {
+      "type": "minecraft:zombie",
+      "count": 5,
+      "icon": "minecraft:rotten_flesh",
+      "modifiers": {
+        "er:helmet": {
+          "item": "minecraft:iron_helmet"
+        }
+      }
+    }
+  ],
+  "global_modifiers": [
+    "melee",
+    "equipment_user"
+  ]
+}

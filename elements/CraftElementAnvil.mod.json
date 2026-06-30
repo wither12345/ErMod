@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "element_anvil",
+    "unlockingItems": [
+      {
+        "value": "TAG:er:material"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:material"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:material"
+      },
+      {
+        "value": "Blocks.ANVIL"
+      },
+      {
+        "value": "TAG:er:material"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "TAG:er:material"
+      },
+      {
+        "value": ""
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:ElementAnvil"
+    },
+    "name": "craft_element_anvil",
+    "namespace": "mod"
+  }
+}

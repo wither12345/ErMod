@@ -1,0 +1,14 @@
+{
+  "_fv": 85,
+  "_type": "attribute",
+  "definition": {
+    "name": "Elemental Mastery",
+    "minValue": 0.0,
+    "maxValue": 32768.0,
+    "defaultValue": 0.0,
+    "sentiment": "POSITIVE",
+    "addToAllEntities": true,
+    "addToPlayers": false,
+    "entities": []
+  }
+}

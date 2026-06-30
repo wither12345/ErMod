@@ -1,0 +1,11 @@
+{
+  "parent": "er:custom/teleport_waypoint_base",
+  "textures": {
+    "all": "er:block/teleport_waypoint_base_side",
+    "particle": "er:block/teleport_waypoint_base_side",
+    "0": "er:block/teleport_waypoint_base",
+    "1": "er:block/teleport_waypoint_base_side",
+    "2": "er:block/teleport_waypoint_base_top"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "er:pyro_infusion_enchantment",
+    "er:hydro_infusion_enchantment",
+    "er:geo_infusion_enchantment",
+    "er:dendro_infusion_enchantment",
+    "er:cryo_infusion_enchantment",
+    "er:anemo_infusion_enchantment",
+    "er:electro_infusion_enchantment"
+  ]
+}

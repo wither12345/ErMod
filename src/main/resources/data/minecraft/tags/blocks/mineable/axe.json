@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "er:cuihua_fence_gate",
+    "er:cuihua_fence",
+    "er:cuihua_slab",
+    "er:cuihua_stairs",
+    "er:cuihua_planks",
+    "er:cuihua_log",
+    "er:crate"
+  ]
+}

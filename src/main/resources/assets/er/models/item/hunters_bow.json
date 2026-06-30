@@ -1,0 +1,28 @@
+{
+  "parent": "item/bow",
+  "textures": {
+    "layer0": "er:item/hunters_bow"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:pulling": 1
+      },
+      "model": "er:item/hunters_bow_pulling_0"
+    },
+    {
+      "predicate": {
+        "er:pulling": 1,
+        "er:pull": 0.65
+      },
+      "model": "er:item/hunters_bow_pulling_1"
+    },
+    {
+      "predicate": {
+        "er:pulling": 1,
+        "er:pull": 0.9
+      },
+      "model": "er:item/hunters_bow_pulling_2"
+    }
+  ]
+}

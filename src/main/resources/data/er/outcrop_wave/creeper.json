@@ -1,0 +1,13 @@
+{
+  "quality": 100,
+  "pools": [
+    {
+      "type": "minecraft:creeper",
+      "count": 2,
+      "icon": "minecraft:gun_powder"
+    }
+  ],
+  "global_modifiers": [
+    "explosion"
+  ]
+}

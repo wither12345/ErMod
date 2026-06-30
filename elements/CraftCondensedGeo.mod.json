@@ -1,0 +1,56 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "condensed_geo",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CrystalCore"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      },
+      {
+        "value": "CUSTOM:CorLapis"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:CondensedGeo"
+    },
+    "name": "craft_condensed_geo",
+    "namespace": "mod"
+  }
+}

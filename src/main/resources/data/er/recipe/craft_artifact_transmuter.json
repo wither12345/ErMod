@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "artifact_transmuter",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "tag": "er:artifact"
+    },
+    "b": {
+      "item": "minecraft:crafting_table"
+    }
+  },
+  "result": {
+    "id": "er:artifact_transmuter",
+    "count": 1
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "items" : [
+    "minecraft:netherite_sword",
+    "minecraft:netherite_helmet",
+    "minecraft:netherite_chestplate",
+    "minecraft:netherite_leggings",
+    "minecraft:netherite_boots"
+  ],
+  "ascension" : [
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:netherite_scrap",
+          "count": 2
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 2
+        },
+        {
+          "item": "minecraft:blaze_powder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:netherite_scrap",
+          "count": 6
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 8
+        },
+        {
+          "item": "minecraft:blaze_powder",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "mora": 15000,
+      "ingredient": [
+        {
+          "item": "minecraft:netherite_scrap",
+          "count": 12
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 12
+        },
+        {
+          "item": "minecraft:blaze_rod",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "minecraft:netherite_ingot",
+          "count": 2
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 24
+        },
+        {
+          "item": "minecraft:blaze_rod",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "minecraft:netherite_ingot",
+          "count": 4
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 54
+        },
+        {
+          "item": "minecraft:blaze_rod",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "minecraft:netherite_ingot",
+          "count": 12
+        },
+        {
+          "item": "minecraft:ghast_tear",
+          "count": 64
+        },
+        {
+          "item": "minecraft:blaze_rod",
+          "count": 24
+        }
+      ]
+    }
+  ]
+}

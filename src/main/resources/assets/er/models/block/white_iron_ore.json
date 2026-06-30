@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "er:block/while_iron_ore",
+    "up": "er:block/while_iron_ore",
+    "north": "er:block/while_iron_ore",
+    "east": "er:block/while_iron_ore",
+    "south": "er:block/while_iron_ore",
+    "west": "er:block/while_iron_ore",
+    "particle": "er:block/while_iron_ore"
+  },
+  "render_type": "solid"
+}

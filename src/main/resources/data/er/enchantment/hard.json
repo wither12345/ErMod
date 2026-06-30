@@ -1,0 +1,35 @@
+{
+  "description": {
+    "translate": "enchantment.er.hard"
+  },
+  "supported_items": "#enchantable/chest_armor",
+  "weight": 10,
+  "max_level": 5,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 6,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 1,
+  "slots": [
+    "chest"
+  ],
+  "exclusive_set": "protection",
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 10,
+          "per_level_above_first": 10
+        },
+        "attribute": "er:shield_strength",
+        "id": "enchantment.shield_strength",
+        "operation": "add_value"
+      }
+    ]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "item" : "er:waster_greatsword",
+  "ascension" : [
+    {
+      "mora": 0,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "er:slime_condensate",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 3
+        },
+        {
+          "item": "er:slime_condensate",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 6
+        },
+        {
+          "item": "er:slime_secretions",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 1
+        },
+        {
+          "item": "er:slime_secretions",
+          "count": 3
+        }
+      ]
+    }
+  ]
+}

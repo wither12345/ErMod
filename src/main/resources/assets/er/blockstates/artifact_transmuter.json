@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "er:block/artifact_transmuter"
+    },
+    "facing=east": {
+      "model": "er:block/artifact_transmuter",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "er:block/artifact_transmuter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "er:block/artifact_transmuter",
+      "y": 270
+    }
+  }
+}

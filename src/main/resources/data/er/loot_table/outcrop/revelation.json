@@ -1,0 +1,65 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:wanderers_advice",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:outcrop_level_count",
+              "min_level" : 1 ,
+              "max_level" : 25 ,
+              "min_count" : 7 ,
+              "max_count" : 8 ,
+              "scaling" : true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_experience",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:outcrop_level_count",
+              "min_level" : 12 ,
+              "max_level" : 150 ,
+              "min_count" : 3 ,
+              "max_count" : 4 ,
+              "scaling" : true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:heros_wit",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:outcrop_level_count",
+              "min_level" : 61 ,
+              "max_level" : 150 ,
+              "min_count" : 2 ,
+              "max_count" : 3 ,
+              "scaling" : true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

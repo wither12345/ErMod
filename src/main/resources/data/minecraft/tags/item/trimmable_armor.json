@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "er:pyro_armor_boots",
+    "er:geo_armor_helmet",
+    "er:cryo_armor_boots",
+    "er:anemo_armor_chestplate",
+    "er:geo_armor_boots",
+    "er:pyro_armor_helmet",
+    "er:hydro_armor_helmet",
+    "er:dendro_armor_helmet",
+    "er:anemo_armor_leggings",
+    "er:anemo_armor_boots",
+    "er:pyro_armor_chestplate",
+    "er:geo_armor_chestplate",
+    "er:pyro_armor_leggings",
+    "er:geo_armor_leggings",
+    "er:dendro_armor_boots",
+    "er:cryo_armor_leggings",
+    "er:cryo_armor_helmet",
+    "er:hydro_armor_boots",
+    "er:cryo_armor_chestplate",
+    "er:anemo_armor_helmet",
+    "er:dendro_armor_chestplate",
+    "er:electro_armor_boots",
+    "er:electro_armor_helmet",
+    "er:dendro_armor_leggings",
+    "er:hydro_armor_chestplate",
+    "er:electro_armor_leggings",
+    "er:electro_armor_chestplate",
+    "er:hydro_armor_leggings"
+  ]
+}

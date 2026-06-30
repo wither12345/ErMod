@@ -1,0 +1,42 @@
+{
+  "description": {
+    "translate": "enchantment.er.electro_infusion_enchantment"
+  },
+  "supported_items": "#enchantable/weapon",
+  "weight": 1,
+  "max_level": 3,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 10
+  },
+  "max_cost": {
+    "base": 6,
+    "per_level_above_first": 10
+  },
+  "anvil_cost": 8,
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": [
+    "er:anemo_infusion_enchantment",
+    "er:cryo_infusion_enchantment",
+    "er:dendro_infusion_enchantment",
+    "er:geo_infusion_enchantment",
+    "er:hydro_infusion_enchantment",
+    "er:pyro_infusion_enchantment"
+  ],
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0,
+          "per_level_above_first": 0.2
+        },
+        "attribute": "er:electro_dmg_bonus",
+        "id": "enchantment.electro_dmg",
+        "operation": "add_multiplied_base"
+      }
+    ]
+  }
+}

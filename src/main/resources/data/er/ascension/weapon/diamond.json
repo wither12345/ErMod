@@ -1,0 +1,114 @@
+{
+  "items" : [
+    "minecraft:diamond_sword",
+    "minecraft:diamond_helmet",
+    "minecraft:diamond_chestplate",
+    "minecraft:diamond_leggings",
+    "minecraft:diamond_boots",
+    "minecraft:diamond_horse_armor"
+  ],
+  "ascension" : [
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:diamond",
+          "count": 2
+        },
+        {
+          "item": "minecraft:ender_pearl",
+          "count": 2
+        },
+        {
+          "item": "minecraft:gunpowder",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:diamond",
+          "count": 6
+        },
+        {
+          "item": "minecraft:ender_pearl",
+          "count": 8
+        },
+        {
+          "item": "minecraft:gunpowder",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "mora": 15000,
+      "ingredient": [
+        {
+          "item": "minecraft:diamond",
+          "count": 12
+        },
+        {
+          "item": "minecraft:ender_eye",
+          "count": 4
+        },
+        {
+          "item": "minecraft:gunpowder",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "minecraft:diamond_block",
+          "count": 2
+        },
+        {
+          "item": "minecraft:ender_eye",
+          "count": 8
+        },
+        {
+          "item": "minecraft:gunpowder",
+          "count": 18
+        }
+      ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "minecraft:diamond_block",
+          "count": 4
+        },
+        {
+          "item": "minecraft:ender_eye",
+          "count": 18
+        },
+        {
+          "item": "minecraft:gunpowder",
+          "count": 36
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "minecraft:diamond_block",
+          "count": 12
+        },
+        {
+          "item": "minecraft:ender_eye",
+          "count": 36
+        },
+        {
+          "item": "minecraft:gunpowder",
+          "count": 64
+        }
+      ]
+    }
+  ]
+}

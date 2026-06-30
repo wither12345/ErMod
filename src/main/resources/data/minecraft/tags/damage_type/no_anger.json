@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "er:reaction",
+    {
+      "id": "#er:reaction",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "net.wither.er.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "AbstractSkeletonMixin",
+    "CombatRulesMixin",
+    "DamageSourceMixin",
+    "ErPlayerMixin",
+    "ExplosionDamageCalculatorMixin",
+    "FireworkPocketEntityMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "LocalPlayerMixin",
+    "ProjectileWeaponItemMixin",
+    "ServerPlayerMixin"
+  ],
+  "client": [
+    "PlayerModelMixin"
+  ],
+  "minVersion": "0.8"
+}

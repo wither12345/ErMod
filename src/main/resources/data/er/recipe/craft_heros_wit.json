@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "heros_wit",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "bbb",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:book"
+    },
+    "b": {
+      "item": "er:adventurers_experience"
+    }
+  },
+  "result": {
+    "id": "er:heros_wit",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "er:custom/lotus_head",
+  "textures": {
+    "all": "er:block/lotus_head",
+    "particle": "er:block/lotus_head",
+    "1": "er:block/lotus_head"
+  },
+  "render_type": "cutout"
+}

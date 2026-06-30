@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "er:teleport_waypoint_structure",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 18,
+    "separation": 12,
+    "salt": 1437350856
+  }
+}

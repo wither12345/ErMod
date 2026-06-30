@@ -1,0 +1,12 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": {
+    "type": "neoforge:any"
+  },
+  "spawners": {
+    "type": "er:mist_flower",
+    "weight": 5,
+    "minCount": 4,
+    "maxCount": 4
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "element_anvil",
+  "category": "misc",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "tag": "er:material"
+    },
+    "b": {
+      "tag": "minecraft:anvil"
+    }
+  },
+  "result": {
+    "id": "er:element_anvil",
+    "count": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Smithing",
+    "recipeRetstackSize": 1,
+    "group": "electro_chestplate",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CondensedElectro"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "smithingInputStack": {
+      "value": "Items.IRON_CHESTPLATE"
+    },
+    "smithingInputAdditionStack": {
+      "value": "CUSTOM:CondensedElectro"
+    },
+    "smithingInputTemplateStack": {
+      "value": "CUSTOM:Mora"
+    },
+    "smithingReturnStack": {
+      "value": "CUSTOM:ElectroArmor.body"
+    },
+    "name": "craft_electro_chestplate",
+    "namespace": "mod"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "dendro_vision",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "er:condensed_dendro"
+    },
+    {
+      "item": "er:unowned_vision"
+    }
+  ],
+  "result": {
+    "id": "er:dendro_vision",
+    "count": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "enhancement_ore",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "er:iron_chunk"
+    },
+    {
+      "item": "er:iron_chunk"
+    },
+    {
+      "item": "er:mora"
+    },
+    {
+      "item": "er:mora"
+    }
+  ],
+  "result": {
+    "id": "er:enhancement_ore",
+    "count": 1
+  }
+}

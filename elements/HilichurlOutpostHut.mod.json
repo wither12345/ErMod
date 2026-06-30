@@ -1,0 +1,33 @@
+{
+  "_fv": 85,
+  "_type": "structure",
+  "definition": {
+    "structure": "hilichurl_outpost_hut",
+    "projection": "rigid",
+    "ignoredBlocks": [
+      {
+        "value": "Blocks.STRUCTURE_VOID"
+      }
+    ],
+    "spacing": 12,
+    "separation": 7,
+    "restrictionBiomes": [
+      {
+        "value": "forest"
+      },
+      {
+        "value": "plains"
+      }
+    ],
+    "terrainAdaptation": "beard_thin",
+    "generationStep": "SURFACE_STRUCTURES",
+    "surfaceDetectionType": "WORLD_SURFACE",
+    "useStartHeight": false,
+    "startHeightProviderType": "UNIFORM",
+    "startHeightMin": 0,
+    "startHeightMax": 128,
+    "size": 1,
+    "maxDistanceFromCenter": 64,
+    "jigsawPools": []
+  }
+}

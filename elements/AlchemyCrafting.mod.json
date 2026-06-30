@@ -1,0 +1,42 @@
+{
+  "_fv": 85,
+  "_type": "jeirecipetype",
+  "definition": {
+    "textureSelector": "alchemy_craft_jei.png",
+    "width": 128,
+    "height": 64,
+    "icon": {
+      "value": "CUSTOM:CraftingBench"
+    },
+    "craftingtables": [
+      {
+        "value": "CUSTOM:CraftingBench"
+      }
+    ],
+    "enableCraftingtable": true,
+    "enableIntList": false,
+    "enableStringList": false,
+    "disableJeiBorder": false,
+    "title": "Alchemy Crafting",
+    "slotList": [
+      {
+        "type": "INPUT",
+        "x": 25,
+        "y": 17,
+        "slotid": 0
+      },
+      {
+        "type": "INPUT",
+        "x": 25,
+        "y": 34,
+        "slotid": 1
+      },
+      {
+        "type": "OUTPUT",
+        "x": 0,
+        "y": 90,
+        "slotid": 0
+      }
+    ]
+  }
+}

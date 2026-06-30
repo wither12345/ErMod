@@ -1,0 +1,53 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "mystic_enhancement_ore",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CrystalChunk"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": true,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:CrystalChunk"
+      },
+      {
+        "value": "CUSTOM:CrystalChunk"
+      },
+      {
+        "value": "CUSTOM:CrystalChunk"
+      },
+      {
+        "value": "CUSTOM:CrystalChunk"
+      },
+      {
+        "value": "CUSTOM:Mora"
+      },
+      {
+        "value": "CUSTOM:Mora"
+      },
+      {
+        "value": "CUSTOM:Mora"
+      },
+      {
+        "value": "CUSTOM:Mora"
+      },
+      {
+        "value": ""
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:MysticEnhancementOre"
+    },
+    "name": "craft_mystic_enhancement_ore",
+    "namespace": "mod"
+  }
+}

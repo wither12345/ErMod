@@ -1,0 +1,9 @@
+{
+  "item": "er:dust_of_azoth",
+  "count": 9,
+  "convertibles": [
+    "er:slime_concentrate",
+    "minecraft:slime_block",
+    "minecraft:honey_block"
+  ]
+}

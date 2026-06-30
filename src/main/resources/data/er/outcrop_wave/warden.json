@@ -1,0 +1,13 @@
+{
+  "quality": 2500,
+  "pools": [
+    {
+      "type": "minecraft:warden",
+      "count": 1,
+      "icon": "minecraft:echo_shard"
+    }
+  ],
+  "global_modifiers": [
+    "melee"
+  ]
+}

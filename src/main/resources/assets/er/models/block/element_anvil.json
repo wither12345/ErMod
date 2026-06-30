@@ -1,0 +1,9 @@
+{
+  "parent": "er:custom/anvil",
+  "textures": {
+    "all": "er:block/element_anvil",
+    "particle": "er:block/element_anvil",
+    "0": "er:block/element_anvil"
+  },
+  "render_type": "solid"
+}

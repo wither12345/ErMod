@@ -1,0 +1,7 @@
+{
+  "parent": "block/leaves",
+  "textures": {
+    "all": "er:block/cuihua_leaves",
+    "particle": "er:block/cuihua_leaves"
+  }
+}

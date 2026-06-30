@@ -1,0 +1,156 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:primogem",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 10,
+                "max": 15
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:a_bag_of_mora",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": {
+                "moras": 10000
+              }
+            }
+          ]
+        },{
+          "type": "minecraft:item",
+          "name": "er:a_bag_of_mora",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_custom_data",
+              "tag": {
+                "moras": 20000
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 5,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:wanderers_advice",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:adventurers_experience",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:enhancement_ore",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:fine_enhancement_ore",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "er:artifact/star1",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "er:artifact/star2",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "er:artifact/star3",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 2,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "er:weapon/star1",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "er:weapon/star2",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "er:weapon/star3",
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "random_sequence": "er:chests/rare_addition"
+}

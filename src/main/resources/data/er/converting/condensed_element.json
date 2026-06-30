@@ -1,0 +1,13 @@
+{
+  "item": "er:dust_of_azoth",
+  "count": 9,
+  "convertibles": [
+    "er:condensed_pyro",
+    "er:condensed_cryo",
+    "er:condensed_geo",
+    "er:condensed_electro",
+    "er:condensed_anemo",
+    "er:condensed_hydro",
+    "er:condensed_dendro"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "items" : [
+    "er:dull_blade",
+    "er:hunters_bow",
+    "er:silver_sword"
+  ],
+  "ascension" : [
+    {
+      "mora": 0,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 1
+        }
+      ]
+    }
+  ]
+}

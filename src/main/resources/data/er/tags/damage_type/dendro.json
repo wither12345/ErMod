@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#er:dendro/weak",
+    "#er:dendro/medium",
+    "#er:dendro/strong"
+  ]
+}

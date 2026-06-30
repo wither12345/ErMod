@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "er:statueof_the_seven_structure",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 32,
+    "separation": 28,
+    "salt": 1074273945
+  }
+}

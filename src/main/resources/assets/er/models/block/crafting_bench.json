@@ -1,0 +1,12 @@
+{
+  "parent": "er:custom/crafting_bench",
+  "textures": {
+    "all": "er:block/crafting_bench_side",
+    "particle": "er:block/crafting_bench_side",
+    "0": "er:block/crafting_bench_side",
+    "1": "er:block/crafting_bench_top1",
+    "2": "er:block/crafting_bench_top",
+    "3": "er:block/crafting_bench_bottom"
+  },
+  "render_type": "solid"
+}

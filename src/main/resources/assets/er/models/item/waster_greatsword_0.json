@@ -1,0 +1,6 @@
+{
+  "parent": "er:item/claymores",
+  "textures": {
+    "layer0": "er:item/waster_greatsword_2"
+  }
+} 

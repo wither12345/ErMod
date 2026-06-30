@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "er:block/electro_crystal_ore",
+    "up": "er:block/electro_crystal_ore",
+    "north": "er:block/electro_crystal_ore",
+    "east": "er:block/electro_crystal_ore",
+    "south": "er:block/electro_crystal_ore",
+    "west": "er:block/electro_crystal_ore",
+    "particle": "er:block/electro_crystal_ore"
+  },
+  "render_type": "solid"
+}

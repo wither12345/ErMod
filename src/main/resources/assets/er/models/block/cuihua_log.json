@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "er:block/cuihua_log_top",
+    "up": "er:block/cuihua_log_top",
+    "north": "er:block/cuihua_log",
+    "east": "er:block/cuihua_log",
+    "south": "er:block/cuihua_log",
+    "west": "er:block/cuihua_log",
+    "particle": "er:block/cuihua_log_top"
+  },
+  "render_type": "solid"
+}

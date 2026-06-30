@@ -1,0 +1,112 @@
+{
+  "_fv": 85,
+  "_type": "villagertrade",
+  "definition": {
+    "tradeEntries": [
+      {
+        "villagerProfession": {
+          "value": "WANDERING_TRADER"
+        },
+        "entries": [
+          {
+            "price1": {
+              "value": "Items.EMERALD"
+            },
+            "countPrice1": 5,
+            "price2": {
+              "value": "CUSTOM:Mora"
+            },
+            "countPrice2": 1,
+            "offer": {
+              "value": "CUSTOM:IronChunk"
+            },
+            "countOffer": 5,
+            "level": 1,
+            "maxTrades": 50,
+            "xp": 5,
+            "priceMultiplier": 0.0
+          },
+          {
+            "price1": {
+              "value": "Items.EMERALD"
+            },
+            "countPrice1": 10,
+            "price2": {
+              "value": "CUSTOM:Mora"
+            },
+            "countPrice2": 2,
+            "offer": {
+              "value": "CUSTOM:WhiteIronChunk"
+            },
+            "countOffer": 5,
+            "level": 1,
+            "maxTrades": 40,
+            "xp": 5,
+            "priceMultiplier": 0.0
+          },
+          {
+            "price1": {
+              "value": "Items.EMERALD"
+            },
+            "countPrice1": 20,
+            "price2": {
+              "value": "CUSTOM:Mora"
+            },
+            "countPrice2": 3,
+            "offer": {
+              "value": "CUSTOM:CrystalChunk"
+            },
+            "countOffer": 6,
+            "level": 1,
+            "maxTrades": 25,
+            "xp": 5,
+            "priceMultiplier": 0.05
+          }
+        ]
+      },
+      {
+        "villagerProfession": {
+          "value": "FLETCHER"
+        },
+        "entries": [
+          {
+            "price1": {
+              "value": "Items.EMERALD"
+            },
+            "countPrice1": 3,
+            "price2": {
+              "value": "CUSTOM:Mora"
+            },
+            "countPrice2": 5,
+            "offer": {
+              "value": "CUSTOM:HuntersBow"
+            },
+            "countOffer": 1,
+            "level": 1,
+            "maxTrades": 2,
+            "xp": 5,
+            "priceMultiplier": 0.05
+          },
+          {
+            "price1": {
+              "value": "Blocks.EMERALD_BLOCK"
+            },
+            "countPrice1": 32,
+            "price2": {
+              "value": "CUSTOM:Mora"
+            },
+            "countPrice2": 48,
+            "offer": {
+              "value": "CUSTOM:PolarStar"
+            },
+            "countOffer": 1,
+            "level": 5,
+            "maxTrades": 2,
+            "xp": 80,
+            "priceMultiplier": 0.05
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "er:deepslate_white_iron_ore",
+    "er:white_iron_ore",
+    "er:element_anvil",
+    "er:cor_lapis_ore",
+    "er:electro_crystal_ore"
+  ]
+}

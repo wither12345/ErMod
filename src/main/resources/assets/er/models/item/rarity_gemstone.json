@@ -1,0 +1,32 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "er:item/rarity_gemstone_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:rarity_gemstone_item_count": 2
+      },
+      "model": "er:item/rarity_gemstone_0"
+    },
+    {
+      "predicate": {
+        "er:rarity_gemstone_item_count": 3
+      },
+      "model": "er:item/rarity_gemstone_1"
+    },
+    {
+      "predicate": {
+        "er:rarity_gemstone_item_count": 4
+      },
+      "model": "er:item/rarity_gemstone_2"
+    },
+    {
+      "predicate": {
+        "er:rarity_gemstone_item_count": 5
+      },
+      "model": "er:item/rarity_gemstone_3"
+    }
+  ]
+}

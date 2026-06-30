@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "river",
+  "features": "er:lotus_head",
+  "step": "vegetal_decoration"
+}

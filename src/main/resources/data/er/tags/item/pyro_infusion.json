@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "er:pyro_hoe",
+    "minecraft:blaze_rod",
+    "er:pyro_sword",
+    "er:pyro_pickaxe"
+  ]
+}

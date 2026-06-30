@@ -1,0 +1,28 @@
+{
+  "workspacePanelIconSize": "TILES",
+  "workspacePanelSortType": "CREATED",
+  "workspacePanelSortAscending": true,
+  "projectBrowserState": {
+    "expandedPaths": [
+      "[, er]",
+      "[, er, Source (Gradle)]",
+      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.21\\src\\main\\java\\net]",
+      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.21\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.21\\src\\main\\java\\net\\mcreator]",
+      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.21\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.21\\src\\main\\java\\net\\mcreator, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.21\\src\\main\\java\\net\\mcreator\\er]"
+    ]
+  },
+  "leftDockState": {
+    "expandedDock": "project_browser",
+    "dockSizes": {
+      "project_browser": 280
+    }
+  },
+  "bottomDockState": {
+    "expandedDock": "console",
+    "dockSizes": {
+      "console": 300,
+      "code_viewer": 374,
+      "debugger": 300
+    }
+  }
+}

@@ -1,0 +1,48 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="Academic Free License v3.0"
+
+[[mods]]
+modId="er"
+version="1.0.20"
+displayName="er"
+displayURL="https://mcreator.net"
+logoFile="logo.png"
+credits="Created using mod maker MCreator - https://mcreator.net/about"
+authors="wither123, MCreator"
+
+# Start of user code block mod configuration
+enumExtensions = "data/enumextensions.json"
+# End of user code block mod configuration
+
+
+# Start of user code block custom mixins
+# End of user code block custom mixins
+
+[[dependencies.er]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.190,)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.er]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="AFTER"
+side="BOTH"
+
+
+[[dependencies.er]]
+modId="jei"
+type="optional"
+versionRange="[0,)"
+ordering="NONE"
+side="BOTH"
+
+
+# Start of user code block dependencies configuration
+[[mixins]]
+config="mixins.er.json"
+# End of user code block dependencies configuration

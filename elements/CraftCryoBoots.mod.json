@@ -1,0 +1,33 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Smithing",
+    "recipeRetstackSize": 1,
+    "group": "cryo_boots",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CondensedCryo"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "smithingInputStack": {
+      "value": "Items.IRON_BOOTS"
+    },
+    "smithingInputAdditionStack": {
+      "value": "CUSTOM:CondensedCryo"
+    },
+    "smithingInputTemplateStack": {
+      "value": "CUSTOM:Mora"
+    },
+    "smithingReturnStack": {
+      "value": "CUSTOM:CryoArmor.boots"
+    },
+    "name": "craft_cryo_boots",
+    "namespace": "mod"
+  }
+}

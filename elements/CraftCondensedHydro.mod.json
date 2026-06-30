@@ -1,0 +1,56 @@
+{
+  "_fv": 85,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "condensed_hydro",
+    "unlockingItems": [
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      }
+    ],
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:CrystalCore"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      },
+      {
+        "value": "CUSTOM:LotusHead"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:CondensedHydro"
+    },
+    "name": "craft_condensed_hydro",
+    "namespace": "mod"
+  }
+}

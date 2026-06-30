@@ -1,0 +1,11 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "0": "statue_of_the_seven_4_side",
+        "1": "statue_of_the_seven_4_top"
+      },
+      "name": "default"
+    }
+  }
+}

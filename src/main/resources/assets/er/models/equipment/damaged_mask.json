@@ -1,0 +1,12 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "er:entity/damaged_mask"
+      },
+      {
+        "texture": "er:entity/damaged_mask"
+      }
+    ]
+  }
+}
