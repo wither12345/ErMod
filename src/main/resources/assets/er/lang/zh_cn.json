@@ -367,5 +367,7 @@
   "death.attack.elemental_skill": "%1$s died",
   "death.attack.elemental_burst.item": "%1$s was killed by %2$s using %3$s",
   "death.attack.elemental_burst.player": "%1$s died whilst trying to escape %2$s",
-  "death.attack.elemental_burst": "%1$s died"
+  "death.attack.elemental_burst": "%1$s died",
+  "lore.er.refinement": "精炼",
+  "item.er.cool_steel": ""
 }

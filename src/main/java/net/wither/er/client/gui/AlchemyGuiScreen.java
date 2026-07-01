@@ -76,10 +76,15 @@ public class AlchemyGuiScreen extends AbstractContainerScreen<AlchemyGuiMenu> {
     @Override
     public void init() {
         super.init();
-        buttonConvertingPre = Button.builder(Component.literal("<"), e -> ErMod.PACKET_HANDLER.sendToServer(new AlchemyConvertingSwitchMessage(false))).bounds(this.leftPos + 140, this.topPos + 34, 8, 8).build();
-        buttonConvertingNext = Button.builder(Component.literal(">"), e -> ErMod.PACKET_HANDLER.sendToServer(new AlchemyConvertingSwitchMessage(false))).bounds(this.leftPos + 140, this.topPos + 42, 8, 8).build();
-        buttonCrafting = Button.builder(Component.translatable("gui.er.crafting"), e -> this.switchStage(AlchemyGuiMenu.Stage.CRAFTING)).bounds(this.leftPos + 176, this.topPos, 32, 20).build();
-        buttonConverting = Button.builder(Component.translatable("gui.er.converting"), e -> this.switchStage(AlchemyGuiMenu.Stage.CONVERTING)).bounds(this.leftPos + 176, this.topPos + 18, 32, 20).build();
+        buttonConvertingPre = Button.builder(Component.literal("<"), e -> ErMod.PACKET_HANDLER.sendToServer(new AlchemyConvertingSwitchMessage(false)))
+                .bounds(this.leftPos + 140, this.topPos + 34, 8, 8).build();
+        buttonConvertingNext = Button.builder(Component.literal(">"), e -> ErMod.PACKET_HANDLER.sendToServer(new AlchemyConvertingSwitchMessage(false)))
+                .bounds(this.leftPos + 140, this.topPos + 42, 8, 8).build();
+
+        buttonCrafting = Button.builder(Component.translatable("gui.er.crafting"), e -> this.switchStage(AlchemyGuiMenu.Stage.CRAFTING))
+                .bounds(this.leftPos + 176, this.topPos, 32, 20).build();
+        buttonConverting = Button.builder(Component.translatable("gui.er.converting"), e -> this.switchStage(AlchemyGuiMenu.Stage.CONVERTING))
+                .bounds(this.leftPos + 176, this.topPos + 18, 32, 20).build();
 
         this.buttonConvertingPre.visible = false ;
         this.buttonConvertingNext.visible = false ;

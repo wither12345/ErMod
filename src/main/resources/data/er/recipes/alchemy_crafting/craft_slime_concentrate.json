@@ -2,13 +2,13 @@
   "type": "er:alchemy_crafting",
   "ingredients": [
     {
-      "id": "er:slime_condensate",
+      "item": "er:slime_secretions",
       "count": 3
     }
   ],
   "output": {
-    "id": "er:slime_secretions",
+    "item": "er:slime_concentrate",
     "count": 1
   },
-  "mora": 25
+  "mora": 50
 }

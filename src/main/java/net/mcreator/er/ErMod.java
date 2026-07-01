@@ -1,37 +1,46 @@
 package net.mcreator.er;
 
-import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
-import it.unimi.dsi.fastutil.ints.IntObjectPair;
-import net.mcreator.er.init.*;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.TickTask;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.util.thread.SidedThreadGroups;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.wither.er.init.*;
-import net.wither.er.loottables.RegisterLootFunction;
-import net.wither.er.loottables.RegisterLootModifier;
-import net.wither.er.shield.ShieldRegistry;
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
+import net.wither.er.shield.ShieldRegistry;
+import net.wither.er.loottables.RegisterLootModifier;
+import net.wither.er.loottables.RegisterLootFunction;
+import net.wither.er.init.RecipeTypeRegister;
+import net.wither.er.init.ErMenus;
+import net.wither.er.init.ElementalAttributesRegister;
+import net.wither.er.init.ElementRegistry;
+import net.wither.er.init.AdditionalRegistries;
+
+import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.fml.util.thread.SidedThreadGroups;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.common.MinecraftForge;
+
+import net.minecraft.server.TickTask;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+
+import net.mcreator.er.init.*;
+
 import java.util.function.Supplier;
+import java.util.function.Function;
+import java.util.function.BiConsumer;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.Queue;
+import java.util.PriorityQueue;
+import java.util.Comparator;
+
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
+import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
 
 @Mod("er")
 public class ErMod {
@@ -64,6 +73,8 @@ public class ErMod {
 		AdditionalRegistries.ARTIFACT_EFFECTS.register(bus);
 		ElementalAttributesRegister.EFFECT_REGISTRY.register(bus);
 		ElementalAttributesRegister.POT_REGISTRY.register(bus);
+		RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
+		RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
 		ErMenus.REGISTRY.register(bus);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ERClientConfig.SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ERConfig.SPEC);

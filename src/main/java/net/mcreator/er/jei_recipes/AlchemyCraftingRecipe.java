@@ -23,11 +23,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AlchemyCraftingRecipe implements Recipe<SimpleContainer> {
+    private final ResourceLocation id ;
 	private final ItemStack output;
 	private final NonNullList<ItemStack> recipeItems;
 	private final int mora;
 
-	public AlchemyCraftingRecipe(ItemStack output, NonNullList<ItemStack> recipeItems, int mora) {
+	public AlchemyCraftingRecipe(ResourceLocation id, ItemStack output, NonNullList<ItemStack> recipeItems, int mora) {
+        this.id = id;
 		this.output = output;
 		this.recipeItems = recipeItems;
 		this.mora = mora;
@@ -63,10 +65,11 @@ public class AlchemyCraftingRecipe implements Recipe<SimpleContainer> {
 		return output.copy();
 	}
 
-	@Override
-	public ResourceLocation getId() {
-		return null;
-	}
+
+    @Override
+    public ResourceLocation getId() {
+        return this.id;
+    }
 
 
 	public @NotNull ItemStack getResultItem() {
@@ -93,7 +96,10 @@ public class AlchemyCraftingRecipe implements Recipe<SimpleContainer> {
 	public static class Serializer implements RecipeSerializer<AlchemyCraftingRecipe> {
 		public static final Serializer INSTANCE = new Serializer();
 		private static final MapCodec<AlchemyCraftingRecipe> CODEC = RecordCodecBuilder
-				.mapCodec(builder -> builder.group(ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output), ItemStack.CODEC.listOf().fieldOf("ingredients").flatXmap(ingredients -> {
+				.mapCodec(builder -> builder.group(
+                    ResourceLocation.CODEC.fieldOf("id").forGetter(recipe -> recipe.id),
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                    ItemStack.CODEC.listOf().fieldOf("ingredients").flatXmap(ingredients -> {
 					ItemStack[] aingredient = ingredients.toArray(ItemStack[]::new); // Skip the empty check and create the array.
 					if (aingredient.length == 0) {
 						return DataResult.error(() -> "No ingredients found in custom recipe");
@@ -121,14 +127,14 @@ public class AlchemyCraftingRecipe implements Recipe<SimpleContainer> {
 
 			// 解析 mora
 			int mora = jsonObject.get("mora").getAsInt();
-			return new AlchemyCraftingRecipe(output, ingredients, mora);
+			return new AlchemyCraftingRecipe(resourceLocation, output, ingredients, mora);
 		}
 
 		@Override
 		public @Nullable AlchemyCraftingRecipe fromNetwork(@NotNull ResourceLocation resourceLocation, FriendlyByteBuf friendlyByteBuf) {
 			NonNullList<ItemStack> inputs = NonNullList.withSize(friendlyByteBuf.readVarInt(), ItemStack.EMPTY);
 			inputs.replaceAll(ingredients -> friendlyByteBuf.readItem());
-			return new AlchemyCraftingRecipe( friendlyByteBuf.readItem(), inputs, friendlyByteBuf.readInt());
+			return new AlchemyCraftingRecipe(resourceLocation, friendlyByteBuf.readItem(), inputs, friendlyByteBuf.readInt());
 		}
 
 		@Override

@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.wither.er.world.inventory.WeaponEnhanceGuiMenu;
 
 public class WeaponEnhanceGuiScreen extends AbstractContainerScreen<WeaponEnhanceGuiMenu> {
-
     public WeaponEnhanceGuiScreen(WeaponEnhanceGuiMenu container, Inventory inventory, Component text) {
         super(container, inventory, text);
         this.imageWidth = 176;
