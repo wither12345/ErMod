@@ -1,7 +1,8 @@
 package net.mcreator.er.procedures;
 
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +17,9 @@ public class MoraBagUseProcedure {
 			return;
 		double count = 0;
 		if (entity.isShiftKeyDown()) {
-			if (entity.getCapability(ForgeCapabilities.ITEM_HANDLER, null) instanceof IItemHandlerModifiable _modHandlerIter) {
+			LazyOptional<IItemHandler> LazyOpt = entity.getCapability(ForgeCapabilities.ITEM_HANDLER);
+			if (LazyOpt.isPresent() && LazyOpt.resolve().isPresent()) {
+				IItemHandler _modHandlerIter = LazyOpt.resolve().get();
 				for (int _idx = 0; _idx < _modHandlerIter.getSlots(); _idx++) {
 					ItemStack itemStack = _modHandlerIter.getStackInSlot(_idx);
 					if (itemStack.getItem() == ErModItems.MORA.get()) {
@@ -28,8 +31,8 @@ public class MoraBagUseProcedure {
 						itemStack.shrink(1);
 					}
 				}
+				itemstack.getOrCreateTag().putDouble("moras", (itemstack.getOrCreateTag().getDouble("moras") + count));
 			}
-			itemstack.getOrCreateTag().putDouble("moras", (itemstack.getOrCreateTag().getDouble("moras") + count));
 		} else {
 			if (itemstack.getOrCreateTag().getDouble("moras") >= 64) {
 				if (entity instanceof Player _player) {

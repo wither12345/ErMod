@@ -204,54 +204,6 @@
       }
     },
     {
-      "name": "Frozen",
-      "type": "potioneffect",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/potion/FrozenMobEffect.java"
-        ]
-      }
-    },
-    {
-      "name": "FrozenStart",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen_start",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/FrozenStartProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
-    },
-    {
-      "name": "FrozenEnd",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen_end",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/FrozenEndProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
-    },
-    {
       "name": "ElectroInfusionEnchantment",
       "type": "enchantment",
       "compiles": true,
@@ -403,36 +355,6 @@
       "metadata": {
         "files": [
           "src/main/java/net/mcreator/er/potion/SuperconductMobEffect.java"
-        ]
-      }
-    },
-    {
-      "name": "FrozenZaiTick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "frozen_zai_tick",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/FrozenZaiTickProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
         ]
       }
     },
@@ -5622,7 +5544,6 @@
       "item.er.crystal_core": "Crystal Core",
       "item.er.cor_lapis": "Cor Lapis",
       "attribute.er.elemental_mastery": "Elemental Mastery",
-      "effect.er.frozen": "Frozen",
       "attribute.er.energy_recharge": "Energy Recharge",
       "item.er.unowned_vision": "Unowned Vision",
       "block.er.white_iron_ore": "White Iron Ore",
@@ -5881,7 +5802,9 @@
       "death.attack.elemental_skill": "%1$s died",
       "death.attack.elemental_burst.item": "%1$s was killed by %2$s using %3$s",
       "death.attack.elemental_burst.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.elemental_burst": "%1$s died"
+      "death.attack.elemental_burst": "%1$s died",
+      "lore.er.refinement": "Refinement",
+      "item.er.cool_steel": "Cool Steel"
     },
     "zh_cn": {
       "item.er.dendro_sword": "草元素剑",
@@ -5995,7 +5918,6 @@
       "item.er.crystal_core": "晶核",
       "item.er.cor_lapis": "石珀",
       "attribute.er.elemental_mastery": "元素精通",
-      "effect.er.frozen": "冻结",
       "attribute.er.energy_recharge": "元素充能效率",
       "item.er.unowned_vision": "无主神之眼",
       "block.er.white_iron_ore": "白铁矿",
@@ -6247,13 +6169,15 @@
       "item.er.berserkers_indigo_feather": "战狂的翎羽",
       "item.er.berserkers_timepiece": "战狂的时计",
       "item.er.berserkers_bone_goblet": "战狂的骨杯",
-      "item.er.berserkers_battle_mask": "",
+      "item.er.berserkers_battle_mask": "战狂的鬼面",
       "death.attack.elemental_skill.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.elemental_skill.item": "%1$s was killed by %2$s using %3$s",
       "death.attack.elemental_skill": "%1$s died",
       "death.attack.elemental_burst.item": "%1$s was killed by %2$s using %3$s",
       "death.attack.elemental_burst.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.elemental_burst": "%1$s died"
+      "death.attack.elemental_burst": "%1$s died",
+      "lore.er.refinement": "精炼",
+      "item.er.cool_steel": "冷刃"
     }
   },
   "metadata": {
@@ -6299,7 +6223,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

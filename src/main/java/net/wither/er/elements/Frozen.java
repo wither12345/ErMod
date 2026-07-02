@@ -26,8 +26,9 @@ public class Frozen extends Element{
     @Override
     public void start(AuraContainer container){
         if(container.getOwner() instanceof LivingEntity living) {
-            living.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(FROZEN_SPEED, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL));
-            if(living.getAttribute(Attributes.JUMP_STRENGTH) != null)
+            if(!living.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(new AttributeModifier(FROZEN_SPEED, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL)))
+                living.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(new AttributeModifier(FROZEN_SPEED, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL));
+            if(living.getAttribute(Attributes.JUMP_STRENGTH) != null && !living.getAttribute(Attributes.JUMP_STRENGTH).hasModifier(new AttributeModifier(FROZEN_JUMP, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL)))
                 living.getAttribute(Attributes.JUMP_STRENGTH).addTransientModifier(new AttributeModifier(FROZEN_JUMP, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL));
         }
     }
