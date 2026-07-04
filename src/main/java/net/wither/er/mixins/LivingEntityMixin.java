@@ -91,7 +91,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	}
 
 	@Override
-	public AuraContainer getAuraContainer() {
+	public AuraContainer er$getAuraContainer() {
 		return er$container;
 	}
 

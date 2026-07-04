@@ -3,6 +3,7 @@
   "values": [
     "#er:cryo/weak",
     "#er:cryo/medium",
-    "#er:cryo/strong"
+    "#er:cryo/strong",
+    "er:superconduct"
   ]
 }

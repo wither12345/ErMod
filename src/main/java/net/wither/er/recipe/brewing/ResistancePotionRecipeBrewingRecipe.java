@@ -24,7 +24,7 @@ public class ResistancePotionRecipeBrewingRecipe implements IBrewingRecipe {
 
     public ResistancePotionRecipeBrewingRecipe(Element.Category category, RegistryObject<Potion> pot) {
         super();
-        this.potIngredient = category.getBrewIngredient().get();
+        this.potIngredient = category.getBrewIngredient();
         this.pot = pot.get();
     }
 

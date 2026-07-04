@@ -14,12 +14,12 @@ public abstract class ElementalShield extends ErShield{
     public void start(Entity owner) {
         super.start(owner);
         if(owner instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true));
+            auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true));
         }
     }
 
     @Override
     public boolean tick(ShieldStack stack, Entity owner) {
-        return owner instanceof AuraContainerInterface containerInterface && containerInterface.getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
+        return owner instanceof AuraContainerInterface containerInterface && containerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
     }
 }

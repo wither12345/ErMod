@@ -197,13 +197,13 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
             if (absorption == 0 && world instanceof ServerLevel) {
                 for (Entity entityiterator : world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(3), e -> true).stream().toList()) {
                     if(entityiterator instanceof AuraContainerInterface auraContainerInterface){
-                        if(!auraContainerInterface.getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty())
+                        if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty())
                             absorption = Math.max(absorption, 1);
-                        if(!auraContainerInterface.getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty())
+                        if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty())
                             absorption = Math.max(absorption, 2);
-                        if(!auraContainerInterface.getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty())
+                        if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty())
                             absorption = Math.max(absorption, 3);
-                        if(!auraContainerInterface.getAuraContainer().getAura().get(Element.Category.CRYO.getId()).isEmpty())
+                        if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.CRYO.getId()).isEmpty())
                             absorption = 4;
                     }
                 }

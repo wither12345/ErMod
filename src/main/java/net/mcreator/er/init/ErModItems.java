@@ -7,7 +7,9 @@ import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.weapons.AbilitySword;
 import net.wither.er.item.data.weapon.WeaponLevelData;
-import net.wither.er.item.data.weapon.CoolSteelAbility;
+import net.wither.er.item.data.weapon.ReactionAbility;
+import net.wither.er.item.data.weapon.FunctionalAbilities;
+import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.artifact_effect.ArtifactEffectRegistry;
@@ -332,7 +334,9 @@ public class ErModItems {
 	public static final RegistryObject<Item> BERSERKERS_TIMEPIECE = REGISTRY.register("berserkers_timepiece", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BERSERKER));
 	public static final RegistryObject<Item> BERSERKERS_BONE_GOBLET = REGISTRY.register("berserkers_bone_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BERSERKER));
 	public static final RegistryObject<Item> BERSERKERS_BATTLE_MASK = REGISTRY.register("berserkers_battle_mask", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BERSERKER));
-	public static final RegistryObject<Item> COOL_STEEL = REGISTRY.register("cool_steel", () -> new AbilitySword(CoolSteelAbility::modify, ErModItems.COOL_STEEL, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
+	public static final RegistryObject<Item> COOL_STEEL = REGISTRY.register("cool_steel", () -> new AbilitySword((DamageAbility) FunctionalAbilities::coolSteel, ErModItems.COOL_STEEL, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
+	public static final RegistryObject<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword",
+			() -> new AbilitySword((ReactionAbility) FunctionalAbilities::darkIronSword, ErModItems.DARK_IRON_SWORD, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
@@ -345,6 +349,7 @@ public class ErModItems {
 			registerWeapon(SILVER_SWORD.get());
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
+			registerWeapon(DARK_IRON_SWORD.get());
 		}
 
 		private static void registerBowItem(Item bowItem) {

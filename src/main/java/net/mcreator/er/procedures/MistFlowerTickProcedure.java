@@ -1,7 +1,7 @@
 package net.mcreator.er.procedures;
 
-import net.wither.er.elements.ElementSource;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.elements.ElementSource;
 
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.AABB;

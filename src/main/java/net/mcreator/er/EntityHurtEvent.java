@@ -12,6 +12,7 @@ package net.mcreator.er;
 
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.procedures.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -21,6 +22,7 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.entity.projectile.SmallFireball;
@@ -40,6 +42,7 @@ import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
@@ -52,7 +55,9 @@ import static net.minecraft.core.registries.Registries.DAMAGE_TYPE;
 @Mod.EventBusSubscriber
 public class EntityHurtEvent {
     public static final TagKey<DamageType> ER$NO_KB = TagKey.create(DAMAGE_TYPE, new ResourceLocation("er:no_knockback")) ;
-    private static final TagKey<DamageType> noCritical = TagKey.create(DAMAGE_TYPE, new ResourceLocation("er:no_critical")) ;
+    private static final TagKey<DamageType> NO_CRITICAL = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:no_critical")) ;
+    private static final TagKey<DamageType> CATALYZE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction_multiply/catalyze")) ;
+    private static final TagKey<DamageType> TRANSFORMATIVE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction_multiply/transformative")) ;
 
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingHurtEvent event) {
@@ -66,23 +71,22 @@ public class EntityHurtEvent {
         double y = entity.getY();
         double z = entity.getZ();
         float crit_mult = 1;
-        applyElementSource(damagesource) ;
+        modifyDamageSource(damagesource) ;
         if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
-            if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon) {
+            if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof DamageAbility ability) {
                 CompoundTag tag = living.getMainHandItem().getOrCreateTag();
                 int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                abilityWeapon.getAbility().modify(damagesource, entity, modifierInterface.getModifier(), refinement);
+                ability.onHurt(damagesource, entity, modifierInterface.getModifier(), refinement);
             }
-
             double elemental_mastery = 0 ;
-            if (sourceentity instanceof LivingEntity && ((LivingEntity) sourceentity).getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
-                elemental_mastery = ((LivingEntity) sourceentity).getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
+            if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
+                elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
             if(elementSourceInterface.getSource() != null && elementSourceInterface.getSource().getElement() != null) {
-                auraContainerInterface.getAuraContainer().addAura(elementSourceInterface.getSource(), world, x, y, z, getEntityLevel(sourceentity), elemental_mastery, modifierInterface.getModifier(), sourceentity);
+                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.getSource(), world, x, y, z, modifierInterface.getModifier(), sourceentity);
                 ApplyElementMultiply(elementSourceInterface.getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());
             }
 
-            if (!damagesource.is(noCritical) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
+            if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
                 crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
                 modifierInterface.getModifier().critical = true;
             }
@@ -90,7 +94,7 @@ public class EntityHurtEvent {
             if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
                 modifierInterface.getModifier().reaction_multiply = 0 ;
 
-            float final_amount = modifierInterface.getModifier().calculate(event.getAmount()) * crit_mult;
+            float final_amount = modifierInterface.getModifier().calculate(event.getAmount(), elemental_mastery) * crit_mult;
             if (entity instanceof ErEntityInterface enti) {
                 List<ShieldStack> shields = enti.getShieldStacks();
                 float shield_absorb = 0f;
@@ -113,13 +117,12 @@ public class EntityHurtEvent {
 		}
 	}
 
-	private static void applyElementSource(DamageSource source){
+	private static void modifyDamageSource(DamageSource source){
 		int elemental_type = 0;
         float gauge ;
 		if(source instanceof ElementSourceInterface elementSourceInterface){
 			if(elementSourceInterface.getSource() != null)
 				return;
-            ResourceLocation resourceLocation = new ResourceLocation("er:default");
             for(Element.Category category : Element.Category.values()){
                 if(category.match(source)){
                     gauge = category.getAura(source);
@@ -129,10 +132,16 @@ public class EntityHurtEvent {
                 }
             }
 			if(source.getEntity() != null)
-				elemental_type = getInfusion_Type(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
+				elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
 			if(elemental_type != 0)
 				elementSourceInterface.setElement(new ElementSource(getEle(elemental_type), new ResourceLocation("er:default"), 1, getEle(elemental_type).isApplicable())) ;
 		}
+        if(source instanceof DamageModifierInterface modifierInterface){
+            if(source.is(CATALYZE))
+                modifierInterface.getModifier().multiply = ReactionMultiply.CATALYZE;
+            if(source.is(TRANSFORMATIVE))
+                modifierInterface.getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
+        }
 	}
 
 	private static Element getEle(int i){
@@ -167,20 +176,7 @@ public class EntityHurtEvent {
 		}
 	}
 
-    public static class DamageModifier {
-        public boolean locked = false ;
-        public boolean critical = false ;
-        public float reaction_multiply = 1;
-        public float common_multiply = 1;
-        public float res_multiply = 1;
-        public float additional_amount = 0;
-
-        public float calculate(float dmg){
-            return (dmg + additional_amount) * reaction_multiply * common_multiply * res_multiply;
-        }
-    }
-
-	public static int getInfusion_Type(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
+	public static int getInfusionType(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
 		if (entity == null)
 			return 0;
 		if (immediatesourceentity == entity) {
@@ -262,4 +258,47 @@ public class EntityHurtEvent {
 		}
 		return 0 ;
 	}
+
+    public static class DamageModifier {
+        public boolean locked = false ;
+        public boolean critical = false ;
+        public float reaction_multiply = 1;
+        public float common_multiply = 1;
+        public float basic = 1;
+        public float res_multiply = 1;
+        public float additional_amount = 0;
+        public ReactionMultiply multiply = null;
+
+        public float calculate(float dmg, double elementalMastery){
+            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? 1 : multiply.getMulti(elementalMastery)) - 1) * common_multiply * res_multiply;
+        }
+    }
+
+    public enum ReactionMultiply {
+        AMPLIFYING(2.78f, 1400),//Melt Vaporize
+        CATALYZE(5, 1200),//Spread Aggravate
+        TRANSFORMATIVE(16, 2000),//Overloaded, Superconduct, Electro-Charged, Burning, Shattered, Swirl, Bloom, Hyperbloom, Burgeon
+        CRYSTALLIZE(4.44f, 1400);
+
+        private final float maxMultiply;
+        private final int halfMultiAmount;
+
+        ReactionMultiply(float maxMultiply, int halfMultiAmount) {
+            this.maxMultiply = maxMultiply;
+            this.halfMultiAmount = halfMultiAmount;
+        }
+
+        public float getMulti(double elementalMastery) {
+            return (float) (maxMultiply * (elementalMastery) / (elementalMastery + halfMultiAmount)) + 1;
+        }
+
+        public float getMulti(Entity entity){
+            if(entity instanceof LivingEntity living){
+                AttributeInstance instance = living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get());
+                if(instance != null)
+                    return this.getMulti(instance.getValue());
+            }
+            return 1;
+        }
+    }
 }

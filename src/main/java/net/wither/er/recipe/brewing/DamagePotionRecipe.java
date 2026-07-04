@@ -24,7 +24,7 @@ public class DamagePotionRecipe implements IBrewingRecipe {
 
     public DamagePotionRecipe(Element.Category category, RegistryObject<Potion> pot) {
         super();
-        this.potIngredient = category.getBrewIngredient().get();
+        this.potIngredient = category.getBrewIngredient();
         this.pot = pot.get();
         this.type = category.getDmgPotType();
     }

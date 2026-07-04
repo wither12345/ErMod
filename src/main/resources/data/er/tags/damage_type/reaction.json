@@ -2,7 +2,10 @@
   "replace": false,
   "values": [
     "er:overloaded",
+    "er:swirl",
+    "er:bloom",
     "er:burning",
+    "er:superconduct",
     "er:electro_charged"
   ]
 }

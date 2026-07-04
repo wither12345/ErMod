@@ -35,13 +35,13 @@ public class ElementalBrewingRecipes implements IModPlugin {
         List<ItemStack> ingredientStack = new ArrayList<>();
         List<ItemStack> inputStack = new ArrayList<>();
         for(Element.Category category : Element.Category.values()) {
-            ingredientStack.add(new ItemStack(category.getBrewItem()));
+            ingredientStack.add(new ItemStack(category.getBrewIngredient()));
             PotionUtils.setPotion(potion, ErModPotions.EMPTY_RESISTANCE_POTION.get());
             PotionUtils.setPotion(potion2, ElementalAttributesRegister.RES_POT.get(category).get());
             brewingRecipes.add(factory.createBrewingRecipe(List.copyOf(ingredientStack), potion.copy(), potion2.copy()));
             ingredientStack.clear();
 
-            ingredientStack.add(new ItemStack(category.getBrewItem()));
+            ingredientStack.add(new ItemStack(category.getBrewIngredient()));
             PotionUtils.setPotion(potion, category.getDmgPotType() ? ErModPotions.EMPTY_DAMAGE_POTION_TYPE_2.get() : ErModPotions.EMPTY_DAMAGE_POTION_TYPE_1.get());
             PotionUtils.setPotion(potion2, ElementalAttributesRegister.DMG_POT.get(category).get());
             brewingRecipes.add(factory.createBrewingRecipe(List.copyOf(ingredientStack), potion.copy(), potion2.copy()));

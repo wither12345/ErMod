@@ -52,7 +52,7 @@ public class DendroSlime extends ElementalSlime{
     @Override
     public void setTarget(@Nullable LivingEntity target) {
         if(this.getTarget() != target && this instanceof AuraContainerInterface containerInterface)
-            containerInterface.getAuraContainer().addAura(new ElementSource(this.getElement(), null, 2, true, true));
+            containerInterface.er$getAuraContainer().addAura(new ElementSource(this.getElement(), null, 2, true, true));
         super.setTarget(target);
     }
 
@@ -115,7 +115,7 @@ public class DendroSlime extends ElementalSlime{
 
     private boolean isBurning(){
         if(this instanceof AuraContainerInterface containerInterface)
-            return containerInterface.getAuraContainer().getAura().get(Element.Category.PYRO.getId()).hasElement(ElementRegistry.BURNING.get());
+            return containerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).hasElement(ElementRegistry.BURNING.get());
         return false;
     }
 

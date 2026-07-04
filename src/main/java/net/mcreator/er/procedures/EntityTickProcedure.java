@@ -1,6 +1,5 @@
 package net.mcreator.er.procedures;
 
-import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -14,9 +13,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
-import net.wither.er.init.ElementRegistry;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.init.ElementRegistry;
 import net.wither.er.shield.ShieldStack;
 
 import javax.annotation.Nullable;
@@ -59,21 +58,21 @@ public class EntityTickProcedure {
 				enti.syncShield();
 		}
 		if(!world.isClientSide() && entity instanceof AuraContainerInterface auraContainerInterface){
-			auraContainerInterface.getAuraContainer().tick(world,x,y,z,EntityHurtEvent.getEntityLevel(entity));
-			if (entity.getType().is(hydro) && auraContainerInterface.getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()) {
-				auraContainerInterface.getAuraContainer().addAura(new ElementSource(ElementRegistry.HYDRO.get(), null, 2, true, true));
+			auraContainerInterface.er$getAuraContainer().tick(world,x,y,z);
+			if (entity.getType().is(hydro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()) {
+				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.HYDRO.get(), null, 2, true, true));
 			}
-			else if(entity.getType().is(pyro) && auraContainerInterface.getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
-				auraContainerInterface.getAuraContainer().addAura(new ElementSource(ElementRegistry.PYRO.get(), null, 2, true, true));
+			else if(entity.getType().is(pyro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
+				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.PYRO.get(), null, 2, true, true));
 			}
-			else if(entity.getType().is(electro) && auraContainerInterface.getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
-				auraContainerInterface.getAuraContainer().addAura(new ElementSource(ElementRegistry.ELECTRO.get(), null, 2, true, true));
+			else if(entity.getType().is(electro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
+				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.ELECTRO.get(), null, 2, true, true));
 			}
-			else if(entity.getType().is(cryo) && auraContainerInterface.getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
-				auraContainerInterface.getAuraContainer().addAura(new ElementSource(ElementRegistry.CRYO.get(), null, 2, true, true));
+			else if(entity.getType().is(cryo) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
+				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.CRYO.get(), null, 2, true, true));
 			}
 			else if(entity instanceof LivingEntity && entity.isInWaterRainOrBubble())
-				auraContainerInterface.getAuraContainer().addAura(new ElementSource(ElementRegistry.HYDRO.get(), null, 2, true, true));
+				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.HYDRO.get(), null, 2, true, true));
 		}
 		if (entity.getPersistentData().getInt("Electro_Charged_Cd") > 0) {
 			entity.getPersistentData().putInt("Electro_Charged_Cd", entity.getPersistentData().getInt("Electro_Charged_Cd") - 1);

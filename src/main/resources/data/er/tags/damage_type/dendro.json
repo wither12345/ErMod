@@ -3,6 +3,7 @@
   "values": [
     "#er:dendro/weak",
     "#er:dendro/medium",
-    "#er:dendro/strong"
+    "#er:dendro/strong",
+    "er:bloom"
   ]
 }

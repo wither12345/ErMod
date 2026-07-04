@@ -1,7 +1,7 @@
 package net.wither.er.elements;
 
 public interface AuraContainerInterface {
-    AuraContainer getAuraContainer();
+    AuraContainer er$getAuraContainer();
 
     int getElements();
 

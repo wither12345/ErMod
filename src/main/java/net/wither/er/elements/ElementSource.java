@@ -1,6 +1,7 @@
 package net.wither.er.elements;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
@@ -9,8 +10,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-
-import static net.minecraft.core.registries.Registries.DAMAGE_TYPE;
 
 public class ElementSource {
     private final Element element ;
@@ -21,14 +20,14 @@ public class ElementSource {
     private final int count ;
     private final boolean permanent;
 
-    public static final ResourceKey<DamageType> ReactionKey = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:reaction")) ;
+    public static final ResourceKey<DamageType> ReactionKey = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction")) ;
 
     public ElementSource(Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable) {
-        this(element, resourceLocation, gauge, applicable,50,2, false);
+        this(element,resourceLocation,gauge,applicable,50,2, false);
     }
 
     public ElementSource(Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable, boolean permanent) {
-        this(element, resourceLocation, gauge, applicable,50,2, permanent);
+        this(element,resourceLocation,gauge,applicable,50,2, permanent);
     }
 
     public ElementSource(Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable , int time , int count, boolean permanent) {
@@ -90,5 +89,9 @@ public class ElementSource {
 
     public boolean isPermanent() {
         return permanent;
+    }
+
+    public boolean canReact(SingleElementalContainer container) {
+        return this.getElement().canReact(container.getCategory());
     }
 }

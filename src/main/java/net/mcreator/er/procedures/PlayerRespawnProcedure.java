@@ -28,7 +28,7 @@ public class PlayerRespawnProcedure {
 	private static void execute(@Nullable Event event, Entity entity) {
 		if (entity == null)
 			return;
-		ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables());
+		ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(null);
 		StellaFortunas.applyAttr((LivingEntity) entity, _vars.Stella_Fortuna);
 		if (entity instanceof LivingEntity _entity)
 			_entity.setHealth(entity instanceof LivingEntity _livEnt ? _livEnt.getMaxHealth() : -1);

@@ -4,6 +4,7 @@ import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
+import net.wither.er.api.EventListener;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -22,16 +23,18 @@ public class AuraContainer {
 
     public void addAura(ElementSource auraToAdd){
         if(owner instanceof LivingEntity living)
-            addAura(auraToAdd, living.level(),living.getX(),living.getY(),living.getZ(),0,0,null,null);
+            addAura(auraToAdd, living.level(),living.getX(),living.getY(),living.getZ(),null,null);
     }
 
-    public void addAura(ElementSource auraToAdd, LevelAccessor accessor , double x , double y , double z, int level , double elemental_mastery , @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
+    public void addAura(ElementSource auraToAdd, LevelAccessor accessor , double x , double y , double z , @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
         if(auraToAdd.getGauge() == 0)
             return;
         if(auraToAdd.getElement().shouldReact(this, applier) && containersList.get(auraToAdd.getCategory().getId()).isAvailable(auraToAdd)) {
             for (SingleElementalContainer container : containersList) {
-                if (auraToAdd.getGauge() > 0)
-                    container.reactBy(this, auraToAdd, accessor, x, y, z, level, elemental_mastery, damageModifier, applier);
+                if (!container.isEmpty() && auraToAdd.getGauge() > 0 &&
+                        auraToAdd.canReact(container) && EventListener.onReactionPre(this, auraToAdd, container, damageModifier, applier))
+                    container.reactBy(this, auraToAdd, accessor, x, y, z, damageModifier, applier);
+                EventListener.onReactionPost(this, auraToAdd, container, damageModifier, applier);
             }
             if (auraToAdd.isApplicable()) {
                 auraToAdd.getElement().start(this);
@@ -58,9 +61,9 @@ public class AuraContainer {
         return containersList;
     }
 
-    public void tick(LevelAccessor accessor , double x , double y , double z, int level){
+    public void tick(LevelAccessor accessor , double x , double y , double z){
         for(SingleElementalContainer container : this.containersList){
-            container.tick(this,accessor,x,y,z,level);
+            container.tick(this,accessor,x,y,z);
         }
     }
 

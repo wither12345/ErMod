@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/dark_iron_sword"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:ascension": 2
+      },
+      "model": "er:item/dark_iron_sword_2"
+    }
+  ]
+}

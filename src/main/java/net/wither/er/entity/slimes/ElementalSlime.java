@@ -96,7 +96,7 @@ public abstract class ElementalSlime extends Monster implements Enemy {
 
     boolean hasElement(){
         if(this instanceof AuraContainerInterface containerInterface)
-            return containerInterface.getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
+            return containerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
         return false;
     }
 
@@ -454,7 +454,7 @@ public abstract class ElementalSlime extends Monster implements Enemy {
             ElementalSlimeMoveControl control = slime.moveControl instanceof ElementalSlimeMoveControl slimeMoveControl ? slimeMoveControl : null;
             LivingEntity target = this.slime.getTarget();
             if (target == null) {
-                containerInterface.getAuraContainer().addAura(new ElementSource(this.slime.getElement(), null, gauge, true, true));
+                containerInterface.er$getAuraContainer().addAura(new ElementSource(this.slime.getElement(), null, gauge, true, true));
                 return false;
             } else if(this.cd -- > 0)
                 return false;
@@ -491,7 +491,7 @@ public abstract class ElementalSlime extends Monster implements Enemy {
             super.stop();
             if(control != null)
                 control.clearDestination();
-            containerInterface.getAuraContainer().addAura(new ElementSource(this.slime.getElement(), null, gauge, true, true));
+            containerInterface.er$getAuraContainer().addAura(new ElementSource(this.slime.getElement(), null, gauge, true, true));
         }
 
         @Override
