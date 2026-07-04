@@ -1,4 +1,4 @@
-package net.wither.er.onevent;
+package net.wither.er.player;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;

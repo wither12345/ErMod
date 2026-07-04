@@ -1,22 +1,17 @@
 package net.wither.er.elements;
 
-import net.mcreator.er.EntityHurtEvent;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.LevelAccessor;
-
-import javax.annotation.Nullable;
+import java.util.Map;
 
 public class Quicken extends Element{
+    public Quicken() {
+        super(Map.of());
+    }
 
     @Override
     public Category getCategory() {
         return Category.DENDRO;
     }
 
-    @Override
-    public float reactWith(AuraContainer container, SingleElementalContainer singleElementalContainer, float strength, LevelAccessor accessor, double x, double y, double z, int level, double elemental_mastery, @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier) {
-        return 0 ;
-    }
 
     @Override
     public boolean overrideReduceRate() {

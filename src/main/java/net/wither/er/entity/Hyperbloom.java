@@ -17,16 +17,15 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
-import net.wither.er.init.ElementRegistry;
+import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
+import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.UUID;
-
-import static net.wither.er.elements.ElementSource.ReactionKey;
 
 public class Hyperbloom extends Projectile {
     @Nullable
@@ -48,10 +47,10 @@ public class Hyperbloom extends Projectile {
         Entity entity = result.getEntity() ;
         entity.hurt(
                 ElementSource.createDamageSource(
-                        this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ReactionKey) ,
+                        this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) ,
                         this ,
                         new ElementSource(ElementRegistry.DENDRO.get(), null , 0, false)
-                ),9 * EntityHurtEvent.getElementalMasteryMultiply(1, EntityHurtEvent.getElementalMastery(this.getOwner())) * EntityHurtEvent.getLevelMultiply(this.getOwner()));
+                ),12 * EntityHurtEvent.getLevelMultiply(this.getOwner()));
         this.discard();
     }
 

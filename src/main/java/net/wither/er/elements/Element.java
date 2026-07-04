@@ -2,23 +2,39 @@ package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.init.ErModAttributes;
+import net.mcreator.er.init.ErModEntities;
 import net.mcreator.er.init.ErModItems;
+import net.mcreator.er.init.ErModMobEffects;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.wither.er.entity.BloomEntityEntity;
 import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.registries.Registries.DAMAGE_TYPE;
@@ -27,14 +43,24 @@ public abstract class Element {
     public static final ResourceKey<DamageType> ELECTRO_CHARGED = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:electro_charged"));
     public static final ResourceKey<DamageType> BURNING = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:burning"));
     public static final ResourceKey<DamageType> OVERLOAD = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:overloaded"));
+    public static final ResourceKey<DamageType> SWIRL = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:swirl"));
+    public static final ResourceKey<DamageType> BLOOM = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:bloom"));
+    public static final ResourceKey<DamageType> SUPERCONDUCT = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:superconduct"));
     public static final TagKey<EntityType<?>> INERT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:inert"));
 
     public abstract Category getCategory() ;
     public static final ArrayList<Element> types = new ArrayList<>();
     private static int count = 0;
     private static int rendererCount = 0;
+    private final Map<Category, ReactionBehavior> map;
 
-    public abstract float reactWith(AuraContainer container , SingleElementalContainer singleElementalContainer , float strength, LevelAccessor accessor , double x , double y , double z, int level , double elemental_mastery , EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier) ;
+    protected Element(Map<Category, ReactionBehavior> map) {
+        this.map = map;
+    }
+
+    public float reactWith(AuraContainer auraContainer, SingleElementalContainer singleElementalContainer, float gauge, LevelAccessor accessor , double x , double y , double z, EntityHurtEvent.DamageModifier modifier, @Nullable Entity applier){
+        return this.map.get(singleElementalContainer.getCategory()).reactWith(auraContainer, singleElementalContainer, gauge, accessor, x, y, z, modifier, applier);
+    }
 
     public TagKey<EntityType<?>> getImmuneTag(){
         return null;
@@ -46,7 +72,7 @@ public abstract class Element {
         return true;
     }
 
-    public void tick(AuraContainer container ,ElementalAura aura, LevelAccessor accessor , double x , double y , double z, int level , boolean naturalReduction){
+    public void tick(AuraContainer container ,ElementalAura aura, LevelAccessor accessor , double x , double y , double z , boolean naturalReduction){
         if(naturalReduction && aura.reduce())
             container.update();
         aura.tick ++ ;
@@ -111,12 +137,143 @@ public abstract class Element {
         return gauge_reduction ;
     }
 
+    protected static float amplifying2(AuraContainer container ,
+                                    SingleElementalContainer singleElementalContainer ,
+                                    float gauge,
+                                    LevelAccessor accessor ,
+                                    double x ,
+                                    double y ,
+                                    double z,
+                                    EntityHurtEvent.DamageModifier damageModifier,
+                                    @Nullable Entity applier){
+        if (damageModifier != null && !damageModifier.locked) {
+            damageModifier.basic = 2f ;
+            damageModifier.locked = true;
+            damageModifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
+        }
+        return reacting(gauge , singleElementalContainer , 2) ;
+    }
+
+    protected static float amplifying15(AuraContainer container ,
+                                     SingleElementalContainer singleElementalContainer ,
+                                     float gauge,
+                                     LevelAccessor accessor ,
+                                     double x ,
+                                     double y ,
+                                     double z,
+                                     EntityHurtEvent.DamageModifier damageModifier,
+                                     @Nullable Entity applier){
+        if (damageModifier != null && !damageModifier.locked) {
+            damageModifier.basic = 1.5f ;
+            damageModifier.locked = true;
+            damageModifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
+        }
+        return reacting(gauge , singleElementalContainer , 0.5f) ;
+    }
+
+    protected static float burning(AuraContainer container ,
+                                   SingleElementalContainer singleElementalContainer ,
+                                   float gauge,
+                                   LevelAccessor accessor ,
+                                   double x ,
+                                   double y ,
+                                   double z,
+                                   EntityHurtEvent.DamageModifier damageModifier,
+                                   @Nullable Entity applier){
+        container.addAura(new ElementSource(ElementRegistry.BURNING.get(), null , 1.6f, true) , accessor,x,y,z,null,applier);
+        return 0;
+    }
+
+    protected static float overLoad(AuraContainer container ,
+                                    SingleElementalContainer singleElementalContainer ,
+                                    float gauge,
+                                    LevelAccessor accessor ,
+                                    double x ,
+                                    double y ,
+                                    double z,
+                                    EntityHurtEvent.DamageModifier damageModifier,
+                                    @Nullable Entity applier){
+        if (damageModifier != null && !damageModifier.locked) {
+            if (accessor instanceof ServerLevel _level) {
+                _level.sendParticles(ParticleTypes.EXPLOSION, x, y, z, 1, 0, 0,
+                        0, 0);
+                _level.playSound(null, BlockPos.containing(x, y, z), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.explode")), SoundSource.NEUTRAL, 1, 1);
+            }
+            final Vec3 _center = new Vec3(x, y, z);
+            List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
+            for (LivingEntity entityiterator : _entfound) {
+                if (EntityHurtEvent.shouldHurt(applier, entityiterator)) {
+                    entityiterator.hurt(
+                            ElementSource.createDamageSource(
+                                    accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(OVERLOAD),
+                                    applier,
+                                    new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er.overloaded.reaction"), 0, true)
+                            ), 11  * EntityHurtEvent.getLevelMultiply(applier));
+                    entityiterator.setDeltaMovement(new Vec3((entityiterator.getDeltaMovement().x() * 3), (entityiterator.getDeltaMovement().y() * 2), (entityiterator.getDeltaMovement().z() * 3)));
+                }
+            }
+            damageModifier.locked = true;
+        }
+        return reacting(gauge , singleElementalContainer) ;
+    }
+
+    protected static float bloom(AuraContainer container,
+                                SingleElementalContainer singleElementalContainer,
+                                float gauge,
+                                LevelAccessor accessor,
+                                double x,
+                                double y,
+                                double z,
+                                EntityHurtEvent.DamageModifier damageModifier,
+                                @Nullable Entity applier){
+        if (accessor instanceof ServerLevel _level) {
+            BloomEntityEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
+            if(entityToSpawn != null) {
+                entityToSpawn.setOwner(applier);
+                entityToSpawn.moveTo(x, y, z, accessor.getRandom().nextFloat() * 360F, 0);
+                entityToSpawn.setYRot(accessor.getRandom().nextFloat() * 360F);
+            }
+        }
+        return reacting(gauge , singleElementalContainer , 0.5f) ;
+    }
+
+    protected static float superconduct(AuraContainer container ,
+                                        SingleElementalContainer singleElementalContainer ,
+                                        float gauge,
+                                        LevelAccessor accessor ,
+                                        double x ,
+                                        double y ,
+                                        double z,
+                                        EntityHurtEvent.DamageModifier damageModifier,
+                                        @Nullable Entity applier){
+        final Vec3 _center = new Vec3(x, y, z);
+        List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(4 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
+        for (LivingEntity entity_iterator : _entfound) {
+            if (entity_iterator != applier) {
+                entity_iterator.hurt(
+                        ElementSource.createDamageSource(
+                                accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT) ,
+                                applier ,
+                                new ElementSource(ElementRegistry.CRYO.get() , ResourceLocation.parse("er.superconduct.reaction") , 0, true)
+                        ),
+                        2.4f * EntityHurtEvent.getLevelMultiply(applier));
+                if (!entity_iterator.level().isClientSide())
+                    entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT, 100, 0, false, false));
+            }
+        }
+        return reacting(gauge , singleElementalContainer) ;
+    }
+
     public DeferredHolder<Attribute, Attribute> getDamageAttr() {
         return this.getCategory().getDamageAttr();
     }
 
     public DeferredHolder<Attribute, Attribute> getResAttr() {
         return this.getCategory().getResAttr();
+    }
+
+    public boolean canReact(Category category) {
+        return this.map.containsKey(category);
     }
 
     public enum Category{

@@ -74,6 +74,7 @@ public class ErMod {
 		ErMenus.REGISTRY.register(modEventBus);
 		ArtifactEffectRegistry.ARTIFACT_EFFECTS.register(modEventBus);
 		WeaponAbilityRegister.WEAPON_ABILITIES.register(modEventBus);
+		EffectRegister.REGISTRY.register(modEventBus);
 		// End of user code block mod init
 	}
 

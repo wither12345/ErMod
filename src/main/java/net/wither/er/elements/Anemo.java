@@ -19,60 +19,44 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
-
-import static net.wither.er.elements.ElementSource.ReactionKey;
+import java.util.Map;
 
 public class Anemo extends Element{
     public static final TagKey<EntityType<?>> immune = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:anemo_immune"));
+
+    public Anemo(){
+        super(Map.of(
+                Category.PYRO, Anemo::swirl,
+                Category.CRYO, Anemo::swirl,
+                Category.ELECTRO, Anemo::swirl,
+                Category.HYDRO, Anemo::swirl
+        ));
+    }
 
     @Override
     public Category getCategory() {
         return Category.ANEMO;
     }
 
-    @Override
-    public float reactWith(AuraContainer container, SingleElementalContainer singleElementalContainer, float strength, LevelAccessor accessor, double x, double y, double z, int level, double elemental_mastery, @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier) {
-        float strength_reduction = 0 ;
-        if (singleElementalContainer.getCategory() == Category.CRYO && singleElementalContainer.getGauge() > 0) {
-            strength_reduction = reacting(strength , singleElementalContainer , 0.5f) ;
-            spread(ElementRegistry.CRYO.get(), strength_reduction * 2 , accessor,x,y,z,level,elemental_mastery,damageModifier,applier);
-        }
-        if (singleElementalContainer.getCategory() == Category.ELECTRO && singleElementalContainer.getGauge() > 0) {
-            strength_reduction = reacting(strength , singleElementalContainer , 0.5f) ;
-            spread(ElementRegistry.ELECTRO.get(), strength_reduction * 2 , accessor,x,y,z,level,elemental_mastery,damageModifier,applier);
-        }
-        if (singleElementalContainer.getCategory() == Category.HYDRO && singleElementalContainer.getGauge() > 0) {
-            strength_reduction = reacting(strength , singleElementalContainer , 0.5f) ;
-            spread(ElementRegistry.HYDRO.get(), strength_reduction * 2 , accessor,x,y,z,level,elemental_mastery,damageModifier,applier);
-        }
-        if (singleElementalContainer.getCategory() == Category.PYRO && singleElementalContainer.getGauge() > 0) {
-            strength_reduction = reacting(strength , singleElementalContainer , 0.5f) ;
-            spread(ElementRegistry.PYRO.get(), strength_reduction * 2 , accessor,x,y,z,level,elemental_mastery,damageModifier,applier);
-        }
-        return strength_reduction ;
-    }
-
-    @Override
-    public RenderId getRenderId() {
-        return RenderId.ANEMO ;
-    }
-
-    @Override
-    public boolean isApplicable() {
-        return false ;
-    }
-
-    public static void spread(Element element , float gauge, LevelAccessor accessor, double x, double y, double z, int level, double elemental_mastery, @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
+    private static float swirl(AuraContainer container ,
+                               SingleElementalContainer singleElementalContainer ,
+                               float gauge,
+                               LevelAccessor accessor ,
+                               double x ,
+                               double y ,
+                               double z,
+                               EntityHurtEvent.DamageModifier damageModifier,
+                               @Nullable Entity applier){
+        Category category = singleElementalContainer.getCategory();
         if (accessor instanceof ServerLevel _level)
-            _level.sendParticles(getParticle(element.getCategory()), (x - 1.5), y + 1, (z - 1.5), 8, 1.5, 0, 1.5, 0);
+            _level.sendParticles(getParticle(category), (x - 1.5), y + 1, (z - 1.5), 8, 1.5, 0, 1.5, 0);
 
         if (damageModifier != null) {
-            if(damageModifier.locked) return;
+            if(damageModifier.locked) return 0;
             damageModifier.locked = true ;
         }
         final Vec3 _center = new Vec3(x, y, z);
@@ -81,13 +65,13 @@ public class Anemo extends Element{
             if (EntityHurtEvent.shouldHurt(applier, entityiterator))
                 entityiterator.hurt(
                         ElementSource.createDamageSource(
-                                accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ReactionKey) ,
+                                accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SWIRL) ,
                                 applier ,
-                                new ElementSource(element , ResourceLocation.parse("er:anemo.reaction") , gauge, true)
-                        ),3 * EntityHurtEvent.getElementalMasteryMultiply(1, elemental_mastery) * EntityHurtEvent.getLevelMultiply(level));
+                                new ElementSource(category.getDefault(), ResourceLocation.parse("er:anemo.reaction") , gauge, true)
+                        ),2.4f * EntityHurtEvent.getLevelMultiply(applier));
         }
 
-        if(element.getCategory() == Category.PYRO){
+        if(category == Category.PYRO){
             for (int i = -2; i <= 2; i++)
                 for (int j = -2; j <= 2; j++)
                     for (int k = -1; k <= 1; k++)
@@ -106,6 +90,17 @@ public class Anemo extends Element{
                             }
                         }
         }
+        return reacting(gauge , singleElementalContainer , 0.5f) ;
+    }
+
+    @Override
+    public RenderId getRenderId() {
+        return RenderId.ANEMO ;
+    }
+
+    @Override
+    public boolean isApplicable() {
+        return false ;
     }
 
     private static SimpleParticleType getParticle(Element.Category category){

@@ -20,15 +20,13 @@ import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
-import net.wither.er.init.ElementRegistry;
 import net.wither.er.elements.ElementSource;
+import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-
-import static net.wither.er.elements.ElementSource.ReactionKey;
 
 public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 	@Nullable
@@ -162,11 +160,10 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 		for (LivingEntity entity_iterator : ent_found) {
 			entity_iterator.hurt(
 					ElementSource.createDamageSource(
-							this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ReactionKey) ,
+							this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) ,
 							this ,
 							new ElementSource(ElementRegistry.DENDRO.get(), null , 0, false)
 					), basicDamage
-							* EntityHurtEvent.getElementalMasteryMultiply(1, EntityHurtEvent.getElementalMastery(damager))
 							* EntityHurtEvent.getLevelMultiply(damager)
 							* (EntityHurtEvent.shouldHurt(damager,entity_iterator) ? 1 : 0.05f)
 			);

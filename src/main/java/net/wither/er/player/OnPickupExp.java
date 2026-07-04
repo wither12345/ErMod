@@ -1,4 +1,4 @@
-package net.wither.er.onevent;
+package net.wither.er.player;
 
 import net.mcreator.er.StellaFortunas;
 import net.minecraft.world.entity.player.Player;

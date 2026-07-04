@@ -90,4 +90,8 @@ public class ElementSource {
     public boolean isPermanent() {
         return permanent;
     }
+
+    public boolean canReact(SingleElementalContainer container) {
+        return this.getElement().canReact(container.getCategory());
+    }
 }

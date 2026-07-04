@@ -3,8 +3,12 @@ package net.wither.er.elements;
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
+import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.item.data.weapon.ReactionAbility;
+import net.wither.er.item.data.weapon.WeaponRefinement;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -31,19 +35,24 @@ public class SingleElementalContainer {
         return auras.containsKey(element) ;
     }
 
-    public void reactBy(AuraContainer container ,ElementSource source, LevelAccessor accessor , double x , double y , double z, int level , double elemental_mastery ,@Nullable  EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
-        float gauge_reducing = source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, level, elemental_mastery, damageModifier, applier);
+    public void reactBy(AuraContainer container ,ElementSource source, LevelAccessor accessor , double x , double y , double z,@Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
+        float gauge_reducing = source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, damageModifier, applier);//source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, elemental_mastery, damageModifier, applier);
         source.reduce(gauge_reducing);
+        if(applier instanceof LivingEntity living){
+            WeaponRefinement refinement = living.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
+            if(refinement != null && refinement.getAbility() instanceof ReactionAbility reactionAbility)
+                reactionAbility.onReaction(container, source, this.category, damageModifier, applier, refinement.refineLevel());
+        }
     }
 
-    public void tick(AuraContainer container, LevelAccessor accessor , double x , double y , double z, int level) {
+    public void tick(AuraContainer container, LevelAccessor accessor , double x , double y , double z) {
         cooldownMap.values().removeIf(cooldown -> cooldown.time-- <= 0);
         Iterator<Map.Entry<Element, ElementalAura>> iterator = auras.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Element, ElementalAura> ele = iterator.next();
             ElementalAura aura = ele.getValue();
             if (aura.getGauge() > 0) {
-                ele.getKey().tick(container, aura, accessor, x, y, z, level ,this.naturalReduction);
+                ele.getKey().tick(container, aura, accessor, x, y, z ,this.naturalReduction);
             }
             if (aura.getGauge() <= 0) {
                 iterator.remove();

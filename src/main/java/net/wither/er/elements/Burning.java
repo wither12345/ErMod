@@ -15,16 +15,16 @@ import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 
 public class Burning extends Element{
-    @Override
-    public Category getCategory() {
-        return Category.PYRO;
+    public Burning() {
+        super(Map.of());
     }
 
     @Override
-    public float reactWith(AuraContainer container, SingleElementalContainer singleElementalContainer, float strength, LevelAccessor accessor, double x, double y, double z, int level, double elemental_mastery, EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier) {
-        return 0f;
+    public Category getCategory() {
+        return Category.PYRO;
     }
 
     @Override
@@ -47,8 +47,8 @@ public class Burning extends Element{
     }
 
     @Override
-    public void tick(AuraContainer container, ElementalAura aura, LevelAccessor accessor, double x, double y, double z, int level, boolean naturalReduction) {
-        super.tick(container, aura, accessor, x, y, z, level, naturalReduction);
+    public void tick(AuraContainer container, ElementalAura aura, LevelAccessor accessor, double x, double y, double z, boolean naturalReduction) {
+        super.tick(container, aura, accessor, x, y, z, naturalReduction);
         SingleElementalContainer dendroContainer = container.getAura().get(Category.DENDRO.getId());
         if(dendroContainer.isEmpty()){
             aura.setGauge(-1);
@@ -74,7 +74,7 @@ public class Burning extends Element{
         double elemental_mastery = 0f ;
         int level = EntityHurtEvent.getEntityLevel(applier) ;
         if(applier instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY) != null){
-            elemental_mastery = living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY).getValue();
+            elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY);
         }
         if (accessor instanceof ServerLevel _level)
             _level.sendParticles(ParticleTypes.FLAME, x - 0.5, y, z - 0.5, 10, 1, 1, 1, 0);
@@ -82,7 +82,7 @@ public class Burning extends Element{
         for (LivingEntity entityiterator : _entfound) {
             if(applier == null) {
                 if(entityiterator.getAttribute(ErModAttributes.ELEMENTAL_MASTERY) != null)
-                        elemental_mastery = entityiterator.getAttribute(ErModAttributes.ELEMENTAL_MASTERY).getValue();
+                        elemental_mastery = entityiterator.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY);
                 level = EntityHurtEvent.getEntityLevel(entityiterator) ;
                 }
             entityiterator.hurt(
@@ -90,7 +90,7 @@ public class Burning extends Element{
                             accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(BURNING),
                             applier,
                             new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er.burning.reaction"), 0.8f, true)
-                    ), 1 * EntityHurtEvent.getElementalMasteryMultiply(1, elemental_mastery) * EntityHurtEvent.getLevelMultiply(level));
+                    ), 1 * EntityHurtEvent.getLevelMultiply(level));
         }
     }
 }

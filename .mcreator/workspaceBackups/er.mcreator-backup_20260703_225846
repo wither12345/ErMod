@@ -5397,6 +5397,18 @@
           "src/main/resources/data/er/damage_type/elemental_burst.json"
         ]
       }
+    },
+    {
+      "name": "Swirl",
+      "type": "damagetype",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "swirl",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/er/damage_type/swirl.json"
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -6043,7 +6055,14 @@
       "death.attack.elemental_skill": "%1$s died",
       "death.attack.elemental_burst.item": "%1$s was killed by %2$s using %3$s",
       "death.attack.elemental_burst.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.elemental_burst": "%1$s died"
+      "death.attack.elemental_burst": "%1$s died",
+      "lore.er.refinement": "Refinement",
+      "item.er.cool_steel": "",
+      "effect.er.overloaded": "Overloaded",
+      "item.er.dark_iron_sword": "Dark Iron Sword",
+      "death.attack.swirl.item": "%1$s was killed by %2$s using %3$s",
+      "death.attack.swirl": "%1$s died",
+      "death.attack.swirl.player": "%1$s died whilst trying to escape %2$s"
     },
     "zh_cn": {
       "item.er.dendro_sword": "草元素剑",
@@ -6417,7 +6436,14 @@
       "death.attack.elemental_skill": "%1$s died",
       "death.attack.elemental_burst.item": "%1$s was killed by %2$s using %3$s",
       "death.attack.elemental_burst.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.elemental_burst": "%1$s died"
+      "death.attack.elemental_burst": "%1$s died",
+      "lore.er.refinement": "精炼",
+      "item.er.cool_steel": "冷刃",
+      "effect.er.overloaded": "过载",
+      "item.er.dark_iron_sword": "暗铁剑",
+      "death.attack.swirl.item": "%1$s was killed by %2$s using %3$s",
+      "death.attack.swirl": "%1$s died",
+      "death.attack.swirl.player": "%1$s died whilst trying to escape %2$s"
     }
   },
   "metadata": {

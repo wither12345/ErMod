@@ -334,6 +334,8 @@ public class ErModItems {
 	public static final DeferredItem<Item> BERSERKERS_BATTLE_MASK = REGISTRY.register("berserkers_battle_mask", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BERSERKER));
 	public static final DeferredItem<Item> COOL_STEEL = REGISTRY.register("cool_steel", () -> new SwordItem(ErTiers.STAR_3,
 			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.COOL_STEEL, ErModItems.COOL_STEEL, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword", () -> new SwordItem(ErTiers.STAR_3,
+			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DARK_IRON, ErModItems.DARK_IRON_SWORD, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
@@ -345,7 +347,8 @@ public class ErModItems {
 			registerWeapon(DULL_BLADE.get());
 			registerWeapon(SILVER_SWORD.get());
 			registerWeapon(WASTER_GREATSWORD.get());
-            registerWeapon(COOL_STEEL.get());
+			registerWeapon(COOL_STEEL.get());
+			registerWeapon(DARK_IRON_SWORD.get());
 		}
 
 		private static void registerBowItem(Item bowItem) {

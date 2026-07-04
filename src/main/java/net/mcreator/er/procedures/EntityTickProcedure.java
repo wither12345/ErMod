@@ -1,32 +1,27 @@
 package net.mcreator.er.procedures;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.LevelAccessor;
+import net.neoforged.bus.api.Event;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
-import net.wither.er.init.ElementRegistry;
 import net.wither.er.elements.ElementSource;
-import net.wither.er.shield.ShieldStack;
 import net.wither.er.entity.ErEntityInterface;
-
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.bus.api.Event;
-
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.registries.Registries;
-
-import net.mcreator.er.EntityHurtEvent;
+import net.wither.er.init.ElementRegistry;
+import net.wither.er.shield.ShieldStack;
 
 import javax.annotation.Nullable;
-
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 @EventBusSubscriber
 public class EntityTickProcedure {
@@ -62,7 +57,7 @@ public class EntityTickProcedure {
 				enti.syncShield();
 		}
 		if(!world.isClientSide() && entity instanceof AuraContainerInterface auraContainerInterface){
-			auraContainerInterface.er$getAuraContainer().tick(world,x,y,z,EntityHurtEvent.getEntityLevel(entity));
+			auraContainerInterface.er$getAuraContainer().tick(world,x,y,z);
 			if (entity.getType().is(hydro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()) {
 				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.HYDRO.get(), null, 2, true, true));
 			}

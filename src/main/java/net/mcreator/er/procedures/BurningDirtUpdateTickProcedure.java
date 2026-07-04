@@ -17,7 +17,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
 
-import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.entity.MistFlowerEntity;
 import net.mcreator.er.entity.FlamingFlowerEntity;
 import net.mcreator.er.EntityHurtEvent;
@@ -64,8 +63,7 @@ public class BurningDirtUpdateTickProcedure {
 					final Vec3 _center = new Vec3((x + 0.5), (y + 1), (z + 0.5));
 					for (Entity entityiterator : world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(1 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList()) {
 						if (entityiterator instanceof LivingEntity && !(entityiterator instanceof FlamingFlowerEntity || entityiterator instanceof MistFlowerEntity)) {
-							entityiterator.hurt(new DamageSource(world.holderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:burning"))), DMGentity), (float) EntityHurtEvent.getElementalMasteryMultiply(1,
-									(DMGentity instanceof LivingEntity _livingEntity16 && _livingEntity16.getAttributes().hasAttribute(ErModAttributes.ELEMENTAL_MASTERY) ? _livingEntity16.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY) : 0)));
+							entityiterator.hurt(new DamageSource(world.holderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:burning"))), DMGentity), (float) EntityHurtEvent.getLevelMultiply(DMGentity));
 						}
 					}
 				}
@@ -74,11 +72,7 @@ public class BurningDirtUpdateTickProcedure {
 					final Vec3 _center = new Vec3((x + 0.5), (y + 1), (z + 0.5));
 					for (Entity entityiterator : world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(1 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList()) {
 						if (entityiterator instanceof LivingEntity && !(entityiterator instanceof FlamingFlowerEntity || entityiterator instanceof MistFlowerEntity)) {
-							entityiterator.hurt(new DamageSource(world.holderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:burning")))),
-									(float) EntityHurtEvent.getElementalMasteryMultiply(1,
-											(entityiterator instanceof LivingEntity _livingEntity16 && _livingEntity16.getAttributes().hasAttribute(ErModAttributes.ELEMENTAL_MASTERY)
-													? _livingEntity16.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY)
-													: 0)));
+							entityiterator.hurt(new DamageSource(world.holderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:burning")))), 1);
 						}
 					}
 				}

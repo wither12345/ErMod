@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/dark_iron_sword_2"
+  }
+}

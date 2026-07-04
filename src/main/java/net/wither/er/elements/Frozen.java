@@ -1,26 +1,24 @@
 package net.wither.er.elements;
 
-import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.LevelAccessor;
 
-import javax.annotation.Nullable;
+import java.util.Map;
 
 public class Frozen extends Element{
     private static final ResourceLocation frozenSpeed = ResourceLocation.withDefaultNamespace("er.frozen.speed") ;
     private static final ResourceLocation frozenJUMP = ResourceLocation.withDefaultNamespace("er.frozen.jump") ;
-    @Override
-    public Category getCategory() {
-        return Category.CRYO ;
+
+    public Frozen() {
+        super(Map.of());
     }
 
     @Override
-    public float reactWith(AuraContainer container, SingleElementalContainer singleElementalContainer, float strength, LevelAccessor accessor, double x, double y, double z, int level, double elemental_mastery, EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier) {
-        return 0;
+    public Category getCategory() {
+        return Category.CRYO ;
     }
 
     @Override
@@ -42,8 +40,8 @@ public class Frozen extends Element{
     }
 
     @Override
-    public void tick(AuraContainer container, ElementalAura aura, LevelAccessor accessor, double x, double y, double z, int level, boolean naturalReduction) {
-        super.tick(container, aura, accessor, x, y, z, level, naturalReduction);
+    public void tick(AuraContainer container, ElementalAura aura, LevelAccessor accessor, double x, double y, double z, boolean naturalReduction) {
+        super.tick(container, aura, accessor, x, y, z, naturalReduction);
         aura.addReduceRate(0.05f);
     }
 
@@ -56,5 +54,4 @@ public class Frozen extends Element{
     public RenderId getRenderId() {
         return RenderId.FROZEN ;
     }
-
 }

@@ -1,4 +1,4 @@
-package net.wither.er.onevent;
+package net.wither.er.entity;
 
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.world.entity.LivingEntity;

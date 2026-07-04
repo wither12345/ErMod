@@ -5,6 +5,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 
 @FunctionalInterface
-public interface WeaponAbility {
-    void modify(DamageSource source, LivingEntity entity, EntityHurtEvent.DamageModifier modifier, int level);
+public interface DamageAbility {
+    void onHurt(DamageSource source, LivingEntity entity, EntityHurtEvent.DamageModifier modifier, int level);
 }
