@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class OverloadEffect extends MobEffect {
     private static final ResourceLocation OVERLOAD = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "ability.overloaded");
     public OverloadEffect() {
-        super(MobEffectCategory.BENEFICIAL, 0xffffffff);
+        super(MobEffectCategory.BENEFICIAL, 0);
     }
 
     @Override

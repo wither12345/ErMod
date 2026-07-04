@@ -4,7 +4,6 @@ import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.init.ErModEntities;
 import net.mcreator.er.init.ErModParticleTypes;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -132,8 +131,8 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 		if (this instanceof AuraContainerInterface auraContainerInterface) {
 			if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty()) {
 				if (this.level() instanceof ServerLevel _level)
-					_level.sendParticles((SimpleParticleType) (ErModParticleTypes.P_DENDRO_EXPLOSION.get()), this.getX(), (this.getY() + 0.2), this.getZ(), 1, 0, 0, 0, 0);
-				this.explode(9f, this.getOwner());
+					_level.sendParticles(ErModParticleTypes.P_DENDRO_EXPLOSION.get(), this.getX(), (this.getY() + 0.2), this.getZ(), 1, 0, 0, 0, 0);
+				this.explode(12, this.getOwner());
 			}
 			else if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty()){
 				if (this.level() instanceof ServerLevel _level) {
@@ -147,7 +146,7 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 			}
 		}
 		if(this.surviveTime ++ > 120){
-			this.explode(6f, this.getOwner());
+			this.explode(8f, this.getOwner());
 		}
 	}
 

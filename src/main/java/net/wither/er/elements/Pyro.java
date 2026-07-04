@@ -30,7 +30,7 @@ public class Pyro extends Element{
     @Override
     public boolean shouldReact(AuraContainer container, @Nullable Entity applier) {
         if(container.getOwner() instanceof BloomEntityEntity bloom){
-            bloom.explode(9f, applier);
+            bloom.explode(12, applier);
             return false ;
         }
         return super.shouldReact(container,applier) ;
