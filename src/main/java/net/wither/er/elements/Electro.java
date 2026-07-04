@@ -97,10 +97,8 @@ public class Electro extends Element{
             if(container.getOwner() instanceof LivingEntity entity && entity.getPersistentData().getInt("Electro_Charged_Cd") <= 0){
                 entity.getPersistentData().putInt("Electro_Charged_Cd", 20);
                 LivingEntity attacker = entity.getLastAttacker();
-                entity.hurt
-                        (ElementSource.createDamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED) , attacker ,
-                                new ElementSource(ElementRegistry.ELECTRO.get() , ResourceLocation.parse("er.electro_charged.reaction") , 0, true)
-                        ),(8 * EntityHurtEvent.getLevelMultiply(EntityHurtEvent.getEntityLevel(attacker)))
+                entity.hurt(new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED) , attacker),
+                                8 * EntityHurtEvent.getLevelMultiply(EntityHurtEvent.getEntityLevel(attacker))
                 );
                 entity.setDeltaMovement(new Vec3(0, 0, 0));
                 {

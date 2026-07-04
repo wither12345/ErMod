@@ -78,8 +78,8 @@ public class EntityHurtEvent {
             }
 
             double elemental_mastery = 0 ;
-			if (sourceentity instanceof LivingEntity && ((LivingEntity) sourceentity).getAttribute(ErModAttributes.ELEMENTAL_MASTERY) != null)
-				elemental_mastery = ((LivingEntity) sourceentity).getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY);
+			if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY) != null)
+				elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY);
 			if(elementSourceInterface.getSource() != null && elementSourceInterface.getSource().getElement() != null) {
 				auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.getSource(), world, x, y, z, modifierInterface.getModifier(), sourceentity);
 				ApplyElementMultiply(elementSourceInterface.getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());

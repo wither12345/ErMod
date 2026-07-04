@@ -5,6 +5,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,8 +19,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 import net.wither.er.elements.Element;
-import net.wither.er.elements.ElementSource;
-import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -45,12 +44,7 @@ public class Hyperbloom extends Projectile {
     @Override
     public void onHitEntity(@NotNull EntityHitResult result) {
         Entity entity = result.getEntity() ;
-        entity.hurt(
-                ElementSource.createDamageSource(
-                        this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) ,
-                        this ,
-                        new ElementSource(ElementRegistry.DENDRO.get(), null , 0, false)
-                ),12 * EntityHurtEvent.getLevelMultiply(this.getOwner()));
+        entity.hurt(new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) , this),12 * EntityHurtEvent.getLevelMultiply(this.getOwner()));
         this.discard();
     }
 

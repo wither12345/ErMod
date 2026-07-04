@@ -1,0 +1,76 @@
+{
+  "items" : [
+    "er:dark_iron_sword",
+    "er:cool_steel"
+  ],
+  "ascension" : [
+    {
+      "mora": 0,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 1
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 2
+        },
+        {
+          "item": "minecraft:bone_meal",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 3
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 4
+        },
+        {
+          "item": "minecraft:bone_meal",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 6
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 6
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 1
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 12
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 6
+        }
+      ]
+    }
+  ]
+}

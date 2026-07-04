@@ -204,11 +204,8 @@ public abstract class Element {
             for (LivingEntity entityiterator : _entfound) {
                 if (EntityHurtEvent.shouldHurt(applier, entityiterator)) {
                     entityiterator.hurt(
-                            ElementSource.createDamageSource(
-                                    accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(OVERLOAD),
-                                    applier,
-                                    new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er.overloaded.reaction"), 0, true)
-                            ), 11  * EntityHurtEvent.getLevelMultiply(applier));
+                            new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(OVERLOAD), applier),
+                            11  * EntityHurtEvent.getLevelMultiply(applier));
                     entityiterator.setDeltaMovement(new Vec3((entityiterator.getDeltaMovement().x() * 3), (entityiterator.getDeltaMovement().y() * 2), (entityiterator.getDeltaMovement().z() * 3)));
                 }
             }
@@ -251,11 +248,7 @@ public abstract class Element {
         for (LivingEntity entity_iterator : _entfound) {
             if (entity_iterator != applier) {
                 entity_iterator.hurt(
-                        ElementSource.createDamageSource(
-                                accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT) ,
-                                applier ,
-                                new ElementSource(ElementRegistry.CRYO.get() , ResourceLocation.parse("er.superconduct.reaction") , 0, true)
-                        ),
+                        new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT) , applier),
                         2.4f * EntityHurtEvent.getLevelMultiply(applier));
                 if (!entity_iterator.level().isClientSide())
                     entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT, 100, 0, false, false));
