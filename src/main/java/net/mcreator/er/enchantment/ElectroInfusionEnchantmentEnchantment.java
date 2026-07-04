@@ -13,7 +13,7 @@ import net.mcreator.er.init.ErModEnchantments;
 import java.util.List;
 
 public class ElectroInfusionEnchantmentEnchantment extends Enchantment {
-	private static final EnchantmentCategory ENCHANTMENT_CATEGORY = EnchantmentCategory.create("er_electro_infusion_enchantment", item -> Ingredient.of(ItemTags.create(new ResourceLocation("enchantable/weapon"))).test(new ItemStack(item)));
+	private static final EnchantmentCategory ENCHANTMENT_CATEGORY = EnchantmentCategory.create("er_electro_infusion_enchantment", item -> Ingredient.of(ItemTags.create(new ResourceLocation("minecraft:swords"))).test(new ItemStack(item)));
 
 	public ElectroInfusionEnchantmentEnchantment() {
 		this(EquipmentSlot.MAINHAND);

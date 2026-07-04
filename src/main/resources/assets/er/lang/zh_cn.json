@@ -379,5 +379,6 @@
   "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
   "death.attack.superconduct": "%1$s died",
   "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
-  "item.er.dark_iron_sword": "暗铁剑"
+  "item.er.dark_iron_sword": "暗铁剑",
+  "effect.er.overloaded": ""
 }

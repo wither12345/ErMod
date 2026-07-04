@@ -1,5 +1,6 @@
 package net.wither.er.world.inventory;
 
+import net.mcreator.er.ERConfig;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -243,8 +244,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
             CompoundTag tag = output.getOrCreateTag();
             tag.putInt(
                     "refinement",
-                    (tag.contains("refinement") ? tag.getInt("refinement") : 1) + refine
-            );
+                    Math.min((tag.contains("refinement") ? tag.getInt("refinement") : 1) + refine, ERConfig.MAX_REFINEMENT.get()));
         }
         this.getSlot(5).set(output);
         this.broadcastChanges();

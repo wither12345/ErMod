@@ -30,7 +30,7 @@
     ],
     "supportedItems": [
       {
-        "value": "TAG:enchantable/weapon"
+        "value": "TAG:minecraft:swords"
       }
     ],
     "isTreasureEnchantment": true,

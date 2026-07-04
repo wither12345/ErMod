@@ -1,9 +1,17 @@
 {
   "replace": false,
   "values": [
+    {
+      "id": "er:waster_greatsword",
+      "required": false
+    },
     "er:hunters_bow",
     "minecraft:stone_sword",
     "minecraft:wooden_sword",
-    "minecraft:golden_sword"
+    "minecraft:golden_sword",
+    {
+      "id": "er:dull_blade",
+      "required": false
+    }
   ]
 }

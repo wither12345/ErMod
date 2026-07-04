@@ -4,6 +4,10 @@
     "minecraft:iron_leggings",
     "minecraft:iron_helmet",
     "minecraft:iron_chestplate",
+    {
+      "id": "er:silver_sword",
+      "required": false
+    },
     "minecraft:iron_sword",
     "minecraft:iron_boots"
   ]

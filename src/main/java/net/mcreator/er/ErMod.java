@@ -6,11 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.loottables.RegisterLootModifier;
 import net.wither.er.loottables.RegisterLootFunction;
-import net.wither.er.init.RecipeTypeRegister;
-import net.wither.er.init.ErMenus;
-import net.wither.er.init.ElementalAttributesRegister;
-import net.wither.er.init.ElementRegistry;
-import net.wither.er.init.AdditionalRegistries;
+import net.wither.er.init.*;
 
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.network.NetworkRegistry;
@@ -76,6 +72,7 @@ public class ErMod {
 		RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
 		RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
 		ErMenus.REGISTRY.register(bus);
+		MobEffectRegister.REGISTRY.register(bus);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ERClientConfig.SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ERConfig.SPEC);
 		// End of user code block mod init

@@ -38,7 +38,7 @@ public class SingleElementalContainer {
     public void reactBy(AuraContainer container ,ElementSource source, LevelAccessor accessor , double x , double y , double z,@Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
         float gauge_reducing = source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, damageModifier, applier);//source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, elemental_mastery, damageModifier, applier);
         source.reduce(gauge_reducing);
-        if(applier instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon instanceof ReactionAbility ability){
+        if(applier instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof ReactionAbility ability){
             CompoundTag tag = living.getMainHandItem().getOrCreateTag();
             int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
             ability.onReaction(container, source, this.category, damageModifier, applier, refinement);
