@@ -27,7 +27,7 @@ public record ErShieldData(int entityID, CompoundTag shield)  {
 		if (!Minecraft.getInstance().level.isClientSide())
 			return;
 		if(entity instanceof ErEntityInterface enti)
-			enti.setShields(data.shield);
+			enti.er$setShields(data.shield);
 		contextSupplier.get().setPacketHandled(true);
 	}
 }

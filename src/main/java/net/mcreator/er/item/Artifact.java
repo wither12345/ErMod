@@ -53,8 +53,8 @@ public class Artifact extends Item {
 		ArtifactSlot slot = data.slot() ;
 		ItemStack itemStack1 = itemStack.split(1);
 		if (livingentity instanceof ErEntityInterface entityInterface) {
-			if(entityInterface.getArtifact(slot) == ItemStack.EMPTY){
-				entityInterface.setArtifact(slot, itemStack1);
+			if(entityInterface.er$getArtifact(slot) == ItemStack.EMPTY){
+				entityInterface.er$setArtifact(slot, itemStack1);
 				entityInterface.er$updateArtifact();
 				return true ;
 			}

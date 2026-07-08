@@ -49,7 +49,7 @@ public class ErRenderers {
 
 	private static void renderShield(LivingEntity entity, PoseStack poseStack, MultiBufferSource bufferSource, LivingEntityRenderer<?,?> renderer, int light) {
 		if (entity instanceof ErEntityInterface enti) {
-			List<ErShield> shields = enti.getShields();
+			List<ErShield> shields = enti.er$getShields();
 			for (ErShield shield : shields) {
 				if (shield instanceof RenderShield rend) {
 					poseStack.pushPose();

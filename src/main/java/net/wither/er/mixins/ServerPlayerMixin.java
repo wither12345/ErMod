@@ -23,7 +23,7 @@ public abstract class ServerPlayerMixin extends LivingEntity implements ErEntity
     public void restoreFrom(ServerPlayer player, boolean flag, CallbackInfo info) {
         if(player instanceof ErEntityInterface entityInterface) {
             for (ArtifactSlot slot : ArtifactSlot.values())
-                this.setArtifact(slot, entityInterface.getArtifact(slot));
+                this.er$setArtifact(slot, entityInterface.er$getArtifact(slot));
             entityInterface.er$updateArtifact();
         }
     }
@@ -32,7 +32,7 @@ public abstract class ServerPlayerMixin extends LivingEntity implements ErEntity
     public void er$dropArtifact() {
         if (!this.level().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
             for(ArtifactSlot slot : ArtifactSlot.values())
-                this.level().addFreshEntity(new ItemEntity(level(),getX(),getY(),getZ(), this.getArtifact(slot)));
+                this.level().addFreshEntity(new ItemEntity(level(),getX(),getY(),getZ(), this.er$getArtifact(slot)));
         }
     }
 }

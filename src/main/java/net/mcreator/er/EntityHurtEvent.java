@@ -10,6 +10,7 @@
 */
 package net.mcreator.er;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.procedures.*;
 import net.minecraft.core.registries.Registries;
@@ -34,6 +35,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import net.wither.er.artifact_effect.ArtifactEffect;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
@@ -73,6 +75,14 @@ public class EntityHurtEvent {
         float crit_mult = 1;
         modifyDamageSource(damagesource) ;
         if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
+            if(sourceentity instanceof ErEntityInterface erEntityInterface){
+                Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+                for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                    if(effect.getKey() instanceof DamageAbility damageAbility){
+                        damageAbility.onHurt(damagesource, entity, modifierInterface.getModifier(), effect.getIntValue());
+                    }
+                }
+            }
             if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof DamageAbility ability) {
                 CompoundTag tag = living.getMainHandItem().getOrCreateTag();
                 int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
@@ -96,7 +106,7 @@ public class EntityHurtEvent {
 
             float final_amount = modifierInterface.getModifier().calculate(event.getAmount(), elemental_mastery) * crit_mult;
             if (entity instanceof ErEntityInterface enti) {
-                List<ShieldStack> shields = enti.getShieldStacks();
+                List<ShieldStack> shields = enti.er$getShieldStacks();
                 float shield_absorb = 0f;
                 for (ShieldStack shield : shields) {
                     if(elementSourceInterface.getSource() != null)

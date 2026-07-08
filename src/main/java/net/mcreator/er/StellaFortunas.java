@@ -14,6 +14,7 @@
 */
 package net.mcreator.er;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -32,8 +33,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.item.data.weapon.OnBurstAbility;
+import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.StellaFortunaData;
 import org.jetbrains.annotations.Nullable;
@@ -89,8 +92,19 @@ public abstract class StellaFortunas extends Item {
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
 
 	public void onBurst(LivingEntity entity){
-		if(entity instanceof ErEntityInterface entityInterface && entityInterface.er$getArtifactEffectLevel(ArtifactEffectRegistry.TRAVELING_DOCTOR.get()) > 3)
-			entity.heal(entity.getMaxHealth() * 0.2f);
+        if(entity instanceof ErEntityInterface erEntityInterface){
+            Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+            for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                if(effect.getKey() instanceof OnBurstAbility ability){
+                    ability.onBurst(entity, effect.getIntValue());
+                }
+            }
+        }
+        if(entity.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof OnBurstAbility ability){
+            CompoundTag tag = entity.getMainHandItem().getOrCreateTag();
+            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+            ability.onBurst(entity, refinement);
+        }
 	}
 
 	@Override

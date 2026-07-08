@@ -73,21 +73,21 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		super(p_19870_, p_19871_);
 	}
 
-	public List<ShieldStack> getShieldStacks() {
+	public List<ShieldStack> er$getShieldStacks() {
 		return this.er$shields;
 	}
 
-	public List<ErShield> getShields() {
+	public List<ErShield> er$getShields() {
 		List<ErShield> erShields = new ArrayList<>();
 		for (ShieldStack shield : er$shields)
 			erShields.add(shield.getShield());
 		return erShields;
 	}
 
-	public void addShield(ShieldStack shield) {
+	public void er$addShield(ShieldStack shield) {
 		shield.getShield().start(this);
 		this.er$shields.add(shield);
-		syncShield();
+		er$syncShield();
 	}
 
 	@Override
@@ -118,14 +118,14 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 
 	@Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
 	public void readAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
-		setShields(compound.getCompound("ErShield"));
+		er$setShields(compound.getCompound("ErShield"));
 
 		CompoundTag compoundtag1;
 		if (compound.contains("ArtifactItems", 9)) {
 			ListTag list_tag = compound.getList("ArtifactItems", 10);
             for(ArtifactSlot slot: ArtifactSlot.values()){
                 compoundtag1 = list_tag.getCompound(slot.getId());
-                this.setArtifact(slot, ItemStack.of(compoundtag1));
+                this.er$setArtifact(slot, ItemStack.of(compoundtag1));
             }
 
 			this.er$updateArtifact();
@@ -135,7 +135,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
     @Inject(method = "tick", at = @At("TAIL"))
     public void onTick(CallbackInfo ci){
         if(this.getHealth() != this.er$lastHealth){
-            onHealthFloating.onFloating(this);
+            onHealthFloating.onFloating((LivingEntity)(Object)this, this.getHealth() - this.er$lastHealth);
             this.er$lastHealth = getHealth();
         }
     }
@@ -160,10 +160,10 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	public void removeShield(ErShield shield) {
 		shield.end(this);
         this.er$shields.removeIf(shieldstack -> shieldstack.getShield() == shield);
-		syncShield();
+		er$syncShield();
 	}
 
-	public void setShields(CompoundTag tag) {
+	public void er$setShields(CompoundTag tag) {
 		Set<String> keys = tag.getAllKeys();
 		this.er$shields.clear();
 		for (String key : keys) {
@@ -174,10 +174,10 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 
 	public void cleanShield() {
 		er$shields.clear();
-		syncShield();
+		er$syncShield();
 	}
 
-	public void syncShield() {
+	public void er$syncShield() {
 		CompoundTag tag = new CompoundTag();
 		for (ShieldStack shield : er$shields) {
 			tag.put(ShieldRegistry.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
@@ -185,7 +185,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		ErMod.PACKET_HANDLER.send(PacketDistributor.TRACKING_ENTITY.with(() -> this), new ErShieldData(this.getId(), tag));
 	}
 
-	public void syncShield(ServerPlayer player) {
+	public void er$syncShield(ServerPlayer player) {
 		CompoundTag tag = new CompoundTag();
 		for (ShieldStack shield : er$shields) {
 			tag.put(ShieldRegistry.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
@@ -204,8 +204,8 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	}
 
 	@Override
-	public void setArtifact(ArtifactSlot slot, ItemStack itemStack) {
-		ArtifactData data = DataComponentsRegister.ARTIFACT.getData(getArtifact(slot));
+	public void er$setArtifact(ArtifactSlot slot, ItemStack itemStack) {
+		ArtifactData data = DataComponentsRegister.ARTIFACT.getData(er$getArtifact(slot));
 		if(this.level() instanceof ServerLevel && data != null)
 			data.remove((LivingEntity)(Object) this);
 		this.er$artifactItem.set(slot.getId(), itemStack.copy());
@@ -215,11 +215,16 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	}
 
 	@Override
-	public ItemStack getArtifact(ArtifactSlot slot) {
+	public ItemStack er$getArtifact(ArtifactSlot slot) {
 		return this.er$artifactItem.get(slot.getId()) ;
 	}
 
-	@Override
+    @Override
+    public Object2IntMap<ArtifactEffect> er$getEffectMap() {
+        return this.er$effectMap;
+    }
+
+    @Override
 	public void er$dropArtifact() {
 		for(ItemStack artifact : er$artifactItem){
 			this.level().addFreshEntity(new ItemEntity(level(),getX(),getY(),getZ(), artifact));
@@ -241,7 +246,6 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 			this.er$effectMap = newEffectMap;
 			er$updateArtifactAttr();
 		}
-        ArtifactEffect.BerserkerCheck(this);
 	}
 
 	@Override

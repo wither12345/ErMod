@@ -23,7 +23,7 @@ public class CryoCrystallizeTickProcedure {
 				final Vec3 _center = new Vec3(x, y, z);
 				for (Entity entityiterator : world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(1 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList()) {
 					if (entityiterator instanceof ErEntityInterface enti && (entityiterator.getStringUUID()).equals(entity.getPersistentData().getString("UUID"))) {
-						enti.addShield(new ShieldStack(ShieldRegistry.CRYO_CTYSTALLIZE.get(), entity.getPersistentData().getFloat("health"), 200));
+						enti.er$addShield(new ShieldStack(ShieldRegistry.CRYO_CTYSTALLIZE.get(), entity.getPersistentData().getFloat("health"), 200));
 						if (!entity.level().isClientSide())
 							entity.discard();
 					}

@@ -223,7 +223,7 @@ public class FatuiElectroCicinMageEntity extends CicinMage {
 		@Override
 		public boolean canContinueToUse() {
 			if (mage instanceof ErEntityInterface enti)
-				return mage.getTarget() != null && !enti.getShields().isEmpty() || time > 0;
+				return mage.getTarget() != null && !enti.er$getShields().isEmpty() || time > 0;
 			return false;
 		}
 
@@ -239,7 +239,7 @@ public class FatuiElectroCicinMageEntity extends CicinMage {
 			time--;
 			if (time == 1) {
 				if (mage.globalCd <= 0 && mage instanceof ErEntityInterface enti) {
-					enti.addShield(shield);
+					enti.er$addShield(shield);
 					for (LivingEntity i : mage.summonings) {
 						i.kill();
 					}

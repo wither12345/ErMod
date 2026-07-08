@@ -149,7 +149,7 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
             super(container, id, x, y);
             this.slot = slot;
             this.erEntityInterface = player;
-            this.container.setItem(this.getSlotIndex(), erEntityInterface.getArtifact(slot).copy());
+            this.container.setItem(this.getSlotIndex(), erEntityInterface.er$getArtifact(slot).copy());
         }
 
         @Override
@@ -161,7 +161,7 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
         @Override
         public void setChanged() {
             super.setChanged();
-            this.erEntityInterface.setArtifact(this.slot, this.getItem());
+            this.erEntityInterface.er$setArtifact(this.slot, this.getItem());
             erEntityInterface.er$updateArtifact();
         }
     }

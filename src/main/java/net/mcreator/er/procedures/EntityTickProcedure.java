@@ -43,7 +43,7 @@ public class EntityTickProcedure {
 		if (entity == null)
 			return;
 		if (entity.level() instanceof ServerLevel && entity instanceof ErEntityInterface enti) {
-			List<ShieldStack> shields = enti.getShieldStacks();
+			List<ShieldStack> shields = enti.er$getShieldStacks();
 			boolean changed = false;
 			Iterator<ShieldStack> iterator = shields.iterator();
 			while (iterator.hasNext()) {
@@ -55,7 +55,7 @@ public class EntityTickProcedure {
 				}
 			}
 			if (changed)
-				enti.syncShield();
+				enti.er$syncShield();
 		}
 		if(!world.isClientSide() && entity instanceof AuraContainerInterface auraContainerInterface){
 			auraContainerInterface.er$getAuraContainer().tick(world,x,y,z);

@@ -5203,12 +5203,12 @@
   "sound_elements": [],
   "tag_elements": {
     "ITEMS:er:one_star_weapon": [
-      "CUSTOM:DullBlade",
-      "CUSTOM:WasterGreatsword",
       "CUSTOM:HuntersBow",
       "Items.WOODEN_SWORD",
       "Items.STONE_SWORD",
-      "Items.GOLDEN_SWORD"
+      "Items.GOLDEN_SWORD",
+      "EXTERNAL:er:waster_greatsword",
+      "EXTERNAL:er:dull_blade"
     ],
     "ITEMS:er:pyro_infusion": [
       "Items.BLAZE_ROD",
@@ -5385,7 +5385,12 @@
       "~CUSTOM:DendroSword",
       "~CUSTOM:ElectroSword",
       "~CUSTOM:PyroSword",
-      "~CUSTOM:CryoSword"
+      "~CUSTOM:CryoSword",
+      "EXTERNAL:er:dull_blade",
+      "EXTERNAL:er:silver_sword",
+      "EXTERNAL:er:waster_greatsword",
+      "EXTERNAL:er:cool_steel",
+      "EXTERNAL:er:dark_iron_sword"
     ],
     "BLOCKS:minecraft:wooden_fences": [
       "CUSTOM:CuihuaFence"
@@ -5424,7 +5429,10 @@
     "DAMAGE_TYPES:er:reaction": [
       "CUSTOM:Burning",
       "CUSTOM:Overloaded",
-      "CUSTOM:ElectroCharged"
+      "CUSTOM:ElectroCharged",
+      "CUSTOM:Swirl",
+      "CUSTOM:Bloom",
+      "CUSTOM:SuperconductDMG"
     ],
     "ITEMS:er:not_enhanceable": [
       "TAG:pgc:wuqi"
@@ -5437,7 +5445,8 @@
       "Items.IRON_HELMET",
       "Items.IRON_LEGGINGS",
       "Items.IRON_CHESTPLATE",
-      "Items.IRON_BOOTS"
+      "Items.IRON_BOOTS",
+      "EXTERNAL:er:silver_sword"
     ],
     "ITEMS:er:three_star_weapon": [
       "Items.DIAMOND_SWORD",
@@ -5450,7 +5459,9 @@
       "Items.NETHERITE_HELMET",
       "Items.NETHERITE_CHESTPLATE",
       "Items.NETHERITE_LEGGINGS",
-      "Items.NETHERITE_BOOTS"
+      "Items.NETHERITE_BOOTS",
+      "EXTERNAL:er:cool_steel",
+      "EXTERNAL:er:dark_iron_sword"
     ],
     "BIOMES:er:overworld_or_nether": [
       "#minecraft:is_overworld",
@@ -5849,7 +5860,9 @@
       "death.attack.bloom.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct": "%1$s died",
-      "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s"
+      "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
+      "item.er.dark_iron_sword": "Dark Iron Sword",
+      "effect.er.overloaded": ""
     },
     "zh_cn": {
       "item.er.dendro_sword": "草元素剑",
@@ -6231,7 +6244,9 @@
       "death.attack.bloom.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct": "%1$s died",
-      "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s"
+      "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
+      "item.er.dark_iron_sword": "暗铁剑",
+      "effect.er.overloaded": ""
     }
   },
   "metadata": {
@@ -6277,7 +6292,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.0.20",
+    "version": "1.0.21",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

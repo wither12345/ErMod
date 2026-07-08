@@ -15,7 +15,7 @@ public class OnPlayerStartTracking {
 	public static void OnStartTracking(PlayerEvent.StartTracking event) {
 		Entity target = event.getTarget();
 		if (target instanceof ErEntityInterface enti && event.getEntity() instanceof ServerPlayer player) {
-			enti.syncShield(player);
+			enti.er$syncShield(player);
 			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new SyncLevelData(target.getId(), target.getPersistentData().getInt("erLevel")));
 		}
 	}
