@@ -14,35 +14,38 @@
 */
 package net.mcreator.er;
 
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.damagesource.DamageType;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
-import net.wither.er.entity.ErEntityInterface;
-
-import net.wither.er.network.StellaFortunaData;
-import net.wither.er.network.ErItemVariables;
-
-import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.api.distmarker.Dist;
-
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.core.component.DataComponents;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.data.weapon.OnBurstAbility;
+import net.wither.er.item.data.weapon.WeaponRefinement;
+import net.wither.er.network.ErItemVariables;
+import net.wither.er.network.StellaFortunaData;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -94,13 +97,23 @@ public abstract class StellaFortunas extends Item {
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
 
 	public void onBurst(LivingEntity entity){
-		if(entity instanceof ErEntityInterface entityInterface && entityInterface.er$getArtifactEffectLevel(ArtifactEffectRegistry.TRAVELING_DOCTOR) > 3)
-			entity.heal(entity.getMaxHealth() * 0.2f);
+        if(entity instanceof ErEntityInterface erEntityInterface){
+            Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+            for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
+                if(effect.getKey().value() instanceof OnBurstAbility ability){
+                    ability.onBurst(entity, effect.getIntValue());
+                }
+            }
+        }
+        WeaponRefinement refinement = entity.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
+        if(refinement != null && refinement.getAbility() instanceof OnBurstAbility ability){
+            ability.onBurst(entity, refinement.refineLevel());
+        }
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack itemstack, Item.TooltipContext context, List<Component> list, TooltipFlag flag) {
+	public void appendHoverText(ItemStack itemstack, Item.@NotNull TooltipContext context, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
 		if (itemstack.getItem() instanceof StellaFortunas stella) {
 			list.add(Component.literal("+" + new java.text.DecimalFormat("##").format(itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level"))));
 			int level = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1;

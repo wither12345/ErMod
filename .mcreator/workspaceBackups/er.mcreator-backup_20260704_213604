@@ -5421,6 +5421,18 @@
           "src/main/resources/data/er/damage_type/bloom.json"
         ]
       }
+    },
+    {
+      "name": "SuperconductDamage",
+      "type": "damagetype",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "superconduct",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/er/damage_type/superconduct.json"
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -5643,9 +5655,7 @@
       "CUSTOM:MemoryofRovingGales",
       "CUSTOM:TestStellaFortuna"
     ],
-    "ENTITIES:er:no_level": [
-      "CUSTOM:BloomEntity"
-    ],
+    "ENTITIES:er:no_level": [],
     "ITEMS:minecraft:enchantable/bow": [
       "CUSTOM:PolarStar",
       "CUSTOM:HuntersBow"
@@ -5657,7 +5667,10 @@
     "DAMAGE_TYPES:er:reaction": [
       "CUSTOM:Burning",
       "CUSTOM:Overloaded",
-      "CUSTOM:ElectroCharged"
+      "CUSTOM:ElectroCharged",
+      "CUSTOM:Swirl",
+      "CUSTOM:Bloom",
+      "CUSTOM:SuperconductDamage"
     ],
     "ITEMS:er:not_enhanceable": [
       "TAG:pgc:wuqi"
@@ -6077,7 +6090,10 @@
       "death.attack.swirl.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.bloom": "%1$s died",
       "death.attack.bloom.item": "%1$s was killed by %2$s using %3$s",
-      "death.attack.bloom.player": "%1$s died whilst trying to escape %2$s"
+      "death.attack.bloom.player": "%1$s died whilst trying to escape %2$s",
+      "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
+      "death.attack.superconduct": "%1$s died",
+      "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s"
     },
     "zh_cn": {
       "item.er.dendro_sword": "草元素剑",
@@ -6461,7 +6477,10 @@
       "death.attack.swirl.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.bloom": "%1$s died",
       "death.attack.bloom.item": "%1$s was killed by %2$s using %3$s",
-      "death.attack.bloom.player": "%1$s died whilst trying to escape %2$s"
+      "death.attack.bloom.player": "%1$s died whilst trying to escape %2$s",
+      "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
+      "death.attack.superconduct": "%1$s died",
+      "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s"
     }
   },
   "metadata": {

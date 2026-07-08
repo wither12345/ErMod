@@ -67,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		super(p_19870_, p_19871_);
 	}
 
-	public List<ShieldStack> er$getShieldStacks() {
+    public List<ShieldStack> er$getShieldStacks() {
 		return this.er$shields;
 	}
 
@@ -130,7 +130,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
     @Inject(method = "tick", at = @At("TAIL"))
     public void onTick(CallbackInfo ci){
         if(this.getHealth() != this.er$lastHealth){
-            onHealthFloating.onFloating(this);
+            onHealthFloating.onFloating((LivingEntity) (Object)this, this.getHealth() - this.er$lastHealth);
             this.er$lastHealth = getHealth();
         }
     }
@@ -236,7 +236,11 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		return er$effectMap.getOrDefault(effectHolder, 0) ;
 	}
 
-	@Unique
+    public Object2IntMap<Holder<ArtifactEffect>> er$getEffectMap() {
+        return er$effectMap;
+    }
+
+    @Unique
     private void er$removeArtifactAttr(){
 		AttributeMap attributeMap = this.getAttributes() ;
 		for(Object2IntMap.Entry<Holder<ArtifactEffect>> holderEntry : er$effectMap.object2IntEntrySet()){
@@ -254,6 +258,5 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 			if(effect instanceof TwoSetAttrEffect attrEffect)
 				attrEffect.addAttributeModifiers(attributeMap, holderEntry.getIntValue());
 		}
-        ArtifactEffect.berserkerCheck(this);
 	}
 }

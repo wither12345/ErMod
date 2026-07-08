@@ -1,5 +1,6 @@
 package net.wither.er.entity;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +22,7 @@ public interface ErEntityInterface {
     void syncShield(ServerPlayer player) ;
     void setArtifact(ArtifactSlot slot, ItemStack itemStack) ;
     ItemStack er$getArtifact(ArtifactSlot slot);
+    Object2IntMap<Holder<ArtifactEffect>> er$getEffectMap();
     void er$dropArtifact() ;
     void updateArtifact();
     int er$getArtifactEffectLevel(Holder<ArtifactEffect> effectHolder);

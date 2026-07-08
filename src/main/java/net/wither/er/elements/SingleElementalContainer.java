@@ -1,10 +1,14 @@
 package net.wither.er.elements;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.EntityHurtEvent;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
+import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.item.data.weapon.ReactionAbility;
@@ -38,6 +42,14 @@ public class SingleElementalContainer {
     public void reactBy(AuraContainer container ,ElementSource source, LevelAccessor accessor , double x , double y , double z,@Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
         float gauge_reducing = source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, damageModifier, applier);//source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, elemental_mastery, damageModifier, applier);
         source.reduce(gauge_reducing);
+        if(applier instanceof ErEntityInterface erEntityInterface){
+            Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+            for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
+                if(effect.getKey().value() instanceof ReactionAbility reactionAbility){
+                    reactionAbility.onReaction(container, source, this.category, damageModifier, applier, effect.getIntValue());
+                }
+            }
+        }
         if(applier instanceof LivingEntity living){
             WeaponRefinement refinement = living.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
             if(refinement != null && refinement.getAbility() instanceof ReactionAbility reactionAbility)
@@ -134,7 +146,7 @@ public class SingleElementalContainer {
             if(entry.getKey().independent()){
                 ElementalAura aura = entry.getValue() ;
                 if(aura.getGauge() > guage){
-                    flag |= aura.reduce(guage);
+                    flag = aura.reduce(guage);
                     guage = 0 ;
                 }
                 else {

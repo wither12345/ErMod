@@ -10,8 +10,10 @@
 */
 package net.mcreator.er;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.procedures.*;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -35,6 +37,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.wither.er.artifact_effect.ArtifactEffect;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
@@ -71,7 +74,15 @@ public class EntityHurtEvent {
 		float crit_mult = 1;
 		modifyDamageSource(damagesource) ;
 		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
-			if(sourceentity instanceof LivingEntity living) {
+            if(sourceentity instanceof ErEntityInterface erEntityInterface){
+                Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+                for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
+                    if(effect.getKey().value() instanceof DamageAbility damageAbility){
+                        damageAbility.onHurt(damagesource, entity, modifierInterface.getModifier(), effect.getIntValue());
+                    }
+                }
+            }
+            if(sourceentity instanceof LivingEntity living) {
                 WeaponRefinement refinement = living.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
                 if (refinement != null && refinement.getAbility() instanceof DamageAbility damageAbility)
                     damageAbility.onHurt(damagesource, entity, modifierInterface.getModifier(), refinement.refineLevel());
@@ -200,7 +211,7 @@ public class EntityHurtEvent {
 			} else if (IsPyroInfusionProcedure.execute(world, entity)) {
 				return 7;
 			}
-		} else {
+		} else if(immediatesourceentity != null){
 			if (immediatesourceentity instanceof LargeFireball || immediatesourceentity instanceof SmallFireball) {
 				return 7;
 			} else {
