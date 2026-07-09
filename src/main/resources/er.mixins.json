@@ -14,8 +14,10 @@
     "ServerPlayerMixin"
   ],
   "client": [
-    "PlayerModelMixin",
-    "LocalPlayerMixin"
+    "BakedGlyphMixin",
+    "FontMixin",
+    "LocalPlayerMixin",
+    "PlayerModelMixin"
   ],
   "minVersion": "0.8"
 }

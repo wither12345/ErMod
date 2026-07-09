@@ -31,4 +31,6 @@ authors="wither123, MCreator"
 
 
 # Start of user code block dependencies configuration
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 # End of user code block dependencies configuration

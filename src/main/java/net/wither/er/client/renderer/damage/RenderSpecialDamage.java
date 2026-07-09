@@ -121,8 +121,8 @@ public class RenderSpecialDamage {
         }
 
         public boolean accept(int p_92967_, Style style, int p_92969_) {
-            FontSet fontset = font.getFontSet(style.getFont());
-            GlyphInfo glyphinfo = fontset.getGlyphInfo(p_92969_, font.filterFishyGlyphs);
+            FontSet fontset = ((FontAccessor)font).er$callGetFontSet(style.getFont());
+            GlyphInfo glyphinfo = fontset.getGlyphInfo(p_92969_,  ((FontAccessor)font).er$getFilterFishyGlyphs());
             BakedGlyph bakedglyph = style.isObfuscated() && p_92969_ != 32 ? fontset.getRandomGlyph(glyphinfo) : fontset.getGlyph(p_92969_);
             boolean flag = style.isBold();
             TextColor textcolor = style.getColor();

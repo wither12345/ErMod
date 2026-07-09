@@ -279,7 +279,7 @@ public class EntityHurtEvent {
         public float res_multiply = 1;
         public float additional_amount = 0;
         public ReactionMultiply multiply = null;
-        private RenderDamageAmount.DamageDisplayType type;
+        private RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
             return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? 1 : multiply.getMulti(elementalMastery)) - 1) * common_multiply * res_multiply;
