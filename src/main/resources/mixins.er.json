@@ -16,6 +16,7 @@
     "ServerPlayerMixin"
   ],
   "client": [
+    "BakedGlyphMixin",
     "PlayerModelMixin"
   ],
   "minVersion": "0.8"

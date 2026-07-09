@@ -9,10 +9,10 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.wither.er.client.renderer.RenderDamageAmount;
+import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.client.screens.ErOverlay;
 
-public record DamageDisplayMessage(int damage , int id , int color , boolean critical)  implements CustomPacketPayload {
+public record DamageDisplayMessage(int damage , int id , int color , boolean critical, RenderDamageAmount.DamageDisplayType damageDisplayType)  implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<DamageDisplayMessage> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("er", "damage_display"));
     public static final StreamCodec<ByteBuf, DamageDisplayMessage> STREAM_CODEC = StreamCodec.composite(
             // damage
@@ -22,10 +22,20 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
             // color
             ByteBufCodecs.VAR_INT, DamageDisplayMessage::color,
             ByteBufCodecs.BOOL, DamageDisplayMessage::critical,
+            ByteBufCodecs.INT, DamageDisplayMessage::getType,
             DamageDisplayMessage::new);
+
+    public DamageDisplayMessage(int damage , int id , int color , boolean critical, int type){
+        this(damage, id, color, critical, RenderDamageAmount.DamageDisplayType.values()[type]);
+    }
+
     @Override
     public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return TYPE;
+    }
+
+    private int getType(){
+        return damageDisplayType.ordinal();
     }
 
     public static void handle(final DamageDisplayMessage data, final IPayloadContext context) {
@@ -35,7 +45,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
         }
         else if(entity != null && entity.level() instanceof ClientLevel) {
             context.enqueueWork(() -> {
-                RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5 , entity.getY() + 2, entity.getZ() + Math.random() - 0.5 , data.critical());
+                RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5 , entity.getY() + 2, entity.getZ() + Math.random() - 0.5 , data.critical(), data.damageDisplayType());
             });
         }
     }

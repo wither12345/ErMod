@@ -1,4 +1,4 @@
-package net.wither.er.client.renderer;
+package net.wither.er.client.renderer.damge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -8,6 +8,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,9 +22,9 @@ import java.util.List;
 public class RenderDamageAmount {
     private static final List<DamageAmount> damageNumbers = new ArrayList<>();
 
-    public static void addDamage(int damage, int color, double x, double y, double z , boolean critical){
+    public static void addDamage(int damage, int color, double x, double y, double z , boolean critical, DamageDisplayType type){
         if (Minecraft.getInstance().level != null) {
-            damageNumbers.add(new DamageAmount(Minecraft.getInstance().level.getGameTime() ,damage, color, x, y, z , critical)) ;
+            damageNumbers.add(new DamageAmount(Minecraft.getInstance().level.getGameTime() ,damage, color, x, y, z , critical, type)) ;
         }
     }
 
@@ -40,27 +41,22 @@ public class RenderDamageAmount {
                 else if(ERClientConfig.DAMAGE_DISPLAY.get())
                     damageAmount.render(event.getCamera(),bufferSource,event.getPartialTick().getGameTimeDeltaTicks());
             }
-
-            /*
-            Font font = Minecraft.getInstance().font;
-            font.drawInBatch("level", 0, 0, 553648127, false,new Matrix4f(), bufferSource, Font.DisplayMode.NORMAL, 0x00000000, 15728880);
-            bufferSource.endBatch();
-             */
         }
     }
 
     public static class DamageAmount{
-        final long added_tick;
-        final int damage;
-        final int color ;
-        final double x;
-        final double y;
-        final double z;
-        final boolean critical ;
+        private final long added_tick;
+        private final int damage;
+        private final int color ;
+        private final double x;
+        private final double y;
+        private final double z;
+        private final boolean critical ;
         private static final int maxTime = 20 ;
         private float size;
+        private final DamageDisplayType type;
 
-        public DamageAmount(long added_tick, int amount, int color, double x, double y, double z, boolean critical) {
+        public DamageAmount(long added_tick, int amount, int color, double x, double y, double z, boolean critical, DamageDisplayType type) {
             this.added_tick = added_tick;
             this.damage = amount;
             this.color = color;
@@ -72,6 +68,7 @@ public class RenderDamageAmount {
                 this.size = 0.24f ;
             else
                 this.size = 0 ;
+            this.type = type;
         }
 
         public boolean check(long now_time){
@@ -84,7 +81,7 @@ public class RenderDamageAmount {
             RenderSystem.defaultBlendFunc();
             String s = String.valueOf(damage);
 
-            renderFloatingText(bufferSource, camera, s, x, y, z, color ,calculateSize(partialTick));
+            RenderSpecialDamage.renderLunarText(bufferSource, camera, s, x, y, z, color ,calculateSize(partialTick), type);
         }
 
         private static void renderFloatingText(MultiBufferSource source , Camera camera, String string, double x, double y, double z, int color, float scaling) {
@@ -100,7 +97,10 @@ public class RenderDamageAmount {
                 pose.mulPose(camera.rotation());
                 pose.scale(scaling, -scaling, scaling);
                 float f =(float) (-font.width(string)) / 2.0F ;
+
+                ShaderInstance oldShader = RenderSystem.getShader();
                 font.drawInBatch(string, f, 0.0F, color, false, pose.last().pose(), source, Font.DisplayMode.SEE_THROUGH , 0, 15728880);
+                RenderSystem.setShader(() -> oldShader);
                 pose.popPose();
             }
         }
@@ -121,5 +121,11 @@ public class RenderDamageAmount {
             }
             return size ;
         }
+    }
+
+    public enum DamageDisplayType{
+        NORMAL,
+        LUNAR,
+        STELLAR
     }
 }

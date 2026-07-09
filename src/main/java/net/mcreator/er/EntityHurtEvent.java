@@ -38,6 +38,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
@@ -124,7 +125,7 @@ public class EntityHurtEvent {
 	public static void afterDamage(LivingDamageEvent.Post event){
 		int dmg = Mth.ceil(event.getNewDamage()) ;
 		if(event.getSource() instanceof DamageModifierInterface modifierInterface && dmg > 0) {
-			PacketDistributor.sendToAllPlayers(new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(event.getSource()), modifierInterface.getModifier().critical));
+			PacketDistributor.sendToAllPlayers(new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(event.getSource()), modifierInterface.getModifier().critical, modifierInterface.getModifier().type));
 		}
 	}
 
@@ -278,6 +279,7 @@ public class EntityHurtEvent {
         public float res_multiply = 1;
         public float additional_amount = 0;
         public ReactionMultiply multiply = null;
+        public RenderDamageAmount.DamageDisplayType type;
 
         public float calculate(float dmg, double elementalMastery){
             return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? 1 : multiply.getMulti(elementalMastery)) - 1) * common_multiply * res_multiply;

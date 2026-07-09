@@ -30,7 +30,7 @@ public class Berserker extends TwoSetAttrEffect implements HealthFloatingAbility
             AttributeInstance instance = entity.getAttribute(ErModAttributes.CRIT_RATE);
             if(instance == null) return;
             if (entity.getHealth() <= entity.getMaxHealth() * 0.7)
-                instance.addPermanentModifier(MODIFIER_LOW);
+                instance.addTransientModifier(MODIFIER_LOW);
         }
     }
 }
