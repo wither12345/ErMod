@@ -6,14 +6,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
-import net.wither.er.client.renderer.RenderDamageAmount;
+import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.client.screens.ErOverlay;
 
 import java.util.function.Supplier;
 
-public record DamageDisplayMessage(int damage , int id , int color , boolean critical){
+public record DamageDisplayMessage(int damage , int id , int color , boolean critical, RenderDamageAmount.DamageDisplayType type){
     public DamageDisplayMessage(FriendlyByteBuf buffer) {
-        this(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean());
+        this(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), RenderDamageAmount.DamageDisplayType.values()[buffer.readInt()]);
     }
 
     public static void buffer(DamageDisplayMessage message, FriendlyByteBuf buffer) {
@@ -21,6 +21,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
         buffer.writeInt(message.id());
         buffer.writeInt(message.color());
         buffer.writeBoolean(message.critical());
+        buffer.writeInt(message.type().ordinal());
     }
 
     public static void handle(final DamageDisplayMessage data, final Supplier<NetworkEvent.Context> contextSupplier) {
@@ -33,7 +34,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
                 if (entity == Minecraft.getInstance().player) {
                     ErOverlay.updateDamage(data.damage(), data.color());
                 } else if (entity != null && entity.level() instanceof ClientLevel) {
-                    RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5, entity.getY() + 2, entity.getZ() + Math.random() - 0.5, data.critical());
+                    RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5, entity.getY() + 2, entity.getZ() + Math.random() - 0.5, data.critical(), data.type());
                 }
             });
         }

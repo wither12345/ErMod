@@ -1,18 +1,15 @@
-package net.wither.er.client.renderer;
+package net.wither.er.client.renderer.damage;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.er.ERClientConfig;
 import net.mcreator.er.ErMod;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.joml.Matrix4f;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,9 +21,9 @@ public class RenderDamageAmount {
     static float p_tick = 0 ;
     private static final List<DamageAmount> damageNumbers = new ArrayList<>();
 
-    public static void addDamage(int damage, int color, double x, double y, double z , boolean critical){
+    public static void addDamage(int damage, int color, double x, double y, double z , boolean critical, DamageDisplayType type){
         if (Minecraft.getInstance().level != null) {
-            damageNumbers.add(new DamageAmount(Minecraft.getInstance().level.getGameTime() ,damage, color, x, y, z , critical)) ;
+            damageNumbers.add(new DamageAmount(Minecraft.getInstance().level.getGameTime() ,damage, color, x, y, z , critical, type)) ;
         }
     }
 
@@ -61,17 +58,18 @@ public class RenderDamageAmount {
     }
 
     public static class DamageAmount{
-        final long added_tick;
-        final int damage;
-        final int color ;
-        final double x;
-        final double y;
-        final double z;
-        final boolean critical ;
+        private final long added_tick;
+        private final int damage;
+        private final int color ;
+        private final double x;
+        private final double y;
+        private final double z;
+        private final boolean critical ;
         private static final int maxTime = 20 ;
         private float size;
+        private final DamageDisplayType type;
 
-        public DamageAmount(long added_tick, int amount, int color, double x, double y, double z, boolean critical) {
+        public DamageAmount(long added_tick, int amount, int color, double x, double y, double z, boolean critical, DamageDisplayType type) {
             this.added_tick = added_tick;
             this.damage = amount;
             this.color = color;
@@ -83,6 +81,7 @@ public class RenderDamageAmount {
                 this.size = 0.24f ;
             else
                 this.size = 0 ;
+            this.type = type;
         }
 
         public boolean check(long now_time){
@@ -95,25 +94,7 @@ public class RenderDamageAmount {
             RenderSystem.defaultBlendFunc();
             String s = String.valueOf(damage);
 
-            renderFloatingText(stack, bufferSource , s, x, y, z, color ,calculateSize(partialTick));
-        }
-
-        public static void renderFloatingText(PoseStack poseStack, MultiBufferSource bufferSource, String string, double x, double y, double z, int color, float scaling) {
-            Minecraft minecraft = Minecraft.getInstance();
-            Camera camera = minecraft.gameRenderer.getMainCamera();
-            if (camera.isInitialized()) {
-                Font font = minecraft.font;
-                double d0 = camera.getPosition().x;
-                double d1 = camera.getPosition().y;
-                double d2 = camera.getPosition().z;
-                poseStack.pushPose();
-                poseStack.translate((float) (x - d0), (float) (y - d1), (float) (z - d2));
-                poseStack.mulPoseMatrix((new Matrix4f()).rotation(camera.rotation()));
-                poseStack.scale(-scaling, -scaling, -scaling);
-                float f =(float) (-font.width(string)) / 2.0F ;
-                font.drawInBatch(string, f, 0.0F, color, false, poseStack.last().pose(), bufferSource, Font.DisplayMode.SEE_THROUGH, 0, 15728880);
-                poseStack.popPose();
-            }
+            RenderSpecialDamage.renderLunarText(stack, bufferSource , s, x, y, z, color ,calculateSize(partialTick), type);
         }
 
         @Override
@@ -132,5 +113,11 @@ public class RenderDamageAmount {
             }
             return size ;
         }
+    }
+
+    public enum DamageDisplayType{
+        NORMAL,
+        LUNAR,
+        STELLAR
     }
 }

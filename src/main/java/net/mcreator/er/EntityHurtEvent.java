@@ -36,6 +36,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
@@ -123,7 +124,7 @@ public class EntityHurtEvent {
 	public static void afterDamage(LivingDamageEvent event){
 		int dmg = Mth.ceil(event.getAmount()) ;
 		if(event.getSource() instanceof DamageModifierInterface modifierInterface && dmg > 0) {
-			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(event.getSource()), modifierInterface.getModifier().critical));
+			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(event.getSource()), modifierInterface.getModifier().critical, modifierInterface.getModifier().type));
 		}
 	}
 
@@ -278,6 +279,7 @@ public class EntityHurtEvent {
         public float res_multiply = 1;
         public float additional_amount = 0;
         public ReactionMultiply multiply = null;
+        private RenderDamageAmount.DamageDisplayType type;
 
         public float calculate(float dmg, double elementalMastery){
             return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? 1 : multiply.getMulti(elementalMastery)) - 1) * common_multiply * res_multiply;

@@ -29,7 +29,13 @@ public class EnergyOrbRenderer extends EntityRenderer<EnergyOrb> {
 	}
 
 	private static void vertex(VertexConsumer p_254515_, Matrix4f p_253946_, Matrix3f p_253754_, float p_253952_, float p_254066_, int p_254283_, int p_254566_, int p_253882_, float p_254434_, float p_254223_, int p_254372_) {
-		p_254515_.vertex(p_253946_, p_253952_, p_254066_, 0.0F).color(p_254283_, p_254566_, p_253882_, 128).uv(p_254434_, p_254223_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_254372_).normal(p_253754_, 0.0F, 1.0F, 0.0F).endVertex();
+		p_254515_
+                .vertex(p_253946_, p_253952_, p_254066_, 0.0F)
+                .color(p_254283_, p_254566_, p_253882_, 128)
+                .uv(p_254434_, p_254223_)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(p_254372_).normal(p_253754_, 0.0F, 1.0F, 0.0F)
+                .endVertex();
 	}
 
 	protected int getBlockLightLevel(@NotNull EnergyOrb orb, @NotNull BlockPos pos) {
