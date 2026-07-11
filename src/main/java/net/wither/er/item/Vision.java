@@ -1,8 +1,7 @@
 package net.wither.er.item;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryFriendlyByteBuf;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
@@ -12,19 +11,13 @@ import net.wither.er.init.DataComponentsRegister;
 import org.jetbrains.annotations.NotNull;
 
 public class Vision extends Item {
-    public static final Codec<Frame> FRAME_CODEC = RecordCodecBuilder.create(instance ->
-            instance.group(
-                    Codec.STRING.fieldOf("frame").forGetter(Frame::getName)
-            ).apply(instance, Frame::fromString)
-    );
-    public static final StreamCodec<RegistryFriendlyByteBuf, Frame> FRAME_STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.INT, Frame::ordinal,
-            Frame::fromId
-    );
+    public static final Codec<Frame> FRAME_CODEC = Codec.STRING.xmap(Frame::fromString, Frame::getName);
+    public static final StreamCodec<ByteBuf, Frame> FRAME_STREAM_CODEC = ByteBufCodecs.INT.map(Frame::fromId, Frame::ordinal);
+
     private final Element.Category category;
 
     public Vision(Element.Category category) {
-        super(new Item.Properties().stacksTo(1).component(DataComponentsRegister.VISION_FRAME, Frame.MOON_WHEEL));
+        super(new Item.Properties().stacksTo(1).component(DataComponentsRegister.VISION_FRAME, Frame.MONDSTADT));
         this.category = category;
     }
 

@@ -16,6 +16,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -45,12 +46,12 @@ public class EmptyPotionRecipe implements IBrewingRecipe {
     }
 
     @Override
-    public boolean isIngredient(ItemStack ingredient) {
+    public boolean isIngredient(@NotNull ItemStack ingredient) {
         return Ingredient.of(new ItemStack(potIngredient)).test(ingredient);
     }
 
     @Override
-    public ItemStack getOutput(ItemStack input, ItemStack ingredient) {
+    public @NotNull ItemStack getOutput(@NotNull ItemStack input, @NotNull ItemStack ingredient) {
         if (isInput(input) && isIngredient(ingredient)) {
             return PotionContents.createItemStack(input.getItem(), pot);
         }

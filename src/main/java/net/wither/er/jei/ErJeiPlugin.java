@@ -29,6 +29,7 @@ public class ErJeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new WeaponAscension(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new AlchemyConverting(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new VisionFrameRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -38,6 +39,8 @@ public class ErJeiPlugin implements IModPlugin {
 
         List<AlchemyConvertingRecipe> alchemyConvertingRecipes = AlchemyConvertingRecipeListener.getRecipeList();
         registration.addRecipes(AlchemyConvertingType, alchemyConvertingRecipes);
+
+
     }
 
     @Override

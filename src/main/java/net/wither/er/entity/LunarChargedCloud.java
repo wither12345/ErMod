@@ -2,6 +2,7 @@ package net.wither.er.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -37,7 +38,7 @@ public class LunarChargedCloud extends Entity{
     public void tick() {
         super.tick();
         activeTime ++ ;
-        if(activeTime > 200){
+        if(activeTime > 200 && this.level() instanceof ServerLevel){
             this.discard();
         }
     }

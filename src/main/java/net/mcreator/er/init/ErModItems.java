@@ -325,13 +325,12 @@ public class ErModItems {
 	public static final DeferredItem<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword", () -> new SwordItem(ErTiers.STAR_3,
 			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DARK_IRON, ErModItems.DARK_IRON_SWORD, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
 	public static final DeferredItem<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
-    public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
-    public static final DeferredItem<Item> ANEMO_VISION = REGISTRY.register("anemo_vision", () -> new Vision(Element.Category.ANEMO));
-    public static final DeferredItem<Item> GEO_VISION = REGISTRY.register("geo_vision", () -> new Vision(Element.Category.GEO));
-    public static final DeferredItem<Item> HYDRO_VISION = REGISTRY.register("hydro_vision", () -> new Vision(Element.Category.HYDRO));
-    public static final DeferredItem<Item> DENDRO_VISION = REGISTRY.register("dendro_vision", () -> new Vision(Element.Category.DENDRO));
-    public static final DeferredItem<Item> ELECTRO_VISION = REGISTRY.register("electro_vision", () -> new Vision(Element.Category.ELECTRO));
-
+	public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
+	public static final DeferredItem<Item> ANEMO_VISION = REGISTRY.register("anemo_vision", () -> new Vision(Element.Category.ANEMO));
+	public static final DeferredItem<Item> GEO_VISION = REGISTRY.register("geo_vision", () -> new Vision(Element.Category.GEO));
+	public static final DeferredItem<Item> HYDRO_VISION = REGISTRY.register("hydro_vision", () -> new Vision(Element.Category.HYDRO));
+	public static final DeferredItem<Item> DENDRO_VISION = REGISTRY.register("dendro_vision", () -> new Vision(Element.Category.DENDRO));
+	public static final DeferredItem<Item> ELECTRO_VISION = REGISTRY.register("electro_vision", () -> new Vision(Element.Category.ELECTRO));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
@@ -345,18 +344,18 @@ public class ErModItems {
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
-            registerVision(PYRO_VISION.get());
-            registerVision(CRYO_VISION.get());
-            registerVision(ANEMO_VISION.get());
-            registerVision(GEO_VISION.get());
-            registerVision(HYDRO_VISION.get());
-            registerVision(DENDRO_VISION.get());
-            registerVision(ELECTRO_VISION.get());
-        }
+			registerVision(PYRO_VISION.get());
+			registerVision(CRYO_VISION.get());
+			registerVision(ANEMO_VISION.get());
+			registerVision(GEO_VISION.get());
+			registerVision(HYDRO_VISION.get());
+			registerVision(DENDRO_VISION.get());
+			registerVision(ELECTRO_VISION.get());
+		}
 
-        private static void registerVision(Item vision){
-            ItemProperties.register(vision, ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "vision_frame"), (itemStackToRender, clientWorld, entity, itemEntityId) -> Vision.Frame.getId(itemStackToRender));
-        }
+		private static void registerVision(Item vision) {
+			ItemProperties.register(vision, ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "vision_frame"), (itemStackToRender, clientWorld, entity, itemEntityId) -> Vision.Frame.getId(itemStackToRender));
+		}
 
 		private static void registerBowItem(Item bowItem) {
 			ItemProperties.register(bowItem, ResourceLocation.parse("er:ascension"), (itemStackToRender, clientWorld, entity, itemEntityId) -> getAscension(itemStackToRender));

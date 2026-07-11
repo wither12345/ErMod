@@ -20,13 +20,18 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.LunarChargedCloud;
+import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.item.Vision;
+import net.wither.er.network.ErItemVariables;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -44,6 +49,7 @@ public abstract class Element {
     public static final ResourceKey<DamageType> SWIRL = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:swirl"));
     public static final ResourceKey<DamageType> BLOOM = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:bloom"));
     public static final ResourceKey<DamageType> SUPERCONDUCT = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:superconduct"));
+    public static final ResourceKey<DamageType> LUNAR_CHARGED = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:lunar_charged"));
     public static final TagKey<EntityType<?>> INERT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:inert"));
 
 
@@ -119,6 +125,10 @@ public abstract class Element {
         return gauge_reduction ;
     }
 
+    public static boolean isLunar(Entity entity){
+        return entity instanceof Player player && player.getData(ErItemVariables.PLAYER_VARIABLES).Vision.get(DataComponentsRegister.VISION_FRAME) == Vision.Frame.MOON_WHEEL;
+    }
+
     public static float reacting(float gauge , SingleElementalContainer container){
         return reacting(gauge,container,1) ;
     }
@@ -168,6 +178,30 @@ public abstract class Element {
             damageModifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
         }
         return reacting(gauge , singleElementalContainer , 0.5f) ;
+    }
+
+    protected static float electroCharged(AuraContainer container ,
+                                          SingleElementalContainer singleElementalContainer ,
+                                          float gauge,
+                                          LevelAccessor accessor ,
+                                          double x ,
+                                          double y ,
+                                          double z,
+                                          EntityHurtEvent.DamageModifier damageModifier,
+                                          @Nullable Entity applier){
+        if(container.getOwner() instanceof LivingEntity entity && accessor instanceof ServerLevel level){
+            if(isLunar(applier)){
+                final Vec3 _center = new Vec3(x, y, z);
+                List<LunarChargedCloud> clouds = accessor.getEntitiesOfClass(LunarChargedCloud.class, new AABB(_center, _center).inflate(20 / 2d), e -> true);
+                if(clouds.isEmpty()){
+                    ErModEntities.LUNAR_CLOUD.get().spawn(level, entity.getOnPos().above(5), MobSpawnType.MOB_SUMMONED);
+                }
+                else {
+                    clouds.forEach(LunarChargedCloud::refresh);
+                }
+            }
+        }
+        return 0;
     }
 
     protected static float burning(AuraContainer container ,

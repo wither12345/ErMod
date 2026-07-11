@@ -59,6 +59,7 @@ public class EntityHurtEvent {
 	private static final TagKey<DamageType> NO_CRITICAL = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:no_critical")) ;
     private static final TagKey<DamageType> CATALYZE = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:reaction_multiply/catalyze")) ;
     private static final TagKey<DamageType> TRANSFORMATIVE = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:reaction_multiply/transformative")) ;
+    private static final TagKey<DamageType> LUNAR = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:lunar")) ;
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingIncomingDamageEvent event) {
 		if (event == null)
@@ -139,7 +140,7 @@ public class EntityHurtEvent {
                     gauge = category.getAura(source);
                     Element element = category.getDefault();
                     elementSourceInterface.er$setElement(new ElementSource(element, ResourceLocation.parse("er:default"), gauge, element.isApplicable()));
-                    return;
+                    break;
                 }
             }
             if(source.getDirectEntity() instanceof ElementSourceInterface elementSourceInterface1){
@@ -157,6 +158,10 @@ public class EntityHurtEvent {
                 modifierInterface.getModifier().multiply = ReactionMultiply.CATALYZE;
             if(source.is(TRANSFORMATIVE))
                 modifierInterface.getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
+            if(source.is(LUNAR)) {
+                modifierInterface.getModifier().multiply = ReactionMultiply.VARIANT;
+                modifierInterface.getModifier().type = RenderDamageAmount.DamageDisplayType.LUNAR;
+            }
         }
     }
 
@@ -287,6 +292,7 @@ public class EntityHurtEvent {
         AMPLIFYING(2.78f, 1400),//Melt Vaporize
         CATALYZE(5, 1200),//Spread Aggravate
         TRANSFORMATIVE(16, 2000),//Overloaded, Superconduct, Electro-Charged, Burning, Shattered, Swirl, Bloom, Hyperbloom, Burgeon
+        VARIANT(6, 2000),
         CRYSTALLIZE(4.44f, 1400);
 
         private final float maxMultiply;

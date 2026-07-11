@@ -14,6 +14,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
+import org.jetbrains.annotations.NotNull;
 
 
 public class MobDropLootModifier extends LootModifier {
@@ -30,7 +31,7 @@ public class MobDropLootModifier extends LootModifier {
     }
 
     @Override
-    protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> objectArrayList, LootContext lootContext) {
+    protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> objectArrayList, LootContext lootContext) {
         if(lootContext.hasParam(LootContextParams.THIS_ENTITY)) {
             Entity entity = lootContext.getParam(LootContextParams.THIS_ENTITY);
             if(!(entity instanceof TrounceBlossomEntity)) {

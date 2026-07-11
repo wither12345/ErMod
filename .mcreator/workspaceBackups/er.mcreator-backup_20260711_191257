@@ -5193,6 +5193,18 @@
           "src/main/resources/data/er/damage_type/superconduct.json"
         ]
       }
+    },
+    {
+      "name": "LunarCharged",
+      "type": "damagetype",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lunar_charged",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/er/damage_type/lunar_charged.json"
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -5411,7 +5423,12 @@
     ],
     "DAMAGE_TYPES:er:no_critical": [
       "CUSTOM:Reaction",
-      "#er:reaction"
+      "CUSTOM:Burning",
+      "CUSTOM:Overloaded",
+      "CUSTOM:ElectroCharged",
+      "CUSTOM:Swirl",
+      "CUSTOM:Bloom",
+      "CUSTOM:SuperconductDamage"
     ],
     "DAMAGE_TYPES:er:reaction": [
       "CUSTOM:Burning",
@@ -5456,11 +5473,28 @@
     ],
     "ITEMS:minecraft:logs": [
       "CUSTOM:CuihuaLog"
+    ],
+    "DAMAGE_TYPES:er:lunar": [
+      "CUSTOM:LunarCharged"
     ]
   },
   "tab_element_order": {},
   "language_map": {
     "en_us": {
+      "item.er.pyro_vision": "Pyro Vision",
+      "item.er.hydro_vision": "Hydro Vision",
+      "item.er.cryo_vision": "Cryo Vision",
+      "item.er.electro_vision": "Electro Vision",
+      "item.er.dendro_vision": "Dendro Vision",
+      "item.er.geo_vision": "Geo Vision",
+      "item.er.anemo_vision": "Anemo Vision",
+      "item.er.pyro_moon_wheel": "Pyro Moon Wheel",
+      "item.er.hydro_moon_wheel": "Hydro Moon Wheel",
+      "item.er.cryo_moon_wheel": "Cryo Moon Wheel",
+      "item.er.electro_moon_wheel": "Electro Moon Wheel",
+      "item.er.dendro_moon_wheel": "Dendro Moon Wheel",
+      "item.er.geo_moon_wheel": "Geo Moon Wheel",
+      "item.er.anemo_moon_wheel": "Anemo Moon Wheel",
       "attribute.er.cryo_res": "Cryo Res",
       "item.er.dendro_sword": "Dendro Sword",
       "item.er.crystal_chunk": "Crystal Chunk",
@@ -5839,9 +5873,26 @@
       "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct": "%1$s died",
       "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
-      "item_group.er.vision": "Visions"
+      "item_group.er.vision": "Visions",
+      "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+      "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+      "death.attack.lunar_charged": "%1$s felt numb"
     },
     "zh_cn": {
+      "item.er.pyro_vision": "火神之眼",
+      "item.er.hydro_vision": "水神之眼",
+      "item.er.cryo_vision": "冰神之眼",
+      "item.er.electro_vision": "雷神之眼",
+      "item.er.dendro_vision": "草神之眼",
+      "item.er.geo_vision": "岩神之眼",
+      "item.er.anemo_vision": "风神之眼",
+      "item.er.pyro_moon_wheel": "火月之轮",
+      "item.er.hydro_moon_wheel": "水月之轮",
+      "item.er.cryo_moon_wheel": "冰月之轮",
+      "item.er.electro_moon_wheel": "雷月之轮",
+      "item.er.dendro_moon_wheel": "草月之轮",
+      "item.er.geo_moon_wheel": "岩月之轮",
+      "item.er.anemo_moon_wheel": "风月之轮",
       "item.er.dendro_sword": "草元素剑",
       "attribute.er.cryo_res": "冰元素抗性",
       "item.er.crystal_chunk": "水晶块",
@@ -6220,7 +6271,10 @@
       "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct": "%1$s died",
       "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
-      "item_group.er.vision": "神之眼"
+      "item_group.er.vision": "神之眼",
+      "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+      "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+      "death.attack.lunar_charged": "%1$s felt numb"
     }
   },
   "metadata": {

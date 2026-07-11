@@ -1,10 +1,12 @@
 {
   "replace": false,
   "values": [
+    "er:overloaded",
     "er:reaction",
-    {
-      "id": "#er:reaction",
-      "required": false
-    }
+    "er:swirl",
+    "er:bloom",
+    "er:superconduct",
+    "er:burning",
+    "er:electro_charged"
   ]
 }
