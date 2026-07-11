@@ -7,6 +7,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -17,16 +18,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
-import net.wither.er.elements.ElementSource;
-import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
-
-import static net.wither.er.elements.ElementSource.ReactionKey;
 
 public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 	@Nullable
@@ -157,10 +154,9 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 				.sorted(Comparator.comparingDouble(e -> e.distanceToSqr(this.getPosition(0)))).toList();
 		for (LivingEntity entity_iterator : ent_found) {
 			entity_iterator.hurt(
-					ElementSource.createDamageSource(
-							this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ReactionKey) ,
-							this ,
-							new ElementSource(ElementRegistry.DENDRO.get(), null , 0, false)
+					new DamageSource(
+							this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) ,
+							this
 					), basicDamage
 							* EntityHurtEvent.getElementalMasteryMultiply(1, EntityHurtEvent.getElementalMastery(damager))
 							* EntityHurtEvent.getLevelMultiply(damager)

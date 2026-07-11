@@ -34,7 +34,8 @@ public class EnergyOrbRenderer extends EntityRenderer<EnergyOrb> {
                 .color(p_254283_, p_254566_, p_253882_, 128)
                 .uv(p_254434_, p_254223_)
                 .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(p_254372_).normal(p_253754_, 0.0F, 1.0F, 0.0F)
+                .uv2(p_254372_)
+                .normal(p_253754_, 0.0F, 1.0F, 0.0F)
                 .endVertex();
 	}
 

@@ -12,12 +12,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.entity.ArcEntity;
 import net.wither.er.entity.BloomEntityEntity;
 import net.wither.er.entity.Hyperbloom;
+import net.wither.er.entity.LunarChargedCloud;
 import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;
@@ -32,7 +34,8 @@ public class Electro extends Element{
         super(Map.of(
                 Category.DENDRO, Electro::dendro,
                 Category.PYRO, Element::overLoad,
-                Category.CRYO, Element::superconduct
+                Category.CRYO, Element::superconduct,
+                Category.HYDRO, Element::electroCharged
         ));
     }
 
@@ -86,24 +89,39 @@ public class Electro extends Element{
     @Override
     public void tick(AuraContainer container, ElementalAura aura, LevelAccessor accessor, double x, double y, double z, boolean naturalReduction) {
         super.tick(container, aura, accessor, x, y, z, naturalReduction);
-
         if(!container.getAura().get(Category.HYDRO.getId()).isEmpty()){
-            float gauge = (float) Math.min(Math.min(aura.getGauge(),container.getAura().get(Category.HYDRO.getId()).getGauge()),0.4);
-            if(container.getAura().get(Category.HYDRO.getId()).reduceAll(gauge))
-                container.update();
-            if(aura.reduce(gauge)){
-                container.update();
-            }
             if(container.getOwner() instanceof LivingEntity entity && entity.getPersistentData().getInt("Electro_Charged_Cd") <= 0){
-                entity.getPersistentData().putInt("Electro_Charged_Cd", 20);
+                float gauge = (float) Math.min(Math.min(aura.getGauge(),container.getAura().get(Category.HYDRO.getId()).getGauge()),0.4);
+                if(container.getAura().get(Category.HYDRO.getId()).reduceAll(gauge))
+                    container.update();
+                if(aura.reduce(gauge)){
+                    container.update();
+                }
                 LivingEntity attacker = entity.getLastAttacker();
+
+                final Vec3 _center = new Vec3(x, y, z);
+                entity.getPersistentData().putInt("Electro_Charged_Cd", 20);
+
+                List<LunarChargedCloud> clouds = accessor.getEntitiesOfClass(LunarChargedCloud.class, new AABB(_center, _center).inflate(20 / 2d), e -> true);
+                if(accessor instanceof ServerLevel level && !clouds.isEmpty()) {
+                    LunarChargedCloud cloud = clouds.get(0);
+                    ArcEntity entityToSpawn = ErModEntities.ARC.get().spawn(level, cloud.getOnPos(), MobSpawnType.MOB_SUMMONED);
+                    if (entityToSpawn != null) {
+                        entityToSpawn.setActiveTarget(entity.getId());
+                        entityToSpawn.setSource(attacker);
+                        entityToSpawn.setOnlyEffect(true);
+                        entity.hurt(new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.LUNAR_CHARGED), attacker),
+                                (8 * EntityHurtEvent.getLevelMultiply(attacker)));
+                    }
+                    return;
+                }
+
                 entity.hurt
                         (ElementSource.createDamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED) , attacker ,
                                 new ElementSource(ElementRegistry.ELECTRO.get() , new ResourceLocation("er.electro_charged.reaction") , 0, true)
                         ),(8 * EntityHurtEvent.getLevelMultiply(EntityHurtEvent.getEntityLevel(attacker)))
                 );
                 entity.setDeltaMovement(new Vec3(0, 0, 0));
-                final Vec3 _center = new Vec3(x, y, z);
                 List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
                 for (LivingEntity entityiterator : _entfound) {
                     if (EntityHurtEvent.shouldHurt(attacker, entityiterator) && entityiterator instanceof LivingEntity
@@ -129,15 +147,18 @@ public class Electro extends Element{
     }
 
     public static void doElectroCharged(LivingEntity entity , LivingEntity attacker){
+        Level world = entity.level();
+        double x = entity.getX();
+        double y = entity.getY();
+        double z = entity.getZ();
+        final Vec3 _center = new Vec3(x, y, z);
+
+
+
         if (entity.isAlive()) {
-            LevelAccessor world = entity.level();
-            double x = entity.getX();
-            double y = entity.getY();
-            double z = entity.getZ();
             entity.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED), attacker),
                     (8 * EntityHurtEvent.getLevelMultiply(attacker)));
             entity.setDeltaMovement(new Vec3(0, 0, 0));
-            final Vec3 _center = new Vec3(x, y, z);
             List<LivingEntity> newfound = world.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().toList();
             for (LivingEntity living : newfound) {
                 if (EntityHurtEvent.shouldHurt(attacker, living) && living.getPersistentData().getInt("Electro_Charged_Cd") <= 0 &&

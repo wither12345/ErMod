@@ -19,7 +19,8 @@ public class Hydro extends Element{
         super(Map.of(
                 Category.PYRO, Element::amplifying2,
                 Category.CRYO, Hydro::cryo,
-                Category.DENDRO, Element::bloom
+                Category.DENDRO, Element::bloom,
+                Category.ELECTRO, Element::electroCharged
         ));
     }
     @Override

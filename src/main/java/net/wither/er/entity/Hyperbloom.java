@@ -4,6 +4,7 @@ import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,16 +16,13 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.wither.er.init.ElementRegistry;
-import net.wither.er.elements.ElementSource;
+import net.wither.er.elements.Element;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.UUID;
-
-import static net.wither.er.elements.ElementSource.ReactionKey;
 
 public class Hyperbloom extends Projectile {
     @Nullable
@@ -45,10 +43,9 @@ public class Hyperbloom extends Projectile {
     public void onHitEntity(@NotNull EntityHitResult result) {
         Entity entity = result.getEntity() ;
         entity.hurt(
-                ElementSource.createDamageSource(
-                        this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ReactionKey) ,
-                        this ,
-                        new ElementSource(ElementRegistry.DENDRO.get(), null , 0, false)
+                new DamageSource(
+                        this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) ,
+                        this
                 ),9 * EntityHurtEvent.getElementalMasteryMultiply(1, EntityHurtEvent.getElementalMastery(this.getOwner())) * EntityHurtEvent.getLevelMultiply(this.getOwner()));
         this.discard();
     }

@@ -387,5 +387,9 @@
   "death.attack.superconduct": "%1$s died",
   "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
   "item.er.dark_iron_sword": "Dark Iron Sword",
-  "effect.er.overloaded": "Overloaded"
+  "effect.er.overloaded": "Overloaded",
+  "item_group.er.vision": "Vision",
+  "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+  "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+  "death.attack.lunar_charged": "%1$s felt numb"
 }

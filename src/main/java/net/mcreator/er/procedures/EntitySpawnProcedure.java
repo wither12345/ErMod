@@ -25,7 +25,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.core.BlockPos;
 
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.entity.TartagliaEntity;
@@ -70,10 +69,8 @@ public class EntitySpawnProcedure {
 		} else if (entity instanceof LivingEntity && !entity.getType().is(TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("er:no_level")))) {
 			int level = 1;
 			if (entity.getPersistentData().getInt("erLevel") == 0 && !(entity instanceof Player) && entity.level() instanceof ServerLevel) {
-				BlockPos pos = entity.blockPosition();
-				int level_time = (int) (entity.level().getChunkAt(pos).getInhabitedTime() / 72000);
 				int spawn_distance = (int) Math.sqrt(Math.pow(entity.getX() - entity.level().getLevelData().getXSpawn(), 2) + Math.pow(entity.getZ() - entity.level().getLevelData().getZSpawn(), 2));
-				level = Mth.clamp(level_time + spawn_distance / 128, spawn_distance / 256, Math.min(spawn_distance / 32, 89)) + 1;
+				level = Mth.clamp(spawn_distance / 128, spawn_distance / 256, Math.min(spawn_distance / 32, 89)) + 1;
 				ApplyErlevelProcedure.execute(entity, level);
 			}
 			if (entity instanceof Stray) {

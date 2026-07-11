@@ -15,6 +15,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.entity.ArcEntity;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
 
 public class ArcRenderer extends EntityRenderer<ArcEntity> {
     private static final ResourceLocation BEAM_LOCATION = new ResourceLocation("er:textures/entities/arc.png");
@@ -75,16 +77,19 @@ public class ArcRenderer extends EntityRenderer<ArcEntity> {
 			float f26 = Mth.sin(f7 + ((float) Math.PI * 1.5F)) * 0.2F;
 			float f29 = -1.0F + f2;
 			float f30 = f4 * 2.5F + f29;
-			VertexConsumer vertexconsumer = p_114833_.getBuffer(BEAM_RENDER_TYPE);
-			PoseStack.Pose posestack$pose = p_114832_.last();
-			vertex(vertexconsumer, posestack$pose, f19, f4, f20, j, k, l, 0.4999F, f30);
-			vertex(vertexconsumer, posestack$pose, f19, 0.0F, f20, j, k, l, 0.4999F, f29);
-			vertex(vertexconsumer, posestack$pose, f21, 0.0F, f22, j, k, l, 0.0F, f29);
-			vertex(vertexconsumer, posestack$pose, f21, f4, f22, j, k, l, 0.0F, f30);
-			vertex(vertexconsumer, posestack$pose, f23, f4, f24, j, k, l, 0.4999F, f30);
-			vertex(vertexconsumer, posestack$pose, f23, 0.0F, f24, j, k, l, 0.4999F, f29);
-			vertex(vertexconsumer, posestack$pose, f25, 0.0F, f26, j, k, l, 0.0F, f29);
-			vertex(vertexconsumer, posestack$pose, f25, f4, f26, j, k, l, 0.0F, f30);
+            VertexConsumer vertexconsumer = p_114833_.getBuffer(BEAM_RENDER_TYPE);
+            PoseStack.Pose posestack$pose = p_114832_.last();
+            Matrix4f matrix4f = posestack$pose.pose();
+            Matrix3f matrix3f = posestack$pose.normal();
+
+            vertex(vertexconsumer, matrix4f, matrix3f, f19, f4, f20, j, k, l, 0.4999F, f30);
+            vertex(vertexconsumer, matrix4f, matrix3f, f19, 0.0F, f20, j, k, l, 0.4999F, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f21, 0.0F, f22, j, k, l, 0.0F, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f21, f4, f22, j, k, l, 0.0F, f30);
+            vertex(vertexconsumer, matrix4f, matrix3f, f23, f4, f24, j, k, l, 0.4999F, f30);
+            vertex(vertexconsumer, matrix4f, matrix3f, f23, 0.0F, f24, j, k, l, 0.4999F, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f25, 0.0F, f26, j, k, l, 0.0F, f29);
+            vertex(vertexconsumer, matrix4f, matrix3f, f25, f4, f26, j, k, l, 0.0F, f30);
 			//vertex(vertexconsumer, posestack$pose, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
 			//vertex(vertexconsumer, posestack$pose, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
 			//vertex(vertexconsumer, posestack$pose, f17, f4, f18, j, k, l, 1.0F, f31);
@@ -93,14 +98,9 @@ public class ArcRenderer extends EntityRenderer<ArcEntity> {
 		}
 	}
 
-	private static void vertex(VertexConsumer p_253637_, PoseStack.Pose p_323627_, float p_253994_, float p_254492_, float p_254474_, int p_254080_, int p_253655_, int p_254133_, float p_254233_, float p_253939_) {
-		p_253637_.vertex(p_323627_.pose(), p_253994_, p_254492_, p_254474_)
-				.color(p_254080_, p_253655_, p_254133_, 255)
-				.uv(p_254233_, p_253939_)
-				.overlayCoords(OverlayTexture.NO_OVERLAY)
-				.normal(0.0F, 1.0F, 0.0F)
-				.endVertex();
-	}
+    private static void vertex(VertexConsumer p_253637_, Matrix4f p_253920_, Matrix3f p_253881_, float p_253994_, float p_254492_, float p_254474_, int p_254080_, int p_253655_, int p_254133_, float p_254233_, float p_253939_) {
+        p_253637_.vertex(p_253920_, p_253994_, p_254492_, p_254474_).color(p_254080_, p_253655_, p_254133_, 255).uv(p_254233_, p_253939_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880).normal(p_253881_, 0.0F, 1.0F, 0.0F).endVertex();
+    }
 
 	@Override
 	public ResourceLocation getTextureLocation(ArcEntity entity) {

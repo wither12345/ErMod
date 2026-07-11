@@ -1381,36 +1381,6 @@
       }
     },
     {
-      "name": "ArrowUpdate",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "arrow_update",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArrowUpdateProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "PyroParticle",
       "type": "particle",
       "compiles": true,
@@ -3123,188 +3093,6 @@
         "files": [
           "src/main/resources/data/er/advancements/recipes/craft_mystic_enhancement_ore.json",
           "src/main/resources/data/er/recipes/craft_mystic_enhancement_ore.json"
-        ]
-      }
-    },
-    {
-      "name": "PyroVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "pyro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/pyro_vision.json",
-          "src/main/java/net/mcreator/er/item/PyroVisionItem.java"
-        ]
-      }
-    },
-    {
-      "name": "CraftPyroVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_pyro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/recipes/craft_pyro_vision.json",
-          "src/main/resources/data/er/advancements/recipes/craft_pyro_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "AnemoVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "anemo_vision",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/AnemoVisionItem.java",
-          "src/main/resources/assets/er/models/item/anemo_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "CryoVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "cryo_vision",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/CryoVisionItem.java",
-          "src/main/resources/assets/er/models/item/cryo_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "HydroVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "hydro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/hydro_vision.json",
-          "src/main/java/net/mcreator/er/item/HydroVisionItem.java"
-        ]
-      }
-    },
-    {
-      "name": "ElectroVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "electro_vision",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/ElectroVisionItem.java",
-          "src/main/resources/assets/er/models/item/electro_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "DendroVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "dendro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/dendro_vision.json",
-          "src/main/java/net/mcreator/er/item/DendroVisionItem.java"
-        ]
-      }
-    },
-    {
-      "name": "GeoVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "geo_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/geo_vision.json",
-          "src/main/java/net/mcreator/er/item/GeoVisionItem.java"
-        ]
-      }
-    },
-    {
-      "name": "CraftAnemoVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_anemo_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/recipes/craft_anemo_vision.json",
-          "src/main/resources/data/er/advancements/recipes/craft_anemo_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "CraftCryoVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_cryo_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/advancements/recipes/craft_cryo_vision.json",
-          "src/main/resources/data/er/recipes/craft_cryo_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "CraftHydroVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_hydro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/recipes/craft_hydro_vision.json",
-          "src/main/resources/data/er/advancements/recipes/craft_hydro_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "CraftElectroVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_electro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/advancements/recipes/craft_electro_vision.json",
-          "src/main/resources/data/er/recipes/craft_electro_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "CraftDendroVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_dendro_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/recipes/craft_dendro_vision.json",
-          "src/main/resources/data/er/advancements/recipes/craft_dendro_vision.json"
-        ]
-      }
-    },
-    {
-      "name": "CraftGeoVision",
-      "type": "recipe",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "craft_geo_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/recipes/craft_geo_vision.json",
-          "src/main/resources/data/er/advancements/recipes/craft_geo_vision.json"
         ]
       }
     },
@@ -5184,6 +4972,18 @@
           "src/main/resources/data/er/damage_type/superconduct.json"
         ]
       }
+    },
+    {
+      "name": "LunarCharged",
+      "type": "damagetype",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lunar_charged",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/er/damage_type/lunar_charged.json"
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -5338,16 +5138,6 @@
     "ITEMS:er:cryo_infusion": [
       "CUSTOM:CryoSword"
     ],
-    "ITEMS:er:vision": [
-      "CUSTOM:UnownedVision",
-      "CUSTOM:PyroVision",
-      "CUSTOM:AnemoVision",
-      "CUSTOM:CryoVision",
-      "CUSTOM:HydroVision",
-      "CUSTOM:ElectroVision",
-      "CUSTOM:DendroVision",
-      "CUSTOM:GeoVision"
-    ],
     "ITEMS:er:geo_infusion": [
       "CUSTOM:GeoSword",
       "CUSTOM:GeoPickaxe"
@@ -5481,6 +5271,20 @@
   "tab_element_order": {},
   "language_map": {
     "en_us": {
+      "item.er.pyro_vision": "Pyro Vision",
+      "item.er.hydro_vision": "Hydro Vision",
+      "item.er.cryo_vision": "Cryo Vision",
+      "item.er.electro_vision": "Electro Vision",
+      "item.er.dendro_vision": "Dendro Vision",
+      "item.er.geo_vision": "Geo Vision",
+      "item.er.anemo_vision": "Anemo Vision",
+      "item.er.pyro_moon_wheel": "Pyro Moon Wheel",
+      "item.er.hydro_moon_wheel": "Hydro Moon Wheel",
+      "item.er.cryo_moon_wheel": "Cryo Moon Wheel",
+      "item.er.electro_moon_wheel": "Electro Moon Wheel",
+      "item.er.dendro_moon_wheel": "Dendro Moon Wheel",
+      "item.er.geo_moon_wheel": "Geo Moon Wheel",
+      "item.er.anemo_moon_wheel": "Anemo Moon Wheel",
       "attribute.er.cryo_res": "Cryo Res",
       "item.er.dendro_sword": "Dendro Sword",
       "item.er.crystal_chunk": "Crystal Chunk",
@@ -5494,8 +5298,6 @@
       "block.er.teleport_waypoint_base": "Teleport Waypoint Base",
       "item.er.electro_armor_chestplate": "Electro Chestplate",
       "item.er.dandelion_seed": "Dandelion Seed",
-      "item.er.cryo_vision": "Cryo Vision",
-      "item.er.dendro_vision": "Dendro Vision",
       "item.er.ley_line_map": "Ley Line Map",
       "item_group.er.er_weapon": "Element Reaction Weapon",
       "gui.er.artifact_gui.button_apply": "Apply",
@@ -5515,7 +5317,6 @@
       "item.er.geo_armor_boots": "Geo Boots",
       "block.er.statueof_the_seven_2": "Statue of The Seven",
       "block.er.statueof_the_seven_3": "Statue of The Seven",
-      "item.er.electro_vision": "Electro Vision",
       "item.er.anemo_crystalfly_spawn_egg": "Anemo Crystalfly Spawn Egg",
       "attribute.er.physical_res": "Physical RES",
       "gamerule.runningStaminaConsumable": "Running Stamina Consumable",
@@ -5587,7 +5388,6 @@
       "item.er.cryo_armor_leggings": "Cryo Leggings",
       "item.er.electro_armor_boots": "Electro Boots",
       "item.er.empty_ley_line_map": "Empty Ley Line Map",
-      "item.er.pyro_vision": "Pyro Vision",
       "item.er.crystal_core": "Crystal Core",
       "item.er.cor_lapis": "Cor Lapis",
       "attribute.er.elemental_mastery": "Elemental Mastery",
@@ -5623,7 +5423,6 @@
       "entity.er.pyro_crystallize": "Pyro Crystallize",
       "item.er.flaming_flower_spawn_egg": "Flaming Flower Spawn Egg",
       "block.er.burning_dirt": "Burning Dirt",
-      "item.er.geo_vision": "Geo Vision",
       "block.er.teleport_waypoint": "Teleport Waypoint",
       "block.er.cuihua_log": "Cuihua Log",
       "attribute.er.hydro_res": "Hydro Res",
@@ -5637,8 +5436,6 @@
       "entity.er.flaming_flower": "Flaming Flower",
       "item.er.condensed_pyro": "Condensed Pyro",
       "item.er.anemo_armor_helmet": "Anemo Helmet",
-      "item.er.hydro_vision": "Hydro Vision",
-      "item.er.anemo_vision": "Anemo Vision",
       "item.er.geo_armor_helmet": "Geo Helmet",
       "item.er.electro_crystal": "Electro Crystal",
       "item.er.main_affix_shard": "Main Affix Shard",
@@ -5861,9 +5658,28 @@
       "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct": "%1$s died",
       "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
-      "item.er.dark_iron_sword": "Dark Iron Sword"
+      "item.er.dark_iron_sword": "Dark Iron Sword",
+      "effect.er.overloaded": "Overloaded",
+      "item_group.er.vision": "Vision",
+      "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+      "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+      "death.attack.lunar_charged": "%1$s felt numb"
     },
     "zh_cn": {
+      "item.er.pyro_vision": "火神之眼",
+      "item.er.hydro_vision": "水神之眼",
+      "item.er.cryo_vision": "冰神之眼",
+      "item.er.electro_vision": "雷神之眼",
+      "item.er.dendro_vision": "草神之眼",
+      "item.er.geo_vision": "岩神之眼",
+      "item.er.anemo_vision": "风神之眼",
+      "item.er.pyro_moon_wheel": "火月之轮",
+      "item.er.hydro_moon_wheel": "水月之轮",
+      "item.er.cryo_moon_wheel": "冰月之轮",
+      "item.er.electro_moon_wheel": "雷月之轮",
+      "item.er.dendro_moon_wheel": "草月之轮",
+      "item.er.geo_moon_wheel": "岩月之轮",
+      "item.er.anemo_moon_wheel": "风月之轮",
       "item.er.dendro_sword": "草元素剑",
       "attribute.er.cryo_res": "冰元素抗性",
       "item.er.crystal_chunk": "水晶块",
@@ -5877,8 +5693,6 @@
       "block.er.teleport_waypoint_base": "传送锚点",
       "item.er.electro_armor_chestplate": "雷元素胸甲",
       "item.er.dandelion_seed": "蒲公英种子",
-      "item.er.cryo_vision": "冰神之眼",
-      "item.er.dendro_vision": "草神之眼",
       "item.er.ley_line_map": "地脉地图",
       "item_group.er.er_weapon": "原神起源：武器",
       "gui.er.artifact_gui.button_apply": "Apply",
@@ -5898,7 +5712,6 @@
       "item.er.geo_armor_boots": "岩元素靴子",
       "block.er.statueof_the_seven_2": "七天神像",
       "block.er.statueof_the_seven_3": "七天神像",
-      "item.er.electro_vision": "雷神之眼",
       "item.er.anemo_crystalfly_spawn_egg": "风晶蝶刷怪蛋",
       "attribute.er.physical_res": "物理抗性",
       "gamerule.runningStaminaConsumable": "跑步消耗体力",
@@ -5971,7 +5784,6 @@
       "item.er.cryo_armor_leggings": "冰元素护腿",
       "item.er.electro_armor_boots": "雷元素靴子",
       "item.er.empty_ley_line_map": "空的地脉地图",
-      "item.er.pyro_vision": "火神之眼",
       "item.er.crystal_core": "晶核",
       "item.er.cor_lapis": "石珀",
       "attribute.er.elemental_mastery": "元素精通",
@@ -6007,7 +5819,6 @@
       "entity.er.pyro_crystallize": "火结晶",
       "item.er.flaming_flower_spawn_egg": "烈焰花刷怪蛋",
       "block.er.burning_dirt": "燃烧的泥土",
-      "item.er.geo_vision": "岩神之眼",
       "block.er.teleport_waypoint": "传送锚点",
       "block.er.cuihua_log": "萃华原木",
       "attribute.er.hydro_res": "水元素抗性",
@@ -6021,8 +5832,6 @@
       "entity.er.flaming_flower": "烈焰花",
       "item.er.condensed_pyro": "浓缩火元素",
       "item.er.anemo_armor_helmet": "风元素头盔",
-      "item.er.hydro_vision": "水神之眼",
-      "item.er.anemo_vision": "风神之眼",
       "item.er.geo_armor_helmet": "岩元素头盔",
       "item.er.electro_crystal": "电气水晶",
       "item.er.main_affix_shard": "主属性碎片",
@@ -6244,7 +6053,12 @@
       "death.attack.superconduct.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.superconduct": "%1$s died",
       "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
-      "item.er.dark_iron_sword": "暗铁剑"
+      "item.er.dark_iron_sword": "暗铁剑",
+      "effect.er.overloaded": "",
+      "item_group.er.vision": "神之眼",
+      "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+      "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+      "death.attack.lunar_charged": "%1$s felt numb"
     }
   },
   "metadata": {

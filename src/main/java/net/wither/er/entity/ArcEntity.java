@@ -83,42 +83,8 @@ public class ArcEntity extends Entity {
 					restTime += 1f;
 					return;
 				}
-				Electro.doElectroCharged(entity,sourceEntity);
-				/*
-				LevelAccessor world = this.level();
-				double x = entity.getX();
-				double y = entity.getY();
-				double z = entity.getZ();
-				double elemental_mastery = 0;
-				int level = 0;
-				if (this.sourceEntity != null) {
-					elemental_mastery = this.sourceEntity.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()).getValue();
-					level = EntityHurtEvent.getEntityLevel(this.sourceEntity);
-				}
-				entity.hurt(new ErDamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction"))), this.sourceEntity, 4, 0),
-						(float) (2 * EntityHurtEvent.getElementalMasteryMultiply(1, elemental_mastery) * EntityHurtEvent.getLevelMultiply(level)));
-				entity.setDeltaMovement(new Vec3(0, 0, 0));
-				{
-					final Vec3 _center = new Vec3(x, y, z);
-					List<LivingEntity> _entfound = world.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-					for (LivingEntity entityiterator : _entfound) {
-						if ((this.sourceEntity == null || !(entityiterator == this.sourceEntity || (entityiterator instanceof TamableAnimal _tamEnt ? (Entity) _tamEnt.getOwner() : null) == this.sourceEntity)) && entityiterator instanceof LivingEntity
-								&& entityiterator.getPersistentData().getInt("Hydro") > 0 && entityiterator.getPersistentData().getInt("Electro_Charged_Cd") <= 0) {
-							entityiterator.getPersistentData().putInt("Electro_Charged_Cd", 10);
-							if (world instanceof ServerLevel _level) {
-								ArcEntity entityToSpawn = ErModEntities.ARC.get().spawn(_level, BlockPos.containing(x, y + entity.getBbHeight() * 0.7, z), MobSpawnType.MOB_SUMMONED);
-								entityToSpawn.setActiveTarget(entityiterator.getId());
-								entityToSpawn.setSource(this.sourceEntity);
-								if (entityToSpawn != null) {
-									entityToSpawn.setYRot(world.getRandom().nextFloat() * 360F);
-								}
-							}
-						}
-					}
-				}
-				entity.getPersistentData().putInt("Hydro", entity.getPersistentData().getInt("Hydro") - 10);
-				*/
-			}
+                Electro.doElectroCharged(entity,sourceEntity);
+            }
 		}
 		if (restTime >= 5)
 			this.kill();

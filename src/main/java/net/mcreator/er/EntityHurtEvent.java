@@ -59,6 +59,7 @@ public class EntityHurtEvent {
     private static final TagKey<DamageType> NO_CRITICAL = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:no_critical")) ;
     private static final TagKey<DamageType> CATALYZE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction_multiply/catalyze")) ;
     private static final TagKey<DamageType> TRANSFORMATIVE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction_multiply/transformative")) ;
+    private static final TagKey<DamageType> LUNAR = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:lunar")) ;
 
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingHurtEvent event) {
@@ -129,6 +130,7 @@ public class EntityHurtEvent {
 	private static void modifyDamageSource(DamageSource source){
 		int elemental_type = 0;
         float gauge ;
+
 		if(source instanceof ElementSourceInterface elementSourceInterface){
 			if(elementSourceInterface.er$getSource() != null)
 				return;
@@ -137,7 +139,7 @@ public class EntityHurtEvent {
                     gauge = category.getAura(source);
                     Element element = category.getDefault();
                     elementSourceInterface.er$setElement(new ElementSource(element, new ResourceLocation("er:default"), gauge, element.isApplicable()));
-                    return;
+                    break;
                 }
             }
             if(source.getDirectEntity() instanceof ElementSourceInterface elementSourceInterface1){
@@ -149,13 +151,18 @@ public class EntityHurtEvent {
 				elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
 			if(elemental_type != 0)
 				elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), new ResourceLocation("er:default"), 1, getEle(elemental_type).isApplicable())) ;
+
+            if(source instanceof DamageModifierInterface modifierInterface){
+                if(source.is(CATALYZE))
+                    modifierInterface.getModifier().multiply = ReactionMultiply.CATALYZE;
+                if(source.is(TRANSFORMATIVE))
+                    modifierInterface.getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
+                if(source.is(LUNAR)){
+                    modifierInterface.getModifier().multiply = ReactionMultiply.VARIANT;
+                    modifierInterface.getModifier().type = RenderDamageAmount.DamageDisplayType.LUNAR;
+                }
+            }
 		}
-        if(source instanceof DamageModifierInterface modifierInterface){
-            if(source.is(CATALYZE))
-                modifierInterface.getModifier().multiply = ReactionMultiply.CATALYZE;
-            if(source.is(TRANSFORMATIVE))
-                modifierInterface.getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
-        }
 	}
 
 	private static Element getEle(int i){
@@ -287,6 +294,7 @@ public class EntityHurtEvent {
         AMPLIFYING(2.78f, 1400),//Melt Vaporize
         CATALYZE(5, 1200),//Spread Aggravate
         TRANSFORMATIVE(16, 2000),//Overloaded, Superconduct, Electro-Charged, Burning, Shattered, Swirl, Bloom, Hyperbloom, Burgeon
+        VARIANT(6, 2000),
         CRYSTALLIZE(4.44f, 1400);
 
         private final float maxMultiply;
