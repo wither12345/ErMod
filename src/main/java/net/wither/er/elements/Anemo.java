@@ -2,9 +2,7 @@ package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.init.ErModBlocks;
-import net.mcreator.er.init.ErModParticleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -101,18 +99,6 @@ public class Anemo extends Element{
     @Override
     public boolean isApplicable() {
         return false ;
-    }
-
-    private static SimpleParticleType getParticle(Element.Category category){
-        if(category == Category.HYDRO)
-            return ErModParticleTypes.SMALL_HYDRO_PARTICLE.get();
-        if(category == Category.ELECTRO)
-            return ErModParticleTypes.SMALL_ELECTRO_PARTICLE.get();
-        if(category == Category.PYRO)
-            return ErModParticleTypes.SMALL_PYRO_PARTICLE.get();
-        if(category == Category.CRYO)
-            return ErModParticleTypes.SMALL_CRYO_PARTICLE.get();
-        return ErModParticleTypes.SMALL_ANEMO_PARTICLE.get();
     }
 
     @Override

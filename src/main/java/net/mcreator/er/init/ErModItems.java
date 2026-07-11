@@ -10,8 +10,10 @@ import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.ReactionAbility;
 import net.wither.er.item.data.weapon.FunctionalAbilities;
 import net.wither.er.item.data.weapon.DamageAbility;
+import net.wither.er.item.Vision;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.entity.ArtifactSlot;
+import net.wither.er.elements.Element;
 import net.wither.er.artifact_effect.ArtifactEffectRegistry;
 
 import net.minecraftforge.registries.RegistryObject;
@@ -120,13 +122,6 @@ public class ErModItems {
 	public static final RegistryObject<Item> FINE_ENHANCEMENT_ORE;
 	public static final RegistryObject<Item> ENHANCEMENT_ORE;
 	public static final RegistryObject<Item> BURNING_DIRT;
-	public static final RegistryObject<Item> PYRO_VISION;
-	public static final RegistryObject<Item> ANEMO_VISION;
-	public static final RegistryObject<Item> CRYO_VISION;
-	public static final RegistryObject<Item> HYDRO_VISION;
-	public static final RegistryObject<Item> ELECTRO_VISION;
-	public static final RegistryObject<Item> DENDRO_VISION;
-	public static final RegistryObject<Item> GEO_VISION;
 	public static final RegistryObject<Item> HILICHURL_SPAWN_EGG;
 	public static final RegistryObject<Item> WOODEN_CLUB;
 	public static final RegistryObject<Item> CRATE;
@@ -245,13 +240,6 @@ public class ErModItems {
 		FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", FineEnhancementOreItem::new);
 		ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", EnhancementOreItem::new);
 		BURNING_DIRT = block(ErModBlocks.BURNING_DIRT);
-		PYRO_VISION = REGISTRY.register("pyro_vision", PyroVisionItem::new);
-		ANEMO_VISION = REGISTRY.register("anemo_vision", AnemoVisionItem::new);
-		CRYO_VISION = REGISTRY.register("cryo_vision", CryoVisionItem::new);
-		HYDRO_VISION = REGISTRY.register("hydro_vision", HydroVisionItem::new);
-		ELECTRO_VISION = REGISTRY.register("electro_vision", ElectroVisionItem::new);
-		DENDRO_VISION = REGISTRY.register("dendro_vision", DendroVisionItem::new);
-		GEO_VISION = REGISTRY.register("geo_vision", GeoVisionItem::new);
 		HILICHURL_SPAWN_EGG = REGISTRY.register("hilichurl_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.HILICHURL, -13421773, -6780581, new Item.Properties()));
 		WOODEN_CLUB = REGISTRY.register("wooden_club", WoodenClubItem::new);
 		CRATE = block(ErModBlocks.CRATE);
@@ -337,6 +325,13 @@ public class ErModItems {
 	public static final RegistryObject<Item> COOL_STEEL = REGISTRY.register("cool_steel", () -> new AbilitySword((DamageAbility) FunctionalAbilities::coolSteel, ErModItems.COOL_STEEL, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword",
 			() -> new AbilitySword((ReactionAbility) FunctionalAbilities::darkIronSword, ErModItems.DARK_IRON_SWORD, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
+	public static final RegistryObject<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
+	public static final RegistryObject<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
+	public static final RegistryObject<Item> ANEMO_VISION = REGISTRY.register("anemo_vision", () -> new Vision(Element.Category.ANEMO));
+	public static final RegistryObject<Item> GEO_VISION = REGISTRY.register("geo_vision", () -> new Vision(Element.Category.GEO));
+	public static final RegistryObject<Item> HYDRO_VISION = REGISTRY.register("hydro_vision", () -> new Vision(Element.Category.HYDRO));
+	public static final RegistryObject<Item> DENDRO_VISION = REGISTRY.register("dendro_vision", () -> new Vision(Element.Category.DENDRO));
+	public static final RegistryObject<Item> ELECTRO_VISION = REGISTRY.register("electro_vision", () -> new Vision(Element.Category.ELECTRO));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
@@ -350,6 +345,17 @@ public class ErModItems {
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
+			registerVision(PYRO_VISION.get());
+			registerVision(CRYO_VISION.get());
+			registerVision(ANEMO_VISION.get());
+			registerVision(GEO_VISION.get());
+			registerVision(HYDRO_VISION.get());
+			registerVision(DENDRO_VISION.get());
+			registerVision(ELECTRO_VISION.get());
+		}
+
+		private static void registerVision(Item vision) {
+			ItemProperties.register(vision, new ResourceLocation(ErMod.MODID, "vision_frame"), (itemStackToRender, clientWorld, entity, itemEntityId) -> itemStackToRender.getOrCreateTag().getInt("frame"));
 		}
 
 		private static void registerBowItem(Item bowItem) {

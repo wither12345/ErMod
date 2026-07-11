@@ -1,7 +1,21 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "er:item/vision",
-    "layer1": "er:item/dendro_vision"
-  }
+    "layer0": "er:item/mondstadt_vision",
+    "layer1": "er:item/dendro_vision_up"
+  },
+  "overrides": [
+    {
+    "predicate": {
+      "er:vision_frame": 1
+    },
+    "model": "er:item/dendro_liyue_vision"
+    },
+    {
+      "predicate": {
+        "er:vision_frame": 2
+      },
+      "model": "er:item/dendro_moon_wheel"
+    }
+  ]
 }

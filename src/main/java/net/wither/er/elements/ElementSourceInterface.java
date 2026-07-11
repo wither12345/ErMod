@@ -3,11 +3,11 @@ package net.wither.er.elements;
 import net.minecraft.resources.ResourceLocation;
 
 public interface ElementSourceInterface {
-    ElementSource getSource();
+    ElementSource er$getSource();
 
-    Object setElement(ElementSource source);
+    Object er$setElement(ElementSource source);
 
-    default Object setElement(Element element, ResourceLocation resourceLocation, float gauge){
-        return setElement(new ElementSource(element,resourceLocation,gauge, true));
+    default Object er$setElement(Element element, ResourceLocation resourceLocation, float gauge){
+        return er$setElement(new ElementSource(element,resourceLocation,gauge, true));
     }
 }

@@ -103,20 +103,18 @@ public class Electro extends Element{
                         ),(8 * EntityHurtEvent.getLevelMultiply(EntityHurtEvent.getEntityLevel(attacker)))
                 );
                 entity.setDeltaMovement(new Vec3(0, 0, 0));
-                {
-                    final Vec3 _center = new Vec3(x, y, z);
-                    List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-                    for (LivingEntity entityiterator : _entfound) {
-                        if (EntityHurtEvent.shouldHurt(attacker, entityiterator) && entityiterator instanceof LivingEntity
-                                && entityiterator.getPersistentData().getInt("Electro_Charged_Cd") <= 0) {
-                            entityiterator.getPersistentData().putInt("Electro_Charged_Cd", 10);
-                            if (accessor instanceof ServerLevel _level) {
-                                ArcEntity entityToSpawn = ErModEntities.ARC.get().spawn(_level, BlockPos.containing(x, y + entity.getBbHeight() * 0.7, z), MobSpawnType.MOB_SUMMONED);
-                                if (entityToSpawn != null) {
-                                    entityToSpawn.setActiveTarget(entityiterator.getId());
-                                    entityToSpawn.setSource(attacker);
-                                    entityToSpawn.setYRot(accessor.getRandom().nextFloat() * 360F);
-                                }
+                final Vec3 _center = new Vec3(x, y, z);
+                List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
+                for (LivingEntity entityiterator : _entfound) {
+                    if (EntityHurtEvent.shouldHurt(attacker, entityiterator) && entityiterator instanceof LivingEntity
+                            && entityiterator.getPersistentData().getInt("Electro_Charged_Cd") <= 0) {
+                        entityiterator.getPersistentData().putInt("Electro_Charged_Cd", 10);
+                        if (accessor instanceof ServerLevel _level) {
+                            ArcEntity entityToSpawn = ErModEntities.ARC.get().spawn(_level, BlockPos.containing(x, y + entity.getBbHeight() * 0.7, z), MobSpawnType.MOB_SUMMONED);
+                            if (entityToSpawn != null) {
+                                entityToSpawn.setActiveTarget(entityiterator.getId());
+                                entityToSpawn.setSource(attacker);
+                                entityToSpawn.setYRot(accessor.getRandom().nextFloat() * 360F);
                             }
                         }
                     }
@@ -131,37 +129,35 @@ public class Electro extends Element{
     }
 
     public static void doElectroCharged(LivingEntity entity , LivingEntity attacker){
-        if(entity instanceof AuraContainerInterface auraContainerInterface && entity.getPersistentData().getInt("Electro_Charged_Cd") <= 0){
-            if (entity.isAlive()) {
-                LevelAccessor world = entity.level();
-                double x = entity.getX();
-                double y = entity.getY();
-                double z = entity.getZ();
-                entity.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED), attacker),
-                        (8 * EntityHurtEvent.getLevelMultiply(attacker)));
-                entity.setDeltaMovement(new Vec3(0, 0, 0));
-                final Vec3 _center = new Vec3(x, y, z);
-                List<LivingEntity> newfound = world.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().toList();
-                for (LivingEntity living : newfound) {
-                    if (EntityHurtEvent.shouldHurt(attacker, living) && living.getPersistentData().getInt("Electro_Charged_Cd") <= 0 &&
-                            living instanceof AuraContainerInterface containerInterface &&
-                            containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).getGauge() > 0
-                    ) {
-                        living.getPersistentData().putInt("Electro_Charged_Cd", 10);
-                        if (world instanceof ServerLevel _level) {
-                            ArcEntity entityToSpawn = ErModEntities.ARC.get().spawn(_level, BlockPos.containing(x, y + entity.getBbHeight() * 0.7, z), MobSpawnType.MOB_SUMMONED);
-                            if (entityToSpawn != null) {
-                                entityToSpawn.setActiveTarget(living.getId());
-                            entityToSpawn.setSource(attacker);
-                            entityToSpawn.setYRot(world.getRandom().nextFloat() * 360F);
-                            }
+        if (entity.isAlive()) {
+            LevelAccessor world = entity.level();
+            double x = entity.getX();
+            double y = entity.getY();
+            double z = entity.getZ();
+            entity.hurt(new DamageSource(world.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED), attacker),
+                    (8 * EntityHurtEvent.getLevelMultiply(attacker)));
+            entity.setDeltaMovement(new Vec3(0, 0, 0));
+            final Vec3 _center = new Vec3(x, y, z);
+            List<LivingEntity> newfound = world.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().toList();
+            for (LivingEntity living : newfound) {
+                if (EntityHurtEvent.shouldHurt(attacker, living) && living.getPersistentData().getInt("Electro_Charged_Cd") <= 0 &&
+                        living instanceof AuraContainerInterface containerInterface &&
+                        containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).getGauge() > 0
+                ) {
+                    living.getPersistentData().putInt("Electro_Charged_Cd", 10);
+                    if (world instanceof ServerLevel _level) {
+                        ArcEntity entityToSpawn = ErModEntities.ARC.get().spawn(_level, BlockPos.containing(x, y + entity.getBbHeight() * 0.7, z), MobSpawnType.MOB_SUMMONED);
+                        if (entityToSpawn != null) {
+                            entityToSpawn.setActiveTarget(living.getId());
+                        entityToSpawn.setSource(attacker);
+                        entityToSpawn.setYRot(world.getRandom().nextFloat() * 360F);
                         }
-                        if(containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).reduceAll(Math.min(0.4f,containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).getGauge())))
-                            containerInterface.er$getAuraContainer().update();
                     }
+                    if (containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).reduceAll(Math.min(0.4f, containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).getGauge())))
+                        containerInterface.er$getAuraContainer().update();
                 }
-
             }
+
         }
     }
 

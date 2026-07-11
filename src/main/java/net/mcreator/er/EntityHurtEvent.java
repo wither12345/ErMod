@@ -25,8 +25,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.LargeFireball;
-import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.scores.PlayerTeam;
@@ -92,9 +90,9 @@ public class EntityHurtEvent {
             double elemental_mastery = 0 ;
             if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
                 elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
-            if(elementSourceInterface.getSource() != null && elementSourceInterface.getSource().getElement() != null) {
-                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.getSource(), world, x, y, z, modifierInterface.getModifier(), sourceentity);
-                ApplyElementMultiply(elementSourceInterface.getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());
+            if(elementSourceInterface.er$getSource() != null && elementSourceInterface.er$getSource().getElement() != null) {
+                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), world, x, y, z, modifierInterface.getModifier(), sourceentity);
+                ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());
             }
 
             if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
@@ -110,8 +108,8 @@ public class EntityHurtEvent {
                 List<ShieldStack> shields = enti.er$getShieldStacks();
                 float shield_absorb = 0f;
                 for (ShieldStack shield : shields) {
-                    if(elementSourceInterface.getSource() != null)
-                        shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, elementSourceInterface.getSource().getCategory().getId()));
+                    if(elementSourceInterface.er$getSource() != null)
+                        shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, elementSourceInterface.er$getSource().getCategory().getId()));
                     else
                         shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
                 }
@@ -132,20 +130,25 @@ public class EntityHurtEvent {
 		int elemental_type = 0;
         float gauge ;
 		if(source instanceof ElementSourceInterface elementSourceInterface){
-			if(elementSourceInterface.getSource() != null)
+			if(elementSourceInterface.er$getSource() != null)
 				return;
             for(Element.Category category : Element.Category.values()){
                 if(category.match(source)){
                     gauge = category.getAura(source);
                     Element element = category.getDefault();
-                    elementSourceInterface.setElement(new ElementSource(element, new ResourceLocation("er:default"), gauge, element.isApplicable()));
+                    elementSourceInterface.er$setElement(new ElementSource(element, new ResourceLocation("er:default"), gauge, element.isApplicable()));
                     return;
                 }
+            }
+            if(source.getDirectEntity() instanceof ElementSourceInterface elementSourceInterface1){
+                ElementSource source1 = elementSourceInterface1.er$getSource();
+                if(source1 == null) return;
+                elementSourceInterface.er$setElement(source1) ;
             }
 			if(source.getEntity() != null)
 				elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
 			if(elemental_type != 0)
-				elementSourceInterface.setElement(new ElementSource(getEle(elemental_type), new ResourceLocation("er:default"), 1, getEle(elemental_type).isApplicable())) ;
+				elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), new ResourceLocation("er:default"), 1, getEle(elemental_type).isApplicable())) ;
 		}
         if(source instanceof DamageModifierInterface modifierInterface){
             if(source.is(CATALYZE))
@@ -168,8 +171,8 @@ public class EntityHurtEvent {
 	}
 
 	private static int getARGB(DamageSource source){
-		if(source instanceof ElementSourceInterface elementSourceInterface && elementSourceInterface.getSource() != null){
-			return elementSourceInterface.getSource().getCategory().getColor() ;
+		if(source instanceof ElementSourceInterface elementSourceInterface && elementSourceInterface.er$getSource() != null){
+			return elementSourceInterface.er$getSource().getCategory().getColor() ;
 		}
 		return 0xffffffff ;
 	}
@@ -209,12 +212,6 @@ public class EntityHurtEvent {
 				return 6;
 			} else if (IsPyroInfusionProcedure.execute(world, entity)) {
 				return 7;
-			}
-		} else {
-			if (immediatesourceentity instanceof LargeFireball || immediatesourceentity instanceof SmallFireball) {
-				return 7;
-			} else {
-				return immediatesourceentity.getPersistentData().getInt("Element");
 			}
 		}
 		return 0;

@@ -68,7 +68,7 @@ public class ElementSource {
     }
 
     public static DamageSource createDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable Entity causingEntity, @Nullable Vec3 damageSourcePosition, @Nullable ElementSource source){
-        return (DamageSource) ((ElementSourceInterface)(new DamageSource(type,directEntity,causingEntity,damageSourcePosition))).setElement(source);
+        return (DamageSource) ((ElementSourceInterface)(new DamageSource(type,directEntity,causingEntity,damageSourcePosition))).er$setElement(source);
     }
 
     public static DamageSource createDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable ElementSource source){
@@ -76,7 +76,7 @@ public class ElementSource {
     }
 
     public static DamageSource createDamageSource(DamageSource damageSource, @Nullable ElementSource elementSource){
-        return (DamageSource) ((ElementSourceInterface)(damageSource)).setElement(elementSource);
+        return (DamageSource) ((ElementSourceInterface)(damageSource)).er$setElement(elementSource);
     }
 
     public int getTime() {

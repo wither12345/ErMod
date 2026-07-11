@@ -1,12 +1,10 @@
 package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.init.ErModAttributes;
-import net.mcreator.er.init.ErModEntities;
-import net.mcreator.er.init.ErModItems;
-import net.mcreator.er.init.ErModMobEffects;
+import net.mcreator.er.init.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -258,10 +256,22 @@ public abstract class Element {
                         ),
                         2.4f * EntityHurtEvent.getLevelMultiply(applier));
                 if (!entity_iterator.level().isClientSide())
-                    entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT.get(), 100, 0, false, false));
+                    entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT.get(), 144, 0, false, false));
             }
         }
         return reacting(gauge , singleElementalContainer) ;
+    }
+
+    public static SimpleParticleType getParticle(Category category){
+        return switch (category){
+            case GEO -> ErModParticleTypes.SMALL_GEO_PARTICLE.get();
+            case CRYO -> ErModParticleTypes.SMALL_CRYO_PARTICLE.get();
+            case PYRO -> ErModParticleTypes.SMALL_PYRO_PARTICLE.get();
+            case ANEMO -> ErModParticleTypes.SMALL_ANEMO_PARTICLE.get();
+            case HYDRO -> ErModParticleTypes.SMALL_HYDRO_PARTICLE.get();
+            case DENDRO -> ErModParticleTypes.SMALL_DENDRO_PARTICLE.get();
+            case ELECTRO -> ErModParticleTypes.SMALL_ELECTRO_PARTICLE.get();
+        };
     }
 
     public Attribute getDamageAttr() {
@@ -277,12 +287,12 @@ public abstract class Element {
     }
 
     public enum Category{
-        ANEMO(0xFF00FF99, ErModAttributes.ANEMO_DMG_BONUS, ErModAttributes.ANEMO_RES, true, ErModItems.DANDELION_SEED, ElementRegistry.ANEMO),
-        PYRO(0xFFFF0000, ErModAttributes.PYRO_DMG_BONUS, ErModAttributes.PYRO_RES, false, ErModItems.FLAMING_FLOWER_STAMEN, ElementRegistry.PYRO),
+        ANEMO(0xFF44FF99, ErModAttributes.ANEMO_DMG_BONUS, ErModAttributes.ANEMO_RES, true, ErModItems.DANDELION_SEED, ElementRegistry.ANEMO),
+        PYRO(0xFFFF4444, ErModAttributes.PYRO_DMG_BONUS, ErModAttributes.PYRO_RES, false, ErModItems.FLAMING_FLOWER_STAMEN, ElementRegistry.PYRO),
         CRYO(0xFF33FFFF, ErModAttributes.CRYO_DMG_BONUS, ErModAttributes.CRYO_RES, true, ErModItems.MIST_FLOWER_COROLLA, ElementRegistry.CRYO),
-        DENDRO(0xFF00FF00, ErModAttributes.DENDRO_DMG_BONUS, ErModAttributes.DENDRO_RES, true, ErModItems.SUMERU_ROSE, ElementRegistry.DENDRO),
-        ELECTRO(0xFF9900FF, ErModAttributes.ELECTRO_DMG_BONUS, ErModAttributes.ELECTRO_RES, false, ErModItems.ELECTRO_CRYSTAL, ElementRegistry.ELECTRO),
-        GEO(0xFFC87600, ErModAttributes.GEO_DMG_BONUS, ErModAttributes.GEO_RES, false, ErModItems.COR_LAPIS, ElementRegistry.GEO),
+        DENDRO(0xFF44FF44, ErModAttributes.DENDRO_DMG_BONUS, ErModAttributes.DENDRO_RES, true, ErModItems.SUMERU_ROSE, ElementRegistry.DENDRO),
+        ELECTRO(0xFF9944FF, ErModAttributes.ELECTRO_DMG_BONUS, ErModAttributes.ELECTRO_RES, false, ErModItems.ELECTRO_CRYSTAL, ElementRegistry.ELECTRO),
+        GEO(0xFFC87644, ErModAttributes.GEO_DMG_BONUS, ErModAttributes.GEO_RES, false, ErModItems.COR_LAPIS, ElementRegistry.GEO),
         HYDRO(0xFF114ACB, ErModAttributes.HYDRO_DMG_BONUS, ErModAttributes.HYDRO_RES, false, ErModItems.LOTUS_HEAD, ElementRegistry.HYDRO);
 
         private final int id ;

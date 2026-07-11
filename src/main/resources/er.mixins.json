@@ -11,6 +11,7 @@
     "FireworkPocketEntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "ProjectileMixin",
     "ServerPlayerMixin"
   ],
   "client": [

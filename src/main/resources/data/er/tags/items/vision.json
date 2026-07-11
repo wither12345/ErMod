@@ -1,13 +1,12 @@
 {
   "replace": false,
   "values": [
+    "er:pyro_vision",
+    "er:electro_vision",
+    "er:dendro_vision",
     "er:geo_vision",
     "er:anemo_vision",
-    "er:pyro_vision",
-    "er:cryo_vision",
     "er:hydro_vision",
-    "er:dendro_vision",
-    "er:unowned_vision",
-    "er:electro_vision"
+    "er:cryo_vision"
   ]
 }

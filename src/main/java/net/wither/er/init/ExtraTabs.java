@@ -1,13 +1,20 @@
 package net.wither.er.init;
 
 import net.mcreator.er.ERConfig;
+import net.mcreator.er.ErMod;
 import net.mcreator.er.init.ErModItems;
 import net.mcreator.er.init.ErModTabs;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +23,15 @@ import static net.mcreator.er.init.ErModItems.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ExtraTabs {
+    public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ErMod.MODID);
+    public static final RegistryObject<CreativeModeTab> ER_MATERIALS = REGISTRY.register("vision",
+            () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.vision")).icon(
+                    () -> new ItemStack(ErModItems.UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
+                addVisions(tabData, 0);
+                addVisions(tabData, 1);
+                addVisions(tabData, 2);
+            }).build());
+
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
 		if (tabData.getTabKey() == ErModTabs.ARTIFACTS.getKey()) {
@@ -79,6 +95,22 @@ public class ExtraTabs {
             tabData.accept(ErModItems.DARK_IRON_SWORD);
 		}
 	}
+    
+    private static void addVisions(CreativeModeTab.Output tabData, int frame){
+        addVision(tabData, ErModItems.PYRO_VISION, frame);
+        addVision(tabData, ErModItems.HYDRO_VISION, frame);
+        addVision(tabData, ErModItems.ANEMO_VISION, frame);
+        addVision(tabData, ErModItems.ELECTRO_VISION, frame);
+        addVision(tabData, ErModItems.DENDRO_VISION, frame);
+        addVision(tabData, ErModItems.CRYO_VISION, frame);
+        addVision(tabData, ErModItems.GEO_VISION, frame);
+    }
+
+    private static void addVision(CreativeModeTab.Output tabData, RegistryObject<Item> item, int frame){
+        ItemStack itemStack = new ItemStack(item.get());
+        itemStack.getOrCreateTag().putInt("frame", frame);
+        tabData.accept(itemStack);
+    }
 
 	private static void addMainToTab(List<? extends String> mainType, BuildCreativeModeTabContentsEvent tabData, List<String> attrs) {
 		String[] effects_type;

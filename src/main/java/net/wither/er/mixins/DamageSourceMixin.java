@@ -16,12 +16,12 @@ public class DamageSourceMixin implements ElementSourceInterface , DamageModifie
     private EntityHurtEvent.DamageModifier er$modifier = new EntityHurtEvent.DamageModifier();
 
     @Override
-    public ElementSource getSource() {
+    public ElementSource er$getSource() {
         return er$source;
     }
 
     @Override
-    public ElementSourceInterface setElement(ElementSource source) {
+    public ElementSourceInterface er$setElement(ElementSource source) {
         this.er$source = source ;
         return this ;
     }
