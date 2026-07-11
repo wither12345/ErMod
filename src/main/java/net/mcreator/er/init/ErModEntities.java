@@ -4,6 +4,7 @@
 package net.mcreator.er.init;
 
 import net.wither.er.entity.slimes.*;
+import net.wither.er.entity.LunarChargedCloud;
 import net.wither.er.entity.Hyperbloom;
 import net.wither.er.entity.EnergyOrb;
 import net.wither.er.entity.BloomEntityEntity;
@@ -84,6 +85,8 @@ public class ErModEntities {
 			EntityType.Builder.of(DendroSlime::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 0.6f));
 	public static final DeferredHolder<EntityType<?>, EntityType<AnemoSlime>> ANEMO_SLIME = register("anemo_slime",
 			EntityType.Builder.of(AnemoSlime::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 0.6f));
+	public static final DeferredHolder<EntityType<?>, EntityType<LunarChargedCloud>> LUNAR_CLOUD = register("lunar_cloud",
+			EntityType.Builder.of(LunarChargedCloud::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(2, 1));
 
 	// End of user code block custom entities
 	private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

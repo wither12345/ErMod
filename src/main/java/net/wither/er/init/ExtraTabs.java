@@ -1,15 +1,24 @@
 package net.wither.er.init;
 
 import net.mcreator.er.ERConfig;
+import net.mcreator.er.ErMod;
 import net.mcreator.er.init.ErModItems;
 import net.mcreator.er.init.ErModTabs;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.wither.er.item.Vision;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
 
@@ -18,6 +27,15 @@ import java.util.List;
 
 @EventBusSubscriber()
 public class ExtraTabs {
+
+    public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ErMod.MODID);
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ER_MATERIALS = REGISTRY.register("vision",
+            () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.vision")).icon(
+                    () -> new ItemStack(ErModItems.UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
+                addVisions(tabData, Vision.Frame.MONDSTADT);
+                addVisions(tabData, Vision.Frame.LIYUE);
+                addVisions(tabData, Vision.Frame.MOON_WHEEL);
+            }).build());
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
 		if (tabData.getTabKey() == ErModTabs.ARTIFACTS.getKey()) {
@@ -50,6 +68,7 @@ public class ExtraTabs {
 			addMainToTab(ERConfig.CIRCLET_OF_LOGOS_ATTR.get(), tabData, attrs);
 			addMinorToTab(ERConfig.MINOR_ATTR.get(), tabData, new ArrayList<>());
 		} else if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
+            tabData.accept(ErModItems.PYRO_VISION);
 			tabData.accept(ErModItems.WANDERERS_ADVICE);
 			tabData.accept(ErModItems.ADVENTURES_EXPERIENCE);
 			tabData.accept(ErModItems.HEROS_WIT);
@@ -81,6 +100,22 @@ public class ExtraTabs {
             tabData.accept(ErModItems.DARK_IRON_SWORD);
 		}
 	}
+
+    private static void addVisions(CreativeModeTab.Output tabData, Vision.Frame frame){
+        addVision(tabData, ErModItems.PYRO_VISION, frame);
+        addVision(tabData, ErModItems.HYDRO_VISION, frame);
+        addVision(tabData, ErModItems.ANEMO_VISION, frame);
+        addVision(tabData, ErModItems.ELECTRO_VISION, frame);
+        addVision(tabData, ErModItems.DENDRO_VISION, frame);
+        addVision(tabData, ErModItems.CRYO_VISION, frame);
+        addVision(tabData, ErModItems.GEO_VISION, frame);
+    }
+
+    private static void addVision(CreativeModeTab.Output tabData, DeferredItem<Item> item, Vision.Frame frame){
+        ItemStack itemStack = new ItemStack(item.get());
+        itemStack.set(DataComponentsRegister.VISION_FRAME, frame);
+        tabData.accept(itemStack);
+    }
 
 	private static void addMainToTab(List<? extends String> mainType, BuildCreativeModeTabContentsEvent tabData, List<String> attrs) {
 		String[] effects_type;

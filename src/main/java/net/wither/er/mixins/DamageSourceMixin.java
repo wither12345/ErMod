@@ -5,6 +5,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
@@ -16,12 +17,12 @@ public class DamageSourceMixin implements ElementSourceInterface , DamageModifie
     private EntityHurtEvent.DamageModifier modifier = new EntityHurtEvent.DamageModifier();
 
     @Override
-    public ElementSource getSource() {
+    public ElementSource er$getSource() {
         return source;
     }
 
     @Override
-    public ElementSourceInterface setElement(ElementSource source) {
+    public ElementSourceInterface er$setElement(@NotNull ElementSource source) {
         this.source = source ;
         return this ;
     }

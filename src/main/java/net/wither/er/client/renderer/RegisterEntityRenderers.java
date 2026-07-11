@@ -20,5 +20,6 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.CRYO_SLIME.get(), CryoSlimeRenderer::new);
         event.registerEntityRenderer(ErModEntities.DENDRO_SLIME.get(), DendroSlimeRenderer::new);
         event.registerEntityRenderer(ErModEntities.ANEMO_SLIME.get(), AnemoSlimeRenderer::new);
+        event.registerEntityRenderer(ErModEntities.LUNAR_CLOUD.get(), LunarChargedCloudRenderer::new);
     }
 }

@@ -1,13 +1,16 @@
 package net.wither.er.elements;
 
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nullable;
 
 public interface ElementSourceInterface {
-    ElementSource getSource();
+    @Nullable ElementSource er$getSource();
 
-    Object setElement(ElementSource source);
+    Object er$setElement(@NotNull ElementSource source);
 
-    default Object setElement(Element element, ResourceLocation resourceLocation, float gauge){
-        return setElement(new ElementSource(element,resourceLocation,gauge, true));
+    default Object er$setElement(@NotNull Element element, ResourceLocation resourceLocation, float gauge){
+        return er$setElement(new ElementSource(element,resourceLocation,gauge, true));
     }
 }

@@ -12,6 +12,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "LocalPlayerMixin",
+    "ProjectileMixin",
     "ProjectileWeaponItemMixin",
     "ServerPlayerMixin"
   ],

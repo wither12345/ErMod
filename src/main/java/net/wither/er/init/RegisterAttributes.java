@@ -20,6 +20,5 @@ public class RegisterAttributes {
         event.put(ErModEntities.CRYO_SLIME.get(),  ElementalSlime.createAttributes().build());
         event.put(ErModEntities.DENDRO_SLIME.get(),  ElementalSlime.createAttributes().build());
         event.put(ErModEntities.ANEMO_SLIME.get(),  AnemoSlime.createAttributes().build());
-
     }
 }

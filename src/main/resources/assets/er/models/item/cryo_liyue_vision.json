@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "er:item/liyue_vision",
+    "layer1": "er:item/cryo_vision"
+  }
+}

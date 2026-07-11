@@ -5,6 +5,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.wither.er.item.Vision;
 import net.wither.er.item.data.weapon.WeaponAttributeData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
@@ -51,5 +52,11 @@ public class DataComponentsRegister {
             builder -> builder
                     .persistent(MinorAffix.CODEC)
                     .networkSynchronized(MinorAffix.STREAM_CODEC)
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Vision.Frame>> VISION_FRAME = REGISTRAR.registerComponentType(
+            "vision_frame",
+            builder -> builder
+                    .persistent(Vision.FRAME_CODEC)
+                    .networkSynchronized(Vision.FRAME_STREAM_CODEC)
     );
 }

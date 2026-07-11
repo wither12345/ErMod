@@ -46,13 +46,6 @@ public class ErModTabs {
 				tabData.accept(ErModItems.FINE_ENHANCEMENT_ORE.get());
 				tabData.accept(ErModItems.ENHANCEMENT_ORE.get());
 				tabData.accept(ErModBlocks.BURNING_DIRT.get().asItem());
-				tabData.accept(ErModItems.PYRO_VISION.get());
-				tabData.accept(ErModItems.ANEMO_VISION.get());
-				tabData.accept(ErModItems.CRYO_VISION.get());
-				tabData.accept(ErModItems.HYDRO_VISION.get());
-				tabData.accept(ErModItems.ELECTRO_VISION.get());
-				tabData.accept(ErModItems.DENDRO_VISION.get());
-				tabData.accept(ErModItems.GEO_VISION.get());
 				tabData.accept(ErModItems.DAMAGED_MASK.get());
 				tabData.accept(ErModItems.STAINED_MASK.get());
 				tabData.accept(ErModItems.OMINOUS_MASK.get());

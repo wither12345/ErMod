@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "er:item/moon_wheel",
+    "layer1": "er:item/anemo_vision_up"
+  }
+}

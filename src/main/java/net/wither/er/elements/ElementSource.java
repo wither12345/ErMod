@@ -8,11 +8,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 public class ElementSource {
-    private final Element element ;
+    @NotNull private final Element element ;
     private final ResourceLocation resourceLocation ;
     private float gauge ;
     private boolean applicable;
@@ -22,15 +23,15 @@ public class ElementSource {
 
     public static final ResourceKey<DamageType> ReactionKey = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:reaction")) ;
 
-    public ElementSource(Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable) {
+    public ElementSource(@NotNull Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable) {
         this(element,resourceLocation,gauge,applicable,50,2, false);
     }
 
-    public ElementSource(Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable, boolean permanent) {
+    public ElementSource(@NotNull Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable, boolean permanent) {
         this(element,resourceLocation,gauge,applicable,50,2, permanent);
     }
 
-    public ElementSource(Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable , int time , int count, boolean permanent) {
+    public ElementSource(@NotNull Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable , int time , int count, boolean permanent) {
         this.element = element;
         this.resourceLocation = resourceLocation;
         this.gauge = gauge ;
@@ -68,7 +69,7 @@ public class ElementSource {
     }
 
     public static DamageSource createDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable Entity causingEntity, @Nullable Vec3 damageSourcePosition, @Nullable ElementSource source){
-        return (DamageSource) ((ElementSourceInterface)(new DamageSource(type,directEntity,causingEntity,damageSourcePosition))).setElement(source);
+        return (DamageSource) ((ElementSourceInterface)(new DamageSource(type,directEntity,causingEntity,damageSourcePosition))).er$setElement(source);
     }
 
     public static DamageSource createDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable ElementSource source){
@@ -76,7 +77,7 @@ public class ElementSource {
     }
 
     public static DamageSource createDamageSource(DamageSource damageSource, @Nullable ElementSource elementSource){
-        return (DamageSource) ((ElementSourceInterface)(damageSource)).setElement(elementSource);
+        return (DamageSource) ((ElementSourceInterface)(damageSource)).er$setElement(elementSource);
     }
 
     public int getTime() {

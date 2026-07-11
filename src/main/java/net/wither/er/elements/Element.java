@@ -1,12 +1,10 @@
 package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.init.ErModAttributes;
-import net.mcreator.er.init.ErModEntities;
-import net.mcreator.er.init.ErModItems;
-import net.mcreator.er.init.ErModMobEffects;
+import net.mcreator.er.init.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -47,6 +45,7 @@ public abstract class Element {
     public static final ResourceKey<DamageType> BLOOM = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:bloom"));
     public static final ResourceKey<DamageType> SUPERCONDUCT = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:superconduct"));
     public static final TagKey<EntityType<?>> INERT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:inert"));
+
 
     public abstract Category getCategory() ;
     public static final ArrayList<Element> types = new ArrayList<>();
@@ -263,6 +262,18 @@ public abstract class Element {
 
     public DeferredHolder<Attribute, Attribute> getResAttr() {
         return this.getCategory().getResAttr();
+    }
+
+    public static SimpleParticleType getParticle(Category category){
+        return switch (category){
+            case GEO -> ErModParticleTypes.SMALL_GEO_PARTICLE.get();
+            case CRYO -> ErModParticleTypes.SMALL_CRYO_PARTICLE.get();
+            case PYRO -> ErModParticleTypes.SMALL_PYRO_PARTICLE.get();
+            case ANEMO -> ErModParticleTypes.SMALL_ANEMO_PARTICLE.get();
+            case HYDRO -> ErModParticleTypes.SMALL_HYDRO_PARTICLE.get();
+            case DENDRO -> ErModParticleTypes.SMALL_DENDRO_PARTICLE.get();
+            case ELECTRO -> ErModParticleTypes.SMALL_ELECTRO_PARTICLE.get();
+        };
     }
 
     public boolean canReact(Category category) {

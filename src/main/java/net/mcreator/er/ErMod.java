@@ -1,43 +1,34 @@
 package net.mcreator.er;
 
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-import net.wither.er.outcrop.EntityModifierRegistry;
-import net.wither.er.network.ErItemVariables;
-import net.wither.er.network.ErCombatVariables;
-import net.wither.er.loottables.RegisterLootModifier;
-import net.wither.er.loottables.RegisterLootFunction;
-import net.wither.er.init.*;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
-
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
-import net.neoforged.neoforge.network.handling.IPayloadHandler;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.fml.util.thread.SidedThreadGroups;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.bus.api.IEventBus;
-
-import net.minecraft.server.TickTask;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.FriendlyByteBuf;
-
-import net.mcreator.er.network.ErModVariables;
-import net.mcreator.er.init.*;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.Queue;
-import java.util.PriorityQueue;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Comparator;
-
-import it.unimi.dsi.fastutil.ints.IntObjectPair;
 import it.unimi.dsi.fastutil.ints.IntObjectImmutablePair;
+import it.unimi.dsi.fastutil.ints.IntObjectPair;
+import net.mcreator.er.init.*;
+import net.mcreator.er.network.ErModVariables;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.TickTask;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.util.thread.SidedThreadGroups;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.IPayloadHandler;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+import net.wither.er.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.init.*;
+import net.wither.er.loottables.RegisterLootFunction;
+import net.wither.er.loottables.RegisterLootModifier;
+import net.wither.er.network.ErCombatVariables;
+import net.wither.er.network.ErItemVariables;
+import net.wither.er.outcrop.EntityModifierRegistry;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Mod("er")
 public class ErMod {
@@ -75,6 +66,7 @@ public class ErMod {
 		ArtifactEffectRegistry.ARTIFACT_EFFECTS.register(modEventBus);
 		WeaponAbilityRegister.WEAPON_ABILITIES.register(modEventBus);
 		EffectRegister.REGISTRY.register(modEventBus);
+        ExtraTabs.REGISTRY.register(modEventBus);
 		// End of user code block mod init
 	}
 

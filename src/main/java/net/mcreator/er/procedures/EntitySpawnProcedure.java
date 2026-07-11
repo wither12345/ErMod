@@ -1,6 +1,9 @@
 package net.mcreator.er.procedures;
 
 import net.wither.er.network.ErItemVariables;
+import net.wither.er.item.Vision;
+import net.wither.er.init.ElementRegistry;
+import net.wither.er.elements.ElementSourceInterface;
 
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -26,7 +29,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.BlockPos;
 
-import net.mcreator.er.init.ErModItems;
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.entity.TartagliaEntity;
 import net.mcreator.er.entity.MistFlowerEntity;
@@ -51,34 +53,20 @@ public class EntitySpawnProcedure {
 			return;
 		if (entity instanceof Projectile pro) {
 			if (pro.getOwner() instanceof Stray) {
-				entity.getPersistentData().putDouble("Element", 2);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.CRYO.get(), ResourceLocation.parse("er:projectile"), 1);
 			}
 			if (pro.getOwner() instanceof ElectroCicinEntity) {
-				entity.getPersistentData().putDouble("Element", 4);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.ELECTRO.get(), ResourceLocation.parse("er:projectile"), 1);
 			}
 			if (pro.getOwner() instanceof TartagliaEntity) {
-				entity.getPersistentData().putDouble("Element", 6);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.HYDRO.get(), ResourceLocation.parse("er:projectile"), 1);
 			} else if (entity instanceof WindCharge || entity instanceof BreezeWindCharge) {
-				entity.getPersistentData().putDouble("Element", 1);
-			} else if (entity instanceof Arrow && pro.getOwner() instanceof Player) {
-				if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.ANEMO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 1);
-				} else if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.CRYO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 2);
-				} else if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.DENDRO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 3);
-				} else if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.ELECTRO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 4);
-				} else if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.GEO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 5);
-				} else if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.HYDRO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 6);
-				} else if (pro.getOwner().getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() == ErModItems.PYRO_VISION.get()) {
-					entity.getPersistentData().putDouble("Element", 7);
-				}
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.ANEMO.get(), ResourceLocation.parse("er:projectile"), 1);
+			} else if (entity instanceof Arrow && pro.getOwner() instanceof Player player && player.getData(ErItemVariables.PLAYER_VARIABLES).Vision.getItem() instanceof Vision vision) {
+				((ElementSourceInterface) pro).er$setElement(vision.getCategory().getDefault(), ResourceLocation.parse("er:projectile"), 1);
 			}
 			if (entity instanceof SmallFireball || entity instanceof LargeFireball) {
-				entity.getPersistentData().putDouble("Element", 7);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.PYRO.get(), ResourceLocation.parse("er:projectile"), 1);
 			}
 		} else if (entity instanceof LivingEntity && !entity.getType().is(TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:no_level")))) {
 			int level = 1;
@@ -90,17 +78,17 @@ public class EntitySpawnProcedure {
 				ApplyErlevelProcedure.execute(entity, level);
 			}
 			if (entity instanceof Stray) {
-				if (entity instanceof LivingEntity _livingEntity31 && _livingEntity31.getAttributes().hasAttribute(ErModAttributes.CRYO_RES))
-					_livingEntity31.getAttribute(ErModAttributes.CRYO_RES).setBaseValue(Math.pow(25, 2));
+				if (entity instanceof LivingEntity _livingEntity10 && _livingEntity10.getAttributes().hasAttribute(ErModAttributes.CRYO_RES))
+					_livingEntity10.getAttribute(ErModAttributes.CRYO_RES).setBaseValue(Math.pow(25, 2));
 			} else if (entity instanceof EnderMan) {
-				if (entity instanceof LivingEntity _livingEntity33 && _livingEntity33.getAttributes().hasAttribute(ErModAttributes.HYDRO_RES))
-					_livingEntity33.getAttribute(ErModAttributes.HYDRO_RES).setBaseValue((-100));
+				if (entity instanceof LivingEntity _livingEntity12 && _livingEntity12.getAttributes().hasAttribute(ErModAttributes.HYDRO_RES))
+					_livingEntity12.getAttribute(ErModAttributes.HYDRO_RES).setBaseValue((-100));
 			} else if (entity instanceof Blaze || entity instanceof FlamingFlowerEntity) {
-				if (entity instanceof LivingEntity _livingEntity36 && _livingEntity36.getAttributes().hasAttribute(ErModAttributes.PYRO_RES))
-					_livingEntity36.getAttribute(ErModAttributes.PYRO_RES).setBaseValue(200);
+				if (entity instanceof LivingEntity _livingEntity15 && _livingEntity15.getAttributes().hasAttribute(ErModAttributes.PYRO_RES))
+					_livingEntity15.getAttribute(ErModAttributes.PYRO_RES).setBaseValue(200);
 			} else if (entity instanceof MistFlowerEntity) {
-				if (entity instanceof LivingEntity _livingEntity38 && _livingEntity38.getAttributes().hasAttribute(ErModAttributes.CRYO_RES))
-					_livingEntity38.getAttribute(ErModAttributes.CRYO_RES).setBaseValue(200);
+				if (entity instanceof LivingEntity _livingEntity17 && _livingEntity17.getAttributes().hasAttribute(ErModAttributes.CRYO_RES))
+					_livingEntity17.getAttribute(ErModAttributes.CRYO_RES).setBaseValue(200);
 			}
 		}
 	}
