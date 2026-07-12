@@ -18,8 +18,8 @@ import net.wither.er.entity.LunarChargedCloud;
 import org.jetbrains.annotations.NotNull;
 
 public class LunarChargedCloudRenderer extends EntityRenderer<LunarChargedCloud> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "lunar_cloud"), "main");
-    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "textures/entities/lunar_cloud.png");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ErMod.MODID, "lunar_cloud"), "main");
+    private static final ResourceLocation LOCATION = new ResourceLocation(ErMod.MODID, "textures/entities/lunar_cloud.png");
     private static final RenderType RENDER_TYPE = RenderType.entityTranslucent(LOCATION);
 
     private final ModelPart main;

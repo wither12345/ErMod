@@ -43,7 +43,7 @@ public final class ArtifactData {
         this.rarity = rarity;
     }
 
-    public void addTooltip(List<Component> components) {
+    public int addTooltip(List<Component> components) {
         int index = 1;
         components.add(index++, Component.literal("+" + level.level()));
         int percent = experience_percentage(40, level, rarity);
@@ -53,12 +53,13 @@ public final class ArtifactData {
         components.add(index++, Component.literal("§a" + greenBars + "§f" + whiteBars));
         if (this.main.amount() == 0) {
             components.add(index, Component.literal("§kthe mod is made by wither_123"));
-            return;
+            return index;
         }
         components.add(index++, Component.literal(main.toString(level.level(), rarity)));
         for (MinorAffix minorAffix : minor) {
             components.add(index++, Component.literal("§7 " + minorAffix.toString(rarity)));
         }
+        return index;
     }
 
     public void setLevel(ArtifactLevel level, int minorUpgrade) {

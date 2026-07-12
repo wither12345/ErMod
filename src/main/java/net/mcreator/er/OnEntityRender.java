@@ -35,12 +35,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(value = {Dist.CLIENT})
+@Mod.EventBusSubscriber(value = {Dist.CLIENT}, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class OnEntityRender {
 	private static final Set<LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>>> renderedEntities = new HashSet<>();
 
 	@SubscribeEvent
-	public static void onEntityRender(RenderLivingEvent.Pre event) {
+	public static void onEntityRender(RenderLivingEvent.Pre<LivingEntity, EntityModel<LivingEntity>> event) {
 		LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>> rend = event.getRenderer();
 		if (renderedEntities.contains(rend))
 			return;
@@ -58,8 +58,11 @@ public class OnEntityRender {
 		@Override
 		public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int light, @NotNull LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			if (entity instanceof AuraContainerInterface containerInterface && (containerInterface.getElements() & (3 << (Element.RenderId.FROZEN.getId() << 1))) > 0) {
-				VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE));
-				this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), partialTicks, ageInTicks, netHeadYaw, headPitch);
+				VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucent(LAYER_TEXTURE));
+                this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light,
+                        LivingEntityRenderer.getOverlayCoords(entity, 0),
+                        1.0F, 1.0F, 1.0F, 1.0F
+                );
 			}
 		}
 	}

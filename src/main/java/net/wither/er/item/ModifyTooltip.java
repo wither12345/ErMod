@@ -27,12 +27,9 @@ public class ModifyTooltip {
         ArtifactData artifactData = DataComponentsRegister.ARTIFACT.getData(item);
         WeaponLevelData weaponLevelData = DataComponentsRegister.WEAPON_LEVEL.getData(item);
 
-        if(artifactData != null){
-            if(event.getFlags().isAdvanced())
-                addArtifactEffectId(list, artifactData.effect().get());
-            else
-                artifactData.addTooltip(event.getToolTip());
-        }
+        if(artifactData != null)
+            addArtifactEffectId(artifactData.addTooltip(event.getToolTip()) , list, artifactData.effect().get());
+
 
         if(weaponLevelData != null && !item.is(WeaponLevelData.not_enhanceable)){
             list.add(1, Component.literal("Lv." + weaponLevelData.level() + "/" + WeaponLevelData.getMaxLevel(weaponLevelData.ascension()) + " " + getAscension(weaponLevelData.ascension(), WeaponLevelData.getItemWeaponStar(item))));
@@ -48,10 +45,9 @@ public class ModifyTooltip {
         }
     }
 
-    private static void addArtifactEffectId(List<Component> list, ArtifactEffect effect){
+    private static void addArtifactEffectId(int index, List<Component> list, ArtifactEffect effect){
         ResourceLocation location = AdditionalRegistries.ARTIFACT_REGISTRY.getKey(effect) ;
         if (location != null) {
-            int index = 1 ;
             String id = "artifact_effect" + "." + location.getNamespace() + "." + location.getPath() ;
             if(I18n.exists(id))
                 list.add(index ++, Component.translatable(id));

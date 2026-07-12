@@ -35,5 +35,12 @@ public class Vision extends Item {
             Frame frame = fromId(stack.getOrCreateTag().getInt("frame"));
             return frame == null ? 0 : frame.ordinal();
         }
+
+        public static Frame fromString(String s){
+            for(Frame f : Frame.values())
+                if(f.name().toLowerCase().equals(s))
+                    return f;
+            return MONDSTADT;
+        }
     }
 }

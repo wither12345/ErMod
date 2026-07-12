@@ -69,42 +69,44 @@ public class EntityHurtEvent {
         LivingEntity entity = event.getEntity();
         Entity sourceentity = event.getSource().getEntity();
         LevelAccessor world = entity.level();
+        if(world.isClientSide()) return;
+
         double x = entity.getX();
         double y = entity.getY();
         double z = entity.getZ();
         float crit_mult = 1;
-        modifyDamageSource(damagesource) ;
+        modifyDamageSource(damagesource, entity) ;
         if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
             if(sourceentity instanceof ErEntityInterface erEntityInterface){
                 Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
                 for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
                     if(effect.getKey() instanceof DamageAbility damageAbility){
-                        damageAbility.onHurt(damagesource, entity, modifierInterface.getModifier(), effect.getIntValue());
+                        damageAbility.onHurt(damagesource, entity, modifierInterface.er$getModifier(), effect.getIntValue());
                     }
                 }
             }
             if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof DamageAbility ability) {
                 CompoundTag tag = living.getMainHandItem().getOrCreateTag();
                 int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                ability.onHurt(damagesource, entity, modifierInterface.getModifier(), refinement);
+                ability.onHurt(damagesource, entity, modifierInterface.er$getModifier(), refinement);
             }
             double elemental_mastery = 0 ;
             if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
                 elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
             if(elementSourceInterface.er$getSource() != null && elementSourceInterface.er$getSource().getElement() != null) {
-                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), world, x, y, z, modifierInterface.getModifier(), sourceentity);
-                ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifierInterface.getModifier());
+                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), world, x, y, z, modifierInterface.er$getModifier(), sourceentity);
+                ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifierInterface.er$getModifier());
             }
 
             if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
                 crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
-                modifierInterface.getModifier().critical = true;
+                modifierInterface.er$getModifier().critical = true;
             }
 
             if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
-                modifierInterface.getModifier().reaction_multiply = 0 ;
+                modifierInterface.er$getModifier().reaction_multiply = 0 ;
 
-            float final_amount = modifierInterface.getModifier().calculate(event.getAmount(), elemental_mastery) * crit_mult;
+            float final_amount = modifierInterface.er$getModifier().calculate(event.getAmount(), elemental_mastery) * crit_mult;
             if (entity instanceof ErEntityInterface enti) {
                 List<ShieldStack> shields = enti.er$getShieldStacks();
                 float shield_absorb = 0f;
@@ -122,47 +124,54 @@ public class EntityHurtEvent {
 	@SubscribeEvent
 	public static void afterDamage(LivingDamageEvent event){
 		int dmg = Mth.ceil(event.getAmount()) ;
-		if(event.getSource() instanceof DamageModifierInterface modifierInterface && dmg > 0) {
-			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(event.getSource()), modifierInterface.getModifier().critical, modifierInterface.getModifier().type));
+        DamageSource source = event.getSource();
+		if(source instanceof DamageModifierInterface modifierInterface && dmg > 0) {
+			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(source), modifierInterface.er$getModifier().critical, modifierInterface.er$getModifier().type));
 		}
+        ((ElementSourceInterface)source).er$setElement(null);
 	}
 
-	private static void modifyDamageSource(DamageSource source){
-		int elemental_type = 0;
+	private static void modifyDamageSource(DamageSource source, Entity entity){
+        int elemental_type = 0;
         float gauge ;
+        DamageModifierInterface damageModifierInterface = (DamageModifierInterface) source;
+        if(damageModifierInterface.er$getTarget() != entity){
+            damageModifierInterface.er$setTarget(entity);
+            damageModifierInterface.er$reset();
+        }
+        ElementSourceInterface elementSourceInterface = (ElementSourceInterface) source;
 
-		if(source instanceof ElementSourceInterface elementSourceInterface){
-			if(elementSourceInterface.er$getSource() != null)
-				return;
-            for(Element.Category category : Element.Category.values()){
-                if(category.match(source)){
-                    gauge = category.getAura(source);
-                    Element element = category.getDefault();
-                    elementSourceInterface.er$setElement(new ElementSource(element, new ResourceLocation("er:default"), gauge, element.isApplicable()));
-                    break;
-                }
-            }
-            if(source.getDirectEntity() instanceof ElementSourceInterface elementSourceInterface1){
-                ElementSource source1 = elementSourceInterface1.er$getSource();
-                if(source1 == null) return;
-                elementSourceInterface.er$setElement(source1) ;
-            }
-			if(source.getEntity() != null)
-				elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
-			if(elemental_type != 0)
-				elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), new ResourceLocation("er:default"), 1, getEle(elemental_type).isApplicable())) ;
+        if (!damageModifierInterface.er$oriEmpty())
+            return;
 
-            if(source instanceof DamageModifierInterface modifierInterface){
-                if(source.is(CATALYZE))
-                    modifierInterface.getModifier().multiply = ReactionMultiply.CATALYZE;
-                if(source.is(TRANSFORMATIVE))
-                    modifierInterface.getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
-                if(source.is(LUNAR)){
-                    modifierInterface.getModifier().multiply = ReactionMultiply.VARIANT;
-                    modifierInterface.getModifier().type = RenderDamageAmount.DamageDisplayType.LUNAR;
-                }
+        for(Element.Category category : Element.Category.values()){
+            if(category.match(source)){
+                gauge = category.getAura(source);
+                Element element = category.getDefault();
+                elementSourceInterface.er$setElement(new ElementSource(element, new ResourceLocation("er:default"), gauge, element.isApplicable()));
+                break;
             }
-		}
+        }
+
+        if(source.getDirectEntity() instanceof ElementSourceInterface elementSourceInterface1){
+            ElementSource source1 = elementSourceInterface1.er$getSource();
+            if(source1 == null) return;
+            elementSourceInterface.er$setElement(source1) ;
+        }
+
+        if(source.getEntity() != null)
+            elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
+        if(elemental_type != 0)
+            elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), new ResourceLocation("er:default"), 1, getEle(elemental_type).isApplicable())) ;
+
+        if(source.is(CATALYZE))
+            damageModifierInterface.er$getModifier().multiply = ReactionMultiply.CATALYZE;
+        if(source.is(TRANSFORMATIVE))
+            damageModifierInterface.er$getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
+        if(source.is(LUNAR)) {
+            damageModifierInterface.er$getModifier().multiply = ReactionMultiply.VARIANT;
+            damageModifierInterface.er$getModifier().type = RenderDamageAmount.DamageDisplayType.LUNAR;
+        }
 	}
 
 	private static Element getEle(int i){

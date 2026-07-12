@@ -116,10 +116,8 @@ public class Electro extends Element{
                     return;
                 }
 
-                entity.hurt
-                        (ElementSource.createDamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED) , attacker ,
-                                new ElementSource(ElementRegistry.ELECTRO.get() , new ResourceLocation("er.electro_charged.reaction") , 0, true)
-                        ),(8 * EntityHurtEvent.getLevelMultiply(EntityHurtEvent.getEntityLevel(attacker)))
+                entity.hurt(new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(ELECTRO_CHARGED) , attacker ),
+                        (8 * EntityHurtEvent.getLevelMultiply(EntityHurtEvent.getEntityLevel(attacker)))
                 );
                 entity.setDeltaMovement(new Vec3(0, 0, 0));
                 List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();

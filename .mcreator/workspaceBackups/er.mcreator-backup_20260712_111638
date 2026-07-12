@@ -2642,12 +2642,12 @@
       "name": "MinorUpgrades",
       "type": "item",
       "compiles": true,
-      "locked_code": true,
+      "locked_code": false,
       "registry_name": "minor_upgrades",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/er/item/MinorUpgradesItem.java",
-          "src/main/resources/assets/er/models/item/minor_upgrades.json"
+          "src/main/resources/assets/er/models/item/minor_upgrades.json",
+          "src/main/java/net/mcreator/er/item/MinorUpgradesItem.java"
         ]
       },
       "path": "~/Artifacts"
@@ -4972,6 +4972,18 @@
           "src/main/resources/data/er/damage_type/superconduct.json"
         ]
       }
+    },
+    {
+      "name": "LunarCharged",
+      "type": "damagetype",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "lunar_charged",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/er/damage_type/lunar_charged.json"
+        ]
+      }
     }
   ],
   "variable_elements": [
@@ -5202,7 +5214,12 @@
     ],
     "DAMAGE_TYPES:er:no_critical": [
       "CUSTOM:Reaction",
-      "#er:reaction"
+      "CUSTOM:Burning",
+      "CUSTOM:Overloaded",
+      "CUSTOM:ElectroCharged",
+      "CUSTOM:Swirl",
+      "CUSTOM:Bloom",
+      "CUSTOM:SuperconductDMG"
     ],
     "DAMAGE_TYPES:er:reaction": [
       "CUSTOM:Burning",
@@ -5210,7 +5227,8 @@
       "CUSTOM:ElectroCharged",
       "CUSTOM:Swirl",
       "CUSTOM:Bloom",
-      "CUSTOM:SuperconductDMG"
+      "CUSTOM:SuperconductDMG",
+      "CUSTOM:LunarCharged"
     ],
     "ITEMS:er:not_enhanceable": [
       "TAG:pgc:wuqi"
@@ -5254,6 +5272,9 @@
       "CUSTOM:ElementalBurst",
       "#er:reaction",
       "#minecraft:is_explosion"
+    ],
+    "DAMAGE_TYPES:er:lunar": [
+      "CUSTOM:LunarCharged"
     ]
   },
   "tab_element_order": {},
@@ -5416,7 +5437,7 @@
       "attribute.er.hydro_res": "Hydro Res",
       "item.er.electro_armor_leggings": "Electro Leggings",
       "block.er.crate": "Crate",
-      "item.er.minor_upgrades": "Minor Affix Upgrades",
+      "item.er.minor_upgrades": "Main Affix Shard",
       "item.er.geo_armor_leggings": "Geo Leggings",
       "item.er.fatui_electro_cicin_mage_spawn_egg": "Fatui Electro Cicin Mage Spawn Egg",
       "block.er.crafting_bench": "Crafting Bench",
@@ -5648,7 +5669,10 @@
       "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
       "item.er.dark_iron_sword": "Dark Iron Sword",
       "effect.er.overloaded": "Overloaded",
-      "item_group.er.vision": "Vision"
+      "item_group.er.vision": "Vision",
+      "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+      "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+      "death.attack.lunar_charged": "%1$s felt numb"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -6040,7 +6064,10 @@
       "death.attack.superconduct.item": "%1$s was killed by %2$s using %3$s",
       "item.er.dark_iron_sword": "暗铁剑",
       "effect.er.overloaded": "",
-      "item_group.er.vision": "神之眼"
+      "item_group.er.vision": "神之眼",
+      "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
+      "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
+      "death.attack.lunar_charged": "%1$s felt numb"
     }
   },
   "metadata": {

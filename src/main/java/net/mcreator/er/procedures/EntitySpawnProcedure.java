@@ -50,21 +50,21 @@ public class EntitySpawnProcedure {
 			return;
 		if (entity instanceof Projectile pro) {
 			if (pro.getOwner() instanceof Stray) {
-				((ElementSourceInterface) pro).er$setElement(ElementRegistry.CRYO.get(), ResourceLocation.parse("er:projectile"), 1);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.CRYO.get(), new ResourceLocation("er:projectile"), 1);
 			}
 			if (pro.getOwner() instanceof ElectroCicinEntity) {
-				((ElementSourceInterface) pro).er$setElement(ElementRegistry.ELECTRO.get(), ResourceLocation.parse("er:projectile"), 1);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.ELECTRO.get(), new ResourceLocation("er:projectile"), 1);
 			}
 			if (pro.getOwner() instanceof TartagliaEntity) {
-				((ElementSourceInterface) pro).er$setElement(ElementRegistry.HYDRO.get(), ResourceLocation.parse("er:projectile"), 1);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.HYDRO.get(), new ResourceLocation("er:projectile"), 1);
 			} else if (entity instanceof Arrow && pro.getOwner() instanceof Player player) {
 				player.getCapability(ErItemVariables.PLAYER_VARIABLES).ifPresent(playerVariables -> {
 					if (playerVariables.Vision.getItem() instanceof Vision vision)
-						((ElementSourceInterface) pro).er$setElement(vision.getCategory().getDefault(), ResourceLocation.parse("er:projectile"), 1);
+						((ElementSourceInterface) pro).er$setElement(vision.getCategory().getDefault(), new ResourceLocation("er:projectile"), 1);
 				});
 			}
 			if (entity instanceof SmallFireball || entity instanceof LargeFireball) {
-				((ElementSourceInterface) pro).er$setElement(ElementRegistry.PYRO.get(), ResourceLocation.parse("er:projectile"), 1);
+				((ElementSourceInterface) pro).er$setElement(ElementRegistry.PYRO.get(), new ResourceLocation("er:projectile"), 1);
 			}
 		} else if (entity instanceof LivingEntity && !entity.getType().is(TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("er:no_level")))) {
 			int level = 1;
