@@ -1,6 +1,20 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "er:item/vision"
-  }
+    "layer0": "er:item/mondstadt_vision"
+  },
+  "overrides": [
+    {
+    "predicate": {
+      "er:vision_frame": 1
+    },
+    "model": "er:item/unowned_liyue_vision"
+    },
+    {
+      "predicate": {
+        "er:vision_frame": 2
+      },
+      "model": "er:item/unowned_moon_wheel"
+    }
+  ]
 }

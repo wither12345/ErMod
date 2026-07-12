@@ -22,13 +22,12 @@ import net.mcreator.er.ErMod;
 public class ErModTabs {
 	public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ErMod.MODID);
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ER_MATERIALS = REGISTRY.register("er_materials",
-			() -> CreativeModeTab.builder().title(Component.translatable("item_group.er.er_materials")).icon(() -> new ItemStack(ErModItems.UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
+			() -> CreativeModeTab.builder().title(Component.translatable("item_group.er.er_materials")).icon(() -> new ItemStack(ErModItems.MORA.get())).displayItems((parameters, tabData) -> {
 				tabData.accept(ErModItems.MIST_FLOWER_COROLLA.get());
 				tabData.accept(ErModItems.FLAMING_FLOWER_STAMEN.get());
 				tabData.accept(ErModItems.CRYSTAL_CORE.get());
 				tabData.accept(ErModItems.CONDENSED_PYRO.get());
 				tabData.accept(ErModItems.CONDENSED_CRYO.get());
-				tabData.accept(ErModItems.UNOWNED_VISION.get());
 				tabData.accept(ErModItems.ELECTRO_CRYSTAL.get());
 				tabData.accept(ErModItems.CONDENSED_ELECTRO.get());
 				tabData.accept(ErModBlocks.SUMERU_ROSE.get().asItem());
@@ -66,15 +65,10 @@ public class ErModTabs {
 				tabData.accept(ErModItems.WOODEN_CLUB.get());
 				tabData.accept(ErModItems.ELECTRO_MIST_GRASS_LANTERN.get());
 			}).withTabsBefore(ER_MATERIALS.getId()).build());
-	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
-			() -> CreativeModeTab.builder().title(Component.translatable("item_group.er.artifacts")).icon(() -> new ItemStack(ErModItems.UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
-				tabData.accept(ErModItems.RARITY_GEMSTONE.get());
-				tabData.accept(ErModItems.MINOR_UPGRADES.get());
-			}).withSearchBar().withTabsBefore(ER_WEAPON.getId()).build());
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> STELLA_FORTUNA = REGISTRY.register("stella_fortuna",
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.er.stella_fortuna")).icon(() -> new ItemStack(ErModItems.MEMORYOF_ROVING_GALES.get())).displayItems((parameters, tabData) -> {
 				tabData.accept(ErModItems.MEMORYOF_ROVING_GALES.get());
-			}).withSearchBar().withTabsBefore(ARTIFACTS.getId()).build());
+			}).withSearchBar().withTabsBefore(ER_WEAPON.getId()).build());
 
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {

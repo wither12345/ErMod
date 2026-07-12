@@ -8,6 +8,7 @@ import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.Vision;
+import net.wither.er.item.EmptyVision;
 import net.wither.er.init.WeaponAbilityRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.entity.ArtifactSlot;
@@ -64,7 +65,6 @@ public class ErModItems {
 	public static final DeferredItem<Item> PYRO_SWORD;
 	public static final DeferredItem<Item> POLAR_STAR;
 	public static final DeferredItem<Item> TARTAGLIA_SPAWN_EGG;
-	public static final DeferredItem<Item> UNOWNED_VISION;
 	public static final DeferredItem<Item> PYRO_HOE;
 	public static final DeferredItem<Item> PYRO_PICKAXE;
 	public static final DeferredItem<Item> ELECTRO_CRYSTAL_ORE;
@@ -182,7 +182,6 @@ public class ErModItems {
 		PYRO_SWORD = REGISTRY.register("pyro_sword", PyroSwordItem::new);
 		POLAR_STAR = REGISTRY.register("polar_star", PolarStarItem::new);
 		TARTAGLIA_SPAWN_EGG = REGISTRY.register("tartaglia_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.TARTAGLIA, -6724096, -16737793, new Item.Properties()));
-		UNOWNED_VISION = REGISTRY.register("unowned_vision", UnownedVisionItem::new);
 		PYRO_HOE = REGISTRY.register("pyro_hoe", PyroHoeItem::new);
 		PYRO_PICKAXE = REGISTRY.register("pyro_pickaxe", PyroPickaxeItem::new);
 		ELECTRO_CRYSTAL_ORE = block(ErModBlocks.ELECTRO_CRYSTAL_ORE);
@@ -324,6 +323,7 @@ public class ErModItems {
 			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.COOL_STEEL, ErModItems.COOL_STEEL, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
 	public static final DeferredItem<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword", () -> new SwordItem(ErTiers.STAR_3,
 			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DARK_IRON, ErModItems.DARK_IRON_SWORD, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
 	public static final DeferredItem<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
 	public static final DeferredItem<Item> ANEMO_VISION = REGISTRY.register("anemo_vision", () -> new Vision(Element.Category.ANEMO));
@@ -344,6 +344,7 @@ public class ErModItems {
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
+			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());
 			registerVision(ANEMO_VISION.get());

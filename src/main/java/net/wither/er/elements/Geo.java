@@ -55,7 +55,7 @@ public class Geo extends Element{
 
     public static void spawnCrystallize(EntityType<?> type, LevelAccessor accessor, double x, double y, double z, @Nullable Entity applier){
         if (accessor instanceof ServerLevel _level) {
-            Entity entityToSpawn = ErModEntities.PYRO_CRYSTALLIZE.get().spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
+            Entity entityToSpawn = type.spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
             if (entityToSpawn != null) {
                 if (applier != null) {
                     entityToSpawn.getPersistentData().putString("UUID", applier.getStringUUID());

@@ -122,7 +122,6 @@
   "item.er.cor_lapis": "石珀",
   "attribute.er.elemental_mastery": "元素精通",
   "attribute.er.energy_recharge": "元素充能效率",
-  "item.er.unowned_vision": "无主神之眼",
   "block.er.white_iron_ore": "白铁矿",
   "block.er.cuihua_fence": "萃华木栅栏",
   "enchantment.er.anemo_infusion_enchantment": "风附魔",
@@ -175,7 +174,6 @@
   "attribute.er.dendro_res": "草元素抗性",
   "block.er.cuihua_sapling": "萃华树苗",
   "item.er.condensed_electro": "浓缩雷元素",
-  "item_group.er.artifacts": "圣遗物",
   "attribute.er.max_stamina": "最大体力",
   "item.er.pyro_armor_boots": "火元素靴子",
   "effect.er.superconduct": "超导",
@@ -394,5 +392,9 @@
   "item_group.er.vision": "神之眼",
   "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
   "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
-  "death.attack.lunar_charged": "%1$s felt numb"
+  "death.attack.lunar_charged": "%1$s felt numb",
+  "item_group.er.artifacts": "圣遗物",
+  "item.er.empty_moon_wheel": "无主月之轮",
+  "item.er.unowned_moon_wheel": "无主月之轮",
+  "item.er.unowned_vision": "无主神之眼"
 }

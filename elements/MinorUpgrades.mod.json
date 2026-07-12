@@ -5,16 +5,13 @@
     "renderType": 0,
     "texture": "minor_affix_shard",
     "customModelName": "Normal",
+    "guiTexture": "",
     "customProperties": {},
     "states": [],
     "animations": [],
     "name": "Main Affix Shard",
     "rarity": "EPIC",
-    "creativeTabs": [
-      {
-        "value": "CUSTOM:Artifacts"
-      }
-    ],
+    "creativeTabs": [],
     "stackSize": 64,
     "enchantability": 0,
     "useDuration": 0,
@@ -60,6 +57,10 @@
     "isAlwaysEdible": false,
     "animation": "none",
     "isMusicDisc": false,
+    "musicDiscMusic": {
+      "value": ""
+    },
+    "musicDiscDescription": "",
     "musicDiscLengthInTicks": 0,
     "musicDiscAnalogOutput": 0,
     "providedBannerPatterns": [],

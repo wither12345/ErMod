@@ -121,7 +121,6 @@
   "item.er.cor_lapis": "Cor Lapis",
   "attribute.er.elemental_mastery": "Elemental Mastery",
   "attribute.er.energy_recharge": "Energy Recharge",
-  "item.er.unowned_vision": "Unowned Vision",
   "block.er.white_iron_ore": "White Iron Ore",
   "block.er.cuihua_fence": "Cuihua Planks",
   "enchantment.er.anemo_infusion_enchantment": "Anemo Infusion",
@@ -157,7 +156,7 @@
   "attribute.er.hydro_res": "Hydro Res",
   "item.er.electro_armor_leggings": "Electro Leggings",
   "block.er.crate": "Crate",
-  "item.er.minor_upgrades": "Minor Affix Upgrades",
+  "item.er.minor_upgrades": "Main Affix Shard",
   "item.er.geo_armor_leggings": "Geo Leggings",
   "item.er.fatui_electro_cicin_mage_spawn_egg": "Fatui Electro Cicin Mage Spawn Egg",
   "block.er.crafting_bench": "Crafting Bench",
@@ -174,7 +173,6 @@
   "attribute.er.dendro_res": "Dendro Res",
   "block.er.cuihua_sapling": "Cuihua Sapling",
   "item.er.condensed_electro": "Condensed Electro",
-  "item_group.er.artifacts": "Artifacts",
   "attribute.er.max_stamina": "Max Stamina",
   "item.er.pyro_armor_boots": "Pyro Boots",
   "effect.er.superconduct": "Superconduct",
@@ -394,5 +392,9 @@
   "item_group.er.vision": "Visions",
   "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
   "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
-  "death.attack.lunar_charged": "%1$s felt numb"
+  "death.attack.lunar_charged": "%1$s felt numb",
+  "item_group.er.artifacts": "Artifacts",
+  "item.er.empty_moon_wheel": "Empty",
+  "item.er.unowned_moon_wheel": "Unowned Moon Wheel",
+  "item.er.unowned_vision": "Unowned Vision"
 }

@@ -14,33 +14,32 @@
 */
 package net.mcreator.er;
 
-import net.neoforged.neoforge.client.event.RenderLivingEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.api.distmarker.Dist;
-
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.model.EntityModel;
-
-import java.util.Set;
-import java.util.HashSet;
-
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(value = {Dist.CLIENT})
 public class OnEntityRender {
 	private static final Set<LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>>> renderedEntities = new HashSet<>();
 
 	@SubscribeEvent
-	public static void onEntityRender(RenderLivingEvent.Pre event) {
+	public static void onEntityRender(RenderLivingEvent.Pre<LivingEntity, EntityModel<LivingEntity>> event) {
 		LivingEntityRenderer<LivingEntity, EntityModel<LivingEntity>> rend = event.getRenderer();
 		if (renderedEntities.contains(rend))
 			return;
@@ -56,7 +55,7 @@ public class OnEntityRender {
 		}
 
 		@Override
-		public void render(PoseStack poseStack, MultiBufferSource bufferSource, int light, LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int light, @NotNull LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 			if (entity instanceof AuraContainerInterface containerInterface && (containerInterface.getElements() & (3 << (Element.RenderId.FROZEN.getId() << 1))) > 0) {
 				VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE));
 				this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0));

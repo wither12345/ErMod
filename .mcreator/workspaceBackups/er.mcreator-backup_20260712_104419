@@ -1531,19 +1531,6 @@
       }
     },
     {
-      "name": "UnownedVision",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "unowned_vision",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/unowned_vision.json",
-          "src/main/java/net/mcreator/er/item/UnownedVisionItem.java"
-        ]
-      }
-    },
-    {
       "name": "KeyM_Down",
       "type": "procedure",
       "compiles": true,
@@ -2436,17 +2423,6 @@
       }
     },
     {
-      "name": "Artifacts",
-      "type": "tab",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifacts",
-      "metadata": {
-        "files": []
-      },
-      "path": "~/Artifacts"
-    },
-    {
       "name": "MainAffixShard",
       "type": "item",
       "compiles": true,
@@ -2572,12 +2548,12 @@
       "registry_name": "rarity_gemstone",
       "metadata": {
         "files": [
+          "src/main/resources/assets/er/models/item/rarity_gemstone_1.json",
+          "src/main/resources/assets/er/models/item/rarity_gemstone_3.json",
           "src/main/java/net/mcreator/er/item/RarityGemstoneItem.java",
           "src/main/resources/assets/er/models/item/rarity_gemstone_2.json",
           "src/main/resources/assets/er/models/item/rarity_gemstone_0.json",
-          "src/main/resources/assets/er/models/item/rarity_gemstone_3.json",
-          "src/main/resources/assets/er/models/item/rarity_gemstone.json",
-          "src/main/resources/assets/er/models/item/rarity_gemstone_1.json"
+          "src/main/resources/assets/er/models/item/rarity_gemstone.json"
         ]
       },
       "path": "~/Artifacts"
@@ -2687,8 +2663,8 @@
       "registry_name": "minor_upgrades",
       "metadata": {
         "files": [
-          "src/main/java/net/mcreator/er/item/MinorUpgradesItem.java",
-          "src/main/resources/assets/er/models/item/minor_upgrades.json"
+          "src/main/resources/assets/er/models/item/minor_upgrades.json",
+          "src/main/java/net/mcreator/er/item/MinorUpgradesItem.java"
         ]
       },
       "path": "~/Artifacts"
@@ -4625,7 +4601,7 @@
       "name": "FavorFromTheGods",
       "type": "achievement",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "favor_from_the_gods",
       "metadata": {
         "files": [
@@ -5314,13 +5290,6 @@
     "ITEMS:er:anemo_infusion": [
       "CUSTOM:AnemoSword"
     ],
-    "ITEMS:er:one_star_artifact": [
-      "CUSTOM:LuckyDogsClover",
-      "CUSTOM:LuckyDogsEagleFeather",
-      "CUSTOM:LuckyDogsHourglass",
-      "CUSTOM:LuckyDogsGoblet",
-      "CUSTOM:LuckyDogsSilverCirclet"
-    ],
     "BLOCKS:minecraft:logs": [
       "CUSTOM:CuihuaLog"
     ],
@@ -5423,7 +5392,12 @@
     ],
     "DAMAGE_TYPES:er:no_critical": [
       "CUSTOM:Reaction",
-      "#er:reaction"
+      "CUSTOM:Burning",
+      "CUSTOM:Overloaded",
+      "CUSTOM:ElectroCharged",
+      "CUSTOM:Swirl",
+      "CUSTOM:Bloom",
+      "CUSTOM:SuperconductDamage"
     ],
     "DAMAGE_TYPES:er:reaction": [
       "CUSTOM:Burning",
@@ -5431,7 +5405,8 @@
       "CUSTOM:ElectroCharged",
       "CUSTOM:Swirl",
       "CUSTOM:Bloom",
-      "CUSTOM:SuperconductDamage"
+      "CUSTOM:SuperconductDamage",
+      "CUSTOM:LunarCharged"
     ],
     "ITEMS:er:not_enhanceable": [
       "TAG:pgc:wuqi"
@@ -5471,6 +5446,15 @@
     ],
     "DAMAGE_TYPES:er:lunar": [
       "CUSTOM:LunarCharged"
+    ],
+    "ITEMS:er:moon_wheel": [
+      "CUSTOM:Primogem"
+    ],
+    "ITEMS:er:mondstadt": [
+      "CUSTOM:DandelionSeed"
+    ],
+    "ITEMS:er:liyue": [
+      "CUSTOM:CorLapis"
     ]
   },
   "tab_element_order": {},
@@ -5598,7 +5582,6 @@
       "item.er.cor_lapis": "Cor Lapis",
       "attribute.er.elemental_mastery": "Elemental Mastery",
       "attribute.er.energy_recharge": "Energy Recharge",
-      "item.er.unowned_vision": "Unowned Vision",
       "block.er.white_iron_ore": "White Iron Ore",
       "block.er.cuihua_fence": "Cuihua Planks",
       "enchantment.er.anemo_infusion_enchantment": "Anemo Infusion",
@@ -5634,7 +5617,7 @@
       "attribute.er.hydro_res": "Hydro Res",
       "item.er.electro_armor_leggings": "Electro Leggings",
       "block.er.crate": "Crate",
-      "item.er.minor_upgrades": "Minor Affix Upgrades",
+      "item.er.minor_upgrades": "Main Affix Shard",
       "item.er.geo_armor_leggings": "Geo Leggings",
       "item.er.fatui_electro_cicin_mage_spawn_egg": "Fatui Electro Cicin Mage Spawn Egg",
       "block.er.crafting_bench": "Crafting Bench",
@@ -5651,7 +5634,6 @@
       "attribute.er.dendro_res": "Dendro Res",
       "block.er.cuihua_sapling": "Cuihua Sapling",
       "item.er.condensed_electro": "Condensed Electro",
-      "item_group.er.artifacts": "Artifacts",
       "attribute.er.max_stamina": "Max Stamina",
       "item.er.pyro_armor_boots": "Pyro Boots",
       "effect.er.superconduct": "Superconduct",
@@ -5871,7 +5853,9 @@
       "item_group.er.vision": "Visions",
       "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
       "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
-      "death.attack.lunar_charged": "%1$s felt numb"
+      "death.attack.lunar_charged": "%1$s felt numb",
+      "item_group.er.artifacts": "Artifacts",
+      "item.er.empty_moon_wheel": "Empty"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5997,7 +5981,6 @@
       "item.er.cor_lapis": "石珀",
       "attribute.er.elemental_mastery": "元素精通",
       "attribute.er.energy_recharge": "元素充能效率",
-      "item.er.unowned_vision": "无主神之眼",
       "block.er.white_iron_ore": "白铁矿",
       "block.er.cuihua_fence": "萃华木栅栏",
       "enchantment.er.anemo_infusion_enchantment": "风附魔",
@@ -6050,7 +6033,6 @@
       "attribute.er.dendro_res": "草元素抗性",
       "block.er.cuihua_sapling": "萃华树苗",
       "item.er.condensed_electro": "浓缩雷元素",
-      "item_group.er.artifacts": "圣遗物",
       "attribute.er.max_stamina": "最大体力",
       "item.er.pyro_armor_boots": "火元素靴子",
       "effect.er.superconduct": "超导",
@@ -6269,7 +6251,9 @@
       "item_group.er.vision": "神之眼",
       "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
       "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
-      "death.attack.lunar_charged": "%1$s felt numb"
+      "death.attack.lunar_charged": "%1$s felt numb",
+      "item_group.er.artifacts": "圣遗物",
+      "item.er.empty_moon_wheel": "空月之轮"
     }
   },
   "metadata": {

@@ -5314,13 +5314,6 @@
     "ITEMS:er:anemo_infusion": [
       "CUSTOM:AnemoSword"
     ],
-    "ITEMS:er:one_star_artifact": [
-      "CUSTOM:LuckyDogsClover",
-      "CUSTOM:LuckyDogsEagleFeather",
-      "CUSTOM:LuckyDogsHourglass",
-      "CUSTOM:LuckyDogsGoblet",
-      "CUSTOM:LuckyDogsSilverCirclet"
-    ],
     "BLOCKS:minecraft:logs": [
       "CUSTOM:CuihuaLog"
     ],
@@ -5478,7 +5471,15 @@
     "DAMAGE_TYPES:er:lunar": [
       "CUSTOM:LunarCharged"
     ],
-    "ITEMS:er:moon_wheel": []
+    "ITEMS:er:moon_wheel": [
+      "CUSTOM:Primogem"
+    ],
+    "ITEMS:er:mondstadt": [
+      "CUSTOM:DandelionSeed"
+    ],
+    "ITEMS:er:liyue": [
+      "CUSTOM:CorLapis"
+    ]
   },
   "tab_element_order": {},
   "language_map": {

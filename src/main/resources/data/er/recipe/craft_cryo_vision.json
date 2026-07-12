@@ -1,0 +1,11 @@
+{
+  "type": "er:vision_element_recipe",
+  "category": "misc",
+  "result": {
+    "id": "er:cryo_vision",
+    "count": 1
+  },
+  "ingredient": {
+    "item": "er:condensed_cryo"
+  }
+}

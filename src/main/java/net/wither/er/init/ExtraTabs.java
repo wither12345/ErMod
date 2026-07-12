@@ -29,46 +29,49 @@ import java.util.List;
 public class ExtraTabs {
 
     public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ErMod.MODID);
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ER_MATERIALS = REGISTRY.register("vision",
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> VISION = REGISTRY.register("vision",
             () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.vision")).icon(
                     () -> new ItemStack(ErModItems.UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
                 addVisions(tabData, Vision.Frame.MONDSTADT);
                 addVisions(tabData, Vision.Frame.LIYUE);
                 addVisions(tabData, Vision.Frame.MOON_WHEEL);
             }).build());
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
+            () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.artifacts")).icon(() -> new ItemStack(ErModItems.LUCKY_DOGS_CLOVER.get())).displayItems((parameters, tabData) -> {
+                tabData.accept(ErModItems.RARITY_GEMSTONE.get());
+                tabData.accept(ErModItems.MINOR_UPGRADES.get());
+                tabData.accept(ErModItems.LUCKY_DOGS_CLOVER);
+                tabData.accept(ErModItems.LUCKY_DOGS_EAGLE_FEATHER);
+                tabData.accept(ErModItems.LUCKY_DOGS_HOURGLASS);
+                tabData.accept(ErModItems.LUCKY_DOGS_GOBLET);
+                tabData.accept(ErModItems.LUCKY_DOGS_SILVER_CIRCLET);
+                tabData.accept(ErModItems.ADVENTURERS_FLOWER);
+                tabData.accept(ErModItems.ADVENTURERS_TAIL_FEATHER);
+                tabData.accept(ErModItems.ADVENTURERS_POCKET_WATCH);
+                tabData.accept(ErModItems.ADVENTURERS_GOLDEN_GOBLET);
+                tabData.accept(ErModItems.ADVENTURERS_BANDANA);
+                tabData.accept(ErModItems.TRAVELING_DOCTORS_SILVER_LOTUS);
+                tabData.accept(ErModItems.TRAVELING_DOCTORS_OWL_FEATHER);
+                tabData.accept(ErModItems.TRAVELING_DOCTORS_POCKET_WATCH);
+                tabData.accept(ErModItems.TRAVELING_DOCTORS_MEDICINE_POT);
+                tabData.accept(ErModItems.TRAVELING_DOCTORS_HANDKERCHIEF);
+                tabData.accept(ErModItems.BERSERKERS_ROSE);
+                tabData.accept(ErModItems.BERSERKERS_INDIGO_FEATHER);
+                tabData.accept(ErModItems.BERSERKERS_TIMEPIECE);
+                tabData.accept(ErModItems.BERSERKERS_BONE_GOBLET);
+                tabData.accept(ErModItems.BERSERKERS_BATTLE_MASK);
+                List<String> attrs = new ArrayList<>();
+                addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
+                addMainToTab(ERConfig.PLUME_OF_DEATH_ATTR.get(), tabData, attrs);
+                addMainToTab(ERConfig.SANDS_OF_EON_ATTR.get(), tabData, attrs);
+                addMainToTab(ERConfig.GOBLET_OF_EONOTHEM_ATTR.get(), tabData, attrs);
+                addMainToTab(ERConfig.CIRCLET_OF_LOGOS_ATTR.get(), tabData, attrs);
+                addMinorToTab(ERConfig.MINOR_ATTR.get(), tabData, new ArrayList<>());
+            }).withSearchBar().withTabsBefore(ErModTabs.ER_WEAPON.getId()).build());
+
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
-		if (tabData.getTabKey() == ErModTabs.ARTIFACTS.getKey()) {
-			tabData.accept(ErModItems.LUCKY_DOGS_CLOVER);
-			tabData.accept(ErModItems.LUCKY_DOGS_EAGLE_FEATHER);
-			tabData.accept(ErModItems.LUCKY_DOGS_HOURGLASS);
-			tabData.accept(ErModItems.LUCKY_DOGS_GOBLET);
-			tabData.accept(ErModItems.LUCKY_DOGS_SILVER_CIRCLET);
-			tabData.accept(ErModItems.ADVENTURERS_FLOWER);
-			tabData.accept(ErModItems.ADVENTURERS_TAIL_FEATHER);
-			tabData.accept(ErModItems.ADVENTURERS_POCKET_WATCH);
-			tabData.accept(ErModItems.ADVENTURERS_GOLDEN_GOBLET);
-			tabData.accept(ErModItems.ADVENTURERS_BANDANA);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_SILVER_LOTUS);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_OWL_FEATHER);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_POCKET_WATCH);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_MEDICINE_POT);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_HANDKERCHIEF);
-            tabData.accept(ErModItems.BERSERKERS_ROSE);
-            tabData.accept(ErModItems.BERSERKERS_INDIGO_FEATHER);
-            tabData.accept(ErModItems.BERSERKERS_TIMEPIECE);
-            tabData.accept(ErModItems.BERSERKERS_BONE_GOBLET);
-            tabData.accept(ErModItems.BERSERKERS_BATTLE_MASK);
-
-			List<String> attrs = new ArrayList<>();
-			addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
-			addMainToTab(ERConfig.PLUME_OF_DEATH_ATTR.get(), tabData, attrs);
-			addMainToTab(ERConfig.SANDS_OF_EON_ATTR.get(), tabData, attrs);
-			addMainToTab(ERConfig.GOBLET_OF_EONOTHEM_ATTR.get(), tabData, attrs);
-			addMainToTab(ERConfig.CIRCLET_OF_LOGOS_ATTR.get(), tabData, attrs);
-			addMinorToTab(ERConfig.MINOR_ATTR.get(), tabData, new ArrayList<>());
-		} else if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
-            tabData.accept(ErModItems.PYRO_VISION);
+		if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
 			tabData.accept(ErModItems.WANDERERS_ADVICE);
 			tabData.accept(ErModItems.ADVENTURES_EXPERIENCE);
 			tabData.accept(ErModItems.HEROS_WIT);
@@ -102,6 +105,7 @@ public class ExtraTabs {
 	}
 
     private static void addVisions(CreativeModeTab.Output tabData, Vision.Frame frame){
+        addVision(tabData, ErModItems.UNOWNED_VISION, frame);
         addVision(tabData, ErModItems.PYRO_VISION, frame);
         addVision(tabData, ErModItems.HYDRO_VISION, frame);
         addVision(tabData, ErModItems.ANEMO_VISION, frame);
@@ -117,7 +121,7 @@ public class ExtraTabs {
         tabData.accept(itemStack);
     }
 
-	private static void addMainToTab(List<? extends String> mainType, BuildCreativeModeTabContentsEvent tabData, List<String> attrs) {
+	private static void addMainToTab(List<? extends String> mainType, CreativeModeTab.Output tabData, List<String> attrs) {
 		String[] effects_type;
 		effects_type = mainType.toArray(new String[0]);
 		for (int i = effects_type.length - 1; i >= 0; i--) {
@@ -134,7 +138,7 @@ public class ExtraTabs {
 		}
 	}
 
-	private static void addMinorToTab(List<? extends String> minorType, BuildCreativeModeTabContentsEvent tabData, List<String> attrs) {
+	private static void addMinorToTab(List<? extends String> minorType, CreativeModeTab.Output tabData, List<String> attrs) {
 		String[] effects_type;
 		effects_type = minorType.toArray(new String[0]);
 		for (int i = effects_type.length - 1; i >= 0; i--) {
