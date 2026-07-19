@@ -50,6 +50,7 @@ public abstract class Element {
     public static final ResourceKey<DamageType> BLOOM = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:bloom"));
     public static final ResourceKey<DamageType> SUPERCONDUCT = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:superconduct"));
     public static final ResourceKey<DamageType> LUNAR_CHARGED = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:lunar_charged"));
+    public static final ResourceKey<DamageType> LUNAR_CRYSTALLIZE = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:lunar_crystallize"));
     public static final TagKey<EntityType<?>> INERT = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:inert"));
 
 

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "er:lunar_charged",
     "er:electro_charged",
     "#er:electro/weak",
     "#er:electro/medium",

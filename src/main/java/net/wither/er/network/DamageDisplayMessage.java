@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.client.screens.ErOverlay;
+import org.jetbrains.annotations.NotNull;
 
 public record DamageDisplayMessage(int damage , int id , int color , boolean critical, RenderDamageAmount.DamageDisplayType damageDisplayType)  implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<DamageDisplayMessage> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("er", "damage_display"));
@@ -30,7 +31,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
     }
 
     @Override
-    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+    public CustomPacketPayload.@NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 

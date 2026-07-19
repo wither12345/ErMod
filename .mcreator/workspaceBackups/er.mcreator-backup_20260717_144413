@@ -5854,7 +5854,10 @@
       "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
       "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
       "death.attack.lunar_charged": "%1$s felt numb",
-      "item_group.er.artifacts": "Artifacts"
+      "item_group.er.artifacts": "Artifacts",
+      "item.er.empty_moon_wheel": "Empty",
+      "item.er.unowned_moon_wheel": "Unowned Moon Wheel",
+      "item.er.unowned_vision": "Unowned Vision"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -6251,7 +6254,10 @@
       "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
       "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
       "death.attack.lunar_charged": "%1$s felt numb",
-      "item_group.er.artifacts": ""
+      "item_group.er.artifacts": "圣遗物",
+      "item.er.empty_moon_wheel": "无主月之轮",
+      "item.er.unowned_moon_wheel": "无主月之轮",
+      "item.er.unowned_vision": "无主神之眼"
     }
   },
   "metadata": {
@@ -6298,7 +6304,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.0.21",
+    "version": "1.0.22",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

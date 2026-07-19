@@ -76,7 +76,7 @@ public class Electro extends Element{
                 Hyperbloom hyperbloom = ErModEntities.HYPERBLOOM.get().spawn(_level, bloom.getOnPos().above(2), MobSpawnType.MOB_SUMMONED);
                 if(hyperbloom != null && applier != null) {
                     hyperbloom.setOwner(applier);
-                    hyperbloom.push(0,0.4,0);
+                    hyperbloom.setXRot(-90);
                 }
             }
             bloom.discard();

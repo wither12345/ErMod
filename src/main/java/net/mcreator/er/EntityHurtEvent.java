@@ -73,6 +73,7 @@ public class EntityHurtEvent {
 		double z = entity.getZ();
 		float crit_mult = 1;
 		modifyDamageSource(damagesource, entity) ;
+        modifyReaction(damagesource);
 		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
             if(sourceentity instanceof ErEntityInterface erEntityInterface){
                 Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
@@ -134,6 +135,7 @@ public class EntityHurtEvent {
         int elemental_type = 0;
         float gauge ;
         DamageModifierInterface damageModifierInterface = (DamageModifierInterface) source;
+
         if(damageModifierInterface.er$getTarget() != entity){
             damageModifierInterface.er$setTarget(entity);
             damageModifierInterface.er$reset();
@@ -162,7 +164,10 @@ public class EntityHurtEvent {
             elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
         if(elemental_type != 0)
             elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), ResourceLocation.parse("er:default"), 1, getEle(elemental_type).isApplicable())) ;
+    }
 
+    private static void modifyReaction(DamageSource source){
+        DamageModifierInterface damageModifierInterface = (DamageModifierInterface) source;
         if(source.is(CATALYZE))
             damageModifierInterface.er$getModifier().multiply = ReactionMultiply.CATALYZE;
         if(source.is(TRANSFORMATIVE))

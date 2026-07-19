@@ -139,7 +139,7 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 					Hyperbloom hyperbloom = ErModEntities.HYPERBLOOM.get().spawn(_level, this.getOnPos().above(2), MobSpawnType.MOB_SUMMONED);
 					if (hyperbloom != null) {
 						hyperbloom.setOwner(this.getOwner());
-						hyperbloom.push(0, 0.5, 0);
+                        hyperbloom.setXRot(-90);
 					}
 				}
 				this.discard();

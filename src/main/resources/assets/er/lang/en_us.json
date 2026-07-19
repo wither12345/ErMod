@@ -396,5 +396,8 @@
   "item_group.er.artifacts": "Artifacts",
   "item.er.empty_moon_wheel": "Empty",
   "item.er.unowned_moon_wheel": "Unowned Moon Wheel",
-  "item.er.unowned_vision": "Unowned Vision"
+  "item.er.unowned_vision": "Unowned Vision",
+  "death.attack.lunar_crystallize.item": "%1$s was killed by %2$s using %3$s",
+  "death.attack.lunar_crystallize": "%1$s died",
+  "death.attack.lunar_crystallize.player": "%1$s died whilst trying to escape %2$s"
 }

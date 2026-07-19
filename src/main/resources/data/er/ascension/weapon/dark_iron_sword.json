@@ -71,6 +71,40 @@
           "count": 6
         }
       ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 2
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 24
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 6
+        },
+        {
+          "item": "minecraft:rotten_flesh",
+          "count": 64
+        },
+        {
+          "item": "minecraft:bone",
+          "count": 64
+        }
+      ]
     }
   ]
 }
