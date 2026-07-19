@@ -4,11 +4,7 @@
 package net.mcreator.er.init;
 
 import net.wither.er.entity.slimes.*;
-import net.wither.er.entity.LunarChargedCloud;
-import net.wither.er.entity.Hyperbloom;
-import net.wither.er.entity.EnergyOrb;
-import net.wither.er.entity.BloomEntityEntity;
-import net.wither.er.entity.ArcEntity;
+import net.wither.er.entity.*;
 
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -86,6 +82,10 @@ public class ErModEntities {
 			EntityType.Builder.of(AnemoSlime::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 0.6f));
 	public static final RegistryObject<EntityType<LunarChargedCloud>> LUNAR_CLOUD = register("lunar_cloud",
 			EntityType.Builder.of(LunarChargedCloud::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(2, 1));
+	public static final RegistryObject<EntityType<LunarCrystallize>> LUNAR_CRYSTALLIZE = register("lunar_crystallize",
+			EntityType.Builder.of(LunarCrystallize::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(1, 1));
+	public static final RegistryObject<EntityType<LunarCrystallizeProjectile>> LUNAR_CRYSTALLIZE_PROJECTILE = register("lunar_crystallize_projectile",
+			EntityType.Builder.of(LunarCrystallizeProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 
 	// End of user code block custom entities
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

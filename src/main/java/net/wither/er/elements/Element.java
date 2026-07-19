@@ -49,6 +49,7 @@ public abstract class Element {
     public static final ResourceKey<DamageType> SWIRL = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:swirl"));
     public static final ResourceKey<DamageType> BLOOM = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:bloom"));
     public static final ResourceKey<DamageType> SUPERCONDUCT = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:superconduct"));
+    public static final ResourceKey<DamageType> LUNAR_CRYSTALLIZE = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:lunar_crystallize"));
     public static final TagKey<EntityType<?>> INERT = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("er:inert"));
 
     public abstract Category getCategory() ;

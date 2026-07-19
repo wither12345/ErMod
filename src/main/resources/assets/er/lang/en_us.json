@@ -393,5 +393,8 @@
   "artifact_effect.er.berserker": "Berserker",
   "artifact_effect.er.berserker.1": "  2-Piece Set: CRIT Rate +12%",
   "artifact_effect.er.berserker.2": "  4-Piece Set: When HP is below 70%, CRIT Rate increases by an additional 24%.",
-  "item_group.er.artifacts": "Artifacts"
+  "item_group.er.artifacts": "Artifacts",
+  "death.attack.lunar_crystallize.item": "%1$s was killed by %2$s using %3$s",
+  "death.attack.lunar_crystallize": "%1$s died",
+  "death.attack.lunar_crystallize.player": "%1$s died whilst trying to escape %2$s"
 }

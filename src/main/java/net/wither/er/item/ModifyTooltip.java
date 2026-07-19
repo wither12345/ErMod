@@ -38,7 +38,7 @@ public class ModifyTooltip {
                         "experience : " + weaponLevelData.experience() + "/" + WeaponLevelData.getMaxExp(weaponLevelData.level(), WeaponLevelData.getItemWeaponStar(item))));
             else
                 list.add(2, Component.literal("§6Maxed")) ;
-            if(item.getItem() instanceof AbilityWeapon weapon){
+            if(item.getItem() instanceof AbilityWeapon){
                 CompoundTag tag = item.getOrCreateTag();
                 list.add(1, Component.translatable("lore.er.refinement").append(" " + (tag.contains("refinement") ? tag.getInt("refinement") : 1)));
             }

@@ -393,5 +393,8 @@
   "artifact_effect.er.berserker": "战狂",
   "artifact_effect.er.berserker.1": "  2件套：暴击率提高12%。",
   "artifact_effect.er.berserker.2": "  4件套：生命值低于70%时，暴击率额外提高24%。 ",
-  "item_group.er.artifacts": "圣遗物"
+  "item_group.er.artifacts": "圣遗物",
+  "death.attack.lunar_crystallize.item": "%1$s was killed by %2$s using %3$s",
+  "death.attack.lunar_crystallize": "%1$s died",
+  "death.attack.lunar_crystallize.player": "%1$s died whilst trying to escape %2$s"
 }

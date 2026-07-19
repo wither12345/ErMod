@@ -5,11 +5,13 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.client.renderer.LunarChargedCloudRenderer;
+import net.wither.er.client.renderer.LunarCrystallizeRenderer;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class LayerDefinitionsRegister {
     @SubscribeEvent
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(LunarChargedCloudRenderer.LAYER_LOCATION, LunarChargedCloudRenderer::createBodyLayer);
+        event.registerLayerDefinition(LunarCrystallizeRenderer.LAYER_LOCATION, LunarCrystallizeRenderer::createBodyLayer);
     }
 }

@@ -3075,7 +3075,7 @@
     {
       "name": "PlayerAdvancement",
       "type": "procedure",
-      "compiles": false,
+      "compiles": true,
       "locked_code": true,
       "registry_name": "player_advancement",
       "metadata": {
@@ -5181,9 +5181,7 @@
       "CUSTOM:MemoryofRovingGales",
       "CUSTOM:TestStellaFortuna"
     ],
-    "ENTITIES:er:no_level": [
-      "CUSTOM:BloomEntity"
-    ],
+    "ENTITIES:er:no_level": [],
     "ITEMS:minecraft:enchantable/bow": [
       "CUSTOM:PolarStar",
       "CUSTOM:HuntersBow"
@@ -5251,6 +5249,15 @@
     ],
     "DAMAGE_TYPES:er:lunar": [
       "CUSTOM:LunarCharged"
+    ],
+    "ITEMS:er:mondstadt": [
+      "CUSTOM:DandelionSeed"
+    ],
+    "ITEMS:er:liyue": [
+      "CUSTOM:CorLapis"
+    ],
+    "ITEMS:er:moon_wheel": [
+      "CUSTOM:Primogem"
     ]
   },
   "tab_element_order": {},
@@ -5646,7 +5653,11 @@
       "item_group.er.vision": "Vision",
       "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
       "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
-      "death.attack.lunar_charged": "%1$s felt numb"
+      "death.attack.lunar_charged": "%1$s felt numb",
+      "artifact_effect.er.berserker": "Berserker",
+      "artifact_effect.er.berserker.1": "  2-Piece Set: CRIT Rate +12%",
+      "artifact_effect.er.berserker.2": "  4-Piece Set: When HP is below 70%, CRIT Rate increases by an additional 24%.",
+      "item_group.er.artifacts": "Artifacts"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -6039,7 +6050,11 @@
       "item_group.er.vision": "神之眼",
       "death.attack.lunar_charged.player": "%1$s felt numb with the help of %2$s",
       "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
-      "death.attack.lunar_charged": "%1$s felt numb"
+      "death.attack.lunar_charged": "%1$s felt numb",
+      "artifact_effect.er.berserker": "战狂",
+      "artifact_effect.er.berserker.1": "  2件套：暴击率提高12%。",
+      "artifact_effect.er.berserker.2": "  4件套：生命值低于70%时，暴击率额外提高24%。 ",
+      "item_group.er.artifacts": "圣遗物"
     }
   },
   "metadata": {
@@ -6085,7 +6100,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.0.21",
+    "version": "1.0.22",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

@@ -58,7 +58,6 @@ public class VisionElementRecipe extends CustomRecipe {
         return this.result.copy();
     }
 
-
     public boolean matches(CraftingContainer container, @NotNull Level level) {
         int i = 0;
         int j = 0;

@@ -11,8 +11,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.wither.er.entity.LunarCrystallize;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Map;
 
 public class Geo extends Element{
@@ -39,7 +43,21 @@ public class Geo extends Element{
     }
 
     public static float hydro(AuraContainer container , SingleElementalContainer singleElementalContainer , float gauge, LevelAccessor accessor , double x , double y , double z, EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
-        spawnCrystallize(ErModEntities.HYDRO_CRYSTALLIZE.get(), accessor, x, y, z, applier);
+        if(isLunar(applier) && container.getOwner() instanceof Entity entity && entity.level() instanceof ServerLevel level) {
+            final Vec3 _center = new Vec3(x, y, z);
+            List<LunarCrystallize> crystallizes = accessor.getEntitiesOfClass(LunarCrystallize.class, new AABB(_center, _center).inflate(20), e -> true);
+            if (crystallizes.isEmpty()) {
+                LunarCrystallize crystallize = ErModEntities.LUNAR_CRYSTALLIZE.get().spawn(level, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
+                if(crystallize != null) {
+                    crystallize.modifyPos();
+                    crystallize.setOwner(applier);
+                }
+            } else {
+                crystallizes.forEach(crystallize -> crystallize.add(applier));
+            }
+        }
+        else
+            spawnCrystallize(ErModEntities.HYDRO_CRYSTALLIZE.get(), accessor, x, y, z, applier);
         return reacting(gauge , singleElementalContainer , 0.5f) ;
     }
 

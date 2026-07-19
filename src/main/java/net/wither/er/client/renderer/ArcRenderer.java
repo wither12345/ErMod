@@ -99,7 +99,13 @@ public class ArcRenderer extends EntityRenderer<ArcEntity> {
 	}
 
     private static void vertex(VertexConsumer p_253637_, Matrix4f p_253920_, Matrix3f p_253881_, float p_253994_, float p_254492_, float p_254474_, int p_254080_, int p_253655_, int p_254133_, float p_254233_, float p_253939_) {
-        p_253637_.vertex(p_253920_, p_253994_, p_254492_, p_254474_).color(p_254080_, p_253655_, p_254133_, 255).uv(p_254233_, p_253939_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(15728880).normal(p_253881_, 0.0F, 1.0F, 0.0F).endVertex();
+        p_253637_
+                .vertex(p_253920_, p_253994_, p_254492_, p_254474_)
+                .color(p_254080_, p_253655_, p_254133_, 255)
+                .uv(p_254233_, p_253939_).overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(15728880)
+                .normal(p_253881_, 0.0F, 1.0F, 0.0F)
+                .endVertex();
     }
 
 	@Override

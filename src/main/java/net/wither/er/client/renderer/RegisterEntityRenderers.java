@@ -22,5 +22,7 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.ANEMO_SLIME.get(), AnemoSlimeRenderer::new);
         event.registerEntityRenderer(ErModEntities.ENERGY_ORB.get(), EnergyOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.LUNAR_CLOUD.get(), LunarChargedCloudRenderer::new);
+        event.registerEntityRenderer(ErModEntities.LUNAR_CRYSTALLIZE.get(), LunarCrystallizeRenderer::new);
+        event.registerEntityRenderer(ErModEntities.LUNAR_CRYSTALLIZE_PROJECTILE.get(), LunarCrystallizeProjectileRenderer::new);
     }
 }
