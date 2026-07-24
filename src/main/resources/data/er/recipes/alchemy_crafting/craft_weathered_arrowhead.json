@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:sharp_arrowhead",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:weathered_arrowhead",
+    "count": 1
+  },
+  "mora": 50
+}

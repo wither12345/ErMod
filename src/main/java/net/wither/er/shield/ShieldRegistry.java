@@ -31,4 +31,6 @@ public class ShieldRegistry {
 	public static final Supplier<ErShield> ELECTRO_CTYSTALLIZE = SHIELDS.register("electro_crystallize", ElectroCrystallizeShield::new);
 	public static final Supplier<ErShield> CRYO_CTYSTALLIZE = SHIELDS.register("cryo_crystallize", CryoCrystallizeShield::new);
 	public static final Supplier<ErShield> THUNDER_SHIELD = SHIELDS.register("thunder_shield", ThunderShield::new);
+    public static final Supplier<ErShield> PYRO_WHOPPERFLOWER = SHIELDS.register("pyro_whopperflower_shield", PyroWhopperflowerShield::new);
+    public static final Supplier<ErShield> CRYO_WHOPPERFLOWER = SHIELDS.register("cryo_whopperflower_shield", CryoWhopperflowerShield::new);
 }

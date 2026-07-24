@@ -159,8 +159,8 @@ public abstract class CicinMage extends Monster {
 					Mob entityToSpawn = (Mob) summoning.spawn(serverlevel, BlockPos.containing(mage.getX() + Mth.nextDouble(RandomSource.create(), -1, 1), mage.getY() + 2, mage.getZ() + Mth.nextDouble(RandomSource.create(), -1, 1)),
 							MobSpawnType.MOB_SUMMONED);
 					mage.summonings.add(entityToSpawn);
-					entityToSpawn.setTarget(mage.getTarget());
 					if (entityToSpawn instanceof ElectroCicinEntity cicin) {
+                        cicin.setTarget(mage.getTarget());
 						cicin.setOwnerUUID(mage.getUUID());
 					}
 				}

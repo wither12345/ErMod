@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "#er:overworld_or_nether",
+  "spawners": {
+    "type": "er:pyro_slime",
+    "weight": 10,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

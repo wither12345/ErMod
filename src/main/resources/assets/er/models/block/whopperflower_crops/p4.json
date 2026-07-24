@@ -1,0 +1,6 @@
+{
+  "parent": "er:block/whopperflower_crops/parent",
+  "textures": {
+    "cross": "er:block/whopperflower4"
+  }
+}

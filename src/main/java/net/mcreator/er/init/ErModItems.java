@@ -3,6 +3,7 @@
 */
 package net.mcreator.er.init;
 
+import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.weapons.AbilitySword;
@@ -10,8 +11,11 @@ import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.ReactionAbility;
 import net.wither.er.item.data.weapon.FunctionalAbilities;
 import net.wither.er.item.data.weapon.DamageAbility;
+import net.wither.er.item.WhopperflowerSeedItem;
+import net.wither.er.item.WhopperflowerFruit;
 import net.wither.er.item.Vision;
 import net.wither.er.item.EmptyVision;
+import net.wither.er.item.ElementalHoe;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.elements.Element;
@@ -67,7 +71,6 @@ public class ErModItems {
 	public static final RegistryObject<Item> PYRO_SWORD;
 	public static final RegistryObject<Item> POLAR_STAR;
 	public static final RegistryObject<Item> TARTAGLIA_SPAWN_EGG;
-	public static final RegistryObject<Item> PYRO_HOE;
 	public static final RegistryObject<Item> PYRO_PICKAXE;
 	public static final RegistryObject<Item> ELECTRO_CRYSTAL_ORE;
 	public static final RegistryObject<Item> ELECTRO_CRYSTAL;
@@ -78,7 +81,6 @@ public class ErModItems {
 	public static final RegistryObject<Item> ELECTRO_ARMOR_BOOTS;
 	public static final RegistryObject<Item> SUMERU_ROSE;
 	public static final RegistryObject<Item> ELECTRO_SWORD;
-	public static final RegistryObject<Item> ELECTRO_HOE;
 	public static final RegistryObject<Item> DENDRO_ARMOR_HELMET;
 	public static final RegistryObject<Item> DENDRO_ARMOR_CHESTPLATE;
 	public static final RegistryObject<Item> DENDRO_ARMOR_LEGGINGS;
@@ -121,7 +123,6 @@ public class ErModItems {
 	public static final RegistryObject<Item> MYSTIC_ENHANCEMENT_ORE;
 	public static final RegistryObject<Item> FINE_ENHANCEMENT_ORE;
 	public static final RegistryObject<Item> ENHANCEMENT_ORE;
-	public static final RegistryObject<Item> BURNING_DIRT;
 	public static final RegistryObject<Item> HILICHURL_SPAWN_EGG;
 	public static final RegistryObject<Item> WOODEN_CLUB;
 	public static final RegistryObject<Item> CRATE;
@@ -184,7 +185,6 @@ public class ErModItems {
 		PYRO_SWORD = REGISTRY.register("pyro_sword", PyroSwordItem::new);
 		POLAR_STAR = REGISTRY.register("polar_star", PolarStarItem::new);
 		TARTAGLIA_SPAWN_EGG = REGISTRY.register("tartaglia_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.TARTAGLIA, -6724096, -16737793, new Item.Properties()));
-		PYRO_HOE = REGISTRY.register("pyro_hoe", PyroHoeItem::new);
 		PYRO_PICKAXE = REGISTRY.register("pyro_pickaxe", PyroPickaxeItem::new);
 		ELECTRO_CRYSTAL_ORE = block(ErModBlocks.ELECTRO_CRYSTAL_ORE);
 		ELECTRO_CRYSTAL = REGISTRY.register("electro_crystal", ElectroCrystalItem::new);
@@ -195,7 +195,6 @@ public class ErModItems {
 		ELECTRO_ARMOR_BOOTS = REGISTRY.register("electro_armor_boots", ElectroArmorItem.Boots::new);
 		SUMERU_ROSE = block(ErModBlocks.SUMERU_ROSE);
 		ELECTRO_SWORD = REGISTRY.register("electro_sword", ElectroSwordItem::new);
-		ELECTRO_HOE = REGISTRY.register("electro_hoe", ElectroHoeItem::new);
 		DENDRO_ARMOR_HELMET = REGISTRY.register("dendro_armor_helmet", DendroArmorItem.Helmet::new);
 		DENDRO_ARMOR_CHESTPLATE = REGISTRY.register("dendro_armor_chestplate", DendroArmorItem.Chestplate::new);
 		DENDRO_ARMOR_LEGGINGS = REGISTRY.register("dendro_armor_leggings", DendroArmorItem.Leggings::new);
@@ -238,7 +237,6 @@ public class ErModItems {
 		MYSTIC_ENHANCEMENT_ORE = REGISTRY.register("mystic_enhancement_ore", MysticEnhancementOreItem::new);
 		FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", FineEnhancementOreItem::new);
 		ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", EnhancementOreItem::new);
-		BURNING_DIRT = block(ErModBlocks.BURNING_DIRT);
 		HILICHURL_SPAWN_EGG = REGISTRY.register("hilichurl_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.HILICHURL, -13421773, -6780581, new Item.Properties()));
 		WOODEN_CLUB = REGISTRY.register("wooden_club", WoodenClubItem::new);
 		CRATE = block(ErModBlocks.CRATE);
@@ -332,6 +330,21 @@ public class ErModItems {
 	public static final RegistryObject<Item> HYDRO_VISION = REGISTRY.register("hydro_vision", () -> new Vision(Element.Category.HYDRO));
 	public static final RegistryObject<Item> DENDRO_VISION = REGISTRY.register("dendro_vision", () -> new Vision(Element.Category.DENDRO));
 	public static final RegistryObject<Item> ELECTRO_VISION = REGISTRY.register("electro_vision", () -> new Vision(Element.Category.ELECTRO));
+	public static final RegistryObject<Item> FIRM_ARROWHEAD = REGISTRY.register("firm_arrowhead", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> SHARP_ARROWHEAD = REGISTRY.register("sharp_arrowhead", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> WEATHERED_ARROWHEAD = REGISTRY.register("weathered_arrowhead", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> PYRO_WHOPPERFLOWER_FRUIT = REGISTRY.register("pyro_whopperflower_fruit", () -> new WhopperflowerFruit(ShieldRegistry.PYRO_WHOPPERFLOWER));
+	public static final RegistryObject<Item> WHOPPERFLOWER_NECTAR = REGISTRY.register("whopperflower_nectar", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> SHIMMERING_NECTAR = REGISTRY.register("shimmering_nectar", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> ENERGY_NECTAR = REGISTRY.register("energy_nectar", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> PYRO_FLOWER_SPAWN_EGG = REGISTRY.register("pyro_flower_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.PYRO_WHOPPERFLOWER, 0xff0000, 0xff9900, new Item.Properties()));
+	public static final RegistryObject<Item> BURNING_DIRT = block(ErModBlocks.BURNING_DIRT);
+	public static final RegistryObject<Item> PYRO_HOE = REGISTRY.register("pyro_hoe", () -> new ElementalHoe(Element.Category.PYRO));
+	public static final RegistryObject<Item> ELECTRO_HOE = REGISTRY.register("electro_hoe", () -> new ElementalHoe(Element.Category.ELECTRO));
+	public static final RegistryObject<Item> CRYO_HOE = REGISTRY.register("cryo_hoe", () -> new ElementalHoe(Element.Category.CRYO));
+	public static final RegistryObject<Item> SWEET_FLOWER = block(ErModBlocks.SWEET_FLOWER);
+	public static final RegistryObject<Item> WHOPPERFLOWER_SEED = REGISTRY.register("whopperflower_seed", WhopperflowerSeedItem::new);
+	public static final RegistryObject<Item> CRYO_WHOPPERFLOWER_FRUIT = REGISTRY.register("cryo_whopperflower_fruit", () -> new WhopperflowerFruit(ShieldRegistry.CRYO_WHOPPERFLOWER));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

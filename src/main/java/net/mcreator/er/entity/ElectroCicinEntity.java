@@ -196,7 +196,7 @@ public class ElectroCicinEntity extends Monster implements RangedAttackMob, Owna
 	@Nullable
 	@Override
 	public UUID getOwnerUUID() {
-		return this.entityData.get(DATA_OWNERUUID_ID).orElseThrow(Error::new);
+		return this.entityData.get(DATA_OWNERUUID_ID).orElse(null);
 	}
 
 	public void setOwnerUUID(@Nullable UUID p_21817_) {

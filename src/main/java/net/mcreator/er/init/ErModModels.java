@@ -24,6 +24,7 @@ public class ErModModels {
 		event.registerLayerDefinition(ModelDendroSlime.LAYER_LOCATION, ModelDendroSlime::createBodyLayer);
 		event.registerLayerDefinition(ModelCrystalfly.LAYER_LOCATION, ModelCrystalfly::createBodyLayer);
 		event.registerLayerDefinition(Modelelectro_cicin.LAYER_LOCATION, Modelelectro_cicin::createBodyLayer);
+		event.registerLayerDefinition(ModelWhopperflower.LAYER_LOCATION, ModelWhopperflower::createBodyLayer);
 		event.registerLayerDefinition(ModelFatuiElectroCicinMage.LAYER_LOCATION, ModelFatuiElectroCicinMage::createBodyLayer);
 		event.registerLayerDefinition(ModelTornado.LAYER_LOCATION, ModelTornado::createBodyLayer);
 		event.registerLayerDefinition(ModelFlaming_Flower.LAYER_LOCATION, ModelFlaming_Flower::createBodyLayer);

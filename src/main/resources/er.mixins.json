@@ -6,6 +6,7 @@
   "mixins": [
     "AbstractSkeletonMixin",
     "CombatRulesMixin",
+    "CropBlockMixin",
     "DamageSourceMixin",
     "ErPlayerMixin",
     "FireworkPocketEntityMixin",

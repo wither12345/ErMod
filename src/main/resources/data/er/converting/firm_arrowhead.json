@@ -1,0 +1,8 @@
+{
+  "item": "er:dust_of_azoth",
+  "count": 1,
+  "convertibles": [
+    "er:firm_arrowhead",
+    "minecraft:arrow"
+  ]
+}

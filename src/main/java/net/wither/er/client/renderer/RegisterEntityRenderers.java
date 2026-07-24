@@ -5,6 +5,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.wither.er.client.renderer.whopperflower.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class RegisterEntityRenderers {
@@ -24,5 +25,11 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.LUNAR_CLOUD.get(), LunarChargedCloudRenderer::new);
         event.registerEntityRenderer(ErModEntities.LUNAR_CRYSTALLIZE.get(), LunarCrystallizeRenderer::new);
         event.registerEntityRenderer(ErModEntities.LUNAR_CRYSTALLIZE_PROJECTILE.get(), LunarCrystallizeProjectileRenderer::new);
+        event.registerEntityRenderer(ErModEntities.PYRO_WHOPPERFLOWER.get(), PyroWhopperflowerRenderer::new);
+        event.registerEntityRenderer(ErModEntities.PYRO_FLOWER_BALL.get(), PyroWhopperflowerBallRenderer::new);
+        event.registerEntityRenderer(ErModEntities.PYRO_HOMING_ROB.get(), PyroHomingRobRenderer::new);
+        event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER.get(), CryoWhopperflowerRenderer::new);
+        event.registerEntityRenderer(ErModEntities.CRYO_SPIKE.get(), CryoSpikeRenderer::new);
+        event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER_PROJECTILE.get(), CryoWhopperflowerProjectileRenderer::new);
     }
 }

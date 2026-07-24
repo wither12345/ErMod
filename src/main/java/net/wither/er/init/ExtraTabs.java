@@ -2,7 +2,6 @@ package net.wither.er.init;
 
 import net.mcreator.er.ERConfig;
 import net.mcreator.er.ErMod;
-import net.mcreator.er.init.ErModItems;
 import net.mcreator.er.init.ErModTabs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -26,36 +25,36 @@ public class ExtraTabs {
     public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ErMod.MODID);
     public static final RegistryObject<CreativeModeTab> VISION = REGISTRY.register("vision",
             () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.vision")).icon(
-                    () -> new ItemStack(ErModItems.UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
+                    () -> new ItemStack(UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
                 addVisions(tabData, 0);
                 addVisions(tabData, 1);
                 addVisions(tabData, 2);
             }).build());
 
     public static final RegistryObject<CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
-            () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.artifacts")).icon(() -> new ItemStack(ErModItems.LUCKY_DOGS_CLOVER.get())).displayItems((parameters, tabData) -> {
-                tabData.accept(ErModItems.RARITY_GEMSTONE.get());
-                tabData.accept(ErModItems.MINOR_UPGRADES.get());
-                tabData.accept(ErModItems.LUCKY_DOGS_CLOVER.get());
-                tabData.accept(ErModItems.LUCKY_DOGS_EAGLE_FEATHER.get());
-                tabData.accept(ErModItems.LUCKY_DOGS_HOURGLASS.get());
-                tabData.accept(ErModItems.LUCKY_DOGS_GOBLET.get());
-                tabData.accept(ErModItems.LUCKY_DOGS_SILVER_CIRCLET.get());
-                tabData.accept(ErModItems.ADVENTURERS_FLOWER.get());
-                tabData.accept(ErModItems.ADVENTURERS_TAIL_FEATHER.get());
-                tabData.accept(ErModItems.ADVENTURERS_POCKET_WATCH.get());
-                tabData.accept(ErModItems.ADVENTURERS_GOLDEN_GOBLET.get());
-                tabData.accept(ErModItems.ADVENTURERS_BANDANA.get());
-                tabData.accept(ErModItems.TRAVELING_DOCTORS_SILVER_LOTUS.get());
-                tabData.accept(ErModItems.TRAVELING_DOCTORS_OWL_FEATHER.get());
-                tabData.accept(ErModItems.TRAVELING_DOCTORS_POCKET_WATCH.get());
-                tabData.accept(ErModItems.TRAVELING_DOCTORS_MEDICINE_POT.get());
-                tabData.accept(ErModItems.TRAVELING_DOCTORS_HANDKERCHIEF.get());
-                tabData.accept(ErModItems.BERSERKERS_ROSE.get());
-                tabData.accept(ErModItems.BERSERKERS_INDIGO_FEATHER.get());
-                tabData.accept(ErModItems.BERSERKERS_TIMEPIECE.get());
-                tabData.accept(ErModItems.BERSERKERS_BONE_GOBLET.get());
-                tabData.accept(ErModItems.BERSERKERS_BATTLE_MASK.get());
+            () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.artifacts")).icon(() -> new ItemStack(LUCKY_DOGS_CLOVER.get())).displayItems((parameters, tabData) -> {
+                tabData.accept(RARITY_GEMSTONE.get());
+                tabData.accept(MINOR_UPGRADES.get());
+                tabData.accept(LUCKY_DOGS_CLOVER.get());
+                tabData.accept(LUCKY_DOGS_EAGLE_FEATHER.get());
+                tabData.accept(LUCKY_DOGS_HOURGLASS.get());
+                tabData.accept(LUCKY_DOGS_GOBLET.get());
+                tabData.accept(LUCKY_DOGS_SILVER_CIRCLET.get());
+                tabData.accept(ADVENTURERS_FLOWER.get());
+                tabData.accept(ADVENTURERS_TAIL_FEATHER.get());
+                tabData.accept(ADVENTURERS_POCKET_WATCH.get());
+                tabData.accept(ADVENTURERS_GOLDEN_GOBLET.get());
+                tabData.accept(ADVENTURERS_BANDANA.get());
+                tabData.accept(TRAVELING_DOCTORS_SILVER_LOTUS.get());
+                tabData.accept(TRAVELING_DOCTORS_OWL_FEATHER.get());
+                tabData.accept(TRAVELING_DOCTORS_POCKET_WATCH.get());
+                tabData.accept(TRAVELING_DOCTORS_MEDICINE_POT.get());
+                tabData.accept(TRAVELING_DOCTORS_HANDKERCHIEF.get());
+                tabData.accept(BERSERKERS_ROSE.get());
+                tabData.accept(BERSERKERS_INDIGO_FEATHER.get());
+                tabData.accept(BERSERKERS_TIMEPIECE.get());
+                tabData.accept(BERSERKERS_BONE_GOBLET.get());
+                tabData.accept(BERSERKERS_BATTLE_MASK.get());
                 List<String> attrs = new ArrayList<>();
                 addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
                 addMainToTab(ERConfig.PLUME_OF_DEATH_ATTR.get(), tabData, attrs);
@@ -68,26 +67,26 @@ public class ExtraTabs {
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
 		if (tabData.getTabKey() == ARTIFACTS.getKey()) {
-			tabData.accept(ErModItems.LUCKY_DOGS_CLOVER);
-			tabData.accept(ErModItems.LUCKY_DOGS_EAGLE_FEATHER);
-			tabData.accept(ErModItems.LUCKY_DOGS_HOURGLASS);
-			tabData.accept(ErModItems.LUCKY_DOGS_GOBLET);
-			tabData.accept(ErModItems.LUCKY_DOGS_SILVER_CIRCLET);
-			tabData.accept(ErModItems.ADVENTURERS_FLOWER);
-			tabData.accept(ErModItems.ADVENTURERS_TAIL_FEATHER);
-			tabData.accept(ErModItems.ADVENTURERS_POCKET_WATCH);
-			tabData.accept(ErModItems.ADVENTURERS_GOLDEN_GOBLET);
-			tabData.accept(ErModItems.ADVENTURERS_BANDANA);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_SILVER_LOTUS);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_OWL_FEATHER);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_POCKET_WATCH);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_MEDICINE_POT);
-			tabData.accept(ErModItems.TRAVELING_DOCTORS_HANDKERCHIEF);
-            tabData.accept(ErModItems.BERSERKERS_ROSE);
-            tabData.accept(ErModItems.BERSERKERS_INDIGO_FEATHER);
-            tabData.accept(ErModItems.BERSERKERS_TIMEPIECE);
-            tabData.accept(ErModItems.BERSERKERS_BONE_GOBLET);
-            tabData.accept(ErModItems.BERSERKERS_BATTLE_MASK);
+			tabData.accept(LUCKY_DOGS_CLOVER);
+			tabData.accept(LUCKY_DOGS_EAGLE_FEATHER);
+			tabData.accept(LUCKY_DOGS_HOURGLASS);
+			tabData.accept(LUCKY_DOGS_GOBLET);
+			tabData.accept(LUCKY_DOGS_SILVER_CIRCLET);
+			tabData.accept(ADVENTURERS_FLOWER);
+			tabData.accept(ADVENTURERS_TAIL_FEATHER);
+			tabData.accept(ADVENTURERS_POCKET_WATCH);
+			tabData.accept(ADVENTURERS_GOLDEN_GOBLET);
+			tabData.accept(ADVENTURERS_BANDANA);
+			tabData.accept(TRAVELING_DOCTORS_SILVER_LOTUS);
+			tabData.accept(TRAVELING_DOCTORS_OWL_FEATHER);
+			tabData.accept(TRAVELING_DOCTORS_POCKET_WATCH);
+			tabData.accept(TRAVELING_DOCTORS_MEDICINE_POT);
+			tabData.accept(TRAVELING_DOCTORS_HANDKERCHIEF);
+            tabData.accept(BERSERKERS_ROSE);
+            tabData.accept(BERSERKERS_INDIGO_FEATHER);
+            tabData.accept(BERSERKERS_TIMEPIECE);
+            tabData.accept(BERSERKERS_BONE_GOBLET);
+            tabData.accept(BERSERKERS_BATTLE_MASK);
 
 			List<String> attrs = new ArrayList<>();
 			addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
@@ -97,6 +96,8 @@ public class ExtraTabs {
 			addMainToTab(ERConfig.CIRCLET_OF_LOGOS_ATTR.get(), tabData, attrs);
 			addMinorToTab(ERConfig.MINOR_ATTR.get(), tabData, new ArrayList<>());
 		} else if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
+            tabData.accept(SWEET_FLOWER);
+            tabData.accept(WHOPPERFLOWER_SEED);
             tabData.accept(WANDERERS_ADVICE);
             tabData.accept(ADVENTURES_EXPERIENCE);
             tabData.accept(HEROS_WIT);
@@ -106,38 +107,55 @@ public class ExtraTabs {
             tabData.accept(SLIME_CONDENSATE);
             tabData.accept(SLIME_SECRETIONS);
             tabData.accept(SLIME_CONCENTRATE);
+            tabData.accept(FIRM_ARROWHEAD);
+            tabData.accept(SHARP_ARROWHEAD);
+            tabData.accept(WEATHERED_ARROWHEAD);
+            tabData.accept(WHOPPERFLOWER_NECTAR);
+            tabData.accept(SHIMMERING_NECTAR);
+            tabData.accept(ENERGY_NECTAR);
             tabData.accept(ENCHANTED_MYSTIC_ENHANCEMENT_ORE);
+            tabData.accept(PYRO_WHOPPERFLOWER_FRUIT);
             ItemStack moraBag = new ItemStack(MORA_BAG.get());
 			moraBag.getOrCreateTag().putInt("moras", 999999999);
             tabData.accept(moraBag);
             tabData.accept(SANCTIFYING_UNCTION);
             tabData.accept(SANCTIFYING_ESSENCE);
         } else if(tabData.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-			tabData.accept(ErModItems.ELECTRO_SLIME_SPAWN_EGG);
-			tabData.accept(ErModItems.GEO_SLIME_SPAWN_EGG);
-			tabData.accept(ErModItems.PYRO_SLIME_SPAWN_EGG);
-			tabData.accept(ErModItems.HYDRO_SLIME_SPAWN_EGG);
-			tabData.accept(ErModItems.CRYO_SLIME_SPAWN_EGG);
-			tabData.accept(ErModItems.DENDRO_SLIME_SPAWN_EGG);
-			tabData.accept(ErModItems.ANEMO_SLIME_SPAWN_EGG);
+			tabData.accept(ELECTRO_SLIME_SPAWN_EGG);
+			tabData.accept(GEO_SLIME_SPAWN_EGG);
+			tabData.accept(PYRO_SLIME_SPAWN_EGG);
+			tabData.accept(HYDRO_SLIME_SPAWN_EGG);
+			tabData.accept(CRYO_SLIME_SPAWN_EGG);
+			tabData.accept(DENDRO_SLIME_SPAWN_EGG);
+			tabData.accept(ANEMO_SLIME_SPAWN_EGG);
+            tabData.accept(PYRO_FLOWER_SPAWN_EGG);
 		}else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
-			tabData.accept(ErModItems.DULL_BLADE);
-			tabData.accept(ErModItems.WASTER_GREATSWORD);
-			tabData.accept(ErModItems.SILVER_SWORD);
-            tabData.accept(ErModItems.COOL_STEEL);
-            tabData.accept(ErModItems.DARK_IRON_SWORD);
+			tabData.accept(DULL_BLADE);
+			tabData.accept(WASTER_GREATSWORD);
+			tabData.accept(SILVER_SWORD);
+            tabData.accept(COOL_STEEL);
+            tabData.accept(DARK_IRON_SWORD);
 		}
-	}
+        else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+            tabData.accept(BURNING_DIRT);
+            tabData.accept(SWEET_FLOWER);
+            tabData.accept(WHOPPERFLOWER_SEED);
+        } else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            tabData.accept(PYRO_HOE);
+            tabData.accept(ELECTRO_HOE);
+            tabData.accept(CRYO_HOE);
+        }
+    }
     
     private static void addVisions(CreativeModeTab.Output tabData, int frame){
         addVision(tabData, UNOWNED_VISION, frame);
-        addVision(tabData, ErModItems.PYRO_VISION, frame);
-        addVision(tabData, ErModItems.HYDRO_VISION, frame);
-        addVision(tabData, ErModItems.ANEMO_VISION, frame);
-        addVision(tabData, ErModItems.ELECTRO_VISION, frame);
-        addVision(tabData, ErModItems.DENDRO_VISION, frame);
-        addVision(tabData, ErModItems.CRYO_VISION, frame);
-        addVision(tabData, ErModItems.GEO_VISION, frame);
+        addVision(tabData, PYRO_VISION, frame);
+        addVision(tabData, HYDRO_VISION, frame);
+        addVision(tabData, ANEMO_VISION, frame);
+        addVision(tabData, ELECTRO_VISION, frame);
+        addVision(tabData, DENDRO_VISION, frame);
+        addVision(tabData, CRYO_VISION, frame);
+        addVision(tabData, GEO_VISION, frame);
     }
 
     private static void addVision(CreativeModeTab.Output tabData, RegistryObject<Item> item, int frame){

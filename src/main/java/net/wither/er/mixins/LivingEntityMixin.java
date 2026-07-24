@@ -64,6 +64,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
     @Shadow public abstract AttributeMap getAttributes();
     @Shadow public abstract ItemStack getMainHandItem();
     @Shadow public abstract float getHealth();
+    @Unique private long er$lastBurn;
 
     @Shadow
     @Final
@@ -157,7 +158,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
         return p_270890_;
     }
 
-	public void removeShield(ErShield shield) {
+	public void er$removeShield(ErShield shield) {
 		shield.end(this);
         this.er$shields.removeIf(shieldstack -> shieldstack.getShield() == shield);
 		er$syncShield();
@@ -247,6 +248,15 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 			er$updateArtifactAttr();
 		}
 	}
+
+    @Override
+    public boolean er$shouldBurnBlock(long tick) {
+        if(tick - this.er$lastBurn > 5) {
+            this.er$lastBurn = tick;
+            return true;
+        }
+        return false;
+    }
 
 	@Override
 	public int er$getArtifactEffectLevel(ArtifactEffect effectHolder){

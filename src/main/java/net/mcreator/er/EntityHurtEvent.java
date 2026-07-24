@@ -23,7 +23,9 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
+import net.minecraft.world.entity.Targeting;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.LevelAccessor;
@@ -251,13 +253,21 @@ public class EntityHurtEvent {
 		return 1f;
 	}
 
-	public static boolean shouldHurt(Entity entity1, Entity entity2) {
-		if (entity1 == null || entity2 == null)
-			return true;
-		PlayerTeam team1 = entity1.level().getScoreboard().getPlayersTeam(entity1 instanceof Player _pl ? _pl.getGameProfile().getName() : entity1.getStringUUID());
-		PlayerTeam team2 = entity2.level().getScoreboard().getPlayersTeam(entity2 instanceof Player _pl ? _pl.getGameProfile().getName() : entity2.getStringUUID());
-		return entity1 != entity2 && (team1 != team2 || team1 == null) && (entity1 instanceof OwnableEntity owned ? owned.getOwner() : entity1) != (entity2 instanceof OwnableEntity owned ? owned.getOwner() : entity2);
-	}
+    public static boolean shouldHurt(Entity entity1, Entity entity2) {
+        if (entity1 == null || entity2 == null)
+            return true;
+        if(entity1 instanceof OwnableEntity ownable && ownable.getOwner() != null)
+            entity1 = ownable.getOwner();
+        if(entity2 instanceof OwnableEntity ownable && ownable.getOwner() != null)
+            entity2 = ownable.getOwner();
+        PlayerTeam team1 = entity1.level().getScoreboard().getPlayersTeam(entity1 instanceof Player _pl ? _pl.getGameProfile().getName() : entity1.getStringUUID());
+        PlayerTeam team2 = entity2.level().getScoreboard().getPlayersTeam(entity2 instanceof Player _pl ? _pl.getGameProfile().getName() : entity2.getStringUUID());
+        if(team1 != null || team2 != null) return team1 != team2;
+        if(entity1 == entity2) return false;
+        if(entity1 instanceof Targeting targeting && targeting.getTarget() == entity2) return true;
+        if(entity2 instanceof Targeting targeting && targeting.getTarget() == entity1) return true;
+        return (entity1 instanceof Enemy) ^ (entity2 instanceof Enemy);
+    }
 
 	public static float getLevelMultiply(int level) {
 		return (0.001642f * level * level * level + 0.015823f * level * level + 16.980456f * level + 0.832476f)/17;

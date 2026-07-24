@@ -15,7 +15,7 @@ public interface ErEntityInterface {
     List<ErShield> er$getShields();
     void er$setShields(CompoundTag tag);
     void er$addShield(ShieldStack shield) ;
-    void removeShield(ErShield shield);
+    void er$removeShield(ErShield shield);
     void cleanShield();
     void er$syncShield() ;
     void er$syncShield(ServerPlayer player) ;
@@ -25,4 +25,5 @@ public interface ErEntityInterface {
     void er$dropArtifact() ;
     void er$updateArtifact();
     int er$getArtifactEffectLevel(ArtifactEffect effectHolder);
+    boolean er$shouldBurnBlock(long gameTime);
 }

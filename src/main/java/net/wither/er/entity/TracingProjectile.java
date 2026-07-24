@@ -2,6 +2,9 @@ package net.wither.er.entity;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -23,12 +26,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class TracingProjectile extends Projectile {
-    @Nullable
-    private UUID targetUUID;
-    @Nullable
-    private Entity cachedTarget;
+    private static final EntityDataAccessor<Integer> TARGET = SynchedEntityData.defineId(TracingProjectile.class, EntityDataSerializers.INT);
+    @Nullable private UUID targetUUID;
+    @Nullable private Entity cachedTarget;
 
-    private int surviveTime = 0;
+    protected int surviveTime = 0;
 
     public TracingProjectile(EntityType<? extends TracingProjectile> type, Level world) {
         super(type, world);
@@ -42,15 +44,12 @@ public abstract class TracingProjectile extends Projectile {
     public void tick() {
         this.surviveTime ++ ;
         Entity target = this.getTarget();
-        if(this.level() instanceof ServerLevel) {
-            if (target != null) {
-                int maxR = surviveTime / 20 + 5;
-                this.lookAt(target, maxR * 4, maxR);
-                this.setDeltaMovement(this.getLookAngle().scale(0.5));
-            } else {
+        if (target == null) {
+            if(this.level() instanceof ServerLevel)
                 this.setTarget(findTarget(12));
-            }
         }
+        else
+            modifyAngle(target);
 
 
         Vec3 motion = this.getDeltaMovement();
@@ -65,6 +64,12 @@ public abstract class TracingProjectile extends Projectile {
 
         if(this.surviveTime > 360)
             this.discard();
+    }
+
+    public void modifyAngle(Entity target){
+        int maxR = surviveTime / 20 + 5;
+        this.lookAt(target, maxR * 4, maxR);
+        this.setDeltaMovement(this.getLookAngle().scale(0.5));
     }
 
     public void lookAt(Entity entity, float y, float x) {
@@ -94,7 +99,7 @@ public abstract class TracingProjectile extends Projectile {
         return p_21377_ + f;
     }
 
-    public LivingEntity findTarget(int range){
+    @Nullable public LivingEntity findTarget(int range){
         Entity owner = this.getOwner() ;
         Optional<LivingEntity> found = this.level().getEntitiesOfClass(LivingEntity.class, AABB.ofSize(this.getPosition(0), range, range, range), e -> true).stream()
                 .sorted(Comparator.comparingDouble(e -> e.distanceToSqr(this.getX(), this.getY(), this.getZ())))
@@ -104,14 +109,32 @@ public abstract class TracingProjectile extends Projectile {
                 .findFirst();
         if(found.isEmpty())
             return null;
-        return found.orElseThrow(Error::new);
+        return found.orElse(null);
     }
 
     public void setTarget(@Nullable Entity target) {
+        this.entityData.set(TARGET, target == null ? 0 : target.getId() + 1);
         if (target != null) {
             this.targetUUID = target.getUUID();
             this.cachedTarget = target;
         }
+
+
+    }public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> dataAccessor) {
+        if (TARGET.equals(dataAccessor)) {
+            int i = this.getEntityData().get(TARGET);
+            if(i > 0){
+                this.cachedTarget = this.level().getEntity(i - 1);
+                if(this.cachedTarget != null)
+                    this.targetUUID = this.cachedTarget.getUUID();
+            }
+            else {
+                this.cachedTarget = null;
+                this.targetUUID = null;
+            }
+        }
+
+        super.onSyncedDataUpdated(dataAccessor);
     }
 
     @Nullable
@@ -126,7 +149,6 @@ public abstract class TracingProjectile extends Projectile {
                     return this.cachedTarget;
                 }
             }
-
             return null;
         }
     }
@@ -146,6 +168,7 @@ public abstract class TracingProjectile extends Projectile {
 
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(TARGET, 0);
     }
 
 }

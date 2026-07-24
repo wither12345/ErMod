@@ -1,0 +1,8 @@
+{
+  "item": "er:dust_of_azoth",
+  "count": 1,
+  "convertibles": [
+    "er:whopperflower_nectar",
+    "minecraft:honey_bottle"
+  ]
+}

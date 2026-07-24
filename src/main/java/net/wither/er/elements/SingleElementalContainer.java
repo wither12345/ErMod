@@ -239,4 +239,8 @@ public class SingleElementalContainer {
         }
         return elements;
     }
+
+    public void remove(Element element) {
+        this.auras.remove(element);
+    }
 }

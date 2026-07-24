@@ -20,4 +20,6 @@ public class ElementRegistry {
     public static final RegistryObject<Element> BURNING = ELEMENTS.register("burning", Burning::new);
     public static final RegistryObject<Element> THUNDER_SHIELD = ELEMENTS.register("thunder_shield", ThunderShieldElement::new);
     public static final RegistryObject<Element> SLIME_DENDRO = ELEMENTS.register("slime_dendro", Dendro::new);
+    public static final RegistryObject<Element> PYRO_WHOPPERFLOWER = ELEMENTS.register("pyro_whopper", PyroWhopperflowerShieldElement::new);
+    public static final RegistryObject<Element> CRYO_WHOPPERFLOWER = ELEMENTS.register("cryo_whopper", CryoWhopperflowerShieldElement::new);
 }

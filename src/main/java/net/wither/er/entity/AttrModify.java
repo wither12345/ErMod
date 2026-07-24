@@ -10,7 +10,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.lang.reflect.Field;
 
-@Mod.EventBusSubscriber()
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AttrModify {
 	@SubscribeEvent
 	public static void onCommonSetup(FMLCommonSetupEvent event) {

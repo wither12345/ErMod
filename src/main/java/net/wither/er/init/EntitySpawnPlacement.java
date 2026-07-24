@@ -5,6 +5,7 @@ import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.entity.slimes.ElementalSlime;
+import net.wither.er.entity.whopperflower.Whopperflower;
 
 @Mod.EventBusSubscriber()
 public class EntitySpawnPlacement {
@@ -17,5 +18,6 @@ public class EntitySpawnPlacement {
         ElementalSlime.init(ErModEntities.CRYO_SLIME.get());
         ElementalSlime.init(ErModEntities.DENDRO_SLIME.get());
         ElementalSlime.init(ErModEntities.ANEMO_SLIME.get());
+        Whopperflower.init(ErModEntities.PYRO_WHOPPERFLOWER.get());
     }
 }

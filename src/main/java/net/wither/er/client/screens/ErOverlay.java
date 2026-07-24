@@ -70,7 +70,7 @@ public class ErOverlay {
 				if (var.Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
 					ErCombatVariables.PlayerVariables vars = player.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
 					renderElementalSkillIcon(player, graphics, w, h, vars);
-					renderElementalBrustIcon(player, graphics, w, h, vars, fortuna);
+					renderElementalBurstIcon(player, graphics, w, h, vars, fortuna);
 				}
 			}
 		);
@@ -90,7 +90,7 @@ public class ErOverlay {
 		}
 	}
 
-	private static void renderElementalBrustIcon(Player player, GuiGraphics graphics, int w, int h, ErCombatVariables.PlayerVariables vars, StellaFortunas fortuna) {
+	private static void renderElementalBurstIcon(Player player, GuiGraphics graphics, int w, int h, ErCombatVariables.PlayerVariables vars, StellaFortunas fortuna) {
 		int percent = (int) (48 * vars.energyAmount / fortuna.getEnergyCost(player));
 		RenderSystem.enableBlend();
 		if (fortuna.elementType() == 1)
@@ -125,7 +125,7 @@ public class ErOverlay {
 				int i1 = graphics.guiWidth() / 2 + 91;
 				minecraft.getProfiler().push("stamina");
 				double maxStamina = player.getAttribute(ErModAttributes.MAX_STAMINA.get()).getValue();
-				ErCombatVariables.PlayerVariables vars = player.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseThrow(Error::new);
+				ErCombatVariables.PlayerVariables vars = player.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElse(new ErCombatVariables.PlayerVariables());
 				int i3 = 20;
 				int j3 = (int) (vars.stamina / maxStamina * 20);
 				int rightHeight = height - 69;
