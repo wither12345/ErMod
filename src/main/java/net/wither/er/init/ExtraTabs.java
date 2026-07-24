@@ -72,6 +72,8 @@ public class ExtraTabs {
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
 		if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
+            tabData.accept(ErModItems.SWEET_FLOWER);
+            tabData.accept(ErModItems.WHOPPERFLOWER_SEED);
 			tabData.accept(ErModItems.WANDERERS_ADVICE);
 			tabData.accept(ErModItems.ADVENTURES_EXPERIENCE);
 			tabData.accept(ErModItems.HEROS_WIT);
@@ -81,7 +83,15 @@ public class ExtraTabs {
 			tabData.accept(ErModItems.SLIME_CONDENSATE);
 			tabData.accept(ErModItems.SLIME_SECRETIONS);
 			tabData.accept(ErModItems.SLIME_CONCENTRATE);
+            tabData.accept(ErModItems.FIRM_ARROWHEAD);
+            tabData.accept(ErModItems.SHARP_ARROWHEAD);
+            tabData.accept(ErModItems.WEATHERED_ARROWHEAD);
+            tabData.accept(ErModItems.WHOPPERFLOWER_NECTAR);
+            tabData.accept(ErModItems.SHIMMERING_NECTAR);
+            tabData.accept(ErModItems.ENERGY_NECTAR);
 			tabData.accept(ErModItems.ENCHANTED_MYSTIC_ENHANCEMENT_ORE);
+            tabData.accept(ErModItems.PYRO_WHOPPERFLOWER_FRUIT);
+            tabData.accept(ErModItems.CRYO_WHOPPERFLOWER_FRUIT);
 			ItemStack moraBag = new ItemStack(ErModItems.MORA_BAG.get()) ;
 			CustomData.update(DataComponents.CUSTOM_DATA,moraBag,tag -> tag.putInt("moras",999999999));
 			tabData.accept(moraBag);
@@ -95,14 +105,23 @@ public class ExtraTabs {
 			tabData.accept(ErModItems.CRYO_SLIME_SPAWN_EGG);
 			tabData.accept(ErModItems.DENDRO_SLIME_SPAWN_EGG);
 			tabData.accept(ErModItems.ANEMO_SLIME_SPAWN_EGG);
+            tabData.accept(ErModItems.PYRO_FLOWER_SPAWN_EGG);
 		}else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
 			tabData.accept(ErModItems.DULL_BLADE);
 			tabData.accept(ErModItems.WASTER_GREATSWORD);
 			tabData.accept(ErModItems.SILVER_SWORD);
             tabData.accept(ErModItems.COOL_STEEL);
             tabData.accept(ErModItems.DARK_IRON_SWORD);
-		}
-	}
+		}else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+            tabData.accept(ErModItems.SWEET_FLOWER);
+            tabData.accept(ErModItems.BURNING_DIRT);
+            tabData.accept(ErModItems.WHOPPERFLOWER_SEED);
+        } else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            tabData.accept(ErModItems.PYRO_HOE);
+            tabData.accept(ErModItems.ELECTRO_HOE);
+            tabData.accept(ErModItems.CRYO_HOE);
+        }
+    }
 
     private static void addVisions(CreativeModeTab.Output tabData, Vision.Frame frame){
         addVision(tabData, ErModItems.UNOWNED_VISION, frame);

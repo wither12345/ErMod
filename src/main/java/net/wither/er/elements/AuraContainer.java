@@ -79,6 +79,11 @@ public class AuraContainer {
         return elements;
     }
 
+    public void remove(Element element) {
+        this.containersList.get(element.getCategory().getId()).remove(element);
+        this.update();
+    }
+
     public static class AuraCooldown{
         public int time ;
         public int count ;

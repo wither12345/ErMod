@@ -22,7 +22,6 @@ import net.wither.er.init.ElementRegistry;
 public class ThunderShield extends ElementalShield implements RenderShield {
 	private static final ResourceLocation resourcelocation = ResourceLocation.parse("er:thunder_shield.kb_res");
 
-	//health = 240
 	@OnlyIn(Dist.CLIENT)
 	public static class Client {
 		private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.parse("er:textures/entities/electro_crystallize_shield.png");

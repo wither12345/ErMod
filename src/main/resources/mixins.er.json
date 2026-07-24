@@ -5,6 +5,7 @@
   "mixins": [
     "AbstractSkeletonMixin",
     "CombatRulesMixin",
+    "CropBlockMixin",
     "DamageSourceMixin",
     "ErPlayerMixin",
     "ExplosionDamageCalculatorMixin",

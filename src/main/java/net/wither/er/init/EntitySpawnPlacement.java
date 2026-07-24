@@ -5,6 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.wither.er.entity.slimes.ElementalSlime;
+import net.wither.er.entity.whopperflower.Whopperflower;
 
 @EventBusSubscriber()
 public class EntitySpawnPlacement {
@@ -17,5 +18,7 @@ public class EntitySpawnPlacement {
         ElementalSlime.init(event, ErModEntities.CRYO_SLIME.get());
         ElementalSlime.init(event, ErModEntities.DENDRO_SLIME.get());
         ElementalSlime.init(event, ErModEntities.ANEMO_SLIME.get());
+        Whopperflower.init(event, ErModEntities.PYRO_WHOPPERFLOWER.get());
+        Whopperflower.init(event, ErModEntities.CRYO_WHOPPERFLOWER.get());
     }
 }

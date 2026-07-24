@@ -242,10 +242,10 @@ public class FatuiElectroCicinMageEntity extends CicinMage {
 
 		@Override
 		public void tick() {
-			ShieldStack shield = new ShieldStack(ShieldRegistry.THUNDER_SHIELD.get(), 5, 240);
 			time--;
 			if (time == 1) {
 				if (mage.globalCd <= 0 && mage instanceof ErEntityInterface enti) {
+                    ShieldStack shield = new ShieldStack(ShieldRegistry.THUNDER_SHIELD.get(), 5, 240);
 					enti.er$addShield(shield);
 					for (LivingEntity i : mage.summonings) {
 						i.kill();

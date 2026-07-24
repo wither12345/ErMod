@@ -51,6 +51,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.mcreator.er.procedures.HilichurlOnInitialEntitySpawnProcedure;
 import net.mcreator.er.init.ErModEntities;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -87,13 +88,13 @@ public class HilichurlEntity extends Monster implements CrossbowAttackMob, Inven
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag p_33300_) {
-		super.addAdditionalSaveData(p_33300_);
-		this.writeInventoryToTag(p_33300_, this.registryAccess());
+	public void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
+		this.writeInventoryToTag(tag, this.registryAccess());
 	}
 
 	@Override
-	public SimpleContainer getInventory() {
+	public @NotNull SimpleContainer getInventory() {
 		return this.inventory;
 	}
 
@@ -139,10 +140,10 @@ public class HilichurlEntity extends Monster implements CrossbowAttackMob, Inven
 				return !(entity.getMainHandItem().getItem() instanceof CrossbowItem && entity.getMainHandItem().getItem() instanceof BowItem);
 			}
 		});
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, true, false));
-		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Villager.class, true, false));
-		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true, false));
-		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal(this, Animal.class, true, false));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true, false));
+		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Villager.class, true, false));
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolem.class, true, false));
+		this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Animal.class, true, false));
 		this.goalSelector.addGoal(5, new BreakDoorGoal(this, e -> true));
 		this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1));
 		this.targetSelector.addGoal(7, new HurtByTargetGoal(this).setAlertOthers());
@@ -151,22 +152,22 @@ public class HilichurlEntity extends Monster implements CrossbowAttackMob, Inven
 	}
 
 	@Override
-	public Vec3 getPassengerRidingPosition(Entity entity) {
+	public @NotNull Vec3 getPassengerRidingPosition(@NotNull Entity entity) {
 		return super.getPassengerRidingPosition(entity).add(0, -0.35F, 0);
 	}
 
 	@Override
-	public SoundEvent getHurtSound(DamageSource ds) {
+	public @NotNull SoundEvent getHurtSound(@NotNull DamageSource ds) {
 		return BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.hurt"));
 	}
 
 	@Override
-	public SoundEvent getDeathSound() {
+	public @NotNull SoundEvent getDeathSound() {
 		return BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.death"));
 	}
 
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor world, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData livingdata) {
+	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor world, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData livingdata) {
 		SpawnGroupData retval = super.finalizeSpawn(world, difficulty, reason, livingdata);
 		HilichurlOnInitialEntitySpawnProcedure.execute(this);
 		return retval;

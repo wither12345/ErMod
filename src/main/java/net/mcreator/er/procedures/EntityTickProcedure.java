@@ -54,7 +54,7 @@ public class EntityTickProcedure {
 				}
 			}
 			if (changed)
-				enti.syncShield();
+				enti.er$syncShield();
 		}
 		if(!world.isClientSide() && entity instanceof AuraContainerInterface auraContainerInterface){
 			auraContainerInterface.er$getAuraContainer().tick(world,x,y,z);

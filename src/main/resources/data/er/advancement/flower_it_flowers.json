@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "er:whopperflower_seed"
+    },
+    "title": {
+      "translate": "advancements.flower_it_flowers.title"
+    },
+    "description": {
+      "translate": "advancements.flower_it_flowers.describe"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "h_0": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "parent": "er:elemental_reaction"
+}

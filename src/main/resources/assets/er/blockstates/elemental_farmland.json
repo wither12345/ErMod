@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "when": {"element": "pyro"},
+      "apply":{"model": "er:block/farmlands/pyro"}
+    },
+    {
+      "when": {"element": "electro", "moisture": "7"},
+      "apply":{"model": "er:block/farmlands/electro_moist"}
+    },
+    {
+      "when": {"element": "electro", "moisture": "!7"},
+      "apply":{"model": "er:block/farmlands/electro"}
+    },
+    {
+      "when": {"element": "cryo"},
+      "apply":{"model": "er:block/farmlands/cryo"}
+    }
+  ]
+}

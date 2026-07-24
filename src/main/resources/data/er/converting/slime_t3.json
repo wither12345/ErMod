@@ -3,7 +3,6 @@
   "count": 9,
   "convertibles": [
     "er:slime_concentrate",
-    "minecraft:slime_block",
-    "minecraft:honey_block"
+    "minecraft:slime_block"
   ]
 }

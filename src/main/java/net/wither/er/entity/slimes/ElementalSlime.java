@@ -91,7 +91,8 @@ public abstract class ElementalSlime extends Monster implements Enemy {
 
     public static void init(RegisterSpawnPlacementsEvent event, EntityType<? extends Mob> type) {
         event.register(type, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                (entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)),
+                (entityType, world, reason, pos, random) ->
+                        (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)),
                 RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
 

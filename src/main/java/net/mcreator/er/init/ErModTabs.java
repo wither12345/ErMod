@@ -44,7 +44,6 @@ public class ErModTabs {
 				tabData.accept(ErModItems.MYSTIC_ENHANCEMENT_ORE.get());
 				tabData.accept(ErModItems.FINE_ENHANCEMENT_ORE.get());
 				tabData.accept(ErModItems.ENHANCEMENT_ORE.get());
-				tabData.accept(ErModBlocks.BURNING_DIRT.get().asItem());
 				tabData.accept(ErModItems.DAMAGED_MASK.get());
 				tabData.accept(ErModItems.STAINED_MASK.get());
 				tabData.accept(ErModItems.OMINOUS_MASK.get());
@@ -123,9 +122,7 @@ public class ErModTabs {
 			tabData.accept(ErModItems.MORA.get());
 			tabData.accept(ErModItems.MORA_BAG.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-			tabData.accept(ErModItems.PYRO_HOE.get());
 			tabData.accept(ErModItems.PYRO_PICKAXE.get());
-			tabData.accept(ErModItems.ELECTRO_HOE.get());
 			tabData.accept(ErModItems.GEO_PICKAXE.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
 			tabData.accept(ErModBlocks.ELECTRO_CRYSTAL_ORE.get().asItem());

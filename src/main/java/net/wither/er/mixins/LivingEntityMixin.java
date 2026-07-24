@@ -54,6 +54,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
     @Unique private static final EntityDataAccessor<Integer> ER$ELEMENT = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
 	@Unique private final NonNullList<ItemStack> er$artifactItem = NonNullList.withSize(5, ItemStack.EMPTY);
 	@Unique private Object2IntMap<Holder<ArtifactEffect>> er$effectMap = new Object2IntArrayMap<>();
+    @Unique private long er$lastBurn;
 
 
 	@Shadow public abstract AttributeMap getAttributes();
@@ -82,7 +83,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	public void er$addShield(ShieldStack shield) {
 		shield.getShield().start(this);
 		this.er$shields.add(shield);
-		syncShield();
+		er$syncShield();
 	}
 
 	@Override
@@ -145,10 +146,10 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		this.er$dropArtifact();
 	}
 
-	public void removeShield(ErShield shield) {
+	public void er$removeShield(ErShield shield) {
 		shield.end(this);
         this.er$shields.removeIf(shieldstack -> shieldstack.getShield() == shield);
-		syncShield();
+		er$syncShield();
 	}
 
 	public void er$setShields(CompoundTag tag) {
@@ -160,12 +161,12 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		}
 	}
 
-	public void cleanShield() {
+	public void er$cleanShield() {
 		er$shields.clear();
-		syncShield();
+		er$syncShield();
 	}
 
-	public void syncShield() {
+	public void er$syncShield() {
 		CompoundTag tag = new CompoundTag();
 		for (ShieldStack shield : er$shields) {
 			tag.put(AdditionalRegistries.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
@@ -173,7 +174,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		PacketDistributor.sendToPlayersTrackingEntityAndSelf(this, new ErShieldData(this.getId(), tag));
 	}
 
-	public void syncShield(ServerPlayer player) {
+	public void er$syncShield(ServerPlayer player) {
 		CompoundTag tag = new CompoundTag();
 		for (ShieldStack shield : er$shields) {
 			tag.put(AdditionalRegistries.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
@@ -231,7 +232,16 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		}
 	}
 
-	@Override
+    @Override
+    public boolean er$shouldBurnBlock(long tick) {
+        if(tick - this.er$lastBurn > 5) {
+            this.er$lastBurn = tick;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
 	public int er$getArtifactEffectLevel(Holder<ArtifactEffect> effectHolder){
 		return er$effectMap.getOrDefault(effectHolder, 0) ;
 	}

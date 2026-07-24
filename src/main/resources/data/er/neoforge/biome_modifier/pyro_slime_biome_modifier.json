@@ -3,7 +3,7 @@
   "biomes": "#er:overworld_or_nether",
   "spawners": {
     "type": "er:pyro_slime",
-    "weight": 20,
+    "weight": 10,
     "minCount": 2,
     "maxCount": 4
   }

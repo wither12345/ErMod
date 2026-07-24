@@ -1,0 +1,32 @@
+{
+  "multipart": [
+    {
+      "when": {"age": "0|1"},
+      "apply":{"model": "er:block/whopperflower_crops/p0"}
+    },
+    {
+      "when": {"age": "2|3"},
+      "apply":{"model": "er:block/whopperflower_crops/p1"}
+    },
+    {
+      "when": {"age": "4|5"},
+      "apply":{"model": "er:block/whopperflower_crops/p2"}
+    },
+    {
+      "when": {"age": "6|7"},
+      "apply":{"model": "er:block/whopperflower_crops/p3"}
+    },
+    {
+      "when": {"age": "8|9"},
+      "apply":{"model": "er:block/whopperflower_crops/p4"}
+    },
+    {
+      "when": {"age": "10|11|12"},
+      "apply":{"model": "er:block/whopperflower_crops/p5"}
+    },
+    {
+      "when": {"age": "13|14|15"},
+      "apply":{"model": "er:block/whopperflower_crops/p6"}
+    }
+  ]
+}

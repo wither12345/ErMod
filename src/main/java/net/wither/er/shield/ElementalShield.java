@@ -19,6 +19,13 @@ public abstract class ElementalShield extends ErShield{
     }
 
     @Override
+    public void end(Entity owner) {
+        super.end(owner);
+        if(owner instanceof AuraContainerInterface auraContainerInterface)
+            auraContainerInterface.er$getAuraContainer().remove(this.getElement());
+    }
+
+    @Override
     public boolean tick(ShieldStack stack, Entity owner) {
         return owner instanceof AuraContainerInterface containerInterface && containerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
     }

@@ -7,6 +7,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.wither.er.entity.BloomEntityEntity;
 import net.wither.er.entity.slimes.AnemoSlime;
 import net.wither.er.entity.slimes.ElementalSlime;
+import net.wither.er.entity.whopperflower.Whopperflower;
 
 @EventBusSubscriber()
 public class RegisterAttributes {
@@ -20,5 +21,7 @@ public class RegisterAttributes {
         event.put(ErModEntities.CRYO_SLIME.get(),  ElementalSlime.createAttributes().build());
         event.put(ErModEntities.DENDRO_SLIME.get(),  ElementalSlime.createAttributes().build());
         event.put(ErModEntities.ANEMO_SLIME.get(),  AnemoSlime.createAttributes().build());
+        event.put(ErModEntities.PYRO_WHOPPERFLOWER.get(),  Whopperflower.createAttributes().build());
+        event.put(ErModEntities.CRYO_WHOPPERFLOWER.get(),  Whopperflower.createAttributes().build());
     }
 }

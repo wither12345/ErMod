@@ -57,6 +57,7 @@ public class SingleElementalContainer {
         }
     }
 
+
     public void tick(AuraContainer container, LevelAccessor accessor , double x , double y , double z) {
         cooldownMap.values().removeIf(cooldown -> cooldown.time-- <= 0);
         Iterator<Map.Entry<Element, ElementalAura>> iterator = auras.entrySet().iterator();
@@ -169,6 +170,7 @@ public class SingleElementalContainer {
         }
         return flag ;
     }
+
     public void reduceExcept(float guage , Element element){
         Set<Map.Entry<Element,ElementalAura>> entrySet = auras.entrySet() ;
         for(Map.Entry<Element,ElementalAura> entry : entrySet){
@@ -239,5 +241,9 @@ public class SingleElementalContainer {
             }
         }
         return elements;
+    }
+
+    public void remove(Element element) {
+        this.auras.remove(element);
     }
 }

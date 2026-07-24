@@ -1,5 +1,6 @@
 package net.wither.er.entity.goals;
 
+import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.OwnableEntity;
@@ -20,14 +21,14 @@ public class SyncTargetGoal extends TargetGoal {
 
 	@Override
 	public boolean canUse() {
-		if (mob instanceof OwnableEntity ownable) {
+		if (this.mob instanceof OwnableEntity ownable) {
 			LivingEntity livingentity = ownable.getOwner();
 			if (livingentity == null) {
 				return false;
 			} else {
 				this.ownerLastHurt = livingentity.getLastHurtMob();
 				int i = livingentity.getLastHurtMobTimestamp();
-				return i != this.timestamp && this.canAttack(this.ownerLastHurt, TargetingConditions.DEFAULT);
+				return i != this.timestamp && EntityHurtEvent.shouldHurt(this.ownerLastHurt, this.mob) && this.canAttack(this.ownerLastHurt, TargetingConditions.DEFAULT);
 			}
 		}
 		return false;

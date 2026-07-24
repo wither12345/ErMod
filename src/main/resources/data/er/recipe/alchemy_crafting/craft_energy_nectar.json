@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "id": "er:shimmering_nectar",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "er:energy_nectar",
+    "count": 1
+  },
+  "mora": 50
+}

@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -32,6 +33,7 @@ import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.item.Vision;
 import net.wither.er.network.ErItemVariables;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -315,7 +317,7 @@ public abstract class Element {
         return this.map.containsKey(category);
     }
 
-    public enum Category{
+    public enum Category implements StringRepresentable {
         ANEMO(0xFF44FF99, ErModAttributes.ANEMO_DMG_BONUS, ErModAttributes.ANEMO_RES, true, ErModItems.DANDELION_SEED, ElementRegistry.ANEMO),
         PYRO(0xFFFF4444, ErModAttributes.PYRO_DMG_BONUS, ErModAttributes.PYRO_RES, false, ErModItems.FLAMING_FLOWER_STAMEN, ElementRegistry.PYRO),
         CRYO(0xFF33FFFF, ErModAttributes.CRYO_DMG_BONUS, ErModAttributes.CRYO_RES, true, ErModItems.MIST_FLOWER_COROLLA, ElementRegistry.CRYO),
@@ -335,6 +337,7 @@ public abstract class Element {
         private final TagKey<DamageType> tagWeak;//1
         private final TagKey<DamageType> tagMedium;//1.5
         private final TagKey<DamageType> tagStrong;//2
+        private final String nameLowerCase ;
 
         Category(int color , @Nullable DeferredHolder<Attribute, Attribute> damageAttr , @Nullable DeferredHolder<Attribute, Attribute> resAttr, boolean dmgPotType, DeferredHolder<Item, Item> brewIngredient, Supplier<Element> defaultElement){
             this.defaultElement = defaultElement;
@@ -344,11 +347,11 @@ public abstract class Element {
             this.resAttr = resAttr;
             this.dmgPotType = dmgPotType ;
             this.brewIngredient = brewIngredient;
-            String name = this.name().toLowerCase();
-            tag = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", name));
-            tagWeak = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", name + "/weak"));
-            tagMedium = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", name + "/medium"));
-            tagStrong = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", name + "/strong"));
+            nameLowerCase = this.name().toLowerCase();
+            tag = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", nameLowerCase));
+            tagWeak = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", nameLowerCase + "/weak"));
+            tagMedium = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", nameLowerCase + "/medium"));
+            tagStrong = TagKey.create(DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath("er", nameLowerCase + "/strong"));
         }
 
         public int getId(){
@@ -386,6 +389,11 @@ public abstract class Element {
 
         public Element getDefault(){
             return this.defaultElement.get();
+        }
+
+        @Override
+        public @NotNull String getSerializedName() {
+            return this.nameLowerCase;
         }
     }
 

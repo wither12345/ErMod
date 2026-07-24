@@ -1,12 +1,12 @@
 {
   "mappings": {
     "default": {
+      "name": "default",
       "map": {
         "0": "statue_of_the_seven_1_side",
         "1": "statue_of_the_seven_1_top",
         "2": "statue_of_the_seven_1_side_2"
-      },
-      "name": "default"
+      }
     }
   }
 }

@@ -16,14 +16,15 @@ public interface ErEntityInterface {
     List<ErShield> er$getShields();
     void er$setShields(CompoundTag tag);
     void er$addShield(ShieldStack shield) ;
-    void removeShield(ErShield shield);
-    void cleanShield();
-    void syncShield() ;
-    void syncShield(ServerPlayer player) ;
+    void er$removeShield(ErShield shield);
+    void er$cleanShield();
+    void er$syncShield() ;
+    void er$syncShield(ServerPlayer player) ;
     void setArtifact(ArtifactSlot slot, ItemStack itemStack) ;
     ItemStack er$getArtifact(ArtifactSlot slot);
     Object2IntMap<Holder<ArtifactEffect>> er$getEffectMap();
     void er$dropArtifact() ;
     void updateArtifact();
     int er$getArtifactEffectLevel(Holder<ArtifactEffect> effectHolder);
+    boolean er$shouldBurnBlock(long tick);
 }

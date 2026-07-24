@@ -1,12 +1,7 @@
 {
-  "parent": "block/cube",
+  "parent": "block/cube_all",
   "textures": {
-    "down": "er:block/dirt",
-    "up": "er:block/dirt",
-    "north": "er:block/dirt",
-    "east": "er:block/dirt",
-    "south": "er:block/dirt",
-    "west": "er:block/dirt",
+    "all": "er:block/dirt",
     "particle": "er:block/dirt"
   },
   "render_type": "solid"

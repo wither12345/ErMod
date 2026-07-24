@@ -1,7 +1,13 @@
 /*
- *    MCreator note: This file will be REGENERATED on each build.
- */
+*    MCreator note: This file will be REGENERATED on each build.
+*/
 package net.mcreator.er.init;
+
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.wither.er.block.WhopperflowerCrop;
+import net.wither.er.block.ElementalFarmBlock;
+import net.wither.er.block.BurningDirt;
 
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -10,7 +16,14 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.api.distmarker.Dist;
 
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.BlockPos;
 
 import net.mcreator.er.block.*;
 import net.mcreator.er.ErMod;
@@ -24,7 +37,6 @@ public class ErModBlocks {
 	public static final DeferredBlock<Block> ELEMENT_ANVIL;
 	public static final DeferredBlock<Block> WHITE_IRON_ORE;
 	public static final DeferredBlock<Block> DEEPSLATE_WHITE_IRON_ORE;
-	public static final DeferredBlock<Block> BURNING_DIRT;
 	public static final DeferredBlock<Block> CRATE;
 	public static final DeferredBlock<Block> CUIHUA_LOG;
 	public static final DeferredBlock<Block> CUIHUA_LEAVES;
@@ -50,7 +62,6 @@ public class ErModBlocks {
 		ELEMENT_ANVIL = REGISTRY.register("element_anvil", ElementAnvilBlock::new);
 		WHITE_IRON_ORE = REGISTRY.register("white_iron_ore", WhiteIronOreBlock::new);
 		DEEPSLATE_WHITE_IRON_ORE = REGISTRY.register("deepslate_white_iron_ore", DeepslateWhiteIronOreBlock::new);
-		BURNING_DIRT = REGISTRY.register("burning_dirt", BurningDirtBlock::new);
 		CRATE = REGISTRY.register("crate", CrateBlock::new);
 		CUIHUA_LOG = REGISTRY.register("cuihua_log", CuihuaLogBlock::new);
 		CUIHUA_LEAVES = REGISTRY.register("cuihua_leaves", CuihuaLeavesBlock::new);
@@ -69,8 +80,39 @@ public class ErModBlocks {
 		TELEPORT_WAYPOINT = REGISTRY.register("teleport_waypoint", TeleportWaypointBlock::new);
 		ARTIFACT_TRANSMUTER = REGISTRY.register("artifact_transmuter", ArtifactTransmuterBlock::new);
 	}
-
 	// Start of user code block custom blocks
+	public static final DeferredBlock<Block> BURNING_DIRT = REGISTRY.register("burning_dirt", BurningDirt::new);
+	public static final DeferredBlock<Block> WHOPPERFLOWER_CROP = REGISTRY.register("whopperflower_crop",
+			() -> new WhopperflowerCrop(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .noCollission()
+                            .randomTicks()
+                            .instabreak()
+                            .sound(SoundType.CROP)
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY))
+    );
+	public static final DeferredBlock<Block> ELEMENTAL_FARMLAND = REGISTRY.register("elemental_farmland",
+			() -> new ElementalFarmBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).randomTicks().strength(0.6F).sound(SoundType.GRAVEL).isViewBlocking(ErModBlocks::always).isSuffocating(ErModBlocks::always)));
+    public static final DeferredBlock<Block> SWEET_FLOWER = REGISTRY.register(
+            "sweet_flower",
+            () -> new FlowerBlock(
+                    MobEffects.MOVEMENT_SPEED,
+                    10,
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.PLANT)
+                            .noCollission()
+                            .instabreak()
+                            .sound(SoundType.GRASS)
+                            .offsetType(BlockBehaviour.OffsetType.XZ)
+                            .pushReaction(PushReaction.DESTROY)
+            )
+    );
+	private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
+		return true;
+	}
+
 	// End of user code block custom blocks
 	@EventBusSubscriber(Dist.CLIENT)
 	public static class BlocksClientSideHandler {

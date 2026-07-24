@@ -29,7 +29,7 @@ public class ShieldCommand {
 							Collection<? extends Entity> entities = EntityArgument.getEntities(arguments, "entity");
 							for (Entity entity : entities) {
 								if (entity instanceof ErEntityInterface living) {
-									living.cleanShield();
+									living.er$cleanShield();
 									//List<ErShield> shields = ErShieldEntity.getShields(living);
 									//for (ErShield shield : shields) {
 									//	ErShieldEntity.removeShield(living, shield);
@@ -65,7 +65,7 @@ public class ShieldCommand {
 									ErShield shield = ResourceArgument.getResource(arguments, "shield", AdditionalRegistries.SHIELD).value();
 									for (Entity entity : entities) {
 										if (entity instanceof ErEntityInterface living)
-											living.removeShield(shield);
+											living.er$removeShield(shield);
 										//if (entity instanceof LivingEntity living)
 										//	ErShieldEntity.removeShield(living, shield);
 									}

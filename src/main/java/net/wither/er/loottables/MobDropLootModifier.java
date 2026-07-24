@@ -56,9 +56,7 @@ public class MobDropLootModifier extends LootModifier {
         if (type == 2) level -= 30 ;
         if(level < 1)
             return  0 ;
-        if (level <= 15)
-            return 1 ;
-        double count = (level / 30d) * origin ;
+        double count = (level / 30d + 0.7) * origin;
         int base = (int) count;
         if(Math.random() < count - base){
             base ++ ;
@@ -67,7 +65,7 @@ public class MobDropLootModifier extends LootModifier {
     }
 
     @Override
-    public MapCodec<? extends IGlobalLootModifier> codec() {
+    public @NotNull MapCodec<? extends IGlobalLootModifier> codec() {
         return CODEC;
     }
 }
