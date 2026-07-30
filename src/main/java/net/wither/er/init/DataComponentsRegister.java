@@ -1,16 +1,18 @@
 package net.wither.er.init;
 
+import com.mojang.serialization.Codec;
 import net.mcreator.er.ErMod;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.wither.er.item.Vision;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
-import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
+import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 
 
@@ -58,5 +60,11 @@ public class DataComponentsRegister {
             builder -> builder
                     .persistent(Vision.FRAME_CODEC)
                     .networkSynchronized(Vision.FRAME_STREAM_CODEC)
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MORA_BAG = REGISTRAR.registerComponentType(
+            "mora_bag",
+            builder -> builder
+                    .persistent(Codec.INT)
+                    .networkSynchronized(ByteBufCodecs.INT)
     );
 }

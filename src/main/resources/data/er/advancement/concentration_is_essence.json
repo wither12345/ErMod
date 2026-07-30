@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {"id": "er:crystal_core"},
+    "title": {"translate": "adv.er.concentration.title"},
+    "description": {"translate": "adv.er.concentration.desc"},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pyro": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_pyro"}]}},
+    "anemo": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_anemo"}]}},
+    "cryo": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_cryo"}]}},
+    "geo": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_geo"}]}},
+    "hydro": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_hydro"}]}},
+    "electro": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_electro"}]}},
+    "dendro": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": "er:condensed_dendro"}]}}
+  },
+  "requirements": [["pyro", "electro", "geo", "anemo", "cryo", "hydro", "dendro"]],
+  "parent": "er:elemental_reaction"
+}

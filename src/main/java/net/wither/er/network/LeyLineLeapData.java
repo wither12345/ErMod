@@ -1,7 +1,6 @@
 package net.wither.er.network;
 
 import io.netty.buffer.ByteBuf;
-import net.mcreator.er.ErMod;
 import net.mcreator.er.init.ErModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -35,10 +34,9 @@ public record LeyLineLeapData(int x, int y, int z) implements CustomPacketPayloa
 		Level world = entity.level();
 		ItemStack item = entity.getMainHandItem();
 		MapItemSavedData mapData = MapItem.getSavedData(item, world);
-		if (mapData.dimension != world.dimension())
+		if (mapData == null || mapData.dimension != world.dimension())
 			return;
 		context.enqueueWork(() -> {
-			ErMod.LOGGER.info(data.x + "," + data.y + "," + data.z);
 			if ((world.getBlockState(BlockPos.containing(data.x, data.y, data.z))).getBlock() == ErModBlocks.STATUEOF_THE_SEVEN_CORE.get()
 					|| (world.getBlockState(BlockPos.containing(data.x, data.y, data.z))).getBlock() == ErModBlocks.TELEPORT_WAYPOINT.get()) {
 				entity.teleportTo(data.x - 1, data.y - 1, data.z - 1);

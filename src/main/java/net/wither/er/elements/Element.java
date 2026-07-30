@@ -2,7 +2,6 @@ package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.init.*;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,8 +9,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -23,12 +24,15 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.wither.er.entity.BloomEntityEntity;
 import net.wither.er.entity.LunarChargedCloud;
+import net.wither.er.init.AdvancementTriggerRegister;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.item.Vision;
@@ -66,8 +70,12 @@ public abstract class Element {
         this.map = map;
     }
 
-    public float reactWith(AuraContainer auraContainer, SingleElementalContainer singleElementalContainer, float gauge, LevelAccessor accessor , double x , double y , double z, EntityHurtEvent.DamageModifier modifier, @Nullable Entity applier){
-        return this.map.get(singleElementalContainer.getCategory()).reactWith(auraContainer, singleElementalContainer, gauge, accessor, x, y, z, modifier, applier);
+    public boolean canReact(ElementSource source){
+        return this.map.containsKey(source.getCategory());
+    }
+
+    public float reactWith(AuraContainer auraContainer, ElementalAura boundAura, ElementSource source, EntityHurtEvent.DamageModifier modifier, @Nullable Entity applier){
+        return this.map.get(source.getCategory()).reactWith(auraContainer, this, boundAura, source, modifier, applier);
     }
 
     public TagKey<EntityType<?>> getImmuneTag(){
@@ -115,182 +123,178 @@ public abstract class Element {
         return 1/(gauge * 2.5f + 7) ;
     }
 
-    public static float reacting(float gauge , SingleElementalContainer container , float coefficient){
-        float gauge_reduction = 0 ;
-        if (gauge * coefficient >= container.getGauge()) {
-            gauge_reduction = container.getGauge() / coefficient ;
-            container.reduceAll(container.getGauge());
-        }
-        else {
-            gauge_reduction = gauge;
-            container.reduceAll(gauge * coefficient);
-        }
-        return gauge_reduction ;
-    }
-
     public static boolean isLunar(Entity entity){
         return entity instanceof Player player && player.getData(ErItemVariables.PLAYER_VARIABLES).Vision.get(DataComponentsRegister.VISION_FRAME) == Vision.Frame.MOON_WHEEL;
     }
 
-    public static float reacting(float gauge , SingleElementalContainer container){
-        return reacting(gauge,container,1) ;
-    }
-
-    public static float reactingExcept(float gauge , SingleElementalContainer container , Element element){
+    public static float reacting(ElementSource source, ElementalAura aura , float coefficient){
         float gauge_reduction = 0 ;
-        if (gauge >= container.getGaugeExcept(element)) {
-            gauge_reduction = container.getGaugeExcept(element) ;
-            container.reduceExcept(container.getGauge(),element);
+        float gauge = source.getGauge();
+        if (gauge * coefficient >= aura.getGauge()) {
+            gauge_reduction = aura.getGauge() / coefficient ;
+            aura.reduce(aura.getGauge());
         }
         else {
             gauge_reduction = gauge;
-            container.reduceExcept(gauge,element);
+            aura.reduce(gauge * coefficient);
         }
         return gauge_reduction ;
     }
 
-    protected static float amplifying2(AuraContainer container ,
-                                    SingleElementalContainer singleElementalContainer ,
-                                    float gauge,
-                                    LevelAccessor accessor ,
-                                    double x ,
-                                    double y ,
-                                    double z,
-                                    EntityHurtEvent.DamageModifier damageModifier,
-                                    @Nullable Entity applier){
-        if (damageModifier != null && !damageModifier.locked) {
-            damageModifier.basic = 2f ;
-            damageModifier.locked = true;
-            damageModifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
-        }
-        return reacting(gauge , singleElementalContainer , 2) ;
+    public static float reacting(ElementSource source , ElementalAura aura){
+        return reacting(source, aura,1) ;
     }
 
-    protected static float amplifying15(AuraContainer container ,
-                                     SingleElementalContainer singleElementalContainer ,
-                                     float gauge,
-                                     LevelAccessor accessor ,
-                                     double x ,
-                                     double y ,
-                                     double z,
-                                     EntityHurtEvent.DamageModifier damageModifier,
-                                     @Nullable Entity applier){
-        if (damageModifier != null && !damageModifier.locked) {
-            damageModifier.basic = 1.5f ;
-            damageModifier.locked = true;
-            damageModifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
+    protected static float amplifying2(AuraContainer auraContainer,
+                                       Element self,
+                                       ElementalAura boundAura,
+                                       ElementSource source,
+                                       EntityHurtEvent.DamageModifier modifier,
+                                       @Nullable Entity applier){
+        if (modifier != null && !modifier.locked) {
+            modifier.basic = 2f ;
+            modifier.locked = true;
+            modifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
         }
-        return reacting(gauge , singleElementalContainer , 0.5f) ;
+        return reacting(source , boundAura , 2) ;
     }
 
-    protected static float electroCharged(AuraContainer container ,
-                                          SingleElementalContainer singleElementalContainer ,
-                                          float gauge,
-                                          LevelAccessor accessor ,
-                                          double x ,
-                                          double y ,
-                                          double z,
-                                          EntityHurtEvent.DamageModifier damageModifier,
+    protected static float amplifying15(AuraContainer auraContainer,
+                                        Element self,
+                                        ElementalAura boundAura,
+                                        ElementSource source,
+                                        EntityHurtEvent.DamageModifier modifier,
+                                        @Nullable Entity applier){
+        if (modifier != null && !modifier.locked) {
+            modifier.basic = 1.5f ;
+            modifier.locked = true;
+            modifier.multiply = EntityHurtEvent.ReactionMultiply.AMPLIFYING;
+        }
+        return reacting(source , boundAura , 0.5f) ;
+    }
+
+    protected static float electroCharged(AuraContainer auraContainer,
+                                          Element self,
+                                          ElementalAura boundAura,
+                                          ElementSource source,
+                                          EntityHurtEvent.DamageModifier modifier,
                                           @Nullable Entity applier){
-        if(container.getOwner() instanceof LivingEntity entity && accessor instanceof ServerLevel level){
+        if(auraContainer.getOwner() instanceof LivingEntity entity && entity.level() instanceof ServerLevel level){
             if(isLunar(applier)){
-                final Vec3 _center = new Vec3(x, y, z);
-                List<LunarChargedCloud> clouds = accessor.getEntitiesOfClass(LunarChargedCloud.class, new AABB(_center, _center).inflate(20 / 2d), e -> true);
-                if(clouds.isEmpty()){
+                final Vec3 _center = entity.position();
+                List<LunarChargedCloud> clouds = level.getEntitiesOfClass(LunarChargedCloud.class, new AABB(_center, _center).inflate(20 / 2d), e -> true);
+                if(clouds.isEmpty())
                     ErModEntities.LUNAR_CLOUD.get().spawn(level, entity.getOnPos().above(5), MobSpawnType.MOB_SUMMONED);
-                }
-                else {
+                else
                     clouds.forEach(LunarChargedCloud::refresh);
-                }
+                if(applier instanceof ServerPlayer player)
+                    AdvancementTriggerRegister.REACTION.get().trigger(player, "lunar_charged");
             }
         }
         return 0;
     }
 
-    protected static float burning(AuraContainer container ,
-                                   SingleElementalContainer singleElementalContainer ,
-                                   float gauge,
-                                   LevelAccessor accessor ,
-                                   double x ,
-                                   double y ,
-                                   double z,
-                                   EntityHurtEvent.DamageModifier damageModifier,
+    protected static float frozen(AuraContainer auraContainer,
+                                  Element self,
+                                  ElementalAura boundAura,
+                                  ElementSource source,
+                                  EntityHurtEvent.DamageModifier modifier,
+                                  @Nullable Entity applier){
+        float gauge_reduction = reacting(source , boundAura) ;
+        auraContainer.addAura(new ElementSource(ElementRegistry.FROZEN.get(), null , gauge_reduction * 2, true) , null,applier);
+        return gauge_reduction;
+    }
+
+    protected static float burning(AuraContainer auraContainer,
+                                   Element self,
+                                   ElementalAura boundAura,
+                                   ElementSource source,
+                                   EntityHurtEvent.DamageModifier modifier,
                                    @Nullable Entity applier){
-        container.addAura(new ElementSource(ElementRegistry.BURNING.get(), null , 1.6f, true) , accessor,x,y,z,null,applier);
+        auraContainer.addAura(new ElementSource(ElementRegistry.BURNING.get(), null , 1.6f, true) , null,applier);
         return 0;
     }
 
-    protected static float overLoad(AuraContainer container ,
-                                    SingleElementalContainer singleElementalContainer ,
-                                    float gauge,
-                                    LevelAccessor accessor ,
-                                    double x ,
-                                    double y ,
-                                    double z,
-                                    EntityHurtEvent.DamageModifier damageModifier,
-                                    @Nullable Entity applier){
-        if (damageModifier != null && !damageModifier.locked) {
-            if (accessor instanceof ServerLevel _level) {
-                _level.sendParticles(ParticleTypes.EXPLOSION, x, y, z, 1, 0, 0,
-                        0, 0);
-                _level.playSound(null, BlockPos.containing(x, y, z), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.explode")), SoundSource.NEUTRAL, 1, 1);
-            }
-            final Vec3 _center = new Vec3(x, y, z);
-            List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-            for (LivingEntity entityiterator : _entfound) {
-                if (EntityHurtEvent.shouldHurt(applier, entityiterator)) {
-                    entityiterator.hurt(
-                            new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(OVERLOAD), applier),
-                            11  * EntityHurtEvent.getLevelMultiply(applier));
-                    entityiterator.setDeltaMovement(new Vec3((entityiterator.getDeltaMovement().x() * 3), (entityiterator.getDeltaMovement().y() * 2), (entityiterator.getDeltaMovement().z() * 3)));
-                }
-            }
-            damageModifier.locked = true;
-        }
-        return reacting(gauge , singleElementalContainer) ;
+    protected static float quicken(AuraContainer auraContainer,
+                                   Element self,
+                                   ElementalAura boundAura,
+                                   ElementSource source,
+                                   EntityHurtEvent.DamageModifier modifier,
+                                   @Nullable Entity applier){
+        float gauge_reduction = reacting(source, boundAura) ;
+        auraContainer.addAura(new ElementSource(ElementRegistry.QUICKEN.get(), null , gauge_reduction, true) , null,applier);
+        return gauge_reduction;
     }
 
-    protected static float bloom(AuraContainer container,
-                                SingleElementalContainer singleElementalContainer,
-                                float gauge,
-                                LevelAccessor accessor,
-                                double x,
-                                double y,
-                                double z,
-                                EntityHurtEvent.DamageModifier damageModifier,
-                                @Nullable Entity applier){
-        if (accessor instanceof ServerLevel _level) {
-            BloomEntityEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(_level, BlockPos.containing(x, y, z), MobSpawnType.MOB_SUMMONED);
+    protected static float overLoad(AuraContainer auraContainer,
+                                    Element self,
+                                    ElementalAura boundAura,
+                                    ElementSource source,
+                                    EntityHurtEvent.DamageModifier modifier,
+                                    @Nullable Entity applier){
+        if (modifier != null && !modifier.locked && auraContainer.getOwner() instanceof Entity entity) {
+            Level level = entity.level();
+            Vec3 pos = entity.position();
+
+            if (level instanceof ServerLevel _level) {
+                _level.sendParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0, 0,
+                        0, 0);
+                _level.playSound(null, entity.getOnPos(), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.explode")), SoundSource.NEUTRAL, 1, 1);
+            }
+            level.getEntitiesOfClass(LivingEntity.class, new AABB(pos, pos).inflate(3), e -> true).stream()
+                    .filter(e -> EntityHurtEvent.shouldHurt(e, applier))
+                    .forEach(e -> e.hurt(
+                            ElementSource.createDamageSource(
+                                    level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(OVERLOAD),
+                                    applier,
+                                    new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er.overloaded.reaction"), 0, true)
+                            ), 11 * EntityHurtEvent.getLevelMultiply(applier)));
+            modifier.locked = true;
+        }
+        return reacting(source , boundAura) ;
+    }
+
+    protected static float bloom(AuraContainer auraContainer,
+                                 Element self,
+                                 ElementalAura boundAura,
+                                 ElementSource source,
+                                 EntityHurtEvent.DamageModifier modifier,
+                                 @Nullable Entity applier){
+        if (auraContainer.getOwner() instanceof Entity entity && entity.level() instanceof ServerLevel serverLevel) {
+            BloomEntityEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
             if(entityToSpawn != null) {
                 entityToSpawn.setOwner(applier);
-                entityToSpawn.moveTo(x, y, z, accessor.getRandom().nextFloat() * 360F, 0);
-                entityToSpawn.setYRot(accessor.getRandom().nextFloat() * 360F);
+                entityToSpawn.moveTo(entity.position().offsetRandom(RandomSource.create(), 1));
             }
         }
-        return reacting(gauge , singleElementalContainer , 0.5f) ;
+        return reacting(source , boundAura , 0.5f) ;
     }
 
-    protected static float superconduct(AuraContainer container ,
-                                        SingleElementalContainer singleElementalContainer ,
-                                        float gauge,
-                                        LevelAccessor accessor ,
-                                        double x ,
-                                        double y ,
-                                        double z,
-                                        EntityHurtEvent.DamageModifier damageModifier,
+    protected static float superconduct(AuraContainer auraContainer,
+                                        Element self,
+                                        ElementalAura boundAura,
+                                        ElementSource source,
+                                        EntityHurtEvent.DamageModifier modifier,
                                         @Nullable Entity applier){
-        final Vec3 _center = new Vec3(x, y, z);
-        List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(4 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-        for (LivingEntity entity_iterator : _entfound) {
-            if (entity_iterator != applier) {
-                entity_iterator.hurt(
-                        new DamageSource(accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT) , applier),
-                        2.4f * EntityHurtEvent.getLevelMultiply(applier));
-                if (!entity_iterator.level().isClientSide())
-                    entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT, 144, 0, false, false));
+        if(auraContainer.getOwner() instanceof Entity entity) {
+            final Vec3 _center = entity.position();
+            Level level = entity.level();
+            List<LivingEntity> _entfound = level.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(2), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
+            for (LivingEntity entity_iterator : _entfound) {
+                if (entity_iterator != applier) {
+                    entity_iterator.hurt(
+                            ElementSource.createDamageSource(
+                                    level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT),
+                                    applier,
+                                    new ElementSource(ElementRegistry.CRYO.get(), ResourceLocation.parse("er.superconduct.reaction"), 0, true)
+                            ),
+                            2.4f * EntityHurtEvent.getLevelMultiply(applier));
+                    if (!entity_iterator.level().isClientSide())
+                        entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT, 144, 0, false, false));
+                }
             }
         }
-        return reacting(gauge , singleElementalContainer) ;
+        return reacting(source , boundAura) ;
     }
 
     public DeferredHolder<Attribute, Attribute> getDamageAttr() {
@@ -313,18 +317,14 @@ public abstract class Element {
         };
     }
 
-    public boolean canReact(Category category) {
-        return this.map.containsKey(category);
-    }
-
     public enum Category implements StringRepresentable {
-        ANEMO(0xFF44FF99, ErModAttributes.ANEMO_DMG_BONUS, ErModAttributes.ANEMO_RES, true, ErModItems.DANDELION_SEED, ElementRegistry.ANEMO),
-        PYRO(0xFFFF4444, ErModAttributes.PYRO_DMG_BONUS, ErModAttributes.PYRO_RES, false, ErModItems.FLAMING_FLOWER_STAMEN, ElementRegistry.PYRO),
-        CRYO(0xFF33FFFF, ErModAttributes.CRYO_DMG_BONUS, ErModAttributes.CRYO_RES, true, ErModItems.MIST_FLOWER_COROLLA, ElementRegistry.CRYO),
-        DENDRO(0xFF44FF44, ErModAttributes.DENDRO_DMG_BONUS, ErModAttributes.DENDRO_RES, true, ErModItems.SUMERU_ROSE, ElementRegistry.DENDRO),
-        ELECTRO(0xFF9944FF, ErModAttributes.ELECTRO_DMG_BONUS, ErModAttributes.ELECTRO_RES, false, ErModItems.ELECTRO_CRYSTAL, ElementRegistry.ELECTRO),
-        GEO(0xFFC87644, ErModAttributes.GEO_DMG_BONUS, ErModAttributes.GEO_RES, false, ErModItems.COR_LAPIS, ElementRegistry.GEO),
-        HYDRO(0xFF114ACB, ErModAttributes.HYDRO_DMG_BONUS, ErModAttributes.HYDRO_RES, false, ErModItems.LOTUS_HEAD, ElementRegistry.HYDRO);
+        ANEMO(0xFF44FF99, ErModAttributes.ANEMO_DMG_BONUS, ErAttributeRegister.ANEMO_RES, true, ErModItems.DANDELION_SEED, ElementRegistry.ANEMO),
+        PYRO(0xFFFF4444, ErModAttributes.PYRO_DMG_BONUS, ErAttributeRegister.PYRO_RES, false, ErModItems.FLAMING_FLOWER_STAMEN, ElementRegistry.PYRO),
+        CRYO(0xFF33FFFF, ErModAttributes.CRYO_DMG_BONUS, ErAttributeRegister.CRYO_RES, true, ErModItems.MIST_FLOWER_COROLLA, ElementRegistry.CRYO),
+        DENDRO(0xFF44FF44, ErModAttributes.DENDRO_DMG_BONUS, ErAttributeRegister.DENDRO_RES, true, ErModItems.SUMERU_ROSE, ElementRegistry.DENDRO),
+        ELECTRO(0xFF9944FF, ErModAttributes.ELECTRO_DMG_BONUS, ErAttributeRegister.ELECTRO_RES, false, ErModItems.ELECTRO_CRYSTAL, ElementRegistry.ELECTRO),
+        GEO(0xFFC87644, ErModAttributes.GEO_DMG_BONUS, ErAttributeRegister.GEO_RES, false, ErModItems.COR_LAPIS, ElementRegistry.GEO),
+        HYDRO(0xFF114ACB, ErModAttributes.HYDRO_DMG_BONUS, ErAttributeRegister.HYDRO_RES, false, ErModItems.LOTUS_HEAD, ElementRegistry.HYDRO);
 
         private final int id ;
         private final int color ;

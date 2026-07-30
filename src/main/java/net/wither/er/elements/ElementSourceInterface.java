@@ -11,6 +11,6 @@ public interface ElementSourceInterface {
     Object er$setElement(@Nullable ElementSource source);
 
     default Object er$setElement(@NotNull Element element, ResourceLocation resourceLocation, float gauge){
-        return er$setElement(new ElementSource(element,resourceLocation,gauge, true));
+        return er$setElement(new ElementSource(element,resourceLocation,gauge, element.isApplicable()));
     }
 }

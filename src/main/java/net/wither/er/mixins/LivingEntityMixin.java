@@ -18,6 +18,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,6 +31,7 @@ import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.entity.onHealthFloating;
 import net.wither.er.init.AdditionalRegistries;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
@@ -41,6 +43,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +148,19 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	public void dropAllDeathLoot(ServerLevel level, DamageSource source, CallbackInfo info) {
 		this.er$dropArtifact();
 	}
+
+    @Inject(method = "createLivingAttributes", at = @At("TAIL"))
+    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir){
+        cir.getReturnValue()
+                .add(ErAttributeRegister.ANEMO_RES)
+                .add(ErAttributeRegister.CRYO_RES)
+                .add(ErAttributeRegister.HYDRO_RES)
+                .add(ErAttributeRegister.GEO_RES)
+                .add(ErAttributeRegister.DENDRO_RES)
+                .add(ErAttributeRegister.PYRO_RES)
+                .add(ErAttributeRegister.ELECTRO_RES)
+                .add(ErAttributeRegister.PHYSICAL_RES);
+    }
 
 	public void er$removeShield(ErShield shield) {
 		shield.end(this);

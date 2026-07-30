@@ -19,7 +19,6 @@ import net.wither.er.entity.ArcEntity;
 import net.wither.er.entity.BloomEntityEntity;
 import net.wither.er.entity.Hyperbloom;
 import net.wither.er.entity.LunarChargedCloud;
-import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -31,42 +30,18 @@ public class Electro extends Element{
 
     public Electro() {
         super(Map.of(
-                Category.DENDRO, Electro::dendro,
+                Category.DENDRO, Element::quicken,
                 Category.PYRO, Element::overLoad,
                 Category.CRYO, Element::superconduct,
-                Category.HYDRO, Element::electroCharged
+                Category.HYDRO, Element::electroCharged,
+                Category.GEO, Geo::electro,
+                Category.ANEMO, Anemo::swirl
         ));
     }
 
     @Override
     public Category getCategory() {
         return Category.ELECTRO;
-    }
-
-    private static float dendro(AuraContainer container ,
-                                SingleElementalContainer singleElementalContainer ,
-                                float gauge,
-                                LevelAccessor accessor ,
-                                double x ,
-                                double y ,
-                                double z,
-                                EntityHurtEvent.DamageModifier damageModifier,
-                                @Nullable Entity applier
-    ){
-        if (singleElementalContainer.hasElement(ElementRegistry.QUICKEN.get())) {
-            float multiply = 1.25f * EntityHurtEvent.ReactionMultiply.CATALYZE.getMulti(applier);
-            if (damageModifier != null && !damageModifier.locked) {
-                damageModifier.additional_amount += 3 * multiply * EntityHurtEvent.getLevelMultiply(applier);
-            }
-        }
-        else {
-            float gauge_reduction = reacting(gauge , singleElementalContainer) ;
-            container.addAura(new ElementSource(ElementRegistry.QUICKEN.get(), null , gauge_reduction, true) , accessor,x,y,z,null,null);
-            if (damageModifier != null)
-                damageModifier.locked = true ;
-            return gauge_reduction ;
-        }
-        return 0;
     }
 
     @Override

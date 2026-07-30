@@ -77,6 +77,9 @@ public class ErMod {
 		EffectRegister.REGISTRY.register(modEventBus);
 		ExtraTabs.REGISTRY.register(modEventBus);
 		RecipeSerializerRegister.RECIPE_SERIALIZERS.register(modEventBus);
+		ErAttributeRegister.REGISTRY.register(modEventBus);
+		ArmorMaterialsRegister.REGISTRY.register(modEventBus);
+		AdvancementTriggerRegister.TRIGGER_TYPES.register(modEventBus);
 		// End of user code block mod init
 	}
 

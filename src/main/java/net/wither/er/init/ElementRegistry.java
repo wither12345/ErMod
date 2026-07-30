@@ -19,7 +19,7 @@ public class ElementRegistry {
     public static final Supplier<Element> GEO = ELEMENTS.register("geo", Geo::new);
     public static final Supplier<Element> BURNING = ELEMENTS.register("burning", Burning::new);
     public static final Supplier<Element> THUNDER_SHIELD = ELEMENTS.register("thunder_shield", ThunderShieldElement::new);
-    public static final Supplier<Element> PYRO_WHOPPERFLOWER = ELEMENTS.register("pyro_whopperflower", PyroWhopperflowerShieldElement::new);
+    public static final Supplier<Element> PYRO_WHOPPERFLOWER = ELEMENTS.register("pyro_whopperflower", Pyro::new);
     public static final Supplier<Element> SLIME_DENDRO = ELEMENTS.register("slime_dendro", Dendro::new);
     public static final Supplier<Element> CRYO_WHOPPERFLOWER = ELEMENTS.register("cryo_whopperflower", CryoWhopperflowerShieldElement::new);
 }

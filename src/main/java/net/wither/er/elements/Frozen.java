@@ -8,17 +8,17 @@ import net.minecraft.world.level.LevelAccessor;
 
 import java.util.Map;
 
-public class Frozen extends Element{
+public class Frozen extends Cryo{
     private static final ResourceLocation frozenSpeed = ResourceLocation.withDefaultNamespace("er.frozen.speed") ;
     private static final ResourceLocation frozenJUMP = ResourceLocation.withDefaultNamespace("er.frozen.jump") ;
 
     public Frozen() {
-        super(Map.of());
-    }
-
-    @Override
-    public Category getCategory() {
-        return Category.CRYO ;
+        super(Map.of(
+                Category.PYRO, Element::amplifying2,
+                Category.ELECTRO, Element::superconduct,
+                Category.GEO, Geo::cryo,
+                Category.ANEMO, Anemo::swirl
+        ));
     }
 
     @Override

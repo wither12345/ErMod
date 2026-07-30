@@ -29,7 +29,7 @@ public class PopGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        return whopperflower.isDisguise() && whopperflower.getTarget() != null && whopperflower.distanceToSqr(whopperflower.getTarget()) < 9;
+        return whopperflower.isDisguise() && (!whopperflower.canDisguise || (whopperflower.getTarget() != null && whopperflower.distanceToSqr(whopperflower.getTarget()) < 9));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class PopGoal extends Goal {
     @Override
     public void stop() {
         this.whopperflower.setAction(Whopperflower.Action.NORMAL);
-        this.whopperflower.setFruitCount(3);
+        this.whopperflower.trySpawnFruit();
         this.whopperflower.cd = 70;
     }
 

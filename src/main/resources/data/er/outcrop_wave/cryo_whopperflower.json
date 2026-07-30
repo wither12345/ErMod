@@ -1,0 +1,13 @@
+{
+  "quality": 80,
+  "pools": [
+    {
+      "type": "er:cryo_whopperflower",
+      "count": 2,
+      "icon": "er:whopperflower_nectar"
+    }
+  ],
+  "global_modifiers": [
+    "melee"
+  ]
+}

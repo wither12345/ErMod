@@ -32,7 +32,12 @@ public class ThunderShield extends ElementalShield implements RenderShield {
 		return damage;
 	}
 
-	@Override
+    @Override
+    protected boolean permanent() {
+        return false;
+    }
+
+    @Override
 	ResourceLocation getKbResLocation() {
 		return resourcelocation;
 	}

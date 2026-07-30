@@ -3,11 +3,8 @@ package net.wither.er.block;
 import com.mojang.serialization.MapCodec;
 import net.mcreator.er.init.ErModBlocks;
 import net.mcreator.er.init.ErModEntities;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -31,6 +28,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.wither.er.block.entity.WhopperflowerCropEntity;
 import net.wither.er.elements.Element;
 import net.wither.er.entity.whopperflower.Whopperflower;
+import net.wither.er.init.AdvancementTriggerRegister;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -100,17 +98,8 @@ public class WhopperflowerCrop extends BushBlock implements EntityBlock, Bonemea
                 flower.setPos(blockPos.getBottomCenter());
                 flower.setDisguisedBlock(ErModBlocks.SWEET_FLOWER.get().defaultBlockState());
                 if(serverLevel.getBlockEntity(blockPos) instanceof WhopperflowerCropEntity whopperflowerCropEntity) {
-                    if(whopperflowerCropEntity.getOwner() instanceof ServerPlayer player){
-                        AdvancementHolder adv = player.server.getAdvancements().get(ResourceLocation.parse("er:flower_it_flowers"));
-                        if (adv != null) {
-                            AdvancementProgress progress = player.getAdvancements().getOrStartProgress(adv);
-                            if (!progress.isDone()) {
-                                for (String criteria : progress.getRemainingCriteria())
-                                    player.getAdvancements().award(adv, criteria);
-                            }
-                        }
-
-                    }
+                    if(whopperflowerCropEntity.getOwner() instanceof ServerPlayer player)
+                        AdvancementTriggerRegister.WHOPPERFLOWER.get().trigger(player);
                     flower.setOwner(whopperflowerCropEntity.getOwner());
                 }
                 serverLevel.addFreshEntity(flower);

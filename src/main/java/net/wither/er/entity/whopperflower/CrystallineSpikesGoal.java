@@ -24,7 +24,7 @@ public class CrystallineSpikesGoal extends Goal {
                 this.whopperflower.spikeCd > 0
         ) return false;
         this.target = this.whopperflower.getTarget();
-        return this.target != null && this.target.isAlive() && this.target.distanceToSqr(this.whopperflower) < 36;
+        return this.target != null && this.target.isAlive() && this.target.distanceToSqr(this.whopperflower) < 64 && this.target.distanceToSqr(this.whopperflower) > 4;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CrystallineSpikesGoal extends Goal {
     @Override
     public void stop() {
         this.whopperflower.cd = 20;
-        this.whopperflower.spikeCd = 60;
+        this.whopperflower.spikeCd = 40;
         this.whopperflower.setAction(Whopperflower.Action.NORMAL);
     }
 
@@ -44,13 +44,14 @@ public class CrystallineSpikesGoal extends Goal {
         this.whopperflower.lookAt(this.target, 180, 90);
         this.nowVec = this.whopperflower.position();
         this.dVec = this.target.position().subtract(nowVec).normalize();
+        this.nowVec = this.nowVec.subtract(dVec.scale(-3));
         this.whopperflower.setAction(Whopperflower.Action.LOWER_HEAD);
         this.time = 0;
     }
 
     @Override
     public void tick() {
-        if(this.time >= 3 && this.time <= 8){
+        if(this.time >= 3 && this.time <= 5){
             this.nowVec = this.nowVec.add(this.dVec);
             this.whopperflower.level().addFreshEntity(new CryoSpike(nowVec, this.whopperflower));
         }

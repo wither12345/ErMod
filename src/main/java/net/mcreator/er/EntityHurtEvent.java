@@ -17,6 +17,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -46,6 +47,8 @@ import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.entity.slimes.DendroSlime;
+import net.wither.er.init.AdvancementTriggerRegister;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.item.data.weapon.DamageAbility;
@@ -53,6 +56,7 @@ import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.shield.ShieldStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -78,37 +82,43 @@ public class EntityHurtEvent {
         modifyReaction(damagesource);
 
 		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
+            DamageModifier modifier = modifierInterface.er$getModifier();
             if(sourceentity instanceof ErEntityInterface erEntityInterface){
                 Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
                 for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                     if(effect.getKey().value() instanceof DamageAbility damageAbility){
-                        damageAbility.onHurt(damagesource, entity, modifierInterface.er$getModifier(), effect.getIntValue());
+                        damageAbility.onHurt(damagesource, entity, modifier, effect.getIntValue());
                     }
                 }
             }
             if(sourceentity instanceof LivingEntity living) {
                 WeaponRefinement refinement = living.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
                 if (refinement != null && refinement.getAbility() instanceof DamageAbility damageAbility)
-                    damageAbility.onHurt(damagesource, entity, modifierInterface.er$getModifier(), refinement.refineLevel());
+                    damageAbility.onHurt(damagesource, entity, modifier, refinement.refineLevel());
             }
 
             double elemental_mastery = 0 ;
 			if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY) != null)
 				elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY);
-			if(elementSourceInterface.er$getSource() != null && elementSourceInterface.er$getSource().getElement() != null) {
-				auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), world, x, y, z, modifierInterface.er$getModifier(), sourceentity);
-				ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifierInterface.er$getModifier());
-			}
+            ElementSource source = elementSourceInterface.er$getSource();
+			if(source != null) {
+                auraContainerInterface.er$getAuraContainer().addAura(source, modifier, sourceentity);
+                ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
+            }
+            else if(entity.getAttribute(ErAttributeRegister.PHYSICAL_RES) != null){
+                modifier.res_multiply *= (100f - (float) entity.getAttributeValue(ErAttributeRegister.PHYSICAL_RES)) / 100f ;
+            }
 
 			if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE) > Math.random()) {
 				crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE);
-				modifierInterface.er$getModifier().critical = true;
+				modifier.critical = true;
 			}
 
 			if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
-				modifierInterface.er$getModifier().reaction_multiply = 0 ;
+				modifier.reaction_multiply = 0 ;
 
-			float final_amount = modifierInterface.er$getModifier().calculate(event.getAmount(), elemental_mastery) * crit_mult;
+			float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
+            
 			if (entity instanceof ErEntityInterface enti) {
 				List<ShieldStack> shields = enti.er$getShieldStacks();
 				float shield_absorb = 0f;
@@ -129,7 +139,11 @@ public class EntityHurtEvent {
 		int dmg = Mth.ceil(event.getNewDamage()) ;
         DamageSource source = event.getSource();
 		if(source instanceof DamageModifierInterface modifierInterface && dmg > 0) {
-			PacketDistributor.sendToAllPlayers(new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(source), modifierInterface.er$getModifier().critical, modifierInterface.er$getModifier().type));
+            DamageModifier modifier = modifierInterface.er$getModifier();
+            if(modifier.critical && source.getEntity() instanceof ServerPlayer player){
+                AdvancementTriggerRegister.CRITICAL_DAMAGE.get().trigger(player, event.getNewDamage());
+            }
+			PacketDistributor.sendToAllPlayers(new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(source), modifier.critical, modifier.type));
 		}
         ((ElementSourceInterface)source).er$setElement(null);
 	}
@@ -200,7 +214,7 @@ public class EntityHurtEvent {
 		return 0xffffffff ;
 	}
 
-	private static void ApplyElementMultiply(Element element, LivingEntity entity, Entity sourceentity , DamageModifier modifier){
+	private static void ApplyElementMultiply(@NotNull Element element, LivingEntity entity, Entity sourceentity , DamageModifier modifier){
 		element.getDamageAttr();
 		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null){
 			modifier.common_multiply *= (float) living.getAttributeValue(element.getDamageAttr()) ;

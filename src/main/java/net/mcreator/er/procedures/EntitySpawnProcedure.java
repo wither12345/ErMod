@@ -18,8 +18,6 @@ import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.monster.Stray;
-import net.minecraft.world.entity.monster.EnderMan;
-import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.util.Mth;
@@ -29,10 +27,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.core.BlockPos;
 
-import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.entity.TartagliaEntity;
-import net.mcreator.er.entity.MistFlowerEntity;
-import net.mcreator.er.entity.FlamingFlowerEntity;
 import net.mcreator.er.entity.ElectroCicinEntity;
 
 import javax.annotation.Nullable;
@@ -76,19 +71,6 @@ public class EntitySpawnProcedure {
 				int spawn_distance = (int) Math.sqrt(Math.pow(entity.getX() - entity.level().getLevelData().getSpawnPos().getX(), 2) + Math.pow(entity.getZ() - entity.level().getLevelData().getSpawnPos().getZ(), 2));
 				level = Mth.clamp(level_time + spawn_distance / 128, spawn_distance / 256, Math.min(spawn_distance / 32, 89)) + 1;
 				ApplyErlevelProcedure.execute(entity, level);
-			}
-			if (entity instanceof Stray) {
-				if (entity instanceof LivingEntity _livingEntity10 && _livingEntity10.getAttributes().hasAttribute(ErModAttributes.CRYO_RES))
-					_livingEntity10.getAttribute(ErModAttributes.CRYO_RES).setBaseValue(Math.pow(25, 2));
-			} else if (entity instanceof EnderMan) {
-				if (entity instanceof LivingEntity _livingEntity12 && _livingEntity12.getAttributes().hasAttribute(ErModAttributes.HYDRO_RES))
-					_livingEntity12.getAttribute(ErModAttributes.HYDRO_RES).setBaseValue((-100));
-			} else if (entity instanceof Blaze || entity instanceof FlamingFlowerEntity) {
-				if (entity instanceof LivingEntity _livingEntity15 && _livingEntity15.getAttributes().hasAttribute(ErModAttributes.PYRO_RES))
-					_livingEntity15.getAttribute(ErModAttributes.PYRO_RES).setBaseValue(200);
-			} else if (entity instanceof MistFlowerEntity) {
-				if (entity instanceof LivingEntity _livingEntity17 && _livingEntity17.getAttributes().hasAttribute(ErModAttributes.CRYO_RES))
-					_livingEntity17.getAttribute(ErModAttributes.CRYO_RES).setBaseValue(200);
 			}
 		}
 	}

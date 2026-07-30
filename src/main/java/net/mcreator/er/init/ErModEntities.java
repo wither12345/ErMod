@@ -90,16 +90,16 @@ public class ErModEntities {
 			EntityType.Builder.of(LunarCrystallizeProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 	public static final DeferredHolder<EntityType<?>, EntityType<PyroWhopperflower>> PYRO_WHOPPERFLOWER = register("pyro_whopperflower",
 			EntityType.Builder.of(PyroWhopperflower::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 2f));
-    public static final DeferredHolder<EntityType<?>, EntityType<CryoWhopperflower>> CRYO_WHOPPERFLOWER = register("cryo_whopperflower",
-            EntityType.Builder.of(CryoWhopperflower::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 2f));
+	public static final DeferredHolder<EntityType<?>, EntityType<CryoWhopperflower>> CRYO_WHOPPERFLOWER = register("cryo_whopperflower",
+			EntityType.Builder.of(CryoWhopperflower::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 2f));
 	public static final DeferredHolder<EntityType<?>, EntityType<PyroWhopperflowerBall>> PYRO_FLOWER_BALL = register("pyro_flower_ball",
 			EntityType.Builder.<PyroWhopperflowerBall>of(PyroWhopperflowerBall::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.5f, 0.5f));
 	public static final DeferredHolder<EntityType<?>, EntityType<PyroHomingOrb>> PYRO_HOMING_ROB = register("pyro_homing_rob",
 			EntityType.Builder.<PyroHomingOrb>of(PyroHomingOrb::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.3f, 0.3f));
-    public static final DeferredHolder<EntityType<?>, EntityType<CryoSpike>> CRYO_SPIKE = register("cryo_spike",
-            EntityType.Builder.<CryoSpike>of(CryoSpike::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(32).setUpdateInterval(3).sized(0.3f, 0.3f));
-    public static final DeferredHolder<EntityType<?>, EntityType<CryoWhopperflowerProjectile>> CRYO_WHOPPERFLOWER_PROJECTILE = register("cryo_whopperflower_projectile",
-            EntityType.Builder.<CryoWhopperflowerProjectile>of(CryoWhopperflowerProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.3f, 0.3f));
+	public static final DeferredHolder<EntityType<?>, EntityType<CryoSpike>> CRYO_SPIKE = register("cryo_spike",
+			EntityType.Builder.<CryoSpike>of(CryoSpike::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(32).setUpdateInterval(3).sized(0.3f, 0.3f));
+	public static final DeferredHolder<EntityType<?>, EntityType<CryoWhopperflowerProjectile>> CRYO_WHOPPERFLOWER_PROJECTILE = register("cryo_whopperflower_projectile",
+			EntityType.Builder.<CryoWhopperflowerProjectile>of(CryoWhopperflowerProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.3f, 0.3f));
 
 	// End of user code block custom entities
 	private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

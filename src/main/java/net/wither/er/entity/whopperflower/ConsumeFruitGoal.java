@@ -41,7 +41,7 @@ public abstract class ConsumeFruitGoal extends Goal {
     @Override
     public void stop() {
         this.whopperflower.cd = 40;
-        this.whopperflower.consumeFruitCd = 240;
+        this.whopperflower.consumeFruitCd = 400;
         this.whopperflower.setAction(Whopperflower.Action.NORMAL);
     }
 

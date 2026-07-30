@@ -15,9 +15,9 @@
     "hidden": false
   },
   "criteria": {
-    "h_0": {
-      "trigger": "minecraft:impossible"
+    "flower": {
+      "trigger": "er:whopperflower"
     }
   },
-  "parent": "er:elemental_reaction"
+  "parent": "er:more_fertile_land"
 }

@@ -13,6 +13,7 @@ import net.wither.er.entity.AnimationStater;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErSyncGameRule;
+import net.wither.er.player.ErPlayerInterface;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,15 +21,25 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
-public abstract class ErPlayerMixin extends LivingEntity implements AnimationStater {
-	@Unique
-	public AnimationState er$animationState0 = new AnimationState();
+public abstract class ErPlayerMixin extends LivingEntity implements AnimationStater, ErPlayerInterface {
+	@Unique public AnimationState er$animationState0 = new AnimationState();
+    @Unique private int er$selectedMora;
 
 	protected ErPlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
 		super(p_20966_, p_20967_);
 	}
 
-	@Unique
+    @Override
+    public int er$getMoraIndex() {
+        return this.er$selectedMora;
+    }
+
+    @Override
+    public void er$setMoraIndex(int m) {
+        this.er$selectedMora = m ;
+    }
+
+    @Unique
 	@Override
 	public AnimationState getState() {
 		return er$animationState0;

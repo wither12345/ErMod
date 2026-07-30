@@ -18,6 +18,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.wither.er.item.ElementalArmorItem;
 import net.wither.er.item.Vision;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
@@ -106,6 +107,7 @@ public class ExtraTabs {
 			tabData.accept(ErModItems.DENDRO_SLIME_SPAWN_EGG);
 			tabData.accept(ErModItems.ANEMO_SLIME_SPAWN_EGG);
             tabData.accept(ErModItems.PYRO_FLOWER_SPAWN_EGG);
+            tabData.accept(ErModItems.CRYO_FLOWER_SPAWN_EGG);
 		}else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
 			tabData.accept(ErModItems.DULL_BLADE);
 			tabData.accept(ErModItems.WASTER_GREATSWORD);
@@ -120,6 +122,14 @@ public class ExtraTabs {
             tabData.accept(ErModItems.PYRO_HOE);
             tabData.accept(ErModItems.ELECTRO_HOE);
             tabData.accept(ErModItems.CRYO_HOE);
+        } else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
+            addArmorGroup(tabData, ErModItems.ANEMO_ARMOR);
+            addArmorGroup(tabData, ErModItems.HYDRO_ARMOR);
+            addArmorGroup(tabData, ErModItems.CRYO_ARMOR);
+            addArmorGroup(tabData, ErModItems.ELECTRO_ARMOR);
+            addArmorGroup(tabData, ErModItems.PYRO_ARMOR);
+            addArmorGroup(tabData, ErModItems.DENDRO_ARMOR);
+            addArmorGroup(tabData, ErModItems.GEO_ARMOR);
         }
     }
 
@@ -138,6 +148,13 @@ public class ExtraTabs {
         ItemStack itemStack = new ItemStack(item.get());
         itemStack.set(DataComponentsRegister.VISION_FRAME, frame);
         tabData.accept(itemStack);
+    }
+
+    private static void addArmorGroup(CreativeModeTab.Output tabData, ElementalArmorItem.Group group){
+        tabData.accept(group.helmet());
+        tabData.accept(group.chest());
+        tabData.accept(group.leggings());
+        tabData.accept(group.boots());
     }
 
 	private static void addMainToTab(List<? extends String> mainType, CreativeModeTab.Output tabData, List<String> attrs) {

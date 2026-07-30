@@ -1,6 +1,12 @@
 {
   "replace": false,
   "values": [
-    "er:damaged_mask"
+    "er:anemo_helmet",
+    "er:cryo_helmet",
+    "er:geo_helmet",
+    "er:hydro_helmet",
+    "er:pyro_helmet",
+    "er:electro_helmet",
+    "er:dendro_helmet"
   ]
 }

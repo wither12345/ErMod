@@ -2,8 +2,10 @@ package net.wither.er.entity.whopperflower;
 
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +24,12 @@ public class CryoWhopperflower extends Whopperflower{
     @Override
     public @NotNull ItemStack getFruitItem() {
         return new ItemStack(ErModItems.CRYO_WHOPPERFLOWER_FRUIT.get());
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        AttributeSupplier.Builder builder = Whopperflower.createAttributes();
+        builder = builder.add(ErAttributeRegister.CRYO_RES, 75);
+        return builder;
     }
 
     @Override

@@ -35,30 +35,35 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.common.IShearable;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.wither.er.entity.goals.NoOwnerTargetGoal;
 import net.wither.er.entity.goals.OwnableHurtByTargetGoal;
 import net.wither.er.entity.goals.SyncTargetGoal;
+import net.wither.er.init.ErAttributeRegister;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class Whopperflower extends PathfinderMob implements OwnableEntity{
+public abstract class Whopperflower extends PathfinderMob implements OwnableEntity, IShearable {
     private static final EntityDataAccessor<Integer> ACTION = SynchedEntityData.defineId(Whopperflower.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> FRUIT_COUNT = SynchedEntityData.defineId(Whopperflower.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<BlockState> DISGUISED_BLOCK = SynchedEntityData.defineId(Whopperflower.class, EntityDataSerializers.BLOCK_STATE);
     private static final AttributeModifier KNOCKBACK = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "whopperflower"), 200, AttributeModifier.Operation.ADD_VALUE);
-    @Nullable private BlockState rememberedState = null;
     private static final EntityDimensions HIDE = EntityDimensions.fixed(1,1);
 
     private UUID ownerUUID ;
     private LivingEntity cachedOwner;
     public float animationStart = 0;
     public Action lastAction = Action.NORMAL;
+    @Nullable private BlockState rememberedState = null;
+    public boolean canDisguise = true;
     public float dy = 0;
     public int consumeFruitCd;
+    public int fruitSpawnCd = 0 ;
     public int borrowCd;
     public int spinCd;
     public int cd;
@@ -92,6 +97,14 @@ public abstract class Whopperflower extends PathfinderMob implements OwnableEnti
         builder = builder.add(Attributes.ATTACK_DAMAGE, 2.5);
         builder = builder.add(Attributes.FOLLOW_RANGE, 16);
         builder = builder.add(Attributes.KNOCKBACK_RESISTANCE, 0);
+        builder = builder.add(ErAttributeRegister.ANEMO_RES, 35);
+        builder = builder.add(ErAttributeRegister.CRYO_RES, 35);
+        builder = builder.add(ErAttributeRegister.GEO_RES, 35);
+        builder = builder.add(ErAttributeRegister.DENDRO_RES, 35);
+        builder = builder.add(ErAttributeRegister.PYRO_RES, 35);
+        builder = builder.add(ErAttributeRegister.HYDRO_RES, 35);
+        builder = builder.add(ErAttributeRegister.ELECTRO_RES, 35);
+        builder = builder.add(ErAttributeRegister.PHYSICAL_RES, 35);
         return builder;
     }
 
@@ -108,6 +121,14 @@ public abstract class Whopperflower extends PathfinderMob implements OwnableEnti
         this.consumeFruitCd --;
         this.borrowCd --;
         this.spinCd --;
+        this.fruitSpawnCd --;
+    }
+
+    public void trySpawnFruit(){
+        if(this.fruitSpawnCd <= 0){
+            this.setFruitCount(3);
+            this.fruitSpawnCd = 2400;
+        }
     }
 
     @Override
@@ -121,6 +142,8 @@ public abstract class Whopperflower extends PathfinderMob implements OwnableEnti
             this.rememberedState = NbtUtils.readBlockState(this.level().holderLookup(Registries.BLOCK), tag.getCompound("rememberedState"));
         if(tag.contains("ownerUUID"))
             this.ownerUUID = tag.getUUID("ownerUUID");
+        this.fruitSpawnCd = tag.getInt("fruitCd");
+        this.canDisguise = tag.getBoolean("canDisguise");
     }
 
     @Override
@@ -133,16 +156,38 @@ public abstract class Whopperflower extends PathfinderMob implements OwnableEnti
             tag.put("rememberedState", NbtUtils.writeBlockState(this.rememberedState));
         if(this.ownerUUID != null)
             tag.putUUID("ownerUUID", this.ownerUUID);
+        tag.putInt("fruitCd", this.fruitSpawnCd);
+        tag.putBoolean("canDisguise", this.canDisguise);
     }
 
     @Override
     protected @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
-        if(this.level() instanceof ServerLevel && player.getItemInHand(hand).getItem() instanceof BlockItem blockItem && player.isCreative()){
-            this.rememberedState = blockItem.getBlock().defaultBlockState();
-            if(this.isDisguise()) this.setDisguisedBlock(rememberedState);
-            return InteractionResult.SUCCESS_NO_ITEM_USED;
+        if(this.level() instanceof ServerLevel ){
+            if(player.getItemInHand(hand).getItem() instanceof BlockItem blockItem && player.isCreative()) {
+                this.rememberedState = blockItem.getBlock().defaultBlockState();
+                if (this.isDisguise()) this.setDisguisedBlock(rememberedState);
+                return InteractionResult.SUCCESS_NO_ITEM_USED;
+            }
+            else if(this.getOwner() == player && this.cd <= 0) {
+                this.canDisguise = !this.canDisguise;
+                this.cd = 3;
+                return InteractionResult.SUCCESS_NO_ITEM_USED;
+            }
         }
         return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public boolean isShearable(@Nullable Player player, @NotNull ItemStack item, @NotNull Level level, @NotNull BlockPos pos) {
+        return this.getFruitCount() > 0 && this.getOwner() == player;
+    }
+
+    @Override
+    public @NotNull List<ItemStack> onSheared(@Nullable Player player, @NotNull ItemStack item, @NotNull Level level, @NotNull BlockPos pos) {
+        ItemStack stack = this.getFruitItem();
+        stack.setCount(this.getFruitCount());
+        this.setFruitCount(0);
+        return List.of(stack);
     }
 
     public boolean isDisguise(){
@@ -206,6 +251,7 @@ public abstract class Whopperflower extends PathfinderMob implements OwnableEnti
         if(instance == null) return;
         if(state.getBlock() == Blocks.AIR) {
             instance.removeModifier(KNOCKBACK);
+            setAction(Action.NORMAL);
         }
         else {
             BlockPos pos = this.getOnPos();

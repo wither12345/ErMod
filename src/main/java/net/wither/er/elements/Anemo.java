@@ -11,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,20 +18,13 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 
 public class Anemo extends Element{
     public static final TagKey<EntityType<?>> immune = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.parse("er:anemo_immune"));
 
     public Anemo(){
-        super(Map.of(
-                Category.PYRO, Anemo::swirl,
-                Category.CRYO, Anemo::swirl,
-                Category.ELECTRO, Anemo::swirl,
-                Category.HYDRO, Anemo::swirl
-        ));
+        super(Map.of());
     }
 
     @Override
@@ -40,55 +32,59 @@ public class Anemo extends Element{
         return Category.ANEMO;
     }
 
-    private static float swirl(AuraContainer container ,
-                               SingleElementalContainer singleElementalContainer ,
-                               float gauge,
-                               LevelAccessor accessor ,
-                               double x ,
-                               double y ,
-                               double z,
-                               EntityHurtEvent.DamageModifier damageModifier,
-                               @Nullable Entity applier){
-        Category category = singleElementalContainer.getCategory();
-        if (accessor instanceof ServerLevel _level)
-            _level.sendParticles(getParticle(category), (x - 1.5), y + 1, (z - 1.5), 8, 1.5, 0, 1.5, 0);
+    protected static float swirl(AuraContainer auraContainer,
+                                 Element self,
+                                 ElementalAura boundAura,
+                                 ElementSource source,
+                                 EntityHurtEvent.DamageModifier modifier,
+                                 @Nullable Entity applier)
+    {
+        Category category = self.getCategory();
+        float gauge = reacting(source, boundAura , 0.5f) ;
+        if(auraContainer.getOwner() instanceof Entity entity) {
+            Vec3 pos = entity.position();
+            Level level = entity.level();
+            if (level instanceof ServerLevel _level)
+                _level.sendParticles(getParticle(category), (pos.x - 1.5), pos.y + 1, (pos.z - 1.5), 8, 1.5, 0, 1.5, 0);
 
-        if (damageModifier != null) {
-            if(damageModifier.locked) return 0;
-            damageModifier.locked = true ;
-        }
-        final Vec3 _center = new Vec3(x, y, z);
-        List<LivingEntity> _entfound = accessor.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-        for (LivingEntity entityiterator : _entfound) {
-            if (EntityHurtEvent.shouldHurt(applier, entityiterator))
-                entityiterator.hurt(
-                        ElementSource.createDamageSource(
-                                accessor.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SWIRL) ,
-                                applier ,
-                                new ElementSource(category.getDefault(), ResourceLocation.parse("er:anemo.reaction") , gauge, true)
-                        ),2.4f * EntityHurtEvent.getLevelMultiply(applier));
-        }
+            if (modifier != null) {
+                if (modifier.locked) return 0;
+                modifier.locked = true;
+            }
 
-        if(category == Category.PYRO){
-            for (int i = -2; i <= 2; i++)
-                for (int j = -2; j <= 2; j++)
-                    for (int k = -1; k <= 1; k++)
-                        if ((accessor.getBlockState(BlockPos.containing(x + i, y + k, z + j))).getBlock() == Blocks.GRASS_BLOCK) {
-                            accessor.setBlock(BlockPos.containing(x + i, y + k, z + j), ErModBlocks.BURNING_DIRT.get().defaultBlockState(), 3);
-                            if (!accessor.isClientSide()) {
-                                BlockPos _bp = BlockPos.containing(x + i, y + k, z + j);
-                                BlockEntity _blockEntity = accessor.getBlockEntity(_bp);
-                                BlockState _bs = accessor.getBlockState(_bp);
-                                if (_blockEntity != null)
-                                    if (applier != null) {
-                                        _blockEntity.getPersistentData().putString("UUID", applier.getStringUUID());
-                                    }
-                                if (accessor instanceof Level _level)
-                                    _level.sendBlockUpdated(_bp, _bs, _bs, 3);
+            entity.level().getEntitiesOfClass(LivingEntity.class, new AABB(pos, pos).inflate(3)).stream()
+                    .filter(e -> EntityHurtEvent.shouldHurt(applier, e))
+                    .forEach(
+                            e -> e.hurt(
+                                    ElementSource.createDamageSource(
+                                            entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SWIRL),
+                                            applier,
+                                            new ElementSource(category.getDefault(), ResourceLocation.parse("er:anemo.reaction"), gauge, true)
+                                    ), 2.4f * EntityHurtEvent.getLevelMultiply(applier))
+                    );
+
+            if (category == Category.PYRO) {
+                BlockPos blockPos = entity.getOnPos();
+                for (int i = -2; i <= 2; i++)
+                    for (int j = -2; j <= 2; j++)
+                        for (int k = -1; k <= 1; k++) {
+                            BlockPos offPos = blockPos.offset(i, j, k);
+                            if ((level.getBlockState(offPos).getBlock() == Blocks.GRASS_BLOCK)) {
+                                level.setBlock(offPos, ErModBlocks.BURNING_DIRT.get().defaultBlockState(), 3);
+                                if (!level.isClientSide()) {
+                                    BlockEntity _blockEntity = level.getBlockEntity(offPos);
+                                    BlockState _bs = level.getBlockState(offPos);
+                                    if (_blockEntity != null)
+                                        if (applier != null) {
+                                            _blockEntity.getPersistentData().putString("UUID", applier.getStringUUID());
+                                        }
+                                    level.sendBlockUpdated(offPos, _bs, _bs, 3);
+                                }
                             }
                         }
+            }
         }
-        return reacting(gauge , singleElementalContainer , 0.5f) ;
+        return gauge;
     }
 
     @Override

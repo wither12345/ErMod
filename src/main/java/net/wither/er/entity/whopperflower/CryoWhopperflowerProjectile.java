@@ -3,6 +3,7 @@ package net.wither.er.entity.whopperflower;
 import net.mcreator.er.init.ErModEntities;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
@@ -14,6 +15,8 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.wither.er.elements.ElementSource;
+import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -47,9 +50,16 @@ public class CryoWhopperflowerProjectile extends AbstractHurtingProjectile {
         if (owner instanceof LivingEntity living) {
             AttributeInstance instance = living.getAttribute(Attributes.ATTACK_DAMAGE);
             dmg = instance == null ? 1 : instance.getValue();
-            result.getEntity().hurt(owner.damageSources().mobProjectile(this, living), (float) dmg * 0.2f);
+            result.getEntity().hurt(ElementSource.createDamageSource(
+                    owner.damageSources().mobProjectile(this, living),
+                    new ElementSource(ElementRegistry.CRYO.get(), ResourceLocation.parse("er:cryo_projectile"), 1, true)),
+                    (float) dmg * 0.2f
+            );
         } else {
-            result.getEntity().hurt(new DamageSource(this.level().registryAccess().holderOrThrow(DamageTypes.MOB_PROJECTILE)), 1);
+            result.getEntity().hurt(ElementSource.createDamageSource(
+                    new DamageSource(this.level().registryAccess().holderOrThrow(DamageTypes.MOB_PROJECTILE)),
+                    new ElementSource(ElementRegistry.CRYO.get(), ResourceLocation.parse("er:cryo_projectile"), 1, true)),1
+            );
         }
         this.discard();
     }

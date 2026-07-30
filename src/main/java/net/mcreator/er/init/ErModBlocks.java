@@ -3,8 +3,6 @@
 */
 package net.mcreator.er.init;
 
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.block.FlowerBlock;
 import net.wither.er.block.WhopperflowerCrop;
 import net.wither.er.block.ElementalFarmBlock;
 import net.wither.er.block.BurningDirt;
@@ -21,8 +19,10 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.BlockPos;
 
 import net.mcreator.er.block.*;
@@ -83,32 +83,12 @@ public class ErModBlocks {
 	// Start of user code block custom blocks
 	public static final DeferredBlock<Block> BURNING_DIRT = REGISTRY.register("burning_dirt", BurningDirt::new);
 	public static final DeferredBlock<Block> WHOPPERFLOWER_CROP = REGISTRY.register("whopperflower_crop",
-			() -> new WhopperflowerCrop(
-                    BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .noCollission()
-                            .randomTicks()
-                            .instabreak()
-                            .sound(SoundType.CROP)
-                            .offsetType(BlockBehaviour.OffsetType.XZ)
-                            .pushReaction(PushReaction.DESTROY))
-    );
+			() -> new WhopperflowerCrop(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().randomTicks().instabreak().sound(SoundType.CROP).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 	public static final DeferredBlock<Block> ELEMENTAL_FARMLAND = REGISTRY.register("elemental_farmland",
 			() -> new ElementalFarmBlock(BlockBehaviour.Properties.of().mapColor(MapColor.DIRT).randomTicks().strength(0.6F).sound(SoundType.GRAVEL).isViewBlocking(ErModBlocks::always).isSuffocating(ErModBlocks::always)));
-    public static final DeferredBlock<Block> SWEET_FLOWER = REGISTRY.register(
-            "sweet_flower",
-            () -> new FlowerBlock(
-                    MobEffects.MOVEMENT_SPEED,
-                    10,
-                    BlockBehaviour.Properties.of()
-                            .mapColor(MapColor.PLANT)
-                            .noCollission()
-                            .instabreak()
-                            .sound(SoundType.GRASS)
-                            .offsetType(BlockBehaviour.OffsetType.XZ)
-                            .pushReaction(PushReaction.DESTROY)
-            )
-    );
+	public static final DeferredBlock<Block> SWEET_FLOWER = REGISTRY.register("sweet_flower",
+			() -> new FlowerBlock(MobEffects.MOVEMENT_SPEED, 10, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+
 	private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
 		return true;
 	}

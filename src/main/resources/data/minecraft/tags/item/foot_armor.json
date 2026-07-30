@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "er:hydro_armor_boots",
-    "er:geo_armor_boots",
-    "er:dendro_armor_boots",
-    "er:electro_armor_boots",
-    "er:anemo_armor_boots",
-    "er:cryo_armor_boots",
-    "er:pyro_armor_boots"
+    "er:anemo_boots",
+    "er:cryo_boots",
+    "er:geo_boots",
+    "er:hydro_boots",
+    "er:pyro_boots",
+    "er:electro_boots",
+    "er:dendro_boots"
   ]
 }

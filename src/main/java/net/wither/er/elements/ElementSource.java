@@ -56,7 +56,7 @@ public class ElementSource {
         return resourceLocation;
     }
 
-    public Element getElement() {
+    public @NotNull Element getElement() {
         return element;
     }
 
@@ -90,10 +90,6 @@ public class ElementSource {
 
     public boolean isPermanent() {
         return permanent;
-    }
-
-    public boolean canReact(SingleElementalContainer container) {
-        return this.getElement().canReact(container.getCategory());
     }
 
     public ElementSource copy() {
