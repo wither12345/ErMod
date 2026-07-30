@@ -8,6 +8,6 @@ public interface ElementSourceInterface {
     Object er$setElement(ElementSource source);
 
     default Object er$setElement(Element element, ResourceLocation resourceLocation, float gauge){
-        return er$setElement(new ElementSource(element,resourceLocation,gauge, true));
+        return er$setElement(new ElementSource(element,resourceLocation,gauge, element.isApplicable()));
     }
 }

@@ -8,5 +8,5 @@ import net.wither.er.elements.ElementSource;
 
 @FunctionalInterface
 public interface ReactionAbility {
-    void onReaction(AuraContainer container, ElementSource elementToAdd, Element.Category elementReacted, EntityHurtEvent.DamageModifier damageModifier, Entity applier, int level);
+    void onReaction(AuraContainer container, ElementSource elementToAdd, Element elementReacted, EntityHurtEvent.DamageModifier damageModifier, Entity applier, int level);
 }

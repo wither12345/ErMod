@@ -75,6 +75,7 @@ public class ErMod {
 		MobEffectRegister.REGISTRY.register(bus);
 		ExtraTabs.REGISTRY.register(bus);
 		RecipeSerializerRegister.RECIPE_SERIALIZERS.register(bus);
+		ErAttributeRegister.REGISTRY.register(bus);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ERClientConfig.SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ERConfig.SPEC);
 		// End of user code block mod init

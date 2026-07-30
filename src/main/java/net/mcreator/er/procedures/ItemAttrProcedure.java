@@ -87,7 +87,7 @@ public class ItemAttrProcedure {
 		return 1 + (level / 5) * 0.2d ;
 	}
 	/*
-	ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("enchantment.infusion");
+	ResourceLocation resourcelocation = new ResourceLocation("enchantment.infusion");
 	if (itemstack.getEnchantmentLevel(world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, new ResourceLocation("er:anemo_infusion_enchantment")))) != 0) {
 		event.addModifier(ErModAttributes.ANEMO_DMG_BONUS.get(),
 				new AttributeModifier(resourcelocation,

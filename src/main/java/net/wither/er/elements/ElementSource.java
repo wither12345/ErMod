@@ -91,10 +91,6 @@ public class ElementSource {
         return permanent;
     }
 
-    public boolean canReact(SingleElementalContainer container) {
-        return this.getElement().canReact(container.getCategory());
-    }
-
     public ElementSource copy() {
         return new ElementSource(element,resourceLocation,gauge,applicable,time,count, permanent);
     }

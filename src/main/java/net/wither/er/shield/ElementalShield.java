@@ -10,11 +10,15 @@ public abstract class ElementalShield extends ErShield{
 
     abstract float getGauge() ;
 
+    protected boolean permanent(){
+        return true;
+    }
+
     @Override
     public void start(Entity owner) {
         super.start(owner);
         if(owner instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true));
+            auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true, this.permanent()));
         }
     }
 

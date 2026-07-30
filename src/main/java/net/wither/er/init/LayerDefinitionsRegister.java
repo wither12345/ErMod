@@ -18,7 +18,8 @@ public class LayerDefinitionsRegister {
     public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(LunarChargedCloudRenderer.LAYER_LOCATION, LunarChargedCloudRenderer::createBodyLayer);
         event.registerLayerDefinition(LunarCrystallizeRenderer.LAYER_LOCATION, LunarCrystallizeRenderer::createBodyLayer);
-        event.registerLayerDefinition(WhopperflowerModel.LAYER_LOCATION, WhopperflowerModel::createBodyLayer);
+        event.registerLayerDefinition(WhopperflowerModel.PYRO, WhopperflowerModel::createBodyLayer);
+        event.registerLayerDefinition(WhopperflowerModel.CRYO, WhopperflowerModel::createBodyLayer);
         event.registerLayerDefinition(PyroWhopperflowerBallRenderer.LAYER_LOCATION, PyroWhopperflowerBallRenderer::createBodyLayer);
         event.registerLayerDefinition(PyroHomingRobRenderer.LAYER_LOCATION, PyroHomingRobRenderer::createBodyLayer);
         event.registerLayerDefinition(CryoSpikeRenderer.LAYER_LOCATION, CryoSpikeRenderer::createBodyLayer);

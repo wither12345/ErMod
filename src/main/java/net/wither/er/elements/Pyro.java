@@ -15,10 +15,12 @@ public class Pyro extends Element{
 
     public Pyro() {
         super(Map.of(
-                Category.HYDRO, Element::amplifying15,
-                Category.CRYO, Element::amplifying2,
+                Category.HYDRO, Element::amplifying2,
+                Category.CRYO, Element::amplifying15,
                 Category.DENDRO, Element::burning,
-                Category.ELECTRO, Element::overLoad
+                Category.ELECTRO, Element::overLoad,
+                Category.GEO, Geo::pyro,
+                Category.ANEMO, Anemo::swirl
         ));
     }
 

@@ -20,8 +20,8 @@ public class FunctionalAbilities {
         }
     }
 
-    public static void darkIronSword(AuraContainer container, ElementSource elementToAdd, Element.Category elementReacted, EntityHurtEvent.DamageModifier damageModifier, Entity applier, int level){
-        if(applier instanceof LivingEntity livingEntity && (elementReacted == Element.Category.ELECTRO || elementToAdd.getCategory() == Element.Category.ELECTRO)){
+    public static void darkIronSword(AuraContainer container, ElementSource elementToAdd, Element elementReacted, EntityHurtEvent.DamageModifier damageModifier, Entity applier, int level){
+        if(applier instanceof LivingEntity livingEntity && (elementReacted.getCategory() == Element.Category.ELECTRO || elementToAdd.getCategory() == Element.Category.ELECTRO)){
             livingEntity.addEffect(new MobEffectInstance(MobEffectRegister.OVERLOADED.get(), 240, level - 1));
         }
     }

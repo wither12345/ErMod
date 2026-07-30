@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {"item": "minecraft:diamond_sword"},
+    "title": {"translate": "adv.er.purveyor.title"},
+    "description": {"translate": "adv.er.purveyor.1.desc"},
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "er:purveyor_of_punishment",
+  "criteria": {
+    "dmg": {
+      "trigger": "er:critical_damage",
+      "conditions": {
+        "dmg": 80
+      }
+    }
+  },
+  "requirements": [["dmg"]]
+}

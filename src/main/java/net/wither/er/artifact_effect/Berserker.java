@@ -13,6 +13,7 @@ import java.util.UUID;
 public class Berserker extends TwoSetAttrEffect implements HealthFloatingAbility {
     private static final String BERSERKER_LOW = "er:berserker_low_hp";
     private static final UUID BERSERKER = UUID.fromString("5F92757D-9E1B-8DA1-B0D0-E656B4F5416D");
+    private static final AttributeModifier MODIFIER = new AttributeModifier(BERSERKER, BERSERKER_LOW, 0.24, AttributeModifier.Operation.ADDITION);
 
     public Berserker() {
         super(ErModAttributes.CRIT_RATE.get(), new AttributeModifier(UUID.fromString("C90A991A-97E2-B100-76C5-AF332D025984"), "berserker" , 0.12, AttributeModifier.Operation.ADDITION));
@@ -33,8 +34,8 @@ public class Berserker extends TwoSetAttrEffect implements HealthFloatingAbility
             if(instance == null) return;
             instance.removeModifier(BERSERKER);
             if (erEntityInterface.er$getArtifactEffectLevel(ArtifactEffectRegistry.BERSERKER.get()) > 3) {
-                if (entity.getHealth() <= entity.getMaxHealth() * 0.7)
-                    instance.addTransientModifier(new AttributeModifier(BERSERKER, BERSERKER_LOW, 0.24, AttributeModifier.Operation.ADDITION));
+                if (entity.getHealth() <= entity.getMaxHealth() * 0.7 && !instance.hasModifier(MODIFIER))
+                    instance.addTransientModifier(MODIFIER);
             }
         }
     }

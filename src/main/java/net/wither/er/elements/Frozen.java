@@ -9,19 +9,19 @@ import net.minecraft.world.level.LevelAccessor;
 import java.util.Map;
 import java.util.UUID;
 
-public class Frozen extends Element{
+public class Frozen extends Cryo{
     private static final UUID FROZEN_SPEED = UUID.fromString("588FF75A-C891-E049-650A-EB529F4BFBD5");
     private static final AttributeModifier SPEED = new AttributeModifier(FROZEN_SPEED, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL);
     private static final UUID FROZEN_JUMP = UUID.fromString("588FF75A-C891-E049-650A-EB529F4BFBD5");
     private static final AttributeModifier JUMP = new AttributeModifier(FROZEN_JUMP, "frozen", -100, AttributeModifier.Operation.MULTIPLY_TOTAL);
 
     public Frozen() {
-        super(Map.of());
-    }
-
-    @Override
-    public Category getCategory() {
-        return Category.CRYO ;
+        super(Map.of(
+                Category.PYRO, Element::amplifying2,
+                Category.ELECTRO, Element::superconduct,
+                Category.GEO, Geo::cryo,
+                Category.ANEMO, Anemo::swirl
+        ));
     }
 
     @Override

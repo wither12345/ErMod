@@ -22,6 +22,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -33,6 +34,7 @@ import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
 import net.wither.er.player.onHealthFloating;
@@ -47,6 +49,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +161,19 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
         return p_270890_;
     }
 
+    @Inject(method = "createLivingAttributes", at = @At("TAIL"))
+    private static void createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir){
+        cir.getReturnValue()
+                .add(ErAttributeRegister.ANEMO_RES.get())
+                .add(ErAttributeRegister.CRYO_RES.get())
+                .add(ErAttributeRegister.HYDRO_RES.get())
+                .add(ErAttributeRegister.GEO_RES.get())
+                .add(ErAttributeRegister.DENDRO_RES.get())
+                .add(ErAttributeRegister.PYRO_RES.get())
+                .add(ErAttributeRegister.ELECTRO_RES.get())
+                .add(ErAttributeRegister.PHYSICAL_RES.get());
+    }
+
 	public void er$removeShield(ErShield shield) {
 		shield.end(this);
         this.er$shields.removeIf(shieldstack -> shieldstack.getShield() == shield);
@@ -183,7 +199,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		for (ShieldStack shield : er$shields) {
 			tag.put(ShieldRegistry.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
 		}
-		ErMod.PACKET_HANDLER.send(PacketDistributor.TRACKING_ENTITY.with(() -> this), new ErShieldData(this.getId(), tag));
+		ErMod.PACKET_HANDLER.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> this), new ErShieldData(this.getId(), tag));
 	}
 
 	public void er$syncShield(ServerPlayer player) {

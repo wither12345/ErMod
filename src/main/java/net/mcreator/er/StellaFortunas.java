@@ -145,7 +145,7 @@ public abstract class StellaFortunas extends Item {
 		final int exp = experience;
 		final int lv = level - 1;
 		item.getOrCreateTag().putInt("experience", exp);
-		item.getOrCreateTag().putInt("experience", exp);
+		item.getOrCreateTag().putInt("level", level);
 		return changed;
 	}
 

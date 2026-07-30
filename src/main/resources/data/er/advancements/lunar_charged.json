@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "er:electro_vision",
+      "components": {"er:vision_frame": "moon_wheel"}
+    },
+    "title": {"translate": "adv.er.lunar_charged.title"},
+    "description": {"translate": "adv.er.lunar_charged.desc"},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "er:favor_from_the_gods",
+  "criteria": {
+    "lunar": {
+      "trigger": "er:reaction",
+      "conditions": {
+        "name": "lunar_charged"
+      }
+    }
+  },
+  "requirements": [["lunar"]]
+}

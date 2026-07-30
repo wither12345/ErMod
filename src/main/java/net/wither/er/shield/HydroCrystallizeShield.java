@@ -25,14 +25,15 @@ public class HydroCrystallizeShield extends ErShield implements RenderShield {
 		if(owner instanceof LivingEntity living)
 			multi = (float) living.getAttribute(ErModAttributes.SHIELD_STRENGTH.get()).getValue() / 100f + 1f;
 		if (elemental_type == 6)
-			multi *= 2.5;
+			multi *= 2.5f;
 		if (stack.health * multi > damage) {
 			stack.health -= damage / multi;
 			return damage;
 		}
-		stack.health = -1;
-		stack.time = 0;
-		return stack.health * multi;
+        float ret = stack.health * multi;
+        stack.health = -1;
+        stack.time = 0;
+        return ret;
 	}
 
 	@Override

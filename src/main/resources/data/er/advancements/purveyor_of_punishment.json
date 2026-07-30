@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {"item": "minecraft:iron_sword"},
+    "title": {"translate": "adv.er.purveyor.title"},
+    "description": {"translate": "adv.er.purveyor.desc"},
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "er:elemental_reaction",
+  "criteria": {
+    "dmg": {
+      "trigger": "er:critical_damage",
+      "conditions": {
+        "dmg": 20
+      }
+    }
+  },
+  "requirements": [["dmg"]]
+}

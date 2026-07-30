@@ -14,6 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
+import net.wither.er.item.ElementalArmorItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +116,7 @@ public class ExtraTabs {
             tabData.accept(ENERGY_NECTAR);
             tabData.accept(ENCHANTED_MYSTIC_ENHANCEMENT_ORE);
             tabData.accept(PYRO_WHOPPERFLOWER_FRUIT);
+            tabData.accept(CRYO_WHOPPERFLOWER_FRUIT);
             ItemStack moraBag = new ItemStack(MORA_BAG.get());
 			moraBag.getOrCreateTag().putInt("moras", 999999999);
             tabData.accept(moraBag);
@@ -129,14 +131,14 @@ public class ExtraTabs {
 			tabData.accept(DENDRO_SLIME_SPAWN_EGG);
 			tabData.accept(ANEMO_SLIME_SPAWN_EGG);
             tabData.accept(PYRO_FLOWER_SPAWN_EGG);
-		}else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
+            tabData.accept(CRYO_FLOWER_SPAWN_EGG);
+		} else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
 			tabData.accept(DULL_BLADE);
 			tabData.accept(WASTER_GREATSWORD);
 			tabData.accept(SILVER_SWORD);
             tabData.accept(COOL_STEEL);
             tabData.accept(DARK_IRON_SWORD);
-		}
-        else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+		} else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(BURNING_DIRT);
             tabData.accept(SWEET_FLOWER);
             tabData.accept(WHOPPERFLOWER_SEED);
@@ -144,6 +146,14 @@ public class ExtraTabs {
             tabData.accept(PYRO_HOE);
             tabData.accept(ELECTRO_HOE);
             tabData.accept(CRYO_HOE);
+        } else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
+            addArmorGroup(tabData, ANEMO_ARMOR);
+            addArmorGroup(tabData, HYDRO_ARMOR);
+            addArmorGroup(tabData, CRYO_ARMOR);
+            addArmorGroup(tabData, ELECTRO_ARMOR);
+            addArmorGroup(tabData, PYRO_ARMOR);
+            addArmorGroup(tabData, DENDRO_ARMOR);
+            addArmorGroup(tabData, GEO_ARMOR);
         }
     }
     
@@ -162,6 +172,13 @@ public class ExtraTabs {
         ItemStack itemStack = new ItemStack(item.get());
         itemStack.getOrCreateTag().putInt("frame", frame);
         tabData.accept(itemStack);
+    }
+
+    private static void addArmorGroup(BuildCreativeModeTabContentsEvent tabData, ElementalArmorItem.Group group){
+        tabData.accept(group.helmet());
+        tabData.accept(group.chest());
+        tabData.accept(group.leggings());
+        tabData.accept(group.boots());
     }
 
 	private static void addMainToTab(List<? extends String> mainType, CreativeModeTab.Output tabData, List<String> attrs) {

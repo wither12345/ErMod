@@ -62,13 +62,13 @@ public class EntityTickProcedure {
 			if (entity.getType().is(hydro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()) {
 				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.HYDRO.get(), null, 2, true, true));
 			}
-			else if(entity.getType().is(pyro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
+			else if(entity.getType().is(pyro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty()){
 				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.PYRO.get(), null, 2, true, true));
 			}
-			else if(entity.getType().is(electro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
+			else if(entity.getType().is(electro) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty()){
 				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.ELECTRO.get(), null, 2, true, true));
 			}
-			else if(entity.getType().is(cryo) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty()){
+			else if(entity.getType().is(cryo) && auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.CRYO.getId()).isEmpty()){
 				auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(ElementRegistry.CRYO.get(), null, 2, true, true));
 			}
 			else if(entity instanceof LivingEntity && entity.isInWaterRainOrBubble())

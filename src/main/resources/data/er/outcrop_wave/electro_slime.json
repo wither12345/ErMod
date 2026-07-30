@@ -1,0 +1,13 @@
+{
+  "quality": 50,
+  "pools": [
+    {
+      "type": "er:electro_slime",
+      "count": 4,
+      "icon": "er:slime_condensate"
+    }
+  ],
+  "global_modifiers": [
+    "melee"
+  ]
+}

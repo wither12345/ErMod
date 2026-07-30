@@ -73,7 +73,13 @@ public class ErRenderers {
 	
 
 	private static void vertex(VertexConsumer consumer, Matrix4f matrix4f, int p_253829_, float p_253995_, int p_254031_, int p_253641_, int p_254243_) {
-		consumer.vertex(matrix4f, p_253995_ - 0.5F, (float) p_254031_ - 0.25F, 0.0F).color(-1).overlayCoords(OverlayTexture.NO_OVERLAY).uv((float) p_253641_, (float) p_254243_).normal(0.0F, 1.0F, 0.0F);
+		consumer.vertex(matrix4f, p_253995_ - 0.5F, (float) p_254031_ - 0.25F, 0.0F)
+                .color(-1)
+                .uv((float) p_253641_, (float) p_254243_)
+                .overlayCoords(OverlayTexture.NO_OVERLAY)
+                .uv2(p_253829_)
+                .normal(0.0F, 1.0F, 0.0F)
+                .endVertex();
 	}
 
 	private static void renderLevel(Entity entity, PoseStack posestack, MultiBufferSource bufferSource, LivingEntityRenderer<?,?> renderer, int packedLight, float partialTick) {

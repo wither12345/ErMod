@@ -35,13 +35,13 @@ public abstract class ConsumeFruitGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.time < 120 && this.stunTime < 30;
+        return this.time < 120 && this.stunTime < 300;
     }
 
     @Override
     public void stop() {
         this.whopperflower.cd = 40;
-        this.whopperflower.consumeFruitCd = 240;
+        this.whopperflower.consumeFruitCd = 400;
         this.whopperflower.setAction(Whopperflower.Action.NORMAL);
     }
 

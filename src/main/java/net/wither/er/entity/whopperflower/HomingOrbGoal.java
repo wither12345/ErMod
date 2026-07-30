@@ -1,6 +1,5 @@
 package net.wither.er.entity.whopperflower;
 
-import net.mcreator.er.ErMod;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -28,7 +27,6 @@ public class HomingOrbGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        ErMod.LOGGER.info(this.fireCount + " " + this.fireTime + "   " + this.target);
         return ((this.fireCount > 0 || this.fireTime > 0) && this.target != null && this.target.isAlive());
     }
 

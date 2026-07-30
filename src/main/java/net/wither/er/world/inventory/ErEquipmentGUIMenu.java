@@ -1,5 +1,7 @@
 package net.wither.er.world.inventory;
 
+import com.mojang.datafixers.util.Pair;
+import net.mcreator.er.ErMod;
 import net.mcreator.er.StellaFortunas;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -10,6 +12,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +25,7 @@ import net.wither.er.init.ErMenus;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -145,11 +149,14 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
     private static class ArtifactItemSlot extends Slot{
         private final ArtifactSlot slot;
         private final ErEntityInterface erEntityInterface;
+        private final ResourceLocation empty;
+
         public ArtifactItemSlot(ErEntityInterface player, ArtifactSlot slot, Container container, int id, int x, int y) {
             super(container, id, x, y);
             this.slot = slot;
             this.erEntityInterface = player;
             this.container.setItem(this.getSlotIndex(), erEntityInterface.er$getArtifact(slot).copy());
+            this.empty = new ResourceLocation(ErMod.MODID, "item/" + slot.getSerializedName() + "_empty");
         }
 
         @Override
@@ -163,6 +170,11 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
             super.setChanged();
             this.erEntityInterface.er$setArtifact(this.slot, this.getItem());
             erEntityInterface.er$updateArtifact();
+        }
+
+        @Override
+        public @Nullable Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+            return Pair.of(InventoryMenu.BLOCK_ATLAS, empty);
         }
     }
 }

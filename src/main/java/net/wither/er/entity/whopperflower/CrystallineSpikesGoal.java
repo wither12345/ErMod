@@ -35,7 +35,7 @@ public class CrystallineSpikesGoal extends Goal {
     @Override
     public void stop() {
         this.whopperflower.cd = 20;
-        this.whopperflower.spikeCd = 60;
+        this.whopperflower.spikeCd = 40;
         this.whopperflower.setAction(Whopperflower.Action.NORMAL);
     }
 
@@ -44,6 +44,7 @@ public class CrystallineSpikesGoal extends Goal {
         this.whopperflower.lookAt(this.target, 180, 90);
         this.nowVec = this.whopperflower.position();
         this.dVec = this.target.position().subtract(nowVec).normalize();
+        this.nowVec = this.nowVec.subtract(dVec.scale(-3));
         this.whopperflower.setAction(Whopperflower.Action.LOWER_HEAD);
         this.time = 0;
     }

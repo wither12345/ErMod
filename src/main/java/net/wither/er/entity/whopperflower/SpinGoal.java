@@ -1,7 +1,6 @@
 package net.wither.er.entity.whopperflower;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.ErMod;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -62,7 +61,6 @@ public class SpinGoal extends Goal {
     public void tick() {
         this.time ++ ;
         if(this.time >= 6 && this.time <= 8){
-            ErMod.LOGGER.info("ddd");
             Level level = this.whopperflower.level();
             final Vec3 _center = new Vec3(whopperflower.getX(), whopperflower.getY(), whopperflower.getZ());
             level.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(3), e -> true)

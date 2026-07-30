@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.Mod;
 public class VariableHandlers {
     @SubscribeEvent
     public static void onPlayerLoggedInSyncPlayerVariables(PlayerEvent.PlayerLoggedInEvent event) {
-        ErMod.LOGGER.info(event.getEntity());
         if (event.getEntity() instanceof ServerPlayer player) {
             player.getCapability(ErItemVariables.PLAYER_VARIABLES).ifPresent(capability -> capability.syncToClient(player));
             player.getCapability(ErCombatVariables.PLAYER_VARIABLES).ifPresent(capability -> capability.syncPlayerVariables(player));

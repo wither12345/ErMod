@@ -14,16 +14,10 @@ import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Map;
 
-public class Burning extends Element{
+public class Burning extends Pyro{
     public Burning() {
-        super(Map.of());
-    }
-
-    @Override
-    public Category getCategory() {
-        return Category.PYRO;
+        super();
     }
 
     @Override

@@ -2,7 +2,7 @@ package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.wither.er.api.EventListener;
 
@@ -22,19 +22,18 @@ public class AuraContainer {
     }
 
     public void addAura(ElementSource auraToAdd){
-        if(owner instanceof LivingEntity living)
-            addAura(auraToAdd, living.level(),living.getX(),living.getY(),living.getZ(),null,null);
+        addAura(auraToAdd, null,null);
     }
 
-    public void addAura(ElementSource auraToAdd, LevelAccessor accessor , double x , double y , double z , @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
+    public void addAura(ElementSource auraToAdd , @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
         if(auraToAdd.getGauge() == 0)
             return;
-        if(auraToAdd.getElement().shouldReact(this, applier) && containersList.get(auraToAdd.getCategory().getId()).isAvailable(auraToAdd)) {
+
+        if(auraToAdd.getElement().shouldReact(this, applier) && containersList.get(auraToAdd.getCategory().getId()).isAvailable(auraToAdd, applier)) {
             for (SingleElementalContainer container : containersList) {
                 if (!container.isEmpty() && auraToAdd.getGauge() > 0 &&
-                        auraToAdd.canReact(container) && EventListener.onReactionPre(this, auraToAdd, container, damageModifier, applier))
-                    container.reactBy(this, auraToAdd, accessor, x, y, z, damageModifier, applier);
-                EventListener.onReactionPost(this, auraToAdd, container, damageModifier, applier);
+                        EventListener.onReactionPre(this, auraToAdd, container, damageModifier, applier))
+                    container.reactBy(this, auraToAdd, damageModifier, applier);
             }
             if (auraToAdd.isApplicable()) {
                 auraToAdd.getElement().start(this);
@@ -65,6 +64,11 @@ public class AuraContainer {
         for(SingleElementalContainer container : this.containersList){
             container.tick(this,accessor,x,y,z);
         }
+    }
+
+    @Nullable
+    public Level getLevel(){
+        return owner instanceof Entity entity ? entity.level() : null;
     }
 
     public Object getOwner() {

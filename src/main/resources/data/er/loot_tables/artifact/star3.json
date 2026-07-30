@@ -168,6 +168,61 @@
               "star": 3
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:berserkers_rose",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:berserkers_indigo_feather",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:berserkers_timepiece",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:berserkers_battle_mask",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:berserkers_bone_goblet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
         }
       ]
     }

@@ -82,45 +82,16 @@ public class ErModTabs {
 			tabData.accept(ErModItems.BLOSSOM_OF_WEALTH_SPAWN_EGG.get());
 			tabData.accept(ErModItems.BLOSSOM_OF_REVELATION_SPAWN_EGG.get());
 			tabData.accept(ErModItems.BUTTERFLY_SPAWN_EGG.get());
-		} else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
-			tabData.accept(ErModItems.PYRO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.PYRO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.PYRO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.PYRO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.CRYO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.CRYO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.CRYO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.CRYO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.CRYO_SWORD.get());
-			tabData.accept(ErModItems.PYRO_SWORD.get());
-			tabData.accept(ErModItems.ELECTRO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.ELECTRO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.ELECTRO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.ELECTRO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.ELECTRO_SWORD.get());
-			tabData.accept(ErModItems.DENDRO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.DENDRO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.DENDRO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.DENDRO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.DENDRO_SWORD.get());
-			tabData.accept(ErModItems.GEO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.GEO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.GEO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.GEO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.GEO_SWORD.get());
-			tabData.accept(ErModItems.ANEMO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.ANEMO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.ANEMO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.ANEMO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.ANEMO_SWORD.get());
-			tabData.accept(ErModItems.HYDRO_ARMOR_HELMET.get());
-			tabData.accept(ErModItems.HYDRO_ARMOR_CHESTPLATE.get());
-			tabData.accept(ErModItems.HYDRO_ARMOR_LEGGINGS.get());
-			tabData.accept(ErModItems.HYDRO_ARMOR_BOOTS.get());
-			tabData.accept(ErModItems.HYDRO_SWORD.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.INGREDIENTS) {
 			tabData.accept(ErModItems.MORA.get());
-			tabData.accept(ErModItems.MORA_BAG.get());
+		} else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
+			tabData.accept(ErModItems.CRYO_SWORD.get());
+			tabData.accept(ErModItems.PYRO_SWORD.get());
+			tabData.accept(ErModItems.ELECTRO_SWORD.get());
+			tabData.accept(ErModItems.DENDRO_SWORD.get());
+			tabData.accept(ErModItems.GEO_SWORD.get());
+			tabData.accept(ErModItems.ANEMO_SWORD.get());
+			tabData.accept(ErModItems.HYDRO_SWORD.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
 			tabData.accept(ErModItems.PYRO_PICKAXE.get());
 			tabData.accept(ErModItems.GEO_PICKAXE.get());

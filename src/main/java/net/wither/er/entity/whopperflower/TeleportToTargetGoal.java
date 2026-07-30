@@ -44,6 +44,7 @@ public class TeleportToTargetGoal extends Goal {
     @Override
     public void stop() {
         this.whopperflower.borrowCd = 60;
+        this.whopperflower.trySpawnFruit();
         this.whopperflower.setAction(Whopperflower.Action.NORMAL);
     }
 

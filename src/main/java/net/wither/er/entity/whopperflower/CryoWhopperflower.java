@@ -2,9 +2,11 @@ package net.wither.er.entity.whopperflower;
 
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.init.ErAttributeRegister;
 import org.jetbrains.annotations.NotNull;
 
 public class CryoWhopperflower extends Whopperflower{
@@ -17,6 +19,12 @@ public class CryoWhopperflower extends Whopperflower{
     public void tick() {
         super.tick();
         this.spikeCd --;
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        AttributeSupplier.Builder builder = Whopperflower.createAttributes();
+        builder = builder.add(ErAttributeRegister.CRYO_RES.get(), 75);
+        return builder;
     }
 
     @Override

@@ -5,6 +5,7 @@ import net.mcreator.er.init.ErModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +27,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.wither.er.block.entity.WhopperflowerCropEntity;
 import net.wither.er.elements.Element;
 import net.wither.er.entity.whopperflower.Whopperflower;
+import net.wither.er.init.AdvancementTriggerRegister;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -101,6 +103,9 @@ public class WhopperflowerCrop extends BushBlock implements EntityBlock, Bonemea
                 flower.setDisguisedBlock(ErModBlocks.SWEET_FLOWER.get().defaultBlockState());
                 if(serverLevel.getBlockEntity(blockPos) instanceof WhopperflowerCropEntity whopperflowerCropEntity) {
                     flower.setOwner(whopperflowerCropEntity.getOwner());
+                    if(whopperflowerCropEntity.getOwner() instanceof ServerPlayer serverPlayer){
+                        AdvancementTriggerRegister.WHOPPERFLOWER.trigger(serverPlayer);
+                    }
                 }
                 serverLevel.addFreshEntity(flower);
                 serverLevel.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 2);

@@ -30,9 +30,10 @@ public class PyroCrystallizeShield extends ErShield implements RenderShield {
 			stack.health -= damage / multi;
 			return damage;
 		}
+        float ret = stack.health * multi;
 		stack.health = -1;
 		stack.time = 0;
-		return stack.health * multi;
+		return ret;
 	}
 
 	@Override

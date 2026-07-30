@@ -30,9 +30,10 @@ public class CryoCrystallizeShield extends ErShield implements RenderShield {
 			stack.health -= damage / multi;
 			return damage;
 		}
-		stack.health = -1;
-		stack.time = 0;
-		return stack.health * multi;
+        float ret = stack.health * multi;
+        stack.health = -1;
+        stack.time = 0;
+        return ret;
 	}
 
 	@Override

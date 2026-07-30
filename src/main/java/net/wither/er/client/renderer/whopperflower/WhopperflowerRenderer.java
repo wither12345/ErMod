@@ -22,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class WhopperflowerRenderer<T extends Whopperflower> extends MobRenderer<T, WhopperflowerModel<T>> {
     private final BlockRenderDispatcher dispatcher;
 
-    public WhopperflowerRenderer(EntityRendererProvider.Context context) {
-        super(context, new WhopperflowerModel<>(context.bakeLayer(WhopperflowerModel.LAYER_LOCATION)), 0.3f);
+    public WhopperflowerRenderer(EntityRendererProvider.Context context, WhopperflowerModel<T> model) {
+        super(context, model, 0.3f);
         this.addLayer(new WhopperflowerItemLayer<>(this, context.getItemRenderer()));
         dispatcher = context.getBlockRenderDispatcher();
     }
@@ -41,12 +41,12 @@ public abstract class WhopperflowerRenderer<T extends Whopperflower> extends Mob
             switch (flower.getAction()){
                 case DOWN -> {
                     poseStack.translate(0, flower.dy, 0);
-                    flower.dy = Math.max(flower.dy - dt / 20, -3);
+                    flower.dy = Math.max(flower.dy - dt / 3, -3);
 
                 }
                 case UP -> {
                     if(flower.dy < 0)
-                        flower.dy = Math.min(0 , flower.dy + dt / 30);
+                        flower.dy = Math.min(0 , flower.dy + dt / 10);
                     poseStack.translate(0, flower.dy, 0);
                 }
                 default -> flower.dy = 0;

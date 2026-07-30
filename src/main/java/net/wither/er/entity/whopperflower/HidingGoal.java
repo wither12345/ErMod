@@ -18,6 +18,7 @@ public class HidingGoal extends Goal {
     @Override
     public boolean canUse() {
         return !whopperflower.isDisguise() &&
+                whopperflower.canDisguise &&
                 whopperflower.getTarget() == null &&
                 whopperflower.getAction() == Whopperflower.Action.NORMAL &&
                 (whopperflower.level().getBlockState(whopperflower.getOnPos()).is(Blocks.GRASS_BLOCK) ||

@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
+import net.wither.er.api.EventListener;
 import net.wither.er.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.init.ElementRegistry;
@@ -38,22 +39,33 @@ public class SingleElementalContainer {
         return auras.containsKey(element) ;
     }
 
-    public void reactBy(AuraContainer container ,ElementSource source, LevelAccessor accessor , double x , double y , double z,@Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
-        float gauge_reducing = source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, damageModifier, applier);//source.getElement().reactWith(container, this, source.getGauge(), accessor, x, y, z, elemental_mastery, damageModifier, applier);
-        source.reduce(gauge_reducing);
-        if(applier instanceof ErEntityInterface erEntityInterface){
-            Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
-            for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
-                if(effect.getKey() instanceof ReactionAbility ability){
-                    ability.onReaction(container, source, this.category, damageModifier, applier, effect.getIntValue());
+    public void reactBy(AuraContainer container , ElementSource source, @Nullable EntityHurtEvent.DamageModifier damageModifier, @Nullable Entity applier){
+        float gauge_reducing = 0;
+        for(Map.Entry<Element, ElementalAura> auraEntry : auras.entrySet()){
+            Element ele = auraEntry.getKey();
+            if(ele.canReact(source)){
+                if(applier instanceof ErEntityInterface erEntityInterface){
+                    Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+                    for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                        if(effect.getKey() instanceof ReactionAbility ability){
+                            ability.onReaction(container, source, ele, damageModifier, applier, effect.getIntValue());
+                        }
+                    }
                 }
+                if(applier instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof ReactionAbility ability){
+                    CompoundTag tag = living.getMainHandItem().getOrCreateTag();
+                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                    ability.onReaction(container, source, ele, damageModifier, applier, refinement);
+                }
+
+                gauge_reducing = Math.max(gauge_reducing, ele.reactWith(container, auraEntry.getValue(), source, damageModifier, applier));
+
+                EventListener.onReactionPost(container, source, this, damageModifier, applier);
             }
         }
-        if(applier instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof ReactionAbility ability){
-            CompoundTag tag = living.getMainHandItem().getOrCreateTag();
-            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-            ability.onReaction(container, source, this.category, damageModifier, applier, refinement);
-        }
+
+
+       source.reduce(gauge_reducing);
     }
 
     public void tick(AuraContainer container, LevelAccessor accessor , double x , double y , double z) {
@@ -84,9 +96,10 @@ public class SingleElementalContainer {
         }
     }
 
-    public boolean isAvailable(ElementSource source){
+    public boolean isAvailable(ElementSource source, @Nullable Entity applier){
         ResourceLocation location = source.getResourceLocation() ;
         if(location != null){
+            location = location.withSuffix("." + (applier == null ? "n" : String.valueOf(applier.getId())));
             if(cooldownMap.containsKey(location)) {
                 if (cooldownMap.get(location).count-- <= 0) {
                     cooldownMap.get(location).count = source.getCount() ;

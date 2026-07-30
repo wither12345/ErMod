@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
 import net.wither.er.entity.whopperflower.Whopperflower;
 import net.wither.er.init.ElementRegistry;
@@ -30,13 +29,6 @@ public class CryoWhopperflowerShield extends ElementalShield{
     @Override
     Element getElement() {
         return ElementRegistry.CRYO_WHOPPERFLOWER.get();
-    }
-
-    @Override
-    public void end(Entity owner) {
-        super.end(owner);
-        if(owner instanceof AuraContainerInterface auraContainerInterface)
-            auraContainerInterface.er$getAuraContainer().remove(ElementRegistry.CRYO_WHOPPERFLOWER.get());
     }
 
     @Override

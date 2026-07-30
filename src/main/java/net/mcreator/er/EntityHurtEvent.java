@@ -16,6 +16,7 @@ import net.mcreator.er.procedures.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -44,6 +45,7 @@ import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.entity.slimes.DendroSlime;
+import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
@@ -73,43 +75,41 @@ public class EntityHurtEvent {
         LevelAccessor world = entity.level();
         if(world.isClientSide()) return;
 
-        double x = entity.getX();
-        double y = entity.getY();
-        double z = entity.getZ();
         float crit_mult = 1;
         modifyDamageSource(damagesource, entity) ;
         modifyReaction(damagesource);
         if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
+            DamageModifier modifier = modifierInterface.er$getModifier();
             if(sourceentity instanceof ErEntityInterface erEntityInterface){
                 Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
                 for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
                     if(effect.getKey() instanceof DamageAbility damageAbility){
-                        damageAbility.onHurt(damagesource, entity, modifierInterface.er$getModifier(), effect.getIntValue());
+                        damageAbility.onHurt(damagesource, entity, modifier, effect.getIntValue());
                     }
                 }
             }
             if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof DamageAbility ability) {
                 CompoundTag tag = living.getMainHandItem().getOrCreateTag();
                 int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                ability.onHurt(damagesource, entity, modifierInterface.er$getModifier(), refinement);
+                ability.onHurt(damagesource, entity, modifier, refinement);
             }
             double elemental_mastery = 0 ;
             if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
                 elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
             if(elementSourceInterface.er$getSource() != null && elementSourceInterface.er$getSource().getElement() != null) {
-                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), world, x, y, z, modifierInterface.er$getModifier(), sourceentity);
-                ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifierInterface.er$getModifier());
+                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), modifier, sourceentity);
+                ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifier);
             }
 
             if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
                 crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
-                modifierInterface.er$getModifier().critical = true;
+                modifier.critical = true;
             }
 
             if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
-                modifierInterface.er$getModifier().reaction_multiply = 0 ;
+                modifier.reaction_multiply = 0 ;
 
-            float final_amount = modifierInterface.er$getModifier().calculate(event.getAmount(), elemental_mastery) * crit_mult;
+            float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
             if (entity instanceof ErEntityInterface enti) {
                 List<ShieldStack> shields = enti.er$getShieldStacks();
                 float shield_absorb = 0f;
@@ -119,6 +119,7 @@ public class EntityHurtEvent {
                     else
                         shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
                 }
+
                 event.setAmount(final_amount - shield_absorb);
             }
         }
@@ -129,7 +130,11 @@ public class EntityHurtEvent {
 		int dmg = Mth.ceil(event.getAmount()) ;
         DamageSource source = event.getSource();
 		if(source instanceof DamageModifierInterface modifierInterface && dmg > 0) {
-			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(source), modifierInterface.er$getModifier().critical, modifierInterface.er$getModifier().type));
+            DamageModifier modifier = modifierInterface.er$getModifier();
+            if(modifier.critical && source.getEntity() instanceof ServerPlayer player){
+                AdvancementTriggerRegister.CRIT_DAMAGE.trigger(player, event.getAmount());
+            }
+			ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(source), modifier.critical, modifier.type));
 		}
         ((ElementSourceInterface)source).er$setElement(null);
 	}
