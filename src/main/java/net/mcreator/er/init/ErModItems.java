@@ -3,11 +3,11 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.item.morabag.MoraBagItemPlus;
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.weapons.AbilitySword;
+import net.wither.er.item.morabag.MoraBagItemPlus;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.ReactionAbility;
 import net.wither.er.item.data.weapon.FunctionalAbilities;
@@ -292,7 +292,7 @@ public class ErModItems {
 	public static final ElementalArmorItem.Group DENDRO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ErArmorMaterials.DENDRO, Element.Category.DENDRO);
 	public static final ElementalArmorItem.Group GEO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ErArmorMaterials.GEO, Element.Category.GEO);
 	public static final RegistryObject<Item> CRYO_FLOWER_SPAWN_EGG = REGISTRY.register("cryo_flower_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.CRYO_WHOPPERFLOWER, 0x00ccff, 0xccffff, new Item.Properties()));
-    public static final RegistryObject<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
+	public static final RegistryObject<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

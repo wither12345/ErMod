@@ -424,5 +424,6 @@
   "adv.er.lunar_charged.desc": "Spawn a Lunar Charged Cloud",
   "adv.er.fertile_land.title": "More Fertile Land",
   "adv.er.fertile_land.desc": "Till Farmland to Elemental Farmland",
-  "item.er.cryo_flower_spawn_egg": "Cryo Whopperflower Spawn Egg"
+  "item.er.cryo_flower_spawn_egg": "Cryo Whopperflower Spawn Egg",
+  "item.er.mora_bag": "Mora Bag"
 }
