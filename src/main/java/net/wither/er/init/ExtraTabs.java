@@ -88,6 +88,11 @@ public class ExtraTabs {
             tabData.accept(BERSERKERS_TIMEPIECE);
             tabData.accept(BERSERKERS_BONE_GOBLET);
             tabData.accept(BERSERKERS_BATTLE_MASK);
+            tabData.accept(SCHOLARS_BOOKMARK);
+            tabData.accept(SCHOLARS_QUILL_PEN);
+            tabData.accept(SCHOLARS_CLOCK);
+            tabData.accept(SCHOLARS_INK_CUP);
+            tabData.accept(SCHOLARS_LENS);
 
 			List<String> attrs = new ArrayList<>();
 			addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);

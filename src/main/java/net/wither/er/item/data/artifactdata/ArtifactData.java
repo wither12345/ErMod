@@ -15,7 +15,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.init.AdditionalRegistries;
 import org.checkerframework.checker.nullness.qual.NonNull;

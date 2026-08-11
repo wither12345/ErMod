@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.entity.ErEntityInterface;
 
 @Mod.EventBusSubscriber(modid = ErMod.MODID)

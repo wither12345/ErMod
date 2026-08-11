@@ -425,5 +425,13 @@
   "adv.er.fertile_land.title": "More Fertile Land",
   "adv.er.fertile_land.desc": "Till Farmland to Elemental Farmland",
   "item.er.cryo_flower_spawn_egg": "Cryo Whopperflower Spawn Egg",
-  "item.er.mora_bag": "Mora Bag"
+  "item.er.mora_bag": "Mora Bag",
+  "item.er.scholars_bookmark": "Scholar\u0027s Bookmark",
+  "item.er.scholars_quill_pen": "Scholar\u0027s Quill Pen",
+  "item.er.scholars_clock": "Scholar\u0027s Clock",
+  "item.er.scholars_ink_cup": "Scholar\u0027s Ink Cup",
+  "item.er.scholars_lens": "Scholar\u0027s Lens",
+  "artifact_effect.er.scholar": "Scholar",
+  "artifact_effect.er.scholar.1": "  2-Piece Set: CRIT Rate +12%",
+  "artifact_effect.er.scholar.2": "  4-Piece Set: Gaining Elemental Particles or Orbs gives 3 Energy to you if you have a bow equipped."
 }

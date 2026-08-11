@@ -12,11 +12,11 @@ import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.ReactionAbility;
 import net.wither.er.item.data.weapon.FunctionalAbilities;
 import net.wither.er.item.data.weapon.DamageAbility;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.*;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.elements.Element;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
 
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -293,6 +293,11 @@ public class ErModItems {
 	public static final ElementalArmorItem.Group GEO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ErArmorMaterials.GEO, Element.Category.GEO);
 	public static final RegistryObject<Item> CRYO_FLOWER_SPAWN_EGG = REGISTRY.register("cryo_flower_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.CRYO_WHOPPERFLOWER, 0x00ccff, 0xccffff, new Item.Properties()));
 	public static final RegistryObject<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
+	public static final RegistryObject<Item> SCHOLARS_BOOKMARK = REGISTRY.register("scholars_bookmark", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.SCHOLAR));
+	public static final RegistryObject<Item> SCHOLARS_QUILL_PEN = REGISTRY.register("scholars_quill_pen", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.SCHOLAR));
+	public static final RegistryObject<Item> SCHOLARS_CLOCK = REGISTRY.register("scholars_clock", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.SCHOLAR));
+	public static final RegistryObject<Item> SCHOLARS_INK_CUP = REGISTRY.register("scholars_ink_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.SCHOLAR));
+	public static final RegistryObject<Item> SCHOLARS_LENS = REGISTRY.register("scholars_lens", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.SCHOLAR));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

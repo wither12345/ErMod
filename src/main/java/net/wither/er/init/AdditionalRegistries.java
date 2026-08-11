@@ -10,7 +10,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
-import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.elements.Element;
 import net.wither.er.outcrop.EntityModifier;
 import net.wither.er.shield.ShieldRegistry;

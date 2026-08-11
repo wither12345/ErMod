@@ -3,7 +3,7 @@ package net.wither.er.player;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
-import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.item.data.weapon.HealthFloatingAbility;
 import net.wither.er.item.weapons.AbilityWeapon;

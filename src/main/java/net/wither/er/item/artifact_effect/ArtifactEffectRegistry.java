@@ -1,4 +1,4 @@
-package net.wither.er.artifact_effect;
+package net.wither.er.item.artifact_effect;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,4 +17,5 @@ public class ArtifactEffectRegistry {
     );
     public static final Supplier<ArtifactEffect> TRAVELING_DOCTOR = AdditionalRegistries.ARTIFACT_EFFECTS.register("traveling_doctor", TravelingDoctor::new);
     public static final Supplier<ArtifactEffect> BERSERKER = AdditionalRegistries.ARTIFACT_EFFECTS.register("berserker", Berserker::new);
+    public static final Supplier<ArtifactEffect> SCHOLAR = AdditionalRegistries.ARTIFACT_EFFECTS.register("scholar", Scholar::new);
 }

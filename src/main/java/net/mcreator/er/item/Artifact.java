@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.phys.AABB;
-import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.init.DataComponentsRegister;

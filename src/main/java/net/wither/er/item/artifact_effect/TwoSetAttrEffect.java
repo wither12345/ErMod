@@ -1,4 +1,4 @@
-package net.wither.er.artifact_effect;
+package net.wither.er.item.artifact_effect;
 
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;

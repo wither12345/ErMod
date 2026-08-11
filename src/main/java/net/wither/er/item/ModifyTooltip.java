@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.data.weapon.WeaponLevelData;

@@ -425,5 +425,13 @@
   "adv.er.fertile_land.title": "更肥沃的土地",
   "adv.er.fertile_land.desc": "将耕地犁成元素耕地",
   "item.er.cryo_flower_spawn_egg": "冰霜骗骗花刷怪蛋",
-  "item.er.mora_bag": "摩拉袋"
+  "item.er.mora_bag": "摩拉袋",
+  "item.er.scholars_bookmark": "学士的书签",
+  "item.er.scholars_quill_pen": "学士的羽笔",
+  "item.er.scholars_clock": "学士的时钟",
+  "item.er.scholars_ink_cup": "学士的墨杯",
+  "item.er.scholars_lens": "学士的镜片",
+  "artifact_effect.er.scholar": "学士",
+  "artifact_effect.er.scholar.1": "  2件套：元素充能效率提高20%。",
+  "artifact_effect.er.scholar.2": "  4件套：获得元素微粒或元素晶球时，若装备弓箭额外恢复3点元素能量。"
 }
