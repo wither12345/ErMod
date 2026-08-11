@@ -3,11 +3,12 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.item.morabag.MoraBagItemPlus;
 import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
+import net.wither.er.item.morabag.MoraBagItemPlus;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.item.data.weapon.WeaponLevelData;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.*;
 import net.wither.er.init.WeaponAbilityRegister;
 import net.wither.er.init.ShieldRegistry;
@@ -15,7 +16,6 @@ import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ArmorMaterialsRegister;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.elements.Element;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
 
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -292,7 +292,12 @@ public class ErModItems {
 	public static final ElementalArmorItem.Group DENDRO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ArmorMaterialsRegister.DENDRO, Element.Category.DENDRO);
 	public static final ElementalArmorItem.Group GEO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ArmorMaterialsRegister.GEO, Element.Category.GEO);
 	public static final DeferredItem<Item> CRYO_FLOWER_SPAWN_EGG = REGISTRY.register("cryo_flower_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.CRYO_WHOPPERFLOWER, 0x00ccff, 0xccffff, new Item.Properties()));
-    public static final DeferredItem<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
+	public static final DeferredItem<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
+	public static final DeferredItem<Item> SCHOLARS_BOOKMARK = REGISTRY.register("scholars_bookmark", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.SCHOLAR));
+	public static final DeferredItem<Item> SCHOLARS_QUILL_PEN = REGISTRY.register("scholars_quill_pen", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.SCHOLAR));
+	public static final DeferredItem<Item> SCHOLARS_CLOCK = REGISTRY.register("scholars_clock", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.SCHOLAR));
+	public static final DeferredItem<Item> SCHOLARS_INK_CUP = REGISTRY.register("scholars_ink_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.SCHOLAR));
+	public static final DeferredItem<Item> SCHOLARS_LENS = REGISTRY.register("scholars_lens", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.SCHOLAR));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

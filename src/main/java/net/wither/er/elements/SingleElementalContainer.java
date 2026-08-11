@@ -8,7 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
 import net.wither.er.api.EventListener;
-import net.wither.er.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;

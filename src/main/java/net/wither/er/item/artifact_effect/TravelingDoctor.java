@@ -1,4 +1,4 @@
-package net.wither.er.artifact_effect;
+package net.wither.er.item.artifact_effect;
 
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.resources.ResourceLocation;

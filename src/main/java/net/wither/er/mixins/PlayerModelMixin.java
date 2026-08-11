@@ -62,10 +62,10 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             this.root().getAllParts().forEach(ModelPart::resetPose);
             Item stellaFortuna = entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem();
-            int combo = entity.getData(ErCombatVariables.PLAYER_VARIABLES).animationId;
+            int animationId = entity.getData(ErCombatVariables.PLAYER_VARIABLES).animationId;
             float speed = (float) entity.getAttributeValue(Attributes.ATTACK_SPEED);
             if (stellaFortuna instanceof StellaFortunas SF)
-                this.animate(((AnimationStater) entity).getState(), SF.getAnimation(combo), ageInTicks, speed);
+                this.animate(((AnimationStater) entity).getState(), SF.getAnimation(animationId), ageInTicks, speed);
         }
     };
 
@@ -97,7 +97,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
 
     @Inject(method = "setupAnim(Lnet/minecraft/world/entity/LivingEntity;FFFFF)V", at = @At("HEAD"), cancellable = true)
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-        ErCombatVariables.PlayerVariables data =  entity.getData(ErCombatVariables.PLAYER_VARIABLES);
+        ErCombatVariables.PlayerVariables data = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
         if(data.animationTime > 0) {
             er$animator.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             this.leftPants.copyFrom(this.leftLeg);

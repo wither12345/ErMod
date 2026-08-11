@@ -1,4 +1,4 @@
-package net.wither.er.artifact_effect;
+package net.wither.er.item.artifact_effect;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -7,7 +7,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import org.jetbrains.annotations.NotNull;
 
-public class TwoSetAttrEffect  extends ArtifactEffect{
+public class TwoSetAttrEffect extends ArtifactEffect{
     private final Holder<Attribute> attr;
     private final AttributeModifier modifier;
     public TwoSetAttrEffect(Holder<Attribute> attr, AttributeModifier modifier) {

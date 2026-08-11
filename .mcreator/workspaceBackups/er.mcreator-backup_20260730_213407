@@ -759,19 +759,6 @@
       }
     },
     {
-      "name": "MoraBag",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "mora_bag",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/mora_bag.json",
-          "src/main/java/net/mcreator/er/item/MoraBagItem.java"
-        ]
-      }
-    },
-    {
       "name": "MoraBagUse",
       "type": "procedure",
       "compiles": true,
@@ -797,7 +784,7 @@
       "name": "CraftMoraBag",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_mora_bag",
       "metadata": {
         "files": [
@@ -3103,7 +3090,7 @@
     {
       "name": "PlayerPickupItem",
       "type": "procedure",
-      "compiles": true,
+      "compiles": false,
       "locked_code": true,
       "registry_name": "player_pickup_item",
       "metadata": {
@@ -3960,7 +3947,7 @@
       "name": "Wallet",
       "type": "achievement",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "wallet",
       "metadata": {
         "files": [
@@ -4936,7 +4923,6 @@
       "block.er.cuihua_leaves": "Cuihua Leaves",
       "er.rarity.1": "§2",
       "er.rarity.0": "",
-      "item.er.mora_bag": "Mora Bag",
       "er.rarity.5": "§d",
       "er.rarity.4": "§6",
       "er.rarity.3": "§5",
@@ -5250,7 +5236,8 @@
       "adv.er.lunar_charged.desc": "Spawn a Lunar Charged Cloud",
       "adv.er.fertile_land.title": "More Fertile Land",
       "adv.er.fertile_land.desc": "Till Farmland to Elemental Farmland",
-      "item.er.cryo_flower_spawn_egg": "Cryo Whopperflower Spawn Egg"
+      "item.er.cryo_flower_spawn_egg": "Cryo Whopperflower Spawn Egg",
+      "item.er.mora_bag": "Mora Bag"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5367,7 +5354,6 @@
       "block.er.cuihua_leaves": "萃华叶",
       "er.rarity.1": "§2",
       "er.rarity.0": "",
-      "item.er.mora_bag": "摩拉袋",
       "er.rarity.5": "§d",
       "er.rarity.4": "§6",
       "er.rarity.3": "§5",
@@ -5680,7 +5666,8 @@
       "adv.er.lunar_charged.desc": "产生一个月感电云",
       "adv.er.fertile_land.title": "更肥沃的土地",
       "adv.er.fertile_land.desc": "将耕地犁成元素耕地",
-      "item.er.cryo_flower_spawn_egg": "冰霜骗骗花刷怪蛋"
+      "item.er.cryo_flower_spawn_egg": "冰霜骗骗花刷怪蛋",
+      "item.er.mora_bag": "摩拉袋"
     }
   },
   "metadata": {
@@ -5727,7 +5714,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

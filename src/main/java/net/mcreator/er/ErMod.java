@@ -8,8 +8,8 @@ import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.loottables.RegisterLootModifier;
 import net.wither.er.loottables.RegisterLootFunction;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.init.*;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
 
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.network.handling.IPayloadHandler;

@@ -1,4 +1,4 @@
-package net.wither.er.artifact_effect;
+package net.wither.er.item.artifact_effect;
 
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.resources.ResourceLocation;
@@ -29,6 +29,7 @@ public class Berserker extends TwoSetAttrEffect implements HealthFloatingAbility
         if(level > 3){
             AttributeInstance instance = entity.getAttribute(ErModAttributes.CRIT_RATE);
             if(instance == null) return;
+            instance.removeModifier(MODIFIER_LOW);
             if (entity.getHealth() <= entity.getMaxHealth() * 0.7)
                 instance.addTransientModifier(MODIFIER_LOW);
         }

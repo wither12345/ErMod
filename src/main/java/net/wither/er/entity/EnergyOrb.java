@@ -1,8 +1,10 @@
 package net.wither.er.entity;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -17,13 +19,18 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
+import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EnergyOrb extends Entity {
-	public static final EntityDataAccessor<Integer> DATA_Element = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.INT);
-	public static final EntityDataAccessor<Float> DATA_Amount = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.FLOAT);
+	public static final EntityDataAccessor<Integer> DATA_ELEMENT = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.INT);
+	public static final EntityDataAccessor<Float> DATA_AMOUNT = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.FLOAT);
 	private int age;
 	private int health = 5;
 	private Player followingPlayer;
@@ -35,13 +42,13 @@ public class EnergyOrb extends Entity {
 
 	@Override
 	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		builder.define(DATA_Element, 0);
-		builder.define(DATA_Amount, 1f);
+		builder.define(DATA_ELEMENT, 0);
+		builder.define(DATA_AMOUNT, 1f);
 	}
 
 	public void setType(int element, float amount) {
-		this.entityData.set(DATA_Element, element);
-		this.entityData.set(DATA_Amount, amount);
+		this.entityData.set(DATA_ELEMENT, element);
+		this.entityData.set(DATA_AMOUNT, amount);
 	}
 
 	@Override
@@ -145,8 +152,8 @@ public class EnergyOrb extends Entity {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		compound.putShort("Health", (short) this.health);
 		compound.putShort("Age", (short) this.age);
-		compound.putInt("Element", this.entityData.get(DATA_Element));
-		compound.putFloat("Amount", this.entityData.get(DATA_Amount));
+		compound.putInt("Element", this.entityData.get(DATA_ELEMENT));
+		compound.putFloat("Amount", this.entityData.get(DATA_AMOUNT));
 	}
 
 	@Override
@@ -154,31 +161,44 @@ public class EnergyOrb extends Entity {
 		this.health = compound.getShort("Health");
 		this.age = compound.getShort("Age");
 		if (compound.contains("Element"))
-			this.entityData.set(DATA_Element, compound.getInt("Element"));
+			this.entityData.set(DATA_ELEMENT, compound.getInt("Element"));
 		if (compound.contains("Amount"))
-			this.entityData.set(DATA_Amount, compound.getFloat("Amount"));
+			this.entityData.set(DATA_AMOUNT, compound.getFloat("Amount"));
 	}
 
 	@Override
-	public void playerTouch(Player player) {
+	public void playerTouch(@NotNull Player player) {
 		if (this.age <= 15)
 			return;
 		if (player instanceof ServerPlayer serverplayer) {
 			if (player.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
 				ErCombatVariables.PlayerVariables vars = serverplayer.getData(ErCombatVariables.PLAYER_VARIABLES);
-				vars.energyAmount = Math.min(fortuna.getEnergyCost(player), vars.energyAmount + this.getAmount() * (float) player.getAttribute(ErModAttributes.ENERGY_RECHARGE).getValue() / 100);
+				vars.energyAmount = Math.min(fortuna.getEnergyCost(player), vars.energyAmount + this.getAmount() * (float) player.getAttributeValue(ErModAttributes.ENERGY_RECHARGE) / 100);
 				vars.syncPlayerVariables(player);
+                if(serverplayer instanceof ErEntityInterface erEntityInterface){
+                    Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+                    for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
+                        if(effect.getKey().value() instanceof EnergyOrbPickupAbility ability){
+                            ability.onPick(this, serverplayer, effect.getIntValue());
+                        }
+                    }
+                }
+                {
+                    WeaponRefinement refinement = player.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
+                    if (refinement != null && refinement.getAbility() instanceof EnergyOrbPickupAbility ability)
+                        ability.onPick(this, serverplayer, refinement.refineLevel());
+                }
 			}
 			this.discard();
 		}
 	}
 
 	public float getAmount() {
-		return this.entityData.get(DATA_Amount);
+		return this.entityData.get(DATA_AMOUNT);
 	}
 
 	public int getElement() {
-		return this.entityData.get(DATA_Element);
+		return this.entityData.get(DATA_ELEMENT);
 	}
 
 	@Override

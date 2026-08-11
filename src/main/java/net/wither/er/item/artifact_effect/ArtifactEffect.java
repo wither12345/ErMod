@@ -1,4 +1,4 @@
-package net.wither.er.artifact_effect;
+package net.wither.er.item.artifact_effect;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;

@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Player;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.entity.ErEntityInterface;
-import net.wither.er.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;

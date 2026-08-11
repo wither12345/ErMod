@@ -61,6 +61,11 @@ public class ExtraTabs {
                 tabData.accept(ErModItems.BERSERKERS_TIMEPIECE);
                 tabData.accept(ErModItems.BERSERKERS_BONE_GOBLET);
                 tabData.accept(ErModItems.BERSERKERS_BATTLE_MASK);
+                tabData.accept(ErModItems.SCHOLARS_BOOKMARK);
+                tabData.accept(ErModItems.SCHOLARS_QUILL_PEN);
+                tabData.accept(ErModItems.SCHOLARS_CLOCK);
+                tabData.accept(ErModItems.SCHOLARS_INK_CUP);
+                tabData.accept(ErModItems.SCHOLARS_LENS);
                 List<String> attrs = new ArrayList<>();
                 addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
                 addMainToTab(ERConfig.PLUME_OF_DEATH_ATTR.get(), tabData, attrs);
