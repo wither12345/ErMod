@@ -4,6 +4,7 @@ import net.mcreator.er.ErMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -23,6 +24,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
@@ -90,7 +92,7 @@ public class ErCombatVariables {
 		public int skillChargingCount = 1;
 
 		@Override
-		public CompoundTag serializeNBT(HolderLookup.Provider lookupProvider) {
+		public CompoundTag serializeNBT(HolderLookup.@NotNull Provider lookupProvider) {
 			CompoundTag nbt = new CompoundTag();
 			nbt.putInt("Animation_Id", animationId);
 			nbt.putInt("Animation_Time", animationTime);
@@ -106,7 +108,7 @@ public class ErCombatVariables {
 		}
 
 		@Override
-		public void deserializeNBT(HolderLookup.Provider lookupProvider, CompoundTag nbt) {
+		public void deserializeNBT(HolderLookup.@NotNull Provider lookupProvider, CompoundTag nbt) {
 			animationId = nbt.getInt("Animation_Id");
 			animationTime = nbt.getInt("Animation_Time");
 			stamina = nbt.getDouble("Stamina");
@@ -120,34 +122,83 @@ public class ErCombatVariables {
 		}
 
 		public void syncPlayerVariables(Entity entity) {
-			if (entity instanceof ServerPlayer serverPlayer)
-				PacketDistributor.sendToAllPlayers(new SyncAnimationMessage(entity.getId(), this));
-			//PacketDistributor.sendToPlayer(serverPlayer, new PlayerVariablesSyncMessage(this));
+            this.syncWithId(entity, 0b11_1111_1111);
 		}
 
-		public void syncAnimation(Entity entity) {
-			if (entity instanceof ServerPlayer serverPlayer)
-				PacketDistributor.sendToAllPlayers(new SyncAnimationMessage(entity.getId(), this));
-		}
+        public void syncWithId(Entity entity, long syncId){
+            if (entity instanceof ServerPlayer)
+                PacketDistributor.sendToAllPlayers(new PlayerVariablesSyncMessage(this, entity.getId(), syncId));
+        }
+
+        public void putToBuffer(FriendlyByteBuf buf, long syncId){
+            int i = 0;
+            if(test(syncId, i ++)) buf.writeInt(animationId);//                 0b--_----_---1
+            if(test(syncId, i ++)) buf.writeInt(animationTime);//               0b--_----_--1-
+            if(test(syncId, i ++)) buf.writeDouble(stamina);//                  0b--_----_-1--
+            if(test(syncId, i ++)) buf.writeInt(staminaRecoveryCooldown);//     0b--_----_1---
+            if(test(syncId, i ++)) buf.writeFloat(stackedMaxSkillCooldown);//   0b--_---1_----
+            if(test(syncId, i ++)) buf.writeFloat(skillCooldown);//             0b--_--1-_----
+            if(test(syncId, i ++)) buf.writeFloat(energyAmount);//              0b--_-1--_----
+            if(test(syncId, i ++)) buf.writeInt(skillChargingCount);//          0b--_1---_----
+            if(test(syncId, i ++)) buf.writeFloat(burstCooldown);//             0b-1_----_----
+            if(test(syncId, i ++)) buf.writeFloat(stackedMaxBurstCooldown);//   0b1-_----_----
+        }
+
+        public void readFromBuffer(FriendlyByteBuf buf, long syncId){
+            int i = 0;
+            if(test(syncId, i ++)) animationId = buf.readInt();
+            if(test(syncId, i ++)) animationTime = buf.readInt();
+            if(test(syncId, i ++)) stamina = buf.readDouble();
+            if(test(syncId, i ++)) staminaRecoveryCooldown = buf.readInt();
+            if(test(syncId, i ++)) stackedMaxSkillCooldown = buf.readFloat();
+            if(test(syncId, i ++)) skillCooldown = buf.readFloat();
+            if(test(syncId, i ++)) energyAmount = buf.readFloat();
+            if(test(syncId, i ++)) skillChargingCount = buf.readInt();
+            if(test(syncId, i ++)) burstCooldown = buf.readFloat();
+            if(test(syncId, i ++)) stackedMaxBurstCooldown = buf.readFloat();
+        }
+
+        public void copyFrom(ErCombatVariables.PlayerVariables variables, long syncId){
+            int i = 0;
+            if(test(syncId, i ++)) animationId = variables.animationId;
+            if(test(syncId, i ++)) animationTime = variables.animationTime;
+            if(test(syncId, i ++)) stamina = variables.stamina;
+            if(test(syncId, i ++)) staminaRecoveryCooldown = variables.staminaRecoveryCooldown;
+            if(test(syncId, i ++)) stackedMaxSkillCooldown = variables.stackedMaxSkillCooldown;
+            if(test(syncId, i ++)) skillCooldown = variables.skillCooldown;
+            if(test(syncId, i ++)) energyAmount = variables.energyAmount;
+            if(test(syncId, i ++)) skillChargingCount = variables.skillChargingCount;
+            if(test(syncId, i ++)) burstCooldown = variables.burstCooldown;
+            if(test(syncId, i ++)) stackedMaxBurstCooldown = variables.stackedMaxBurstCooldown;
+        }
+
+        private boolean test(long id, int index){
+            return (id & (1L << index)) > 0;
+        }
 	}
 
-	public record PlayerVariablesSyncMessage(PlayerVariables data) implements CustomPacketPayload {
+	public record PlayerVariablesSyncMessage(PlayerVariables data, int id, long syncId) implements CustomPacketPayload {
 		public static final Type<PlayerVariablesSyncMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "player_combat_variables_sync"));
-		public static final StreamCodec<RegistryFriendlyByteBuf, PlayerVariablesSyncMessage> STREAM_CODEC = StreamCodec
-				.of((RegistryFriendlyByteBuf buffer, PlayerVariablesSyncMessage message) -> buffer.writeNbt(message.data().serializeNBT(buffer.registryAccess())), (RegistryFriendlyByteBuf buffer) -> {
-					PlayerVariablesSyncMessage message = new PlayerVariablesSyncMessage(new PlayerVariables());
-					message.data.deserializeNBT(buffer.registryAccess(), buffer.readNbt());
-					return message;
-				});
+		public static final StreamCodec<FriendlyByteBuf, PlayerVariablesSyncMessage> STREAM_CODEC = StreamCodec
+				.of(
+                        (FriendlyByteBuf buffer, PlayerVariablesSyncMessage message) ->
+                                message.data().putToBuffer(buffer.writeInt(message.id).writeLong(message.syncId), message.syncId),
+                        (FriendlyByteBuf buffer) -> {
+                            PlayerVariablesSyncMessage message = new PlayerVariablesSyncMessage(new PlayerVariables(), buffer.readInt(), buffer.readLong());
+                            message.data.readFromBuffer(buffer, message.syncId);
+                            return message;
+                        }
+                );
 
 		@Override
-		public Type<PlayerVariablesSyncMessage> type() {
+		public @NotNull Type<PlayerVariablesSyncMessage> type() {
 			return TYPE;
 		}
 
 		public static void handleData(final PlayerVariablesSyncMessage message, final IPayloadContext context) {
-			if (context.flow() == PacketFlow.CLIENTBOUND && message.data != null) {
-				context.enqueueWork(() -> context.player().getData(PLAYER_VARIABLES).deserializeNBT(context.player().registryAccess(), message.data.serializeNBT(context.player().registryAccess()))).exceptionally(e -> {
+            Entity entity = context.player().level().getEntity(message.id());
+			if (context.flow() == PacketFlow.CLIENTBOUND && message.data != null && entity instanceof Player player) {
+				context.enqueueWork(() -> player.getData(PLAYER_VARIABLES).copyFrom(message.data, message.syncId)).exceptionally(e -> {
 					context.connection().disconnect(Component.literal(e.getMessage()));
 					return null;
 				});

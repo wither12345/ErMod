@@ -22,4 +22,5 @@ public class ArtifactEffectRegistry {
     public static final DeferredHolder<ArtifactEffect,ArtifactEffect> TRAVELING_DOCTOR = ARTIFACT_EFFECTS.register("traveling_doctor", TravelingDoctor::new);
     public static final DeferredHolder<ArtifactEffect,ArtifactEffect> BERSERKER = ARTIFACT_EFFECTS.register("berserker", Berserker::new);
     public static final DeferredHolder<ArtifactEffect,ArtifactEffect> SCHOLAR = ARTIFACT_EFFECTS.register("scholar", Scholar::new);
+    public static final DeferredHolder<ArtifactEffect,ArtifactEffect> GAMBLER = ARTIFACT_EFFECTS.register("gambler", Gambler::new);
 }

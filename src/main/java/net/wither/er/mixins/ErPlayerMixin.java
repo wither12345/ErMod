@@ -70,12 +70,10 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 				vars.animationTime = -1;
 			}
 		}
-		if (vars.skillCooldown > 0) {
+		if (vars.skillCooldown > 0)
 			vars.skillCooldown = Math.max(0f, vars.skillCooldown - 0.05f);
-		}
-		if (vars.burstCooldown > 0) {
+		if (vars.burstCooldown > 0)
 			vars.burstCooldown = Math.max(0f, vars.burstCooldown - 0.05f);
-		}
 		if (this.isSprinting() && ErSyncGameRule.getRunningStamina()) {
 			vars.stamina--;
 			if (vars.stamina <= 0) {

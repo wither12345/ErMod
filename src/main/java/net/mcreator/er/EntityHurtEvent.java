@@ -73,10 +73,6 @@ public class EntityHurtEvent {
 		DamageSource damagesource = event.getSource();
 		LivingEntity entity = event.getEntity();
 		Entity sourceentity = event.getSource().getEntity();
-		LevelAccessor world = entity.level();
-		double x = entity.getX();
-		double y = entity.getY();
-		double z = entity.getZ();
 		float crit_mult = 1;
 		modifyDamageSource(damagesource, entity) ;
         modifyReaction(damagesource);
@@ -105,9 +101,14 @@ public class EntityHurtEvent {
                 auraContainerInterface.er$getAuraContainer().addAura(source, modifier, sourceentity);
                 ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
             }
-            else if(entity.getAttribute(ErAttributeRegister.PHYSICAL_RES) != null){
-                modifier.res_multiply *= (100f - (float) entity.getAttributeValue(ErAttributeRegister.PHYSICAL_RES)) / 100f ;
+            else {
+                if (entity.getAttribute(ErAttributeRegister.PHYSICAL_RES) != null)
+                    modifier.res_multiply *= (100f - (float) entity.getAttributeValue(ErAttributeRegister.PHYSICAL_RES)) / 100f;
+                if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.PHYSICAL_DMG_BONUS) != null)
+                    modifier.common_multiply += (float) living.getAttributeValue(ErModAttributes.PHYSICAL_DMG_BONUS) - 1;
             }
+            if(damagesource.is(StellaFortunas.SKILL) && sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_SKILL_DMG) != null)
+                modifierInterface.er$getModifier().common_multiply += (float) living.getAttributeValue(ErModAttributes.ELEMENTAL_SKILL_DMG) - 1f;
 
 			if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE) > Math.random()) {
 				crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE);
@@ -216,15 +217,12 @@ public class EntityHurtEvent {
 
 	private static void ApplyElementMultiply(@NotNull Element element, LivingEntity entity, Entity sourceentity , DamageModifier modifier){
 		element.getDamageAttr();
-		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null){
+		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null)
 			modifier.common_multiply *= (float) living.getAttributeValue(element.getDamageAttr()) ;
-		}
-		if(element.getImmuneTag() != null && entity.getType().is(element.getImmuneTag())){
+		if(element.getImmuneTag() != null && entity.getType().is(element.getImmuneTag()))
 			modifier.reaction_multiply = 0;
-		}
-		else if(element.getResAttr() != null && entity.getAttribute(element.getResAttr()) != null){
+		else if(element.getResAttr() != null && entity.getAttribute(element.getResAttr()) != null)
 			modifier.res_multiply *= (100f - (float) entity.getAttributeValue(element.getResAttr())) / 100f ;
-		}
 	}
 
 	public static int getInfusionType(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
@@ -322,7 +320,7 @@ public class EntityHurtEvent {
         public RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
-            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? 1 : multiply.getMulti(elementalMastery)) - 1) * common_multiply * res_multiply;
+            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply;
         }
     }
 

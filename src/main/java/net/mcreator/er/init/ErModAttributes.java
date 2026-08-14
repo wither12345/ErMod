@@ -34,6 +34,7 @@ public class ErModAttributes {
 	public static final DeferredHolder<Attribute, Attribute> MAX_STAMINA = REGISTRY.register("max_stamina", () -> new RangedAttribute("attribute.er.max_stamina", 100, 20, 1024).setSyncable(true));
 	public static final DeferredHolder<Attribute, Attribute> CRIT_RATE = REGISTRY.register("crit_rate", () -> new RangedAttribute("attribute.er.crit_rate", 0.05, 0, 1).setSyncable(true));
 	public static final DeferredHolder<Attribute, Attribute> INCOMING_HEALING_BONUS = REGISTRY.register("incoming_healing_bonus", () -> new RangedAttribute("attribute.er.incoming_healing_bonus", 1, 0, 100).setSyncable(true));
+	public static final DeferredHolder<Attribute, Attribute> ELEMENTAL_SKILL_DMG = REGISTRY.register("elemental_skill_dmg", () -> new RangedAttribute("attribute.er.elemental_skill_dmg", 1, 0, 10).setSyncable(true));
 
 	@SubscribeEvent
 	public static void addAttributes(EntityAttributeModificationEvent event) {
@@ -52,5 +53,6 @@ public class ErModAttributes {
 		event.add(EntityType.PLAYER, MAX_STAMINA);
 		event.getTypes().forEach(entity -> event.add(entity, CRIT_RATE));
 		event.getTypes().forEach(entity -> event.add(entity, INCOMING_HEALING_BONUS));
+		event.add(EntityType.PLAYER, ELEMENTAL_SKILL_DMG);
 	}
 }

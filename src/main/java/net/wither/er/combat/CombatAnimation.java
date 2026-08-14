@@ -74,7 +74,7 @@ public class CombatAnimation {
 		ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
 		if (item instanceof StellaFortunas SFitem && SFitem.hasAnimation(entity)) {
 			float speed = (float) entity.getAttribute(Attributes.ATTACK_SPEED).getValue();
-			int combo = (int) vars.animationId;
+			int combo = vars.animationId;
 			if (vars.animationTime > SFitem.getFinishTick(entity, combo, speed) || !entity.onGround()) {
 				return true;
 			}
@@ -84,8 +84,7 @@ public class CombatAnimation {
 				vars.animationId = 0;
 			entity.setSprinting(false);
 			vars.animationTime = SFitem.getAnimationTick(entity, combo, speed);
-			vars.syncAnimation(entity);
-			//vars.syncPlayerVariables(entity);
+            vars.syncWithId(entity, 0b00_0000_0011);
 			return true;
 		}
 		return false;

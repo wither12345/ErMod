@@ -54,15 +54,12 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 			vars.animationTime = 1000;
 			vars.animationId = 20;
 		}
-		vars.syncPlayerVariables(entity);
+		vars.syncWithId(entity, 0b11);
 	}
 
 	public void ElementalSkillEnd(LivingEntity entity) {
 		ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
 		if (vars.animationTime > 0) {
-			vars.animationTime = 14;
-			vars.animationId = 21;
-			Level world = entity.level();
 			if (vars.animationTime < 990) {
 				entity.getPersistentData().putBoolean("skillPressed", true);
 				vars.skillCooldown = 8;
@@ -72,10 +69,13 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 				vars.stackedMaxSkillCooldown = 5;
 				entity.getPersistentData().putBoolean("skillPressed", false);
 			}
+            vars.animationTime = 14;
+            vars.animationId = 21;
 		}
 		CompoundTag message = new CompoundTag();
 		message.putInt("elementalAbsorption", 0);
 		sendMessage(entity, message);
+        vars.syncWithId(entity, 0b00_0011_0011);
 		vars.syncPlayerVariables(entity);
 	}
 
@@ -86,20 +86,18 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 			vars.animationTime = 18;
 			vars.animationId = 30;
 			vars.stackedMaxBurstCooldown = 15;
+            vars.energyAmount = 0;
 			if (entity.level() instanceof ServerLevel _level) {
 				Entity entityToSpawn = ErModEntities.TRAVELER_TORNADO.get().spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
-				vars.energyAmount = 0;
-				vars.syncPlayerVariables(entity);
 				onBurst(entity);
 				if (entityToSpawn != null) {
 					entityToSpawn.setYRot(entity.getYRot());
-					//entityToSpawn.getPersistentData().putString("owner", entity.getStringUUID());
 					if (entityToSpawn instanceof TravelerTornadoEntity _datEntSetS)
                         _datEntSetS.setOwner(entity);
 				}
 			}
+            vars.syncWithId(entity, 0b110100_0011);
 		}
-		vars.syncPlayerVariables(entity);
 	}
 
 	public void ElementalBurstEnd(LivingEntity entity) {
@@ -110,8 +108,8 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 	}
 
 	@Override
-	public float getSpeed(LivingEntity entity, int combo) {
-		if (combo < this.getMaxCombo(entity) || combo == 10) {
+	public float getSpeed(LivingEntity entity, int animationId) {
+		if (animationId < this.getMaxCombo(entity) || animationId == 10) {
 			return (float) (entity.getAttributeValue(Attributes.ATTACK_SPEED));
 		}
 		return 1f;
@@ -121,20 +119,20 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 		entity.getPersistentData().putInt("elementalAbsorption", message.getInt("elementalAbsorption"));
 	}
 
-	public AnimationDefinition getAnimation(int combo) {
-		if (combo == 20)
+	public AnimationDefinition getAnimation(int animationId) {
+		if (animationId == 20)
 			return travelerAnimation.ElementalSkillAnemoStart;
-		if (combo == 21)
+		if (animationId == 21)
 			return travelerAnimation.ElementalSkillAnemoEnd;
-		if (combo == 30)
+		if (animationId == 30)
 			return travelerAnimation.ElementalBurstAnemo;
-		if (combo == 10)
+		if (animationId == 10)
 			return travelerAnimation.ChargedAttack;
-		if (combo % 4 == 0)
+		if (animationId % 4 == 0)
 			return travelerAnimation.NormalAttack1;
-		if (combo % 4 == 1)
+		if (animationId % 4 == 1)
 			return travelerAnimation.NormalAttack2;
-		if (combo % 4 == 2)
+		if (animationId % 4 == 2)
 			return travelerAnimation.NormalAttack3;
 		return travelerAnimation.NormalAttack4;
 	}
@@ -147,18 +145,18 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 		return entity.getMainHandItem().getItem() instanceof SwordItem;
 	}
 
-	public int getAnimationTick(LivingEntity entity, int combo, float speed) {
-		if (combo == 2)
+	public int getAnimationTick(LivingEntity entity, int animationId, float speed) {
+		if (animationId == 2)
 			return (int) (29 / speed) + 1;
 		return (int) (27 / speed) + 1;
 	}
 
-	public int getFinishTick(LivingEntity entity, int combo, float speed) {
-		if (combo == 20)
+	public int getFinishTick(LivingEntity entity, int animationId, float speed) {
+		if (animationId == 20)
 			return 0;
-		if (combo == 21)
+		if (animationId == 21)
 			return 6;
-		if (combo == 2)
+		if (animationId == 2)
 			return (int) (18 / speed) + 1;
 		return (int) (19 / speed) + 1;
 	}
@@ -167,29 +165,29 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 		return 20;
 	}
 
-	public void AnimationTicking(LivingEntity entity, int combo, int time, float speed) {
+	public void AnimationTicking(LivingEntity entity, int animationId, int time, float speed) {
 		if (entity.level() instanceof ServerLevel) {
-			if (combo == 10 && time == (int) (24 / speed) + 1) {
-				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(combo, 0));
+			if (animationId == 10 && time == (int) (24 / speed) + 1) {
+				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(animationId, 0));
 			}
-			if (combo == 2 & time == (int) (21 / speed) + 1)
+			if (animationId == 2 & time == (int) (21 / speed) + 1)
 				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(2, 0));
-			if (combo != 2 && time == (int) (22 / speed) + 1) {
-				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(combo, 1));
+			if (animationId != 2 && time == (int) (22 / speed) + 1) {
+				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(animationId, 1));
 			}
 		}
-		if (time <= this.getFinishTick(entity, combo, speed) && combo <= this.getMaxCombo(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {
+		if (time <= this.getFinishTick(entity, animationId, speed) && animationId <= this.getMaxCombo(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {
 			ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
 			if (vars.stamina >= this.getChargedAttackCost(entity)) {
 				vars.stamina -= this.getChargedAttackCost(entity);
 				vars.animationId = 10;
 				vars.animationTime = this.getAnimationTick(entity, 10, speed);
 				vars.staminaRecoveryCooldown = 50;
-				vars.syncAnimation(entity);
+                vars.syncWithId(entity, 0b00_0000_1111);
 				entity.getPersistentData().putBoolean("WaitingChargeAttack", false);
 			}
 		}
-        if (combo == 20) {
+        if (animationId == 20) {
             Level world = entity.level();
             float yaw = entity.getYRot();
             Vec3 lookVec = new Vec3(-Math.sin(yaw * Math.PI / 180), 0, Math.cos(yaw * Math.PI / 180)).normalize().scale(2);
@@ -245,7 +243,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
             }
             world.addParticle(getParticle(absorption), _center.x, _center.y, _center.z, 0, 0, 0);
         }
-        if (combo == 21) {
+        if (animationId == 21) {
             if (time > 9)
                 entity.push(0.1f * Math.sin((entity.getYRot() / 180d) * Math.PI), 0, -0.1f * Math.cos((entity.getYRot() / 180d) * Math.PI));
             if (time == 9) {
@@ -273,7 +271,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
                 }
             }
         }
-		if (combo == 30) {
+		if (animationId == 30) {
 			if (time >= 15) {
 				entity.push(0, 0.25, 0);
 			} else if (time >= 4) {
@@ -282,24 +280,24 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 		}
 	}
 
-	public float DamageMulti(int combo, int index) {
-		if (combo == 0)
+	public float DamageMulti(int animationId, int index) {
+		if (animationId == 0)
 			return 0.445f;
-		else if (combo == 1)
+		else if (animationId == 1)
 			return 0.434f;
-		else if (combo == 2)
+		else if (animationId == 2)
 			return 0.53f;
-		else if (combo == 3)
+		else if (animationId == 3)
 			return 0.583f;
-		else if (combo == 4)
+		else if (animationId == 4)
 			return 0.708f;
-		else if (combo == 10)
+		else if (animationId == 10)
 			return index == 0 ? 0.559f : 0.772f;
-		else if (combo == 20)
+		else if (animationId == 20)
 			return index == 0 ? 0.12f : 0.168f;
-		else if (combo == 21)
+		else if (animationId == 21)
 			return index == 0 ? 1.76f : 1.92f;
-		else if (combo == 30)
+		else if (animationId == 30)
 			return index == 0 ? 0.808f : 0.248f;
 		return 1;
 	}
