@@ -53,15 +53,12 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 			vars.animationTime = 1000;
 			vars.animationId = 20;
 		}
-		vars.syncPlayerVariables(entity);
+		vars.syncWithId(entity, 0b11);
 	}
 
 	public void ElementalSkillEnd(LivingEntity entity) {
 		ErCombatVariables.PlayerVariables vars = entity.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
 		if (vars.animationTime > 0) {
-			vars.animationTime = 14;
-			vars.animationId = 21;
-			Level world = entity.level();
 			if (vars.animationTime < 990) {
 				entity.getPersistentData().putBoolean("skillPressed", true);
 				vars.skillCooldown = 8;
@@ -71,11 +68,13 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 				vars.stackedMaxSkillCooldown = 5;
 				entity.getPersistentData().putBoolean("skillPressed", false);
 			}
+            vars.animationTime = 14;
+            vars.animationId = 21;
 		}
 		CompoundTag message = new CompoundTag();
 		message.putInt("elementalAbsorption", 0);
 		sendMessage(entity, message);
-		vars.syncPlayerVariables(entity);
+        vars.syncWithId(entity, 0b00_0011_0011);
 	}
 
 	public void ElementalBurstStart(LivingEntity entity) {
@@ -85,20 +84,18 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 			vars.animationTime = 18;
 			vars.animationId = 30;
 			vars.stackedMaxBurstCooldown = 15;
+            vars.energyAmount = 0;
 			if (entity.level() instanceof ServerLevel _level) {
 				Entity entityToSpawn = ErModEntities.TRAVELER_TORNADO.get().spawn(_level, BlockPos.containing(entity.getX(), entity.getY(), entity.getZ()), MobSpawnType.MOB_SUMMONED);
-				vars.energyAmount = 0;
-				vars.syncPlayerVariables(entity);
 				onBurst(entity);
 				if (entityToSpawn != null) {
 					entityToSpawn.setYRot(entity.getYRot());
-					//entityToSpawn.getPersistentData().putString("owner", entity.getStringUUID());
 					if (entityToSpawn instanceof TravelerTornadoEntity _datEntSetS)
                         _datEntSetS.setOwner(entity);
 				}
 			}
+            vars.syncWithId(entity, 0b110100_0011);
 		}
-		vars.syncPlayerVariables(entity);
 	}
 
 	public void ElementalBurstEnd(LivingEntity entity) {
@@ -184,7 +181,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 				vars.animationId = 10;
 				vars.animationTime = this.getAnimationTick(entity, 10, speed);
 				vars.staminaRecoveryCooldown = 50;
-				vars.syncAnimation(entity);
+				vars.syncWithId(entity, 0b1111);
 				entity.getPersistentData().putBoolean("WaitingChargeAttack", false);
 			}
 		}

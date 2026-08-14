@@ -432,6 +432,15 @@
   "item.er.scholars_ink_cup": "Scholar\u0027s Ink Cup",
   "item.er.scholars_lens": "Scholar\u0027s Lens",
   "artifact_effect.er.scholar": "Scholar",
-  "artifact_effect.er.scholar.1": "  2-Piece Set: CRIT Rate +12%",
-  "artifact_effect.er.scholar.2": "  4-Piece Set: Gaining Elemental Particles or Orbs gives 3 Energy to you if you have a bow equipped."
+  "artifact_effect.er.scholar.1": "  2-Piece Set: Energy Recharge +20%",
+  "artifact_effect.er.scholar.2": "  4-Piece Set: Gaining Elemental Particles or Orbs gives 3 Energy to you if you have a bow equipped.",
+  "attribute.er.elemental_skill_dmg": "Elemental Skill DMG",
+  "item.er.gamblers_brooch": "Gambler\u0027s Brooch",
+  "item.er.gamblers_feather_accessory": "Gambler\u0027s Feather Accessory",
+  "item.er.gamblers_pocket_watch": "Gambler\u0027s Pocket Watch",
+  "item.er.gamblers_dice_cup": "Gambler\u0027s Dice Cup",
+  "item.er.gamblers_earrings": "Gambler\u0027s Earrings",
+  "artifact_effect.er.gambler": "Gambler",
+  "artifact_effect.er.gambler.1": "  2-Piece Set: Increases Elemental Skill DMG by 20%.",
+  "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s."
 }

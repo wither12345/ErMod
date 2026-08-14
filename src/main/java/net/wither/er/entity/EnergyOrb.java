@@ -1,5 +1,6 @@
 package net.wither.er.entity;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.core.BlockPos;
@@ -17,8 +18,12 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
+import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EnergyOrb extends Entity {
@@ -45,7 +50,7 @@ public class EnergyOrb extends Entity {
 	}
 
 	@Override
-	protected Entity.MovementEmission getMovementEmission() {
+	protected Entity.@NotNull MovementEmission getMovementEmission() {
 		return Entity.MovementEmission.NONE;
 	}
 
@@ -59,7 +64,7 @@ public class EnergyOrb extends Entity {
 			this.setUnderwaterMovement();
 		}
 		if (this.level().getFluidState(this.blockPosition()).is(FluidTags.LAVA)) {
-			this.setDeltaMovement((double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F), 0.2F, (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F));
+			this.setDeltaMovement((this.random.nextFloat() - this.random.nextFloat()) * 0.2F, 0.2F, (double) ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F));
 		}
 		if (!this.level().noCollision(this.getBoundingBox())) {
 			this.moveTowardsClosestSpace(this.getX(), (this.getBoundingBox().minY + this.getBoundingBox().maxY) / 2.0, this.getZ());
@@ -84,7 +89,7 @@ public class EnergyOrb extends Entity {
 			BlockPos pos = getBlockPosBelowThatAffectsMyMovement();
 			f = this.level().getBlockState(pos).getFriction(this.level(), pos, this) * 0.98F;
 		}
-		this.setDeltaMovement(this.getDeltaMovement().multiply((double) f, 0.98, (double) f));
+		this.setDeltaMovement(this.getDeltaMovement().multiply(f, 0.98, f));
 		if (this.onGround()) {
 			this.setDeltaMovement(this.getDeltaMovement().multiply(1.0, -0.9, 1.0));
 		}
@@ -95,7 +100,7 @@ public class EnergyOrb extends Entity {
 	}
 
 	@Override
-	public BlockPos getBlockPosBelowThatAffectsMyMovement() {
+	public @NotNull BlockPos getBlockPosBelowThatAffectsMyMovement() {
 		return this.getOnPos(0.999999F);
 	}
 
@@ -119,14 +124,14 @@ public class EnergyOrb extends Entity {
 	}
 
 	@Override
-	public boolean hurt(DamageSource p_20785_, float p_20786_) {
-		if (this.isInvulnerableTo(p_20785_)) {
+	public boolean hurt(@NotNull DamageSource source, float dmg) {
+		if (this.isInvulnerableTo(source)) {
 			return false;
 		} else if (this.level().isClientSide) {
 			return true;
 		} else {
 			this.markHurt();
-			this.health = (int) ((float) this.health - p_20786_);
+			this.health = (int) ((float) this.health - dmg);
 			if (this.health <= 0) {
 				this.discard();
 			}
@@ -153,14 +158,27 @@ public class EnergyOrb extends Entity {
 	}
 
 	@Override
-	public void playerTouch(Player player) {
+	public void playerTouch(@NotNull Player player) {
 		if (this.age <= 15)
 			return;
 		if (player instanceof ServerPlayer serverplayer) {
 			if (player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
 				ErCombatVariables.PlayerVariables vars = serverplayer.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
-				vars.energyAmount = Math.min(fortuna.getEnergyCost(player), vars.energyAmount + this.getAmount() * (float) player.getAttribute(ErModAttributes.ENERGY_RECHARGE.get()).getValue() / 100);
-				vars.syncPlayerVariables(player);
+				vars.energyAmount = Math.min(fortuna.getEnergyCost(player), vars.energyAmount + this.getAmount() * (float) player.getAttributeValue(ErModAttributes.ENERGY_RECHARGE.get()) / 100);
+                vars.syncWithId(serverplayer, 0b110100_0011);
+                if(serverplayer instanceof ErEntityInterface erEntityInterface){
+                    Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+                    for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                        if(effect.getKey() instanceof EnergyOrbPickupAbility ability){
+                            ability.onPick(this, serverplayer, effect.getIntValue());
+                        }
+                    }
+                }
+                if(serverplayer.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof EnergyOrbPickupAbility ability) {
+                    CompoundTag tag = serverplayer.getMainHandItem().getOrCreateTag();
+                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                    ability.onPick(this, serverplayer, refinement);
+                }
 			}
 			this.discard();
 		}
@@ -180,7 +198,7 @@ public class EnergyOrb extends Entity {
 	}
 
 	@Override
-	public SoundSource getSoundSource() {
+	public @NotNull SoundSource getSoundSource() {
 		return SoundSource.AMBIENT;
 	}
 }

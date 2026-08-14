@@ -1,11 +1,14 @@
 package net.mcreator.er.procedures;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.init.ErModEnchantments;
 import net.mcreator.er.init.ErModEntities;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
@@ -24,6 +27,10 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.entity.EnergyOrb;
+import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.weapon.KillAbility;
+import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.outcrop.Blossom;
 
 import javax.annotation.Nullable;
@@ -39,20 +46,15 @@ public class EntityDeathProcedure {
 	@SubscribeEvent
 	public static void onEntityDeath(LivingDeathEvent event) {
 		if (event != null) {
-            execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity(), event.getSource().getEntity());
+            execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity(), event.getSource().getEntity(), event.getSource());
         }
 	}
 
-	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity, Entity sourceentity) {
-		execute(null, world, x, y, z, entity, sourceentity);
-	}
-
-	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity, Entity sourceentity) {
+	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, LivingEntity entity, Entity sourceentity, DamageSource source) {
 		if (entity == null)
 			return;
-		ItemStack artifact_drop = ItemStack.EMPTY;
 		ItemStack item_drop  = new ItemStack(ErModItems.MORA.get());
-		item_drop.setCount((int) Math.min((entity instanceof LivingEntity _livEnt ? _livEnt.getMaxHealth() : -1) / 2, 20));
+		item_drop.setCount((int) Math.min(entity.getMaxHealth() / 2, 20));
 		if (world instanceof ServerLevel _level) {
 			ItemEntity entityToSpawn = new ItemEntity(_level, x, y, z, item_drop);
 			entityToSpawn.setPickUpDelay(10);
@@ -85,6 +87,19 @@ public class EntityDeathProcedure {
 				_level.addFreshEntity(entityToSpawn);
 			}
 		}
+        if(sourceentity instanceof ErEntityInterface erEntityInterface){
+            Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+            for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                if(effect.getKey() instanceof KillAbility ability){
+                    ability.onKill(source, entity, effect.getIntValue());
+                }
+            }
+        }
+        if(hand_item.getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof KillAbility ability) {
+            CompoundTag tag = hand_item.getOrCreateTag();
+            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+            ability.onKill(source, entity, refinement);
+        }
 	}
 
 	private static void dropArtifact(ServerLevel level, BlockPos pos,  ResourceLocation tableKey){

@@ -36,6 +36,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
@@ -100,6 +101,14 @@ public class EntityHurtEvent {
                 auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), modifier, sourceentity);
                 ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifier);
             }
+            else {
+                if (entity.getAttribute(ErAttributeRegister.PHYSICAL_RES.get()) != null)
+                    modifier.res_multiply *= (100f - (float) entity.getAttributeValue(ErAttributeRegister.PHYSICAL_RES.get())) / 100f;
+                if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.PHYSICAL_DMG_BONUS.get()) != null)
+                    modifier.common_multiply += (float) living.getAttributeValue(ErModAttributes.PHYSICAL_DMG_BONUS.get()) - 1;
+            }
+            if(damagesource.is(StellaFortunas.SKILL) && sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_SKILL_DMG.get()) != null)
+                modifierInterface.er$getModifier().common_multiply += (float) living.getAttributeValue(ErModAttributes.ELEMENTAL_SKILL_DMG.get()) - 1f;
 
             if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
                 crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
@@ -108,6 +117,7 @@ public class EntityHurtEvent {
 
             if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
                 modifier.reaction_multiply = 0 ;
+
 
             float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
             if (entity instanceof ErEntityInterface enti) {
@@ -208,15 +218,12 @@ public class EntityHurtEvent {
 
 	private static void ApplyElementMultiply(Element element, LivingEntity entity, Entity sourceentity , DamageModifier modifier){
 		element.getDamageAttr();
-		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null){
-			modifier.reaction_multiply *= (float) living.getAttributeValue(element.getDamageAttr()) ;
-		}
-		if(element.getImmuneTag() != null && entity.getType().is(element.getImmuneTag())){
+		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null)
+			modifier.common_multiply += (float) living.getAttributeValue(element.getDamageAttr()) - 1;
+		if(element.getImmuneTag() != null && entity.getType().is(element.getImmuneTag()))
 			modifier.reaction_multiply = 0;
-		}
-		else if(element.getResAttr() != null && entity.getAttribute(element.getResAttr()) != null){
-			modifier.reaction_multiply *= (100f - (float) entity.getAttributeValue(element.getResAttr())) / 100f ;
-		}
+		else if(element.getResAttr() != null && entity.getAttribute(element.getResAttr()) != null)
+			modifier.res_multiply *= (100f - (float) entity.getAttributeValue(element.getResAttr())) / 100f ;
 	}
 
 	public static int getInfusionType(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
@@ -316,7 +323,7 @@ public class EntityHurtEvent {
         private RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
-            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? 1 : multiply.getMulti(elementalMastery)) - 1) * common_multiply * res_multiply;
+            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply;
         }
     }
 

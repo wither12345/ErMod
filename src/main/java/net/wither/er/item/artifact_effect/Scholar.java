@@ -30,7 +30,7 @@ public class Scholar extends TwoSetAttrEffect implements EnergyOrbPickupAbility 
         {
             ErCombatVariables.PlayerVariables vars = serverPlayer.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
             vars.energyAmount = Math.min(fortuna.getEnergyCost(picker), vars.energyAmount + 3 * (float) picker.getAttributeValue(ErModAttributes.ENERGY_RECHARGE.get()) / 100);
-            vars.syncPlayerVariables(picker);
+            vars.syncWithId(picker, 0b00_0100_0000);
         }
     }
 }

@@ -32,19 +32,19 @@ public class ErCombatVariables {
 		@SubscribeEvent
 		public static void onPlayerLoggedInSyncPlayerVariables(PlayerEvent.PlayerLoggedInEvent event) {
 			if (event.getEntity() instanceof ServerPlayer player)
-				player.getCapability(PLAYER_VARIABLES).ifPresent(capability -> ErMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> player), new ErCombatVariables.CombatVariablesSyncMessage(player.getId(), capability)));
+				player.getCapability(PLAYER_VARIABLES).ifPresent(capability -> capability.syncPlayerVariables(player));
 		}
 
 		@SubscribeEvent
 		public static void onPlayerRespawnedSyncPlayerVariables(PlayerEvent.PlayerRespawnEvent event) {
 			if (event.getEntity() instanceof ServerPlayer player)
-				player.getCapability(PLAYER_VARIABLES).ifPresent(capability -> ErMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> player), new ErCombatVariables.CombatVariablesSyncMessage(player.getId(), capability)));
+                player.getCapability(PLAYER_VARIABLES).ifPresent(capability -> capability.syncPlayerVariables(player));
 		}
 
 		@SubscribeEvent
 		public static void onPlayerChangedDimensionSyncPlayerVariables(PlayerEvent.PlayerChangedDimensionEvent event) {
 			if (event.getEntity() instanceof ServerPlayer player)
-				player.getCapability(PLAYER_VARIABLES).ifPresent(capability -> ErMod.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> player), new ErCombatVariables.CombatVariablesSyncMessage(player.getId(), capability)));
+                player.getCapability(PLAYER_VARIABLES).ifPresent(capability -> capability.syncPlayerVariables(player));
 		}
 
 
@@ -130,51 +130,82 @@ public class ErCombatVariables {
 			stackedMaxBurstCooldown = nbt.getFloat("Stacked_Burst_Cooldown");
 		}
 
-		public void syncPlayerVariables(Entity entity) {
-			if (entity instanceof ServerPlayer serverPlayer)
-				entity.getCapability(PLAYER_VARIABLES).ifPresent(capability -> ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new CombatVariablesSyncMessage(serverPlayer.getId(), capability)));
-		}
+        public void putToBuffer(FriendlyByteBuf buf, long syncId){
+            int i = 0;
+            if(test(syncId, i ++)) buf.writeInt(animationId);//                 0b--_----_---1
+            if(test(syncId, i ++)) buf.writeInt(animationTime);//               0b--_----_--1-
+            if(test(syncId, i ++)) buf.writeDouble(stamina);//                  0b--_----_-1--
+            if(test(syncId, i ++)) buf.writeInt(staminaRecoveryCooldown);//     0b--_----_1---
+            if(test(syncId, i ++)) buf.writeFloat(stackedMaxSkillCooldown);//   0b--_---1_----
+            if(test(syncId, i ++)) buf.writeFloat(skillCooldown);//             0b--_--1-_----
+            if(test(syncId, i ++)) buf.writeFloat(energyAmount);//              0b--_-1--_----
+            if(test(syncId, i ++)) buf.writeInt(skillChargingCount);//          0b--_1---_----
+            if(test(syncId, i ++)) buf.writeFloat(burstCooldown);//             0b-1_----_----
+            if(test(syncId, i ++)) buf.writeFloat(stackedMaxBurstCooldown);//   0b1-_----_----
+        }
 
-		public void syncAnimation(Entity entity) {
-			if (entity instanceof ServerPlayer serverPlayer)
-				entity.getCapability(PLAYER_VARIABLES).ifPresent(capability -> ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new SyncAnimationMessage(capability.animationId, capability.animationTime, serverPlayer.getId())));
-		}
+        public void readFromBuffer(FriendlyByteBuf buf, long syncId){
+            int i = 0;
+            if(test(syncId, i ++)) animationId = buf.readInt();
+            if(test(syncId, i ++)) animationTime = buf.readInt();
+            if(test(syncId, i ++)) stamina = buf.readDouble();
+            if(test(syncId, i ++)) staminaRecoveryCooldown = buf.readInt();
+            if(test(syncId, i ++)) stackedMaxSkillCooldown = buf.readFloat();
+            if(test(syncId, i ++)) skillCooldown = buf.readFloat();
+            if(test(syncId, i ++)) energyAmount = buf.readFloat();
+            if(test(syncId, i ++)) skillChargingCount = buf.readInt();
+            if(test(syncId, i ++)) burstCooldown = buf.readFloat();
+            if(test(syncId, i ++)) stackedMaxBurstCooldown = buf.readFloat();
+        }
+
+        public void copyFrom(ErCombatVariables.PlayerVariables variables, long syncId){
+            int i = 0;
+            if(test(syncId, i ++)) animationId = variables.animationId;
+            if(test(syncId, i ++)) animationTime = variables.animationTime;
+            if(test(syncId, i ++)) stamina = variables.stamina;
+            if(test(syncId, i ++)) staminaRecoveryCooldown = variables.staminaRecoveryCooldown;
+            if(test(syncId, i ++)) stackedMaxSkillCooldown = variables.stackedMaxSkillCooldown;
+            if(test(syncId, i ++)) skillCooldown = variables.skillCooldown;
+            if(test(syncId, i ++)) energyAmount = variables.energyAmount;
+            if(test(syncId, i ++)) skillChargingCount = variables.skillChargingCount;
+            if(test(syncId, i ++)) burstCooldown = variables.burstCooldown;
+            if(test(syncId, i ++)) stackedMaxBurstCooldown = variables.stackedMaxBurstCooldown;
+        }
+
+        private boolean test(long id, int index){
+            return (id & (1L << index)) > 0;
+        }
+
+		public void syncPlayerVariables(Entity entity) {
+            syncWithId(entity, 0b11_1111_1111);
+        }
+
+        public void syncWithId(Entity entity, long syncId){
+            if (entity instanceof ServerPlayer serverPlayer)
+                entity.getCapability(PLAYER_VARIABLES).ifPresent(capability -> ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new CombatVariablesSyncMessage(capability, serverPlayer.getId(), syncId)));
+        }
 	}
 
-	public record CombatVariablesSyncMessage(int id, PlayerVariables data) {
+	public record CombatVariablesSyncMessage(PlayerVariables data, int id, long syncId) {
 		public CombatVariablesSyncMessage(@NotNull FriendlyByteBuf buffer) {
-			this(buffer.readInt(), new PlayerVariables());
-			data.deserializeNBT(buffer.readNbt());
+			this(new PlayerVariables(), buffer.readInt(), buffer.readLong());
+			data.readFromBuffer(buffer, this.syncId);
 		}
 
 		public static void buffer(CombatVariablesSyncMessage message, FriendlyByteBuf buffer) {
 			buffer.writeInt(message.id);
-			buffer.writeNbt(message.data().serializeNBT());
+            buffer.writeLong(message.syncId);
+            message.data().putToBuffer(buffer, message.syncId);
 		}
 
 		public static void handleData(final CombatVariablesSyncMessage message, final Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
-            if (Minecraft.getInstance().level == null) {
-                ErMod.LOGGER.error("ErCombatVariables.class found null instance level");
-                return;
-            }
+            if (Minecraft.getInstance().level == null) return;
 			Entity entity = Minecraft.getInstance().level.getEntity(message.id);
             if(entity == null) return;
             context.enqueueWork(() -> {
 				if (entity instanceof Player player && !context.getDirection().getReceptionSide().isServer() && message.data != null)
-					player.getCapability(PLAYER_VARIABLES).ifPresent(cap -> {
-						PlayerVariables data = message.data();
-						cap.animationId = data.animationId;
-						cap.animationTime = data.animationTime;
-						cap.stamina = data.stamina;
-						cap.staminaRecoveryCooldown = data.staminaRecoveryCooldown;
-						cap.stackedMaxSkillCooldown = data.stackedMaxSkillCooldown;
-						cap.skillCooldown = data.skillCooldown;
-						cap.energyAmount = data.energyAmount;
-						cap.burstCooldown = data.burstCooldown;
-						cap.stackedMaxBurstCooldown = data.stackedMaxBurstCooldown;
-						cap.skillChargingCount = data.skillChargingCount;
-					});
+					player.getCapability(PLAYER_VARIABLES).ifPresent(cap -> cap.copyFrom(message.data(), message.syncId()));
 			});
 			context.setPacketHandled(true);
 		}

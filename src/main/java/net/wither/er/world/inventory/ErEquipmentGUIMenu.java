@@ -5,6 +5,7 @@ import net.mcreator.er.ErMod;
 import net.mcreator.er.StellaFortunas;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
@@ -139,10 +140,12 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
         @Override
         public void setChanged() {
             super.setChanged();
-            ErItemVariables.PlayerVariables _vars = player.getCapability(ErItemVariables.PLAYER_VARIABLES).resolve().get();
-            _vars.Stella_Fortuna = this.getItem().copy();
-            StellaFortunas.applyAttr(player, _vars.Stella_Fortuna);
-            _vars.syncToClient(player);
+            if(player.level() instanceof ServerLevel) {
+                ErItemVariables.PlayerVariables _vars = player.getCapability(ErItemVariables.PLAYER_VARIABLES).resolve().get();
+                _vars.Stella_Fortuna = this.getItem().copy();
+                StellaFortunas.applyAttr(player, _vars.Stella_Fortuna);
+                _vars.syncToClient(player);
+            }
         }
     }
 

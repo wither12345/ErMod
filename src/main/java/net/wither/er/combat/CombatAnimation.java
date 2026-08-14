@@ -85,8 +85,7 @@ public class CombatAnimation {
 				vars.animationId = 0;
 			entity.setSprinting(false);
 			vars.animationTime = SFitem.getAnimationTick(entity, animationId, speed);
-			vars.syncAnimation(entity);
-			//vars.syncPlayerVariables(entity);
+            vars.syncWithId(entity, 0b11);
 			return true;
 		}
 		return false;
