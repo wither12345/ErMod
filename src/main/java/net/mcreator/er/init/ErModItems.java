@@ -298,11 +298,11 @@ public class ErModItems {
 	public static final DeferredItem<Item> SCHOLARS_CLOCK = REGISTRY.register("scholars_clock", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.SCHOLAR));
 	public static final DeferredItem<Item> SCHOLARS_INK_CUP = REGISTRY.register("scholars_ink_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.SCHOLAR));
 	public static final DeferredItem<Item> SCHOLARS_LENS = REGISTRY.register("scholars_lens", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.SCHOLAR));
-    public static final DeferredItem<Item> GAMBLERS_BROOCH = REGISTRY.register("gamblers_brooch", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.GAMBLER));
-    public static final DeferredItem<Item> GAMBLERS_FEATHER_ACCESSORY = REGISTRY.register("gamblers_feather_accessory", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.GAMBLER));
-    public static final DeferredItem<Item> GAMBLERS_POCKET_WATCH = REGISTRY.register("gamblers_pocket_watch", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.GAMBLER));
-    public static final DeferredItem<Item> GAMBLERS_DICE_CUP = REGISTRY.register("gamblers_dice_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.GAMBLER));
-    public static final DeferredItem<Item> GAMBLERS_EARRINGS = REGISTRY.register("gamblers_earrings", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.GAMBLER));
+	public static final DeferredItem<Item> GAMBLERS_BROOCH = REGISTRY.register("gamblers_brooch", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.GAMBLER));
+	public static final DeferredItem<Item> GAMBLERS_FEATHER_ACCESSORY = REGISTRY.register("gamblers_feather_accessory", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.GAMBLER));
+	public static final DeferredItem<Item> GAMBLERS_POCKET_WATCH = REGISTRY.register("gamblers_pocket_watch", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.GAMBLER));
+	public static final DeferredItem<Item> GAMBLERS_DICE_CUP = REGISTRY.register("gamblers_dice_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.GAMBLER));
+	public static final DeferredItem<Item> GAMBLERS_EARRINGS = REGISTRY.register("gamblers_earrings", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.GAMBLER));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

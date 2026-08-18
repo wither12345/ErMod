@@ -223,6 +223,115 @@
               "star": 3
             }
           ]
+        },{
+          "type": "minecraft:item",
+          "name": "er:scholars_bookmark",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:scholars_quill_pen",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:scholars_clock",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:scholars_ink_cup",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:scholars_lens",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:gamblers_brooch",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:gamblers_feather_accessory",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:gamblers_pocket_watch",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:gamblers_dice_cup",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:gamblers_earrings",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 3
+            }
+          ]
         }
       ]
     }

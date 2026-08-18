@@ -434,5 +434,14 @@
   "item.er.scholars_lens": "学士的镜片",
   "artifact_effect.er.scholar": "学士",
   "artifact_effect.er.scholar.1": "  2件套：元素充能效率提高20%。",
-  "artifact_effect.er.scholar.2": "  4件套：获得元素微粒或元素晶球时，若装备弓箭额外恢复3点元素能量。"
+  "artifact_effect.er.scholar.2": "  4件套：获得元素微粒或元素晶球时， 若装备弓箭额外恢复3点元素能量。",
+  "attribute.er.elemental_skill_dmg": "元素战技伤害加成",
+  "item.er.gamblers_brooch": "赌徒的胸花",
+  "item.er.gamblers_feather_accessory": "赌徒的羽饰",
+  "item.er.gamblers_pocket_watch": "赌徒的怀表",
+  "item.er.gamblers_dice_cup": "赌徒的骰蛊",
+  "item.er.gamblers_earrings": "赌徒的耳环",
+  "artifact_effect.er.gambler": "赌徒",
+  "artifact_effect.er.gambler.1": "  2件套：元素战技造成的伤害提升20%。",
+  "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。"
 }
