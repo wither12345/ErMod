@@ -303,6 +303,8 @@ public class ErModItems {
 	public static final RegistryObject<Item> GAMBLERS_POCKET_WATCH = REGISTRY.register("gamblers_pocket_watch", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.GAMBLER));
 	public static final RegistryObject<Item> GAMBLERS_DICE_CUP = REGISTRY.register("gamblers_dice_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.GAMBLER));
 	public static final RegistryObject<Item> GAMBLERS_EARRINGS = REGISTRY.register("gamblers_earrings", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.GAMBLER));
+    public static final RegistryObject<Item> FRAGILE_RESIN = REGISTRY.register("fragile_resin", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ORIGINAL_RESIN = REGISTRY.register("original_resin", () -> new Item(new Item.Properties()));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

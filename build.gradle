@@ -10,9 +10,11 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 legacyForge {
     version = "1.20.1-47.4.20"
+
     runs {
         client {
             client()
+
             def mcreatorJvmOptions = System.getenv('MCREATOR_JVM_OPTIONS')
             if (mcreatorJvmOptions) {
                 mcreatorJvmOptions.split("\\s+").findAll { it.trim() }.each { arg ->
@@ -38,12 +40,7 @@ legacyForge {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compila
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs.add("-Xlint:-deprecation")
-    options.compilerArgs.add("-Xlint:-removal")
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
 mixin {
@@ -68,5 +65,3 @@ jar {
 }
 
 apply from: 'mcreator.gradle'
-if (file("mixin.gradle").exists())
-    apply from: 'mixin.gradle'

@@ -43,8 +43,7 @@ public class ErMod {
 	public static final Logger LOGGER = LogManager.getLogger(ErMod.class);
 	public static final String MODID = "er";
 
-	public ErMod() {
-		FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
+	public ErMod(FMLJavaModLoadingContext context) {
 		// Start of user code block mod constructor
 		// End of user code block mod constructor
 		MinecraftForge.EVENT_BUS.register(this);
