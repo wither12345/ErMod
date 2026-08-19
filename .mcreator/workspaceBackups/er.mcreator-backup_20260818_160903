@@ -4527,6 +4527,16 @@
           "src/main/resources/data/er/damage_type/lunar_crystallize.json"
         ]
       }
+    },
+    {
+      "name": "ElementalSkillDMG",
+      "type": "attribute",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "elemental_skill_dmg",
+      "metadata": {
+        "files": []
+      }
     }
   ],
   "variable_elements": [
@@ -5245,7 +5255,16 @@
       "item.er.scholars_lens": "Scholar\u0027s Lens",
       "artifact_effect.er.scholar": "Scholar",
       "artifact_effect.er.scholar.1": "  2-Piece Set: CRIT Rate +12%",
-      "artifact_effect.er.scholar.2": "  4-Piece Set: Gaining Elemental Particles or Orbs gives 3 Energy to you if you have a bow equipped."
+      "artifact_effect.er.scholar.2": "  4-Piece Set: Gaining Elemental Particles or Orbs gives 3 Energy to you if you have a bow equipped.",
+      "attribute.er.elemental_skill_dmg": "Elemental Skill DMG",
+      "item.er.gamblers_brooch": "Gambler\u0027s Brooch",
+      "item.er.gamblers_feather_accessory": "Gambler\u0027s Feather Accessory",
+      "item.er.gamblers_pocket_watch": "Gambler\u0027s Pocket Watch",
+      "item.er.gamblers_dice_cup": "Gambler\u0027s Dice Cup",
+      "item.er.gamblers_earrings": "Gambler\u0027s Earrings",
+      "artifact_effect.er.gambler": "Gambler",
+      "artifact_effect.er.gambler.1": "  2-Piece Set: Increases Elemental Skill DMG by 20%.",
+      "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s."
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5683,7 +5702,16 @@
       "item.er.scholars_lens": "学士的镜片",
       "artifact_effect.er.scholar": "学士",
       "artifact_effect.er.scholar.1": "  2件套：元素充能效率提高20%。",
-      "artifact_effect.er.scholar.2": "4件套：获得元素微粒或元素晶球时，若装备弓箭额外恢复3点元素能量。"
+      "artifact_effect.er.scholar.2": "  4件套：获得元素微粒或元素晶球时， 若装备弓箭额外恢复3点元素能量。",
+      "attribute.er.elemental_skill_dmg": "元素战技伤害加成",
+      "item.er.gamblers_brooch": "赌徒的胸花",
+      "item.er.gamblers_feather_accessory": "赌徒的羽饰",
+      "item.er.gamblers_pocket_watch": "赌徒的怀表",
+      "item.er.gamblers_dice_cup": "赌徒的骰蛊",
+      "item.er.gamblers_earrings": "赌徒的耳环",
+      "artifact_effect.er.gambler": "赌徒",
+      "artifact_effect.er.gambler.1": "  2件套：元素战技造成的伤害提升20%。",
+      "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。"
     }
   },
   "metadata": {
@@ -5730,7 +5758,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.3",
+    "version": "1.1.4",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",
