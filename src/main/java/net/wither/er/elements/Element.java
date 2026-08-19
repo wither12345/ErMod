@@ -195,7 +195,8 @@ public abstract class Element {
                                 EntityHurtEvent.DamageModifier modifier,
                                 @Nullable Entity applier){
         float gauge_reduction = reacting(source , boundAura) ;
-        auraContainer.addAura(new ElementSource(ElementRegistry.FROZEN.get(), null , gauge_reduction * 2, true) , null,applier);
+        if(source.getElement() != ElementRegistry.FROZEN.get())
+            auraContainer.addAura(new ElementSource(ElementRegistry.FROZEN.get(), null , gauge_reduction * 2, true) , null,applier);
         return gauge_reduction;
     }
 
@@ -205,7 +206,8 @@ public abstract class Element {
                                        ElementSource source,
                                        EntityHurtEvent.DamageModifier modifier,
                                        @Nullable Entity applier){
-        auraContainer.addAura(new ElementSource(ElementRegistry.BURNING.get(), null , 1.6f, true) , null,applier);
+        if(source.getElement() != ElementRegistry.BURNING.get())
+            auraContainer.addAura(new ElementSource(ElementRegistry.BURNING.get(), null , 1.6f, true) , null,applier);
         return 0;
     }
 

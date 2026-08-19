@@ -24,6 +24,10 @@ public class Pyro extends Element{
         ));
     }
 
+    protected Pyro(Map<Category, ReactionBehavior> map){
+        super(map);
+    }
+
     @Override
     public Category getCategory() {
         return Category.PYRO ;
