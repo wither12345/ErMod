@@ -3,7 +3,7 @@ package net.mcreator.er;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import net.wither.er.outcrop.EntityModifierRegistry;
+import net.wither.er.entity.outcrop.EntityModifierRegistry;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.loottables.RegisterLootModifier;

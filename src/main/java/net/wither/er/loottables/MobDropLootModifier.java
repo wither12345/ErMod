@@ -7,7 +7,9 @@ import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.entity.TrounceBlossomEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -23,8 +25,8 @@ public class MobDropLootModifier extends LootModifier {
             LootModifier.codecStart(inst).apply(inst, MobDropLootModifier::new)
     );
 
-    private static final ResourceLocation tier2 = ResourceLocation.parse("er:tier2") ;
-    private static final ResourceLocation tier3 = ResourceLocation.parse("er:tier3") ;
+    private static final TagKey<Item> tier2 = ItemTags.create(ResourceLocation.parse("er:tier2")) ;
+    private static final TagKey<Item> tier3 = ItemTags.create(ResourceLocation.parse("er:tier3")) ;
 
     protected MobDropLootModifier(LootItemCondition[] conditionsIn) {
         super(conditionsIn);
@@ -32,16 +34,16 @@ public class MobDropLootModifier extends LootModifier {
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(@NotNull ObjectArrayList<ItemStack> objectArrayList, LootContext lootContext) {
-        if(lootContext.hasParam(LootContextParams.THIS_ENTITY)) {
+        if(lootContext.hasParam(LootContextParams.THIS_ENTITY) && lootContext.hasParam(LootContextParams.DAMAGE_SOURCE)) {
             Entity entity = lootContext.getParam(LootContextParams.THIS_ENTITY);
             if(!(entity instanceof TrounceBlossomEntity)) {
                 int level = EntityHurtEvent.getEntityLevel(entity);
                 for (ItemStack itemStack : objectArrayList) {
                     if(itemStack.isEmpty())
                         continue;
-                    if (itemStack.is(ItemTags.create(tier3)))
+                    if (itemStack.is(tier3))
                         itemStack.setCount(getCountMultiplied(itemStack.getCount(), level, 3));
-                    else if (itemStack.is(ItemTags.create(tier2)))
+                    else if (itemStack.is(tier2))
                         itemStack.setCount(getCountMultiplied(itemStack.getCount(), level, 2));
                     else
                         itemStack.setCount(getCountMultiplied(itemStack.getCount(), level, 1));

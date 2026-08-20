@@ -1,6 +1,6 @@
 package net.mcreator.er.procedures;
 
-import net.wither.er.outcrop.Blossom;
+import net.wither.er.entity.outcrop.Blossom;
 import net.wither.er.entity.slimes.DendroSlime;
 
 import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;

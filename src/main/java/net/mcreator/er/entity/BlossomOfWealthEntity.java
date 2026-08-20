@@ -1,12 +1,10 @@
 package net.mcreator.er.entity;
 
-import net.minecraft.commands.arguments.ResourceKeyArgument;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.wither.er.outcrop.Blossom;
+import net.wither.er.entity.outcrop.Blossom;
 
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 

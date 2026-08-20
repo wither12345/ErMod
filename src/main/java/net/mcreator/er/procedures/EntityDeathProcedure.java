@@ -16,6 +16,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -34,7 +35,7 @@ import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.KillAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
-import net.wither.er.outcrop.Blossom;
+import net.wither.er.entity.outcrop.Blossom;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -48,17 +49,17 @@ public class EntityDeathProcedure {
 
 	@SubscribeEvent
 	public static void onEntityDeath(LivingDeathEvent event) {
-		if (event != null) {
-            execute(event, event.getEntity().level(), event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), event.getEntity(), event.getSource().getEntity(), event.getSource());
-        }
-	}
+        LivingEntity entity = event.getEntity();
+        double x = entity.getX();
+        double y = entity.getY();
+        double z = entity.getZ();
+        Level level = entity.level();
+        DamageSource source = event.getSource();
+        Entity sourceentity = source.getEntity();
 
-	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, LivingEntity entity, Entity sourceentity, DamageSource source) {
-		if (entity == null)
-			return;
-		ItemStack item_drop  = new ItemStack(ErModItems.MORA.get());
+        ItemStack item_drop  = new ItemStack(ErModItems.MORA.get());
 		item_drop.setCount((int) Math.min(entity.getMaxHealth() / 2, 20));
-		if (world instanceof ServerLevel _level) {
+		if (level instanceof ServerLevel _level) {
 			ItemEntity entityToSpawn = new ItemEntity(_level, x, y, z, item_drop);
 			entityToSpawn.setPickUpDelay(10);
 			_level.addFreshEntity(entityToSpawn);
@@ -68,7 +69,7 @@ public class EntityDeathProcedure {
 				orb.push(0.1 - Math.random() * 0.2, 0.3, 0.1 - Math.random() * 0.2);
 			}
 		}
-		if (world instanceof ServerLevel _level && Math.random() < 0.01 * (1 + (sourceentity instanceof Player ? ((LivingEntity) sourceentity).getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.LUCK).getValue() : 0))) {
+		if (level instanceof ServerLevel _level && Math.random() < 0.01 * (1 + (sourceentity instanceof Player ? ((LivingEntity) sourceentity).getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.LUCK).getValue() : 0))) {
 			if (Math.random() < 0.8) {
 				dropArtifact(_level, entity.getOnPos(), artifactLoot1);
 			} else if (Math.random() < 0.5) {
@@ -77,14 +78,15 @@ public class EntityDeathProcedure {
 				dropArtifact(_level, entity.getOnPos(), artifactLoot3);
 			}
 		}
+        testOutCrop(entity);
 		if (sourceentity == null)
 			return;
 		ItemStack hand_item = sourceentity instanceof LivingEntity _livEnt ? _livEnt.getMainHandItem() : ItemStack.EMPTY;
-		int GreedLevel = hand_item.getEnchantmentLevel(world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("er:greed"))));
+		int GreedLevel = hand_item.getEnchantmentLevel(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.parse("er:greed"))));
 		if (GreedLevel != 0 && Math.random() < GreedLevel * 0.18) {
 			item_drop = new ItemStack(ErModItems.MORA.get());
 			item_drop.setCount(GreedLevel);
-			if (world instanceof ServerLevel _level) {
+			if (level instanceof ServerLevel _level) {
 				ItemEntity entityToSpawn = new ItemEntity(_level, x, y, z, item_drop);
 				entityToSpawn.setPickUpDelay(10);
 				_level.addFreshEntity(entityToSpawn);
@@ -114,18 +116,11 @@ public class EntityDeathProcedure {
 
 	}
 
-	@SubscribeEvent
-	public static void onEntityLeave(EntityLeaveLevelEvent event) {
-		Entity entity = event.getEntity();
+	public static void testOutCrop(Entity entity) {
 		if (entity.level() instanceof ServerLevel serverLevel && entity.getPersistentData().contains("BlossomOwner")) {
-			final Vec3 center = new Vec3(entity.getX(), entity.getY(), entity.getZ());
-			List<Blossom> ent_found = serverLevel.getEntitiesOfClass(Blossom.class, new AABB(center, center).inflate(32), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(center))).toList();
-			for (Blossom entity_iterator : ent_found) {
-				if (entity_iterator.getUUID().equals(entity.getPersistentData().getUUID("BlossomOwner"))) {
-					entity_iterator.DeclineMobLeft();
-					break;
-				}
-			}
+            Entity ent_found = serverLevel.getEntity(entity.getPersistentData().getUUID("BlossomOwner"));
+            if (ent_found instanceof Blossom blossom)
+                blossom.DeclineMobLeft();
 		}
 	}
 }

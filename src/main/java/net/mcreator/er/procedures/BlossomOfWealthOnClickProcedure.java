@@ -20,7 +20,7 @@ public class BlossomOfWealthOnClickProcedure {
 									sourceentity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.BAD_OMEN) ? _livEnt.getEffect(MobEffects.BAD_OMEN).getAmplifier() : 0));
 			}
 			if (entity instanceof BlossomOfWealthEntity _datEntSetI)
-				_datEntSetI.getEntityData().set(BlossomOfWealthEntity.DATA_OmenLevel,
+				_datEntSetI.getEntityData().set(BlossomOfWealthEntity.DATA_OMEN_LEVEL,
 						(sourceentity instanceof LivingEntity _livEnt && _livEnt.hasEffect(ErModMobEffects.DISORDER_OMEN) ? _livEnt.getEffect(ErModMobEffects.DISORDER_OMEN).getAmplifier() : 0) + 1);
 		} else if (sourceentity instanceof LivingEntity _livEnt7 && _livEnt7.hasEffect(MobEffects.BAD_OMEN)) {
 			if (sourceentity instanceof LivingEntity _entity && !_entity.level().isClientSide())
@@ -28,7 +28,7 @@ public class BlossomOfWealthOnClickProcedure {
 						new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * (sourceentity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.BAD_OMEN) ? _livEnt.getEffect(MobEffects.BAD_OMEN).getAmplifier() : 0) + 18000,
 								sourceentity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.BAD_OMEN) ? _livEnt.getEffect(MobEffects.BAD_OMEN).getAmplifier() : 0));
 			if (entity instanceof BlossomOfWealthEntity _datEntSetI)
-				_datEntSetI.getEntityData().set(BlossomOfWealthEntity.DATA_OmenLevel, (sourceentity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.BAD_OMEN) ? _livEnt.getEffect(MobEffects.BAD_OMEN).getAmplifier() : 0) + 1);
+				_datEntSetI.getEntityData().set(BlossomOfWealthEntity.DATA_OMEN_LEVEL, (sourceentity instanceof LivingEntity _livEnt && _livEnt.hasEffect(MobEffects.BAD_OMEN) ? _livEnt.getEffect(MobEffects.BAD_OMEN).getAmplifier() : 0) + 1);
 			if (sourceentity instanceof LivingEntity _entity)
 				_entity.removeEffect(MobEffects.BAD_OMEN);
 		}

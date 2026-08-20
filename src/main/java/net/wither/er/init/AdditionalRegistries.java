@@ -10,7 +10,7 @@ import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.elements.Element;
-import net.wither.er.outcrop.EntityModifier;
+import net.wither.er.entity.outcrop.EntityModifier;
 import net.wither.er.shield.ErShield;
 
 @EventBusSubscriber()

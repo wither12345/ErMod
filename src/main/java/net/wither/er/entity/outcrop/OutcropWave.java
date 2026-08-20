@@ -1,4 +1,4 @@
-package net.wither.er.outcrop;
+package net.wither.er.entity.outcrop;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -26,23 +26,32 @@ import java.util.Set;
 public class OutcropWave {
     private Collection<EntityWithModifier> pools ;
     public int quality ;
+    private final ResourceLocation location;
+
+    public OutcropWave(ResourceLocation location) {
+        this.location = location;
+    }
 
     public Collection<EntityWithModifier> getPools() {
         return pools;
     }
 
-    public static OutcropWave read(JsonElement element){
-        OutcropWave ret = new OutcropWave();
+    public ResourceLocation getLocation() {
+        return location;
+    }
+
+    public static OutcropWave read(JsonElement element, ResourceLocation location){
+        OutcropWave ret = new OutcropWave(location);
         ret.pools = new ArrayList<>() ;
         try {
             ret.quality = element.getAsJsonObject().get("quality").getAsInt();
             JsonArray pool = element.getAsJsonObject().get("pools").getAsJsonArray() ;
-            for(JsonElement enti : pool) {
-                String type = enti.getAsJsonObject().get("type").getAsString() ;
-                int count = enti.getAsJsonObject().get("count").getAsInt();
+            for(JsonElement entity_element : pool) {
+                String type = entity_element.getAsJsonObject().get("type").getAsString() ;
+                int count = entity_element.getAsJsonObject().get("count").getAsInt();
                 EntityWithModifier entity = new EntityWithModifier(BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(type)), count, new ArrayList<EntityModifier>());
-                if(enti.getAsJsonObject().get("modifiers") != null) {
-                    JsonObject modifiers = enti.getAsJsonObject().get("modifiers").getAsJsonObject();
+                if(entity_element.getAsJsonObject().get("modifiers") != null) {
+                    JsonObject modifiers = entity_element.getAsJsonObject().get("modifiers").getAsJsonObject();
                     Set<String> keys = modifiers.keySet();
                     for (String key : keys) {
                         EntityModifier modifier = AdditionalRegistries.ENTITY_MODIFIER_REGISTRY.get(ResourceLocation.parse(key));

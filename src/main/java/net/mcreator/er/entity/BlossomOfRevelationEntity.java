@@ -1,6 +1,6 @@
 package net.mcreator.er.entity;
 
-import net.wither.er.outcrop.Blossom;
+import net.wither.er.entity.outcrop.Blossom;
 
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 

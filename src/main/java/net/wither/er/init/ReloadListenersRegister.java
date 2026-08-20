@@ -5,7 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.wither.er.item.morabag.MoraValueListener;
-import net.wither.er.outcrop.OutcropWaveDataListener;
+import net.wither.er.entity.outcrop.OutcropWaveDataListener;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 import net.wither.er.recipe.converting.AlchemyConvertingRecipeListener;
 

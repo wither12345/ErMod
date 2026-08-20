@@ -1,4 +1,4 @@
-package net.wither.er.outcrop;
+package net.wither.er.entity.outcrop;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.network.SyncLevelData;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,8 +42,8 @@ import java.util.Iterator;
 
 public abstract class Blossom extends Mob {
 	private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.YELLOW, ServerBossEvent.BossBarOverlay.PROGRESS);
-	public static final EntityDataAccessor<Integer> DATA_OmenLevel = SynchedEntityData.defineId(Blossom.class, EntityDataSerializers.INT);
-	private ArrayList<OutcropWave> waves = new ArrayList<OutcropWave>();
+	public static final EntityDataAccessor<Integer> DATA_OMEN_LEVEL = SynchedEntityData.defineId(Blossom.class, EntityDataSerializers.INT);
+	private final ArrayList<OutcropWave> waves = new ArrayList<OutcropWave>();
 	private int wave_count = 0;
 	private int mob_left = 0;
 
@@ -52,9 +54,9 @@ public abstract class Blossom extends Mob {
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+	protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
 		super.defineSynchedData(builder);
-		builder.define(DATA_OmenLevel, 0);
+		builder.define(DATA_OMEN_LEVEL, 0);
 	}
 
 	@Override
@@ -62,24 +64,41 @@ public abstract class Blossom extends Mob {
 		return false;
 	}
 
-	public void addAdditionalSaveData(CompoundTag compound) {
+	public void addAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
-		compound.putInt("DataOmenLevel", this.entityData.get(DATA_OmenLevel));
+		compound.putInt("DataOmenLevel", this.entityData.get(DATA_OMEN_LEVEL));
 		compound.putInt("wave_count" , wave_count);
 		compound.putInt("mob_left" , mob_left);
+        if(!this.waves.isEmpty()){
+            int i = 0;
+            CompoundTag waveTag = new CompoundTag();
+            for(OutcropWave wave : waves)
+                waveTag.putString(String.valueOf(i ++), wave.getLocation().toString());
+            compound.put("waves", waveTag);
+        }
 	}
 
-	public void readAdditionalSaveData(CompoundTag compound) {
+	public void readAdditionalSaveData(@NotNull CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		if (compound.contains("DataOmenLevel"))
-			this.entityData.set(DATA_OmenLevel, compound.getInt("DataOmenLevel"));
+			this.entityData.set(DATA_OMEN_LEVEL, compound.getInt("DataOmenLevel"));
 		if (compound.contains("wave_count"))
 			wave_count =  compound.getInt("wave_count");
 		if (compound.contains("mob_left"))
 			mob_left =  compound.getInt("mob_left");
+        if(compound.contains("waves")){
+            CompoundTag waveTag = compound.getCompound("waves");
+            int i = 0 ;
+            while(waveTag.contains(String.valueOf(i))){
+                ResourceLocation location = ResourceLocation.parse(waveTag.getString(String.valueOf(i ++)));
+                OutcropWave newWave = OutcropWaveDataListener.getByLocation(location);
+                if(newWave != null)
+                    this.waves.add(newWave);
+            }
+        }
 	}
 	@Override
-	public InteractionResult mobInteract(Player sourceentity, InteractionHand hand) {
+	public @NotNull InteractionResult mobInteract(@NotNull Player sourceentity, @NotNull InteractionHand hand) {
 		InteractionResult retval = InteractionResult.sidedSuccess(this.level().isClientSide());
 		super.mobInteract(sourceentity, hand);
 		if(sourceentity instanceof ServerPlayer serverPlayer) {
@@ -92,21 +111,21 @@ public abstract class Blossom extends Mob {
 									new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier() + 18000,
 											sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier()));
 					}
-					this.getEntityData().set(Blossom.DATA_OmenLevel, sourceentity.getEffect(ErModMobEffects.DISORDER_OMEN).getAmplifier() + 1);
-					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(Blossom.DATA_OmenLevel));
+					this.getEntityData().set(Blossom.DATA_OMEN_LEVEL, sourceentity.getEffect(ErModMobEffects.DISORDER_OMEN).getAmplifier() + 1);
+					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(Blossom.DATA_OMEN_LEVEL));
 					PacketDistributor.sendToAllPlayers(new SyncLevelData(this.getId(), this.getPersistentData().getInt("erLevel")));
 				} else if (sourceentity.hasEffect(MobEffects.BAD_OMEN)) {
 					if (!sourceentity.level().isClientSide())
 						sourceentity.addEffect(
 								new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * (sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier()) + 18000, sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier()));
-					this.getEntityData().set(Blossom.DATA_OmenLevel, sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier() + 1);
+					this.getEntityData().set(Blossom.DATA_OMEN_LEVEL, sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier() + 1);
 					sourceentity.removeEffect(MobEffects.BAD_OMEN);
-					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(Blossom.DATA_OmenLevel));
+					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(Blossom.DATA_OMEN_LEVEL));
 					PacketDistributor.sendToAllPlayers(new SyncLevelData(this.getId(), this.getPersistentData().getInt("erLevel")));
 
 				}
 				if (this.level() instanceof ServerLevel) {
-					roll_waves(waves, getQuality(this.getEntityData().get(Blossom.DATA_OmenLevel)), getWavesCount(this.getEntityData().get(Blossom.DATA_OmenLevel)));
+					roll_waves(waves, getQuality(this.getEntityData().get(Blossom.DATA_OMEN_LEVEL)), getWavesCount(this.getEntityData().get(Blossom.DATA_OMEN_LEVEL)));
 				}
 				if (!waves.isEmpty()) {
 					Collection<OutcropWave.EntityWithModifier> pools = waves.get(wave_count).getPools();
@@ -247,7 +266,7 @@ public abstract class Blossom extends Mob {
 					TrounceBlossomEntity trounceBlossom = ErModEntities.TROUNCE_BLOSSOM.get().spawn(serverLevel, BlockPos.containing(this.getX(), this.getY(), this.getZ()), MobSpawnType.MOB_SUMMONED);
                     if (trounceBlossom != null) {
                         trounceBlossom.setLootTable(this.getLoot());
-						trounceBlossom.setOmenLevel(this.entityData.get(DATA_OmenLevel));
+						trounceBlossom.setOmenLevel(this.entityData.get(DATA_OMEN_LEVEL));
 						ApplyErlevelProcedure.execute(trounceBlossom , EntityHurtEvent.getEntityLevel(this));
 					}
 					this.bossInfo.removeAllPlayers();
