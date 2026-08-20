@@ -6,7 +6,7 @@ import net.minecraft.world.entity.Entity;
 public class AttributeGiver extends EntityModifier{
     @Override
     public void read(JsonElement element) {
-        
+
     }
 
     @Override

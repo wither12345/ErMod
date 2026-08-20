@@ -110,7 +110,6 @@ public class EntityDeathProcedure {
 
 	public static void testOutCrop(Entity entity) {
 		if (entity.level() instanceof ServerLevel serverLevel && entity.getPersistentData().contains("BlossomOwner")) {
-			final Vec3 center = new Vec3(entity.getX(), entity.getY(), entity.getZ());
             Entity ent_found = serverLevel.getEntity(entity.getPersistentData().getUUID("BlossomOwner"));
 			if(ent_found instanceof Blossom blossom) {
                 blossom.DeclineMobLeft();

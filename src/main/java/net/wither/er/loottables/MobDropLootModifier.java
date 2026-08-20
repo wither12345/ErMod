@@ -33,7 +33,7 @@ public class MobDropLootModifier extends LootModifier implements IGlobalLootModi
 
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> objectArrayList, LootContext lootContext) {
-        if(lootContext.hasParam(LootContextParams.THIS_ENTITY) && !lootContext.hasParam(LootContextParams.BLOCK_STATE)) {
+        if(lootContext.hasParam(LootContextParams.THIS_ENTITY) && lootContext.hasParam(LootContextParams.DAMAGE_SOURCE)) {
             Entity entity = lootContext.getParam(LootContextParams.THIS_ENTITY);
             if(!(entity instanceof TrounceBlossomEntity)) {
                 int level = EntityHurtEvent.getEntityLevel(entity);
