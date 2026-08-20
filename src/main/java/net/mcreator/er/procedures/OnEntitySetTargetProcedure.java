@@ -6,7 +6,7 @@ import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.entity.slimes.DendroSlime;
-import net.wither.er.outcrop.Blossom;
+import net.wither.er.entity.outcrop.Blossom;
 
 @Mod.EventBusSubscriber
 public class OnEntitySetTargetProcedure {

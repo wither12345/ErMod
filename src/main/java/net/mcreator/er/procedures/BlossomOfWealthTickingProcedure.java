@@ -12,7 +12,7 @@ public class BlossomOfWealthTickingProcedure {
 		if (entity == null)
 			return;
 		if (world.isClientSide()) {
-			if ((entity instanceof BlossomOfWealthEntity _datEntI ? _datEntI.getEntityData().get(BlossomOfWealthEntity.DATA_OmenLevel) : 0) > Math.random() * 5) {
+			if ((entity instanceof BlossomOfWealthEntity _datEntI ? _datEntI.getEntityData().get(BlossomOfWealthEntity.DATA_OMEN_LEVEL) : 0) > Math.random() * 5) {
 				for (int index0 = 0; index0 < 3; index0++) {
 					world.addParticle((SimpleParticleType) (ErModParticleTypes.BLOSSOM_OMEN_PARTICLE.get()), entity.getRandomX(5.0), entity.getRandomY(), entity.getRandomZ(5.0), 0, 0, 0);
 				}

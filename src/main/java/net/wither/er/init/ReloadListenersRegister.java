@@ -5,7 +5,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.item.morabag.MoraValueListener;
-import net.wither.er.outcrop.OutcropWaveDataListener;
+import net.wither.er.entity.outcrop.OutcropWaveDataListener;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 import net.wither.er.recipe.converting.AlchemyConvertingRecipeListener;
 

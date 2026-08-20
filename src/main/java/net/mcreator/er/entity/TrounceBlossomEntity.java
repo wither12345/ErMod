@@ -60,7 +60,7 @@ public class TrounceBlossomEntity extends PathfinderMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
+	public void addAdditionalSaveData(@NotNull CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		if (this.getLoot() != null) {
 			tag.putString("OutcropLoot", this.getLoot().getLootTableId().toString());

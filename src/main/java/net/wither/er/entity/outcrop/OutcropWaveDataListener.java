@@ -1,4 +1,4 @@
-package net.wither.er.outcrop;
+package net.wither.er.entity.outcrop;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,11 +11,13 @@ import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 
 public class OutcropWaveDataListener extends SimpleJsonResourceReloadListener{
     private static final Gson GSON = (new GsonBuilder()).create();
     private static final ArrayList<OutcropWave> waves = new ArrayList<OutcropWave>();
+    private static final Map<ResourceLocation, OutcropWave> waveMap = new HashMap<>();
 
     public OutcropWaveDataListener() {
         super(GSON, "outcrop_wave");
@@ -24,8 +26,9 @@ public class OutcropWaveDataListener extends SimpleJsonResourceReloadListener{
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager manager, ProfilerFiller filler) {
         map.forEach((location, element) -> {
             try {
-                OutcropWave wave = OutcropWave.read(element) ;
+                OutcropWave wave = OutcropWave.read(element, location) ;
                 waves.add(wave) ;
+                waveMap.put(location, wave);
             } catch (Exception var6) {
                 ErMod.LOGGER.error("Parsing error loading custom outcrop wave {}: {}", location, var6.getMessage());
             }
@@ -35,5 +38,9 @@ public class OutcropWaveDataListener extends SimpleJsonResourceReloadListener{
 
     public static ArrayList<OutcropWave> getAllWaves() {
         return waves;
+    }
+
+    public static OutcropWave getByLocation(ResourceLocation location){
+        return waveMap.get(location);
     }
 }

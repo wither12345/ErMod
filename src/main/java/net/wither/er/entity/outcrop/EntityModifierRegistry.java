@@ -1,4 +1,4 @@
-package net.wither.er.outcrop;
+package net.wither.er.entity.outcrop;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.wither.er.init.AdditionalRegistries;

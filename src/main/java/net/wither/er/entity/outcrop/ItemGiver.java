@@ -1,4 +1,4 @@
-package net.wither.er.outcrop;
+package net.wither.er.entity.outcrop;
 
 import com.google.gson.JsonElement;
 import net.minecraft.core.registries.BuiltInRegistries;

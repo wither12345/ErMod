@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraftforge.network.PlayMessages;
-import net.wither.er.outcrop.Blossom;
+import net.wither.er.entity.outcrop.Blossom;
 
 public class BlossomOfWealthEntity extends Blossom {
     ResourceLocation location = new ResourceLocation("er:outcrop/wealth");

@@ -30,7 +30,7 @@ public class PlayerAdvancementProcedure {
 	public static void onAdvancement(AdvancementEvent.AdvancementEarnEvent event) {
 		Player player = event.getEntity();
 		Advancement adv = event.getAdvancement();
-		if (player instanceof ServerPlayer player1  && adv.getDisplay() != null && !adv.getDisplay().isHidden() && player1.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Vision != ItemStack.EMPTY) {
+		if (player instanceof ServerPlayer player1 && adv.getDisplay() != null && !adv.getDisplay().isHidden() && player1.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Vision != ItemStack.EMPTY) {
 			FrameType type = adv.getDisplay().getFrame();
 			if (type == FrameType.TASK)
 				giveLootTableItems(player1, taskReward);
