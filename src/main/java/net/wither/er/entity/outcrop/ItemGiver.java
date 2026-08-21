@@ -10,17 +10,17 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemGiver extends EntityModifier{
-    EquipmentSlot slot ;
-    Item added_item ;
+    private final EquipmentSlot slot ;
+    public final Item added_item ;
 
-    public ItemGiver(EquipmentSlot slot){
+    public ItemGiver(EquipmentSlot slot, Item addedItem){
         this.slot = slot ;
+        added_item = addedItem;
     }
 
-    @Override
-    public void read(JsonElement element) {
+    public static ItemGiver read(JsonElement element, EquipmentSlot slot) {
         String item_name = element.getAsJsonObject().get("item").getAsString() ;
-        added_item = BuiltInRegistries.ITEM.get(ResourceLocation.parse(item_name));
+        return new ItemGiver(slot, BuiltInRegistries.ITEM.get(ResourceLocation.parse(item_name)));
     }
 
     @Override
@@ -30,9 +30,5 @@ public class ItemGiver extends EntityModifier{
 
             living.setItemSlot(slot, itemToApply);
         }
-    }
-
-    public EntityModifier copy(){
-        return new ItemGiver(this.slot) ;
     }
 }

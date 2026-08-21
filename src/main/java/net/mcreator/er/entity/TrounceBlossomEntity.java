@@ -1,5 +1,8 @@
 package net.mcreator.er.entity;
 
+import net.mcreator.er.ErMod;
+import net.mcreator.er.init.ErModItems;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
@@ -33,9 +36,11 @@ import net.minecraft.core.registries.Registries;
 import net.mcreator.er.init.ErModEntities;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import org.jetbrains.annotations.NotNull;
 
 public class TrounceBlossomEntity extends PathfinderMob {
-	public final AnimationState animationState0 = new AnimationState();
+    public static final LootContextParam<Double> BLOSSOM_MULTI = new LootContextParam<>(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "multi"));
+    public final AnimationState animationState0 = new AnimationState();
 	private LootTable loot;
 	private int omenLevel = 0;
 	private int restTime = -1;
@@ -68,7 +73,7 @@ public class TrounceBlossomEntity extends PathfinderMob {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundTag tag) {
+	public void addAdditionalSaveData(@NotNull CompoundTag tag) {
 		super.addAdditionalSaveData(tag);
 		if (this.getLoot() != null) {
 			tag.putString("OutcropLoot", this.getLoot().getLootTableId().toString());
@@ -83,7 +88,7 @@ public class TrounceBlossomEntity extends PathfinderMob {
 	}
 
 	@Override
-	public InteractionResult mobInteract(Player player, InteractionHand hand) {
+	public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
 		this.getPersistentData().putBoolean("Opened", true);
 		if (!this.level().isClientSide()) {
 			CompoundTag tag = this.getPersistentData().getCompound("OpenedPlayers");
@@ -97,6 +102,16 @@ public class TrounceBlossomEntity extends PathfinderMob {
 				return InteractionResult.FAIL;
 			LootParams.Builder builder = new LootParams.Builder((ServerLevel) this.level());
 			builder.withOptionalParameter(LootContextParams.THIS_ENTITY, this);
+            ItemStack itemStack = player.getMainHandItem();
+            if(itemStack.is(ErModItems.FRAGILE_RESIN.get())) {
+                builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 3d);
+                itemStack.shrink(1);
+            } else if (itemStack.is(ErModItems.ORIGINAL_RESIN.get())) {
+                builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 1d);
+                itemStack.shrink(1);
+            }
+            else
+                builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 0.4);
 			builder.withLuck(player.getLuck());
 			ObjectArrayList<ItemStack> loots = loot.getRandomItems(builder.create(LootContextParamSets.EMPTY));
 			for (ItemStack lootItem : loots) {
@@ -112,7 +127,7 @@ public class TrounceBlossomEntity extends PathfinderMob {
 	}
 
 	@Override
-	protected void doPush(Entity entityIn) {
+	protected void doPush(@NotNull Entity entityIn) {
 	}
 
 	@Override

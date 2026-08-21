@@ -40,6 +40,9 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import static net.mcreator.er.init.ErModMobEffects.DISORDER_OMEN;
+import static net.minecraft.world.effect.MobEffects.BAD_OMEN;
+
 public abstract class Blossom extends Mob {
 	private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.YELLOW, ServerBossEvent.BossBarOverlay.PROGRESS);
 	public static final EntityDataAccessor<Integer> DATA_OMEN_LEVEL = SynchedEntityData.defineId(Blossom.class, EntityDataSerializers.INT);
@@ -98,34 +101,33 @@ public abstract class Blossom extends Mob {
         }
 	}
 	@Override
-	public @NotNull InteractionResult mobInteract(@NotNull Player sourceentity, @NotNull InteractionHand hand) {
-		InteractionResult retval = InteractionResult.sidedSuccess(this.level().isClientSide());
-		super.mobInteract(sourceentity, hand);
-		if(sourceentity instanceof ServerPlayer serverPlayer) {
+	public @NotNull InteractionResult mobInteract(@NotNull Player player, @NotNull InteractionHand hand) {
+		InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide());
+		super.mobInteract(player, hand);
+		if(player instanceof ServerPlayer serverPlayer) {
 			this.bossInfo.addPlayer(serverPlayer);
 			if (waves.isEmpty()) {
-				if (sourceentity.hasEffect(ErModMobEffects.DISORDER_OMEN)) {
-					if (sourceentity.hasEffect(MobEffects.BAD_OMEN)) {
-						if (!sourceentity.level().isClientSide())
-							sourceentity.addEffect(
-									new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier() + 18000,
-											sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier()));
-					}
-					this.getEntityData().set(Blossom.DATA_OMEN_LEVEL, sourceentity.getEffect(ErModMobEffects.DISORDER_OMEN).getAmplifier() + 1);
+				if (player.hasEffect(ErModMobEffects.DISORDER_OMEN)) {
+                    if (player.hasEffect(BAD_OMEN) && !player.level().isClientSide()) {
+                        int amp_bad = player.getEffect(BAD_OMEN).getAmplifier();
+                        player.addEffect(new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * amp_bad + 18000, amp_bad));
+                        player.removeEffect(BAD_OMEN);
+                    }
+					this.getEntityData().set(Blossom.DATA_OMEN_LEVEL, player.getEffect(ErModMobEffects.DISORDER_OMEN).getAmplifier() + 1);
 					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(Blossom.DATA_OMEN_LEVEL));
 					PacketDistributor.sendToAllPlayers(new SyncLevelData(this.getId(), this.getPersistentData().getInt("erLevel")));
-				} else if (sourceentity.hasEffect(MobEffects.BAD_OMEN)) {
-					if (!sourceentity.level().isClientSide())
-						sourceentity.addEffect(
-								new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * (sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier()) + 18000, sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier()));
-					this.getEntityData().set(Blossom.DATA_OMEN_LEVEL, sourceentity.getEffect(MobEffects.BAD_OMEN).getAmplifier() + 1);
-					sourceentity.removeEffect(MobEffects.BAD_OMEN);
+				} else if (player.hasEffect(MobEffects.BAD_OMEN)) {
+                    int amp = player.getEffect(BAD_OMEN).getAmplifier();
+					if (!player.level().isClientSide())
+						player.addEffect(new MobEffectInstance(ErModMobEffects.DISORDER_OMEN, 18000 * (amp) + 18000, amp));
+					this.getEntityData().set(Blossom.DATA_OMEN_LEVEL, amp + 1);
+					player.removeEffect(MobEffects.BAD_OMEN);
 					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(Blossom.DATA_OMEN_LEVEL));
 					PacketDistributor.sendToAllPlayers(new SyncLevelData(this.getId(), this.getPersistentData().getInt("erLevel")));
 
 				}
 				if (this.level() instanceof ServerLevel) {
-					roll_waves(waves, getQuality(this.getEntityData().get(Blossom.DATA_OMEN_LEVEL)), getWavesCount(this.getEntityData().get(Blossom.DATA_OMEN_LEVEL)));
+					this.roll_waves(this.getQuality(), this.getWavesCount());
 				}
 				if (!waves.isEmpty()) {
 					Collection<OutcropWave.EntityWithModifier> pools = waves.get(wave_count).getPools();
@@ -137,10 +139,10 @@ public abstract class Blossom extends Mob {
 				}
 			}
 		}
-		return retval;
+		return result;
 	}
 
-	private static void roll_waves(ArrayList<OutcropWave> wave_list, int max_quality , int count){
+    private void roll_waves(int max_quality, int count) {
 		int min_quality = max_quality / 4 ;
 		ArrayList<OutcropWave> all_waves = OutcropWaveDataListener.getAllWaves();
 		int l = 0 , r = all_waves.size() - 1 ;
@@ -171,15 +173,15 @@ public abstract class Blossom extends Mob {
 			return;
 		}
 		for(int i = 0 ; i < count * 2 ; i ++){
-			wave_list.add(all_waves.get(Mth.randomBetweenInclusive(RandomSource.create(),left , right)));
+			waves.add(all_waves.get(Mth.randomBetweenInclusive(RandomSource.create(),left , right)));
 		}
-		wave_list.sort(Comparator.comparingInt(wave -> wave.quality));
-		Iterator<OutcropWave> iterator = wave_list.iterator() ;
+        waves.sort(Comparator.comparingInt(wave -> wave.quality));
+		Iterator<OutcropWave> iterator = waves.iterator() ;
 		int cnt = 0 ;
 		boolean first = true ;
 		while (iterator.hasNext()) {
 			OutcropWave wave = iterator.next();
-			if(wave.quality > max_quality || wave_list.size() > count ||(wave.quality == max_quality && first && Math.random() < 0.5))
+			if(wave.quality > max_quality || waves.size() > count ||(wave.quality == max_quality && first && Math.random() < 0.5))
 				iterator.remove();
 			else {
 				max_quality -= wave.quality ;
@@ -189,20 +191,24 @@ public abstract class Blossom extends Mob {
 		}
 	}
 
-	private int getQuality(int level){
-		if(level == 0) return 200;
-		if(level == 1) return 300;
-		if(level == 2) return 500;
-		if(level == 3) return 750;
-		if(level == 4) return 1000;
-		return 2500;
-	}
+    private int getQuality() {
+        return switch (this.getEntityData().get(DATA_OMEN_LEVEL)){
+            case 0 -> 200;
+            case 1 -> 300;
+            case 2 -> 500;
+            case 3 -> 750;
+            case 4 -> 1000;
+            default -> 2500;
+        };
+    }
 
-	private int getWavesCount(int level){
-		if(level <= 2) return 2 ;
-		if(level <= 4) return 3 ;
-		return 5 ;
-	}
+    private int getWavesCount() {
+        return switch (this.getEntityData().get(DATA_OMEN_LEVEL)){
+            case 0, 1, 2 -> 2;
+            case 3, 4 -> 3;
+            default -> 5;
+        };
+    }
 
 	public abstract LootTable getLoot() ;
 

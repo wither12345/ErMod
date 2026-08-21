@@ -14,7 +14,6 @@ public class MenuScreenRegister{
         event.register(ErMenus.WEAPON_ENHANCE_GUI.get(), WeaponEnhanceGuiScreen::new);
         event.register(ErMenus.ARTIFACT_TRANSMUTER_GUI.get(), ArtifactTransmuterGuiScreen::new);
         event.register(ErMenus.ALCHEMY_GUI.get(), AlchemyGuiScreen::new);
-        event.register(ErMenus.ALCHEMY_CRAFT.get(), AlchemyCraftGuiScreen::new);
         event.register(ErMenus.LEY_LINE_MAP.get(), LeyLineMapGuiScreen::new);
         event.register(ErMenus.EQUIPMENT.get(), ErEquipmentGUIScreen::new);
     }

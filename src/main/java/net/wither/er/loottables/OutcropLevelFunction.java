@@ -18,6 +18,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunct
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -48,14 +49,15 @@ public class OutcropLevelFunction extends LootItemConditionalFunction {
     }
 
     @Override
-    public LootItemFunctionType getType() {
+    public @NotNull LootItemFunctionType<OutcropLevelFunction> getType() {
         return RegisterLootFunction.OUTCROP_LEVEL_FUNCTION.get();
     }
 
     // Run our enchantment application logic. Most of this is copied from EnchantRandomlyFunction#run.
     @Override
-    public ItemStack run(ItemStack stack, LootContext context) {
+    public @NotNull ItemStack run(@NotNull ItemStack stack, LootContext context) {
         RandomSource random = context.getRandom();
+        double multi = context.hasParam(TrounceBlossomEntity.BLOSSOM_MULTI) ? context.getParam(TrounceBlossomEntity.BLOSSOM_MULTI) : 1;
         if(context.hasParam(LootContextParams.THIS_ENTITY)) {
             Entity entity = context.getParam(LootContextParams.THIS_ENTITY);
             int omenLevel = 0 ;
@@ -67,14 +69,14 @@ public class OutcropLevelFunction extends LootItemConditionalFunction {
                 if (stack.getItem() == ErModItems.A_BAG_OF_MORA.get()) {
                     int f = (level - min_level)  + (1 + omenLevel) ;
                     if(scaling)
-                        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putInt("moras", (int)(Mth.randomBetween(random , min_base_count , max_base_count) * f)));
+                        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putInt("moras", (int)(Mth.randomBetween(random , min_base_count , max_base_count) * f * multi)));
                     else
-                        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putInt("moras", (int)(Mth.randomBetween(random , min_base_count , max_base_count))));
+                        CustomData.update(DataComponents.CUSTOM_DATA, stack, tag -> tag.putInt("moras", (int)(Mth.randomBetween(random , min_base_count , max_base_count) * multi)));
                 } else {
                     float f = ((level - min_level) / 25f + 1) * (1 + omenLevel * 0.5f) ;
                     if(!scaling)
                         f = 1 ;
-                    stack.setCount((int)(Mth.randomBetween(random , min_base_count , max_base_count) * f));
+                    stack.setCount((int)(Mth.randomBetween(random , min_base_count , max_base_count) * f * multi));
                 }
             }
             else {

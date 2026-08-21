@@ -26,6 +26,9 @@ import net.wither.er.item.data.artifactdata.MinorAffix;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.mcreator.er.init.ErModItems.FRAGILE_RESIN;
+import static net.mcreator.er.init.ErModItems.ORIGINAL_RESIN;
+
 @EventBusSubscriber()
 public class ExtraTabs {
 
@@ -85,6 +88,8 @@ public class ExtraTabs {
 		if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
             tabData.accept(ErModItems.SWEET_FLOWER);
             tabData.accept(ErModItems.WHOPPERFLOWER_SEED);
+            tabData.accept(ErModItems.FRAGILE_RESIN);
+            tabData.accept(ErModItems.ORIGINAL_RESIN);
 			tabData.accept(ErModItems.WANDERERS_ADVICE);
 			tabData.accept(ErModItems.ADVENTURES_EXPERIENCE);
 			tabData.accept(ErModItems.HEROS_WIT);
@@ -104,7 +109,7 @@ public class ExtraTabs {
             tabData.accept(ErModItems.PYRO_WHOPPERFLOWER_FRUIT);
             tabData.accept(ErModItems.CRYO_WHOPPERFLOWER_FRUIT);
 			ItemStack moraBag = new ItemStack(ErModItems.MORA_BAG.get()) ;
-			CustomData.update(DataComponents.CUSTOM_DATA,moraBag,tag -> tag.putInt("moras",999999999));
+            moraBag.set(DataComponentsRegister.MORA_BAG.get(), 999999999);
 			tabData.accept(moraBag);
 			tabData.accept(ErModItems.SANCTIFYING_UNCTION);
 			tabData.accept(ErModItems.SANCTIFYING_ESSENCE);

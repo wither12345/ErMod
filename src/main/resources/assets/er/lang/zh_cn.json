@@ -443,5 +443,7 @@
   "item.er.gamblers_earrings": "赌徒的耳环",
   "artifact_effect.er.gambler": "赌徒",
   "artifact_effect.er.gambler.1": "  2件套：元素战技造成的伤害提升20%。",
-  "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。"
+  "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。",
+  "item.er.fragile_resin": "脆弱树脂",
+  "item.er.original_resin": "原粹树脂"
 }

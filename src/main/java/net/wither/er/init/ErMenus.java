@@ -13,7 +13,6 @@ public class ErMenus {
     public static final DeferredHolder<MenuType<?>, MenuType<WeaponEnhanceGuiMenu>> WEAPON_ENHANCE_GUI = REGISTRY.register("weapon_enhance_gui", () -> IMenuTypeExtension.create(WeaponEnhanceGuiMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<ArtifactTransmuterGuiMenu>> ARTIFACT_TRANSMUTER_GUI = REGISTRY.register("artifact_transmuter_gui", () -> IMenuTypeExtension.create(ArtifactTransmuterGuiMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<AlchemyGuiMenu>> ALCHEMY_GUI = REGISTRY.register("alchemy", () -> IMenuTypeExtension.create(AlchemyGuiMenu::new));
-    public static final DeferredHolder<MenuType<?>, MenuType<AlchemyCraftGuiMenu>> ALCHEMY_CRAFT = REGISTRY.register("alchemy_craft", () -> IMenuTypeExtension.create(AlchemyCraftGuiMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<LeyLineMapGuiMenu>> LEY_LINE_MAP = REGISTRY.register("ley_line_map", () -> IMenuTypeExtension.create(LeyLineMapGuiMenu::new));
     public static final DeferredHolder<MenuType<?>, MenuType<ErEquipmentGUIMenu>> EQUIPMENT = REGISTRY.register("equipment", () -> IMenuTypeExtension.create(ErEquipmentGUIMenu::new));
 }
