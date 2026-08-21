@@ -5,17 +5,7 @@
   "projectBrowserState": {
     "expandedPaths": [
       "[, er]",
-      "[, er, Source (Gradle)]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator\\er]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator\\er, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator\\er\\init]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator\\er, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\mcreator\\er\\network]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er\\client]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er\\client, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er\\client\\models]",
-      "[, er, Source (Gradle), E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er, E:\\wither\\.minecraft\\.mcreator\\MCRWorkPlace\\er-1.20\\src\\main\\java\\net\\wither\\er\\mixins]"
+      "[, er, Source (Gradle)]"
     ]
   },
   "leftDockState": {
@@ -27,7 +17,7 @@
   "bottomDockState": {
     "expandedDock": "console",
     "dockSizes": {
-      "console": 324,
+      "console": 202,
       "code_viewer": 423,
       "debugger": 300
     }

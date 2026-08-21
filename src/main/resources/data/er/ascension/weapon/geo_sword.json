@@ -1,0 +1,61 @@
+{
+  "items" : [
+    "er:geo_sword"
+  ],
+  "ascension" : [
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "er:cor_lapis",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "er:cor_lapis",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 15000,
+      "ingredient": [
+        {
+          "item": "er:cor_lapis",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "er:condensed_geo",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "er:condensed_geo",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "er:condensed_geo",
+          "count": 12
+        }
+      ]
+    }
+  ]
+}

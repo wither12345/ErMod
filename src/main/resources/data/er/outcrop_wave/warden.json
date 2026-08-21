@@ -4,7 +4,19 @@
     {
       "type": "minecraft:warden",
       "count": 1,
-      "icon": "minecraft:echo_shard"
+      "icon": "minecraft:echo_shard",
+      "modifiers": [
+        {
+          "type": "er:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "modifier": {
+            "UUID": [123479537, -941366613, -2012341895, -1205754760],
+            "Name": "er:reduce_health",
+            "Amount": -0.5,
+            "Operation": 2
+          }
+        }
+      ]
     }
   ],
   "global_modifiers": [

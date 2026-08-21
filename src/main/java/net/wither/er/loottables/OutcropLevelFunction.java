@@ -28,7 +28,6 @@ public class OutcropLevelFunction extends LootItemConditionalFunction {
     private final int max_base_count;
     private final boolean scaling;
 
-
     public OutcropLevelFunction(LootItemCondition[] conditions, int min_level , int max_level , int min_base_count , int max_base_count , boolean scaling) {
         super(conditions);
         this.min_level = min_level;
@@ -46,6 +45,7 @@ public class OutcropLevelFunction extends LootItemConditionalFunction {
     @Override
     public @NotNull ItemStack run(@NotNull ItemStack stack, LootContext context) {
         RandomSource random = context.getRandom();
+        double multi = context.hasParam(TrounceBlossomEntity.BLOSSOM_MULTI) ? context.getParam(TrounceBlossomEntity.BLOSSOM_MULTI) : 1;
         if(context.hasParam(LootContextParams.THIS_ENTITY)) {
             Entity entity = context.getParam(LootContextParams.THIS_ENTITY);
             int omenLevel = 0 ;
@@ -57,14 +57,14 @@ public class OutcropLevelFunction extends LootItemConditionalFunction {
                 if (stack.getItem() == ErModItems.A_BAG_OF_MORA.get()) {
                     int f = (level - min_level)  + (1 + omenLevel) ;
                     if (scaling)
-                        stack.getOrCreateTag().putInt("moras", (int) (randomBetween(random, min_base_count, max_base_count) * f));
+                        stack.getOrCreateTag().putInt("moras", (int) (randomBetween(random, min_base_count, max_base_count) * f * multi));
                     else
-                        stack.getOrCreateTag().putInt("moras", (int) (randomBetween(random, min_base_count, max_base_count)));
+                        stack.getOrCreateTag().putInt("moras", (int) (randomBetween(random, min_base_count, max_base_count) * multi));
                 } else {
                     float f = ((level - min_level) / 25f + 1) * (1 + omenLevel * 0.5f) ;
                     if(!scaling)
                         f = 1 ;
-                    stack.setCount((int)(Mth.randomBetween(random , min_base_count , max_base_count) * f));
+                    stack.setCount((int)(Mth.randomBetween(random , min_base_count , max_base_count) * f * multi));
                 }
             }
             else {

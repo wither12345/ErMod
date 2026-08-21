@@ -112,9 +112,11 @@ public abstract class Blossom extends Mob {
 			this.bossInfo.addPlayer(serverPlayer);
 			if (waves.isEmpty()) {
 				if (player.hasEffect(DISORDER_OMEN.get())) {
-                    int amp = player.getEffect(DISORDER_OMEN.get()).getAmplifier();
-					if (player.hasEffect(BAD_OMEN) && !player.level().isClientSide())
-                        player.addEffect(new MobEffectInstance(DISORDER_OMEN.get(), 18000 * amp + 18000, amp));
+					if (player.hasEffect(BAD_OMEN) && !player.level().isClientSide()) {
+                        int amp_bad = player.getEffect(BAD_OMEN).getAmplifier();
+                        player.addEffect(new MobEffectInstance(DISORDER_OMEN.get(), 18000 * amp_bad + 18000, amp_bad));
+                        player.removeEffect(BAD_OMEN);
+                    }
 					this.getEntityData().set(DATA_OMEN_LEVEL, player.getEffect(DISORDER_OMEN.get()).getAmplifier() + 1);
 					this.getPersistentData().putInt("erLevel", this.getPersistentData().getInt("erLevel") + this.getEntityData().get(DATA_OMEN_LEVEL));
 					ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new SyncLevelData(this.getId(), this.getPersistentData().getInt("erLevel")));

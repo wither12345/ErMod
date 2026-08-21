@@ -1,0 +1,61 @@
+{
+  "items" : [
+    "er:pyro_sword"
+  ],
+  "ascension" : [
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "er:flaming_flower_stamen",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "er:flaming_flower_stamen",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 15000,
+      "ingredient": [
+        {
+          "item": "er:flaming_flower_stamen",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "er:condensed_pyro",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "er:condensed_pyro",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "er:condensed_pyro",
+          "count": 12
+        }
+      ]
+    }
+  ]
+}

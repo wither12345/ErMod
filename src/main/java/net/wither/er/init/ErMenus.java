@@ -14,7 +14,6 @@ public class ErMenus {
     public static final RegistryObject<MenuType<WeaponEnhanceGuiMenu>> WEAPON_ENHANCE_GUI = REGISTRY.register("weapon_enhance_gui", () -> IForgeMenuType.create(WeaponEnhanceGuiMenu::new));
     public static final RegistryObject<MenuType<ArtifactTransmuterGuiMenu>> ARTIFACT_TRANSMUTER_GUI = REGISTRY.register("artifact_transmuter_gui", () -> IForgeMenuType.create(ArtifactTransmuterGuiMenu::new));
     public static final RegistryObject<MenuType<AlchemyGuiMenu>> ALCHEMY_GUI = REGISTRY.register("alchemy", () -> IForgeMenuType.create(AlchemyGuiMenu::new));
-    public static final RegistryObject<MenuType<AlchemyCraftGuiMenu>> ALCHEMY_CRAFT = REGISTRY.register("alchemy_craft", () -> IForgeMenuType.create(AlchemyCraftGuiMenu::new));
     public static final RegistryObject<MenuType<LeyLineMapGuiMenu>> LEY_LINE_MAP = REGISTRY.register("ley_line_map", () -> IForgeMenuType.create(LeyLineMapGuiMenu::new));
     public static final RegistryObject<MenuType<ErEquipmentGUIMenu>> EQUIPMENT = REGISTRY.register("equipment", () -> IForgeMenuType.create(ErEquipmentGUIMenu::new));
 }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "group": "fragile_to_original",
+  "category": "misc",
+  "pattern": [
+    "f"
+  ],
+  "key": {
+    "f": {
+      "item": "er:fragile_resin"
+    }
+  },
+  "result": {
+    "item": "er:original_resin",
+    "count": 3
+  }
+}

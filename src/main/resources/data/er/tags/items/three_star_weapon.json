@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    {
-      "id": "er:dark_iron_sword",
-      "required": false
-    },
     "minecraft:netherite_helmet",
     "minecraft:netherite_sword",
     "minecraft:netherite_chestplate",
@@ -14,11 +10,16 @@
     "minecraft:diamond_leggings",
     "minecraft:diamond_sword",
     "minecraft:diamond_boots",
-    {
-      "id": "er:cool_steel",
-      "required": false
-    },
     "minecraft:diamond_chestplate",
-    "minecraft:netherite_leggings"
+    "minecraft:netherite_leggings",
+    "er:cool_steel",
+    "er:dark_iron_sword",
+    "er:anemo_sword",
+    "er:dendro_sword",
+    "er:electro_sword",
+    "er:geo_sword",
+    "er:hydro_sword",
+    "er:cryo_sword",
+    "er:pyro_sword"
   ]
 }

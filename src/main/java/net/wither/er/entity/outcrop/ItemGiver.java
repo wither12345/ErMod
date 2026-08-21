@@ -10,29 +10,24 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ItemGiver extends EntityModifier{
-    EquipmentSlot slot ;
-    Item added_item ;
+    private final EquipmentSlot slot ;
+    private final Item added_item ;
 
-    public ItemGiver(EquipmentSlot slot){
+    private ItemGiver(EquipmentSlot slot, Item added_item){
         this.slot = slot ;
+        this.added_item = added_item;
     }
 
-    @Override
-    public void read(JsonElement element) {
+    public static ItemGiver read(JsonElement element, EquipmentSlot slot) {
         String item_name = element.getAsJsonObject().get("item").getAsString() ;
-        added_item = BuiltInRegistries.ITEM.get(new ResourceLocation(item_name));
+        return new ItemGiver(slot, BuiltInRegistries.ITEM.get(new ResourceLocation(item_name)));
     }
 
     @Override
     public void apply(Entity entity , int level) {
         if (entity instanceof LivingEntity living) {
             ItemStack itemToApply = new ItemStack(added_item) ;
-
             living.setItemSlot(slot, itemToApply);
         }
-    }
-
-    public EntityModifier copy(){
-        return new ItemGiver(this.slot) ;
     }
 }

@@ -1,7 +1,9 @@
 package net.mcreator.er.entity;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.mcreator.er.ErMod;
 import net.mcreator.er.init.ErModEntities;
+import net.mcreator.er.init.ErModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -23,6 +26,7 @@ import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.NotNull;
 
 public class TrounceBlossomEntity extends PathfinderMob {
+    public static final LootContextParam<Double> BLOSSOM_MULTI = new LootContextParam<>(new ResourceLocation(ErMod.MODID, "multi"));
 	public final AnimationState animationState0 = new AnimationState();
 	private LootTable loot;
 	private int omenLevel = 0;
@@ -89,7 +93,17 @@ public class TrounceBlossomEntity extends PathfinderMob {
 				return InteractionResult.FAIL;
 			LootParams.Builder builder = new LootParams.Builder((ServerLevel) this.level());
 			builder.withOptionalParameter(LootContextParams.THIS_ENTITY, this);
-			builder.withLuck(player.getLuck());
+            ItemStack itemStack = player.getMainHandItem();
+            if(itemStack.is(ErModItems.FRAGILE_RESIN.get())) {
+                builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 3d);
+                itemStack.shrink(1);
+            } else if (itemStack.is(ErModItems.ORIGINAL_RESIN.get())) {
+                builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 1d);
+                itemStack.shrink(1);
+            }
+            else
+                builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 0.4);
+            builder.withLuck(player.getLuck());
 			ObjectArrayList<ItemStack> loots = loot.getRandomItems(builder.create(LootContextParamSets.EMPTY));
 			for (ItemStack lootItem : loots) {
 				ItemHandlerHelper.giveItemToPlayer(player, lootItem);

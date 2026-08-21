@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "group": "primogem_to_resin",
+  "category": "misc",
+  "pattern": [
+    "pp",
+    "p ",
+    "pp"
+  ],
+  "key": {
+    "p": {
+      "item": "er:primogem"
+    }
+  },
+  "result": {
+    "item": "er:original_resin"
+  }
+}

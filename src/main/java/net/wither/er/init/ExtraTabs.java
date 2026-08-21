@@ -109,6 +109,8 @@ public class ExtraTabs {
 		} else if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
             tabData.accept(SWEET_FLOWER);
             tabData.accept(WHOPPERFLOWER_SEED);
+            tabData.accept(FRAGILE_RESIN);
+            tabData.accept(ORIGINAL_RESIN);
             tabData.accept(WANDERERS_ADVICE);
             tabData.accept(ADVENTURES_EXPERIENCE);
             tabData.accept(HEROS_WIT);

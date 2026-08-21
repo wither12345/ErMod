@@ -1,0 +1,61 @@
+{
+  "items" : [
+    "er:hydro_sword"
+  ],
+  "ascension" : [
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "er:lotus_head",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "er:lotus_head",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 15000,
+      "ingredient": [
+        {
+          "item": "er:lotus_head",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "er:condensed_hydro",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "er:condensed_hydro",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "er:condensed_hydro",
+          "count": 12
+        }
+      ]
+    }
+  ]
+}

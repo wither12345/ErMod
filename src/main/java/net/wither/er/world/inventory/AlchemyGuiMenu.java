@@ -216,6 +216,7 @@ public class AlchemyGuiMenu extends AbstractContainerMenu {
                 serverPlayer.getInventory().placeItemBackInInventory(slots.get(i).getItem());
                 slots.get(i).set(ItemStack.EMPTY);
             }
+        slots.get(4).set(ItemStack.EMPTY);
     }
 
     private void dropConverting(ServerPlayer serverPlayer){
