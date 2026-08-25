@@ -29,7 +29,7 @@ import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.ErEntityInterface;
-import net.wither.er.entity.onHealthFloating;
+import net.wither.er.entity.listener.onHealthFloating;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;

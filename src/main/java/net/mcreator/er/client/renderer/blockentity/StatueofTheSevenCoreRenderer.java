@@ -1,25 +1,23 @@
 package net.mcreator.er.client.renderer.blockentity;
 
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.api.distmarker.Dist;
-
-import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.block.entity.BeaconBlockEntity;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.util.Mth;
-import net.minecraft.util.FastColor;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.MultiBufferSource;
-
-import net.mcreator.er.block.entity.StatueofTheSevenCoreBlockEntity;
-
-import com.mojang.math.Axis;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import net.mcreator.er.block.entity.StatueofTheSevenCoreBlockEntity;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.phys.AABB;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class StatueofTheSevenCoreRenderer implements BlockEntityRenderer<StatueofTheSevenCoreBlockEntity> {
@@ -102,11 +100,9 @@ public class StatueofTheSevenCoreRenderer implements BlockEntityRenderer<Statueo
 		return 256;
 	}
 
-	public boolean shouldRenderOffScreen(BeaconBlockEntity p_112138_) {
-		return true;
-	}
-
-	public boolean shouldRender(BeaconBlockEntity p_173531_, Vec3 p_173532_) {
-		return Vec3.atCenterOf(p_173531_.getBlockPos()).multiply(1.0, 0.0, 1.0).closerThan(p_173532_.multiply(1.0, 0.0, 1.0), (double) this.getViewDistance());
-	}
+    @Override
+    public @NotNull AABB getRenderBoundingBox(StatueofTheSevenCoreBlockEntity blockEntity) {
+        BlockPos pos = blockEntity.getBlockPos();
+        return new AABB(pos.getX(), pos.getY(), pos.getZ(), (double) pos.getX() + 1F, 1024, (double) pos.getZ() + 1);
+    }
 }

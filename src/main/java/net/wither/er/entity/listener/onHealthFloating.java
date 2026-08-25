@@ -1,8 +1,9 @@
-package net.wither.er.entity;
+package net.wither.er.entity.listener;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
+import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.data.weapon.HealthFloatingAbility;

@@ -5,6 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.wither.er.client.model.WhopperflowerModel;
+import net.wither.er.client.renderer.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.LunarChargedCloudRenderer;
 import net.wither.er.client.renderer.LunarCrystallizeRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoSpikeRenderer;
@@ -23,5 +24,6 @@ public class LayerDefinitionsRegister {
         event.registerLayerDefinition(PyroHomingRobRenderer.LAYER_LOCATION, PyroHomingRobRenderer::createBodyLayer);
         event.registerLayerDefinition(CryoSpikeRenderer.LAYER_LOCATION, CryoSpikeRenderer::createBodyLayer);
         event.registerLayerDefinition(CryoWhopperflowerProjectileRenderer.LAYER_LOCATION, CryoWhopperflowerProjectileRenderer::createBodyLayer);
+        event.registerLayerDefinition(LinkMechanismBaseRenderer.LAYER_LOCATION, LinkMechanismBaseRenderer::createBodyLayer);
     }
 }

@@ -15,7 +15,6 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record LeyLineLeapData(int x, int y, int z) implements CustomPacketPayload {
-
 	public static final CustomPacketPayload.Type<LeyLineLeapData> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("er", "ley_line_leap"));
 	public static final StreamCodec<ByteBuf, LeyLineLeapData> STREAM_CODEC = StreamCodec.composite(
 			// x

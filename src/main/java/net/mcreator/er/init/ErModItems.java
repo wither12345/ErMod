@@ -305,6 +305,13 @@ public class ErModItems {
 	public static final DeferredItem<Item> GAMBLERS_EARRINGS = REGISTRY.register("gamblers_earrings", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.GAMBLER));
 	public static final DeferredItem<Item> FRAGILE_RESIN = REGISTRY.register("fragile_resin", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> ORIGINAL_RESIN = REGISTRY.register("original_resin", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> INSTRUCTORS_BROOCH = REGISTRY.register("instructors_brooch", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.INSTRUCTOR));
+	public static final DeferredItem<Item> INSTRUCTORS_FEATHER_ACCESSORY = REGISTRY.register("instructors_feather_accessory", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.INSTRUCTOR));
+	public static final DeferredItem<Item> INSTRUCTORS_POCKET_WATCH = REGISTRY.register("instructors_pocket_watch", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.INSTRUCTOR));
+	public static final DeferredItem<Item> INSTRUCTORS_TEA_CUP = REGISTRY.register("instructors_tea_cup", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.INSTRUCTOR));
+	public static final DeferredItem<Item> INSTRUCTORS_CAP = REGISTRY.register("instructors_cap", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.INSTRUCTOR));
+	public static final DeferredItem<Item> LINK_MECHANISM = REGISTRY.register("link_mechanism", LinkMechanismItem::new);
+	public static final DeferredItem<Item> PRIME_ICE_RESOURCE = REGISTRY.register("prime_ice_resource", () -> new Item(new Item.Properties()));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

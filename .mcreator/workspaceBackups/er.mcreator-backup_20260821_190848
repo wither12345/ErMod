@@ -5264,7 +5264,9 @@
       "item.er.gamblers_earrings": "Gambler\u0027s Earrings",
       "artifact_effect.er.gambler": "Gambler",
       "artifact_effect.er.gambler.1": "  2-Piece Set: Increases Elemental Skill DMG by 20%.",
-      "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s."
+      "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s.",
+      "item.er.fragile_resin": "Fragile Resin",
+      "item.er.original_resin": "Original Resin"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5711,13 +5713,15 @@
       "item.er.gamblers_earrings": "赌徒的耳环",
       "artifact_effect.er.gambler": "赌徒",
       "artifact_effect.er.gambler.1": "  2件套：元素战技造成的伤害提升20%。",
-      "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。"
+      "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。",
+      "item.er.fragile_resin": "脆弱树脂",
+      "item.er.original_resin": "原粹树脂"
     }
   },
   "metadata": {
     "files": [
-      "src/main/java/net/mcreator/er/init/ErModJeiPlugin.java",
       "src/main/java/net/mcreator/er/init/ErModRecipeTypes.java",
+      "src/main/java/net/mcreator/er/init/ErModJeiPlugin.java",
       "src/main/java/net/mcreator/er/init/ErModAttributes.java",
       "src/main/java/net/mcreator/er/init/ErModKeyMappings.java",
       "src/main/java/net/mcreator/er/init/ErModTrades.java",
@@ -5733,13 +5737,13 @@
       "src/main/java/net/mcreator/er/init/ErModEntities.java",
       "src/main/java/net/mcreator/er/init/ErModEntityRenderers.java",
       "src/main/java/net/mcreator/er/init/ErModFeatures.java",
-      "src/main/java/net/mcreator/er/network/ErModVariables.java",
       "src/main/resources/pack.mcmeta",
+      "src/main/resources/META-INF/accesstransformer.cfg",
+      "src/main/java/net/mcreator/er/init/ErModModels.java",
+      "src/main/resources/META-INF/neoforge.mods.toml",
       "src/main/java/net/mcreator/er/ErMod.java",
       "src/main/java/net/mcreator/er/init/ErModTabs.java",
-      "src/main/java/net/mcreator/er/init/ErModModels.java",
-      "src/main/resources/META-INF/accesstransformer.cfg",
-      "src/main/resources/META-INF/neoforge.mods.toml"
+      "src/main/java/net/mcreator/er/network/ErModVariables.java"
     ]
   },
   "foldersRoot": {
@@ -5758,7 +5762,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

@@ -445,5 +445,15 @@
   "artifact_effect.er.gambler.1": "  2-Piece Set: Increases Elemental Skill DMG by 20%.",
   "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s.",
   "item.er.fragile_resin": "Fragile Resin",
-  "item.er.original_resin": "Original Resin"
+  "item.er.original_resin": "Original Resin",
+  "item.er.instructors_brooch": "Instructor\u0027s Brooch",
+  "item.er.instructors_feather_accessory": "Instructor\u0027s Feather Accessory",
+  "item.er.instructors_pocket_watch": "Instructor\u0027s Pocket Watch",
+  "item.er.instructors_tea_cup": "Instructor\u0027s Tea Cup",
+  "item.er.instructors_cap": "Instructor\u0027s Cap",
+  "artifact_effect.er.instructor": "Instructor",
+  "artifact_effect.er.instructor.1": "  2-Piece Set: Increases Elemental Mastery by 80.",
+  "artifact_effect.er.instructor.2": "  4-Piece Set: Upon triggering an Elemental Reaction, increases Elemental Mastery by 120 for 8s.",
+  "item.er.prime_ice_resource": "Prime Ice Resource",
+  "block.er.link_mechanism": "Link Mechanism"
 }

@@ -8,7 +8,7 @@ import net.wither.er.entity.BloomEntityEntity;
 
 public class BloomEntityRenderer extends LivingEntityRenderer<BloomEntityEntity, Modelbloom<BloomEntityEntity>> {
     public BloomEntityRenderer(EntityRendererProvider.Context context) {
-        super(context, new Modelbloom<BloomEntityEntity>(context.bakeLayer(Modelbloom.LAYER_LOCATION)), 0.4f);
+        super(context, new Modelbloom<>(context.bakeLayer(Modelbloom.LAYER_LOCATION)), 0.4f);
     }
 
     @Override

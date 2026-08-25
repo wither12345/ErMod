@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.wither.er.effect.EffectHarmful;
+import net.wither.er.effect.InstructorBless;
 import net.wither.er.effect.OverloadEffect;
 
 public class EffectRegister {
@@ -13,4 +14,5 @@ public class EffectRegister {
 
     public static final Holder<MobEffect> OVERLOADED = REGISTRY.register("overloaded", OverloadEffect::new);
     public static final Holder<MobEffect> GAMBLER_CD = REGISTRY.register("gambler_cd", EffectHarmful::new);
+    public static final Holder<MobEffect> INSTRUCTOR_BLESS = REGISTRY.register("instructor_bless", InstructorBless::new);
 }

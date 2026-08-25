@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "group": "craft_prime_ice_resource",
+  "category": "misc",
+  "pattern": [
+    " i ",
+    "imi",
+    " i "
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:ice"
+    },
+    "m": {
+      "item": "er:mora"
+    }
+  },
+  "result": {
+    "id": "er:prime_ice_resource"
+  }
+}

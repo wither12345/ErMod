@@ -44,8 +44,8 @@
     },
     "hardness": 1.0,
     "resistance": 10.0,
-    "hasGravity": true,
-    "isWaterloggable": false,
+    "hasGravity": false,
+    "isWaterloggable": true,
     "hasBlockItem": true,
     "maxStackSize": 64,
     "rarity": "COMMON",
@@ -83,6 +83,9 @@
     },
     "offsetType": "NONE",
     "aiPathNodeType": "DEFAULT",
+    "strippingResult": {
+      "value": ""
+    },
     "ignitedByLava": false,
     "flammability": 0,
     "fireSpreadSpeed": 0,
