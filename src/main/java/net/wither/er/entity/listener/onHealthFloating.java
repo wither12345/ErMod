@@ -1,4 +1,4 @@
-package net.wither.er.player;
+package net.wither.er.entity.listener;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.nbt.CompoundTag;

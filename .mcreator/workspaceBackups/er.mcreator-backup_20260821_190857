@@ -4591,21 +4591,6 @@
       "Items.IRON_BOOTS",
       "EXTERNAL:er:silver_sword"
     ],
-    "ITEMS:er:three_star_weapon": [
-      "Items.DIAMOND_SWORD",
-      "Items.NETHERITE_SWORD",
-      "Items.DIAMOND_HELMET",
-      "Items.DIAMOND_CHESTPLATE",
-      "Items.DIAMOND_LEGGINGS",
-      "Items.DIAMOND_BOOTS",
-      "Items.DIAMOND_HORSE_ARMOR",
-      "Items.NETHERITE_HELMET",
-      "Items.NETHERITE_CHESTPLATE",
-      "Items.NETHERITE_LEGGINGS",
-      "Items.NETHERITE_BOOTS",
-      "EXTERNAL:er:cool_steel",
-      "EXTERNAL:er:dark_iron_sword"
-    ],
     "BIOMES:er:overworld_or_nether": [
       "#minecraft:is_overworld",
       "#minecraft:is_nether"
@@ -5090,7 +5075,9 @@
       "item.er.gamblers_earrings": "Gambler\u0027s Earrings",
       "artifact_effect.er.gambler": "Gambler",
       "artifact_effect.er.gambler.1": "  2-Piece Set: Increases Elemental Skill DMG by 20%.",
-      "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s."
+      "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s.",
+      "item.er.fragile_resin": "Fragile Resin",
+      "item.er.original_resin": "Original Resin"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5536,7 +5523,9 @@
       "item.er.gamblers_earrings": "赌徒的耳环",
       "artifact_effect.er.gambler": "赌徒",
       "artifact_effect.er.gambler.1": "  2件套：元素战技造成的伤害提升20%。",
-      "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。"
+      "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。",
+      "item.er.fragile_resin": "脆弱树脂",
+      "item.er.original_resin": "原粹树脂"
     }
   },
   "metadata": {
@@ -5546,8 +5535,8 @@
       "src/main/java/net/mcreator/er/init/ErModTrades.java",
       "src/main/java/net/mcreator/er/init/ErModGameRules.java",
       "src/main/java/net/mcreator/er/init/ErModMobEffects.java",
-      "src/main/java/net/mcreator/er/init/ErModParticles.java",
       "src/main/java/net/mcreator/er/init/ErModParticleTypes.java",
+      "src/main/java/net/mcreator/er/init/ErModParticles.java",
       "src/main/java/net/mcreator/er/init/ErModPotions.java",
       "src/main/java/net/mcreator/er/init/ErModBrewingRecipes.java",
       "src/main/java/net/mcreator/er/init/ErModEnchantments.java",
@@ -5557,13 +5546,13 @@
       "src/main/java/net/mcreator/er/init/ErModEntityRenderers.java",
       "src/main/java/net/mcreator/er/init/ErModEntities.java",
       "src/main/java/net/mcreator/er/init/ErModFeatures.java",
-      "src/main/resources/META-INF/accesstransformer.cfg",
       "src/main/java/net/mcreator/er/ErMod.java",
-      "src/main/java/net/mcreator/er/init/ErModModels.java",
+      "src/main/java/net/mcreator/er/init/ErModTabs.java",
+      "src/main/resources/META-INF/accesstransformer.cfg",
       "src/main/resources/pack.mcmeta",
-      "src/main/resources/META-INF/mods.toml",
+      "src/main/java/net/mcreator/er/init/ErModModels.java",
       "src/main/java/net/mcreator/er/network/ErModVariables.java",
-      "src/main/java/net/mcreator/er/init/ErModTabs.java"
+      "src/main/resources/META-INF/mods.toml"
     ]
   },
   "foldersRoot": {
@@ -5582,7 +5571,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

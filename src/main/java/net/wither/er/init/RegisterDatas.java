@@ -33,6 +33,7 @@ public class RegisterDatas {
 		ErMod.addNetworkMessage(ErCombatVariables.CombatVariablesSyncMessage.class, ErCombatVariables.CombatVariablesSyncMessage::buffer, ErCombatVariables.CombatVariablesSyncMessage::new, ErCombatVariables.CombatVariablesSyncMessage::handleData);
 		ErMod.addNetworkMessage(ErCombatVariables.SyncAnimationMessage.class, ErCombatVariables.SyncAnimationMessage::buffer, ErCombatVariables.SyncAnimationMessage::new, ErCombatVariables.SyncAnimationMessage::handleData);
         ErMod.addNetworkMessage(MoraSelectData.class, MoraSelectData::buffer, MoraSelectData::new, MoraSelectData::handle);
+        ErMod.addNetworkMessage(LineMechanismMessage.class, LineMechanismMessage::buffer, LineMechanismMessage::new, LineMechanismMessage::handle);
 	}
 
 	@SubscribeEvent

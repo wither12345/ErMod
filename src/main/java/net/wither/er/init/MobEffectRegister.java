@@ -6,6 +6,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.wither.er.effect.EffectHarmful;
+import net.wither.er.effect.InstructorBless;
 import net.wither.er.effect.Overloaded;
 
 public class MobEffectRegister {
@@ -13,4 +14,5 @@ public class MobEffectRegister {
 
     public static final RegistryObject<MobEffect> OVERLOADED = REGISTRY.register("overloaded", Overloaded::new);
     public static final RegistryObject<MobEffect> GAMBLER_CD = REGISTRY.register("gambler_cd", EffectHarmful::new);
+    public static final RegistryObject<MobEffect> INSTRUCTOR_BLESS = REGISTRY.register("instructor_bless", InstructorBless::new);
 }

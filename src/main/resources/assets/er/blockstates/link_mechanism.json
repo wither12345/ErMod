@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "extended=true": {
+      "model": "er:block/link_mechanism_empty"
+    },
+    "extended=false,facing=north": {
+      "model": "er:block/link_mechanism_base",
+      "y": 180
+    },
+    "extended=false,facing=east": {
+      "model": "er:block/link_mechanism_base",
+      "y": 270
+    },
+    "extended=false,facing=south": {
+      "model": "er:block/link_mechanism_base"
+    },
+    "extended=false,facing=west": {
+      "model": "er:block/link_mechanism_base",
+      "y": 90
+    }
+  }
+}

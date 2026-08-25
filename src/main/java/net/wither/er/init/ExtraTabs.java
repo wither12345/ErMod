@@ -98,6 +98,11 @@ public class ExtraTabs {
             tabData.accept(GAMBLERS_POCKET_WATCH);
             tabData.accept(GAMBLERS_DICE_CUP);
             tabData.accept(GAMBLERS_EARRINGS);
+            tabData.accept(INSTRUCTORS_BROOCH);
+            tabData.accept(INSTRUCTORS_FEATHER_ACCESSORY);
+            tabData.accept(INSTRUCTORS_POCKET_WATCH);
+            tabData.accept(INSTRUCTORS_TEA_CUP);
+            tabData.accept(INSTRUCTORS_CAP);
 
 			List<String> attrs = new ArrayList<>();
 			addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
@@ -109,6 +114,7 @@ public class ExtraTabs {
 		} else if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
             tabData.accept(SWEET_FLOWER);
             tabData.accept(WHOPPERFLOWER_SEED);
+            tabData.accept(PRIME_ICE_RESOURCE);
             tabData.accept(FRAGILE_RESIN);
             tabData.accept(ORIGINAL_RESIN);
             tabData.accept(WANDERERS_ADVICE);
@@ -166,6 +172,8 @@ public class ExtraTabs {
             addArmorGroup(tabData, PYRO_ARMOR);
             addArmorGroup(tabData, DENDRO_ARMOR);
             addArmorGroup(tabData, GEO_ARMOR);
+        } else if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
+            tabData.accept(LINK_MECHANISM);
         }
     }
     

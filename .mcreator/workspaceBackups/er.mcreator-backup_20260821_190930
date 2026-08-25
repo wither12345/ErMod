@@ -5535,8 +5535,8 @@
       "src/main/java/net/mcreator/er/init/ErModTrades.java",
       "src/main/java/net/mcreator/er/init/ErModGameRules.java",
       "src/main/java/net/mcreator/er/init/ErModMobEffects.java",
-      "src/main/java/net/mcreator/er/init/ErModParticles.java",
       "src/main/java/net/mcreator/er/init/ErModParticleTypes.java",
+      "src/main/java/net/mcreator/er/init/ErModParticles.java",
       "src/main/java/net/mcreator/er/init/ErModPotions.java",
       "src/main/java/net/mcreator/er/init/ErModBrewingRecipes.java",
       "src/main/java/net/mcreator/er/init/ErModEnchantments.java",
@@ -5546,13 +5546,13 @@
       "src/main/java/net/mcreator/er/init/ErModEntityRenderers.java",
       "src/main/java/net/mcreator/er/init/ErModEntities.java",
       "src/main/java/net/mcreator/er/init/ErModFeatures.java",
-      "src/main/resources/META-INF/accesstransformer.cfg",
       "src/main/java/net/mcreator/er/ErMod.java",
-      "src/main/java/net/mcreator/er/init/ErModModels.java",
+      "src/main/java/net/mcreator/er/init/ErModTabs.java",
+      "src/main/resources/META-INF/accesstransformer.cfg",
       "src/main/resources/pack.mcmeta",
-      "src/main/resources/META-INF/mods.toml",
+      "src/main/java/net/mcreator/er/init/ErModModels.java",
       "src/main/java/net/mcreator/er/network/ErModVariables.java",
-      "src/main/java/net/mcreator/er/init/ErModTabs.java"
+      "src/main/resources/META-INF/mods.toml"
     ]
   },
   "foldersRoot": {
@@ -5571,7 +5571,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

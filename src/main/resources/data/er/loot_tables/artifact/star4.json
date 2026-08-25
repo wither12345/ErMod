@@ -168,6 +168,61 @@
               "star": 4
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:instructors_brooch",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:instructors_feather_accessory",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:instructors_pocket_watch",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:instructors_tea_cup",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:instructors_cap",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "er:artifact_init",
+              "star": 4
+            }
+          ]
         }
       ]
     }

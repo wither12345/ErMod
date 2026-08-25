@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "group": "craft_link_mechanism",
+  "category": "misc",
+  "pattern": [
+    "p p",
+    " p ",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "er:prime_ice_resource"
+    }
+  },
+  "result": {
+    "item": "er:link_mechanism"
+  }
+}

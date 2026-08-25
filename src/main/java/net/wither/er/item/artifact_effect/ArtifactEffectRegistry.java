@@ -19,4 +19,5 @@ public class ArtifactEffectRegistry {
     public static final Supplier<ArtifactEffect> BERSERKER = AdditionalRegistries.ARTIFACT_EFFECTS.register("berserker", Berserker::new);
     public static final Supplier<ArtifactEffect> SCHOLAR = AdditionalRegistries.ARTIFACT_EFFECTS.register("scholar", Scholar::new);
     public static final Supplier<ArtifactEffect> GAMBLER = AdditionalRegistries.ARTIFACT_EFFECTS.register("gambler", Gambler::new);
+    public static final Supplier<ArtifactEffect> INSTRUCTOR = AdditionalRegistries.ARTIFACT_EFFECTS.register("instructor", Instructor::new);
 }

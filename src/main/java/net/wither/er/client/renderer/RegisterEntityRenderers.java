@@ -1,5 +1,6 @@
 package net.wither.er.client.renderer;
 
+import net.mcreator.er.init.ErModBlockEntities;
 import net.mcreator.er.init.ErModEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -31,5 +32,7 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER.get(), CryoWhopperflowerRenderer::new);
         event.registerEntityRenderer(ErModEntities.CRYO_SPIKE.get(), CryoSpikeRenderer::new);
         event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER_PROJECTILE.get(), CryoWhopperflowerProjectileRenderer::new);
+        event.registerBlockEntityRenderer(ErModBlockEntities.LINK_MECHANISM_ENTITY.get(), LinkMechanismBaseRenderer::new);
+        event.registerEntityRenderer(ErModEntities.LINK_MECHANISM_TELPHER.get(), LinkMechanismTelpherRenderer::new);
     }
 }
