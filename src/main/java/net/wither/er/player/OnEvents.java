@@ -24,7 +24,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.block.entity.LinkMechanismBaseEntity;
-import net.wither.er.client.renderer.LinkMechanismBaseRenderer;
+import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;

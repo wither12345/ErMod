@@ -5,7 +5,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.wither.er.client.model.WhopperflowerModel;
-import net.wither.er.client.renderer.LinkMechanismBaseRenderer;
+import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.LunarChargedCloudRenderer;
 import net.wither.er.client.renderer.LunarCrystallizeRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoSpikeRenderer;
