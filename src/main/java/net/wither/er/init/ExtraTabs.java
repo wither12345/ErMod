@@ -149,6 +149,7 @@ public class ExtraTabs {
             addArmorGroup(tabData, GEO_ARMOR);
         } else if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             tabData.accept(LINK_MECHANISM);
+            tabData.accept(STORAGE_DEVICE);
         }
     }
 

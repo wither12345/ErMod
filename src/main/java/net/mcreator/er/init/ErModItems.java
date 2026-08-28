@@ -312,9 +312,9 @@ public class ErModItems {
 	public static final DeferredItem<Item> INSTRUCTORS_CAP = REGISTRY.register("instructors_cap", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.INSTRUCTOR));
 	public static final DeferredItem<Item> LINK_MECHANISM = REGISTRY.register("link_mechanism", LinkMechanismItem::new);
 	public static final DeferredItem<Item> PRIME_ICE_RESOURCE = REGISTRY.register("prime_ice_resource", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> STORAGE_DEVICE = REGISTRY.register("storage_device", StorageDeviceItem::new);
+	public static final DeferredItem<Item> STORAGE_DEVICE = REGISTRY.register("storage_device", StorageDeviceItem::new);
 
-    @EventBusSubscriber(value = Dist.CLIENT)
+	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
 		@SubscribeEvent
 		@OnlyIn(Dist.CLIENT)
