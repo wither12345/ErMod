@@ -454,5 +454,13 @@
   "artifact_effect.er.instructor.1": "  2件套：元素精通提高80点。",
   "artifact_effect.er.instructor.2": "  4件套：触发元素反应后，元素精通提高120点，持续8秒。",
   "item.er.prime_ice_resource": "臻冰计量",
-  "block.er.link_mechanism": "连锁机关"
+  "block.er.link_mechanism": "连锁机关",
+  "block.er.storage_device": "寄物装置",
+  "effect.er.instructor_bless": "教官祝福",
+  "advancements.prime_ice.title": "臻冰计量",
+  "advancements.prime_ice.descr": "获得一些臻冰计量",
+  "advancements.quick_move.title": "快速移动",
+  "advancements.quick_move.descr": "获得连锁机关",
+  "advancements.pack_away.title": "打包带走",
+  "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物"
 }

@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "er:link_mechanism"
+    },
+    "title": {
+      "translate": "advancements.quick_move.title"
+    },
+    "description": {
+      "translate": "advancements.quick_move.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "quick_move": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["er:link_mechanism"]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "er:prime_ice"
+}

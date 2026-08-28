@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "er:storage_device"
+    },
+    "title": {
+      "translate": "advancements.pack_away.title"
+    },
+    "description": {
+      "translate": "advancements.pack_away.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "pack_away": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["er:storage_device"]
+          }
+        ]
+      }
+    }
+  },
+  "parent": "er:prime_ice"
+}

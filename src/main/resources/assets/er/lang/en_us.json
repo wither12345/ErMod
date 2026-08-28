@@ -454,5 +454,13 @@
   "artifact_effect.er.instructor.1": "  2-Piece Set: Increases Elemental Mastery by 80.",
   "artifact_effect.er.instructor.2": "  4-Piece Set: Upon triggering an Elemental Reaction, increases Elemental Mastery by 120 for 8s.",
   "item.er.prime_ice_resource": "Prime Ice Resource",
-  "block.er.link_mechanism": "Link Mechanism"
+  "block.er.link_mechanism": "Link Mechanism",
+  "block.er.storage_device": "Storage Device",
+  "effect.er.instructor_bless": "Instructor Bless",
+  "advancements.prime_ice.title": "Prime Ice Resource",
+  "advancements.prime_ice.descr": "get some Prime Ice Resource",
+  "advancements.quick_move.title": "Quick Move",
+  "advancements.quick_move.descr": "get Link Mechanism",
+  "advancements.pack_away.title": "Pack Away",
+  "advancements.pack_away.descr": "get Storage Device, remain items when break"
 }

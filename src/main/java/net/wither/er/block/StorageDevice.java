@@ -1,6 +1,5 @@
 package net.wither.er.block;
 
-import com.mojang.logging.LogUtils;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSourceImpl;
@@ -14,11 +13,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -26,10 +29,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.items.VanillaInventoryCodeHooks;
 import net.wither.er.block.entity.StorageDeviceEntity;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
 
-public class StorageDevice extends DispenserBlock {
-    private static final Logger LOGGER = LogUtils.getLogger();
+public class StorageDevice extends DispenserBlock implements SimpleWaterloggedBlock {
     private static final DispenseItemBehavior DISPENSE_BEHAVIOUR = new DefaultDispenseItemBehavior();
     private static final VoxelShape SHAPE = box(2, 0, 2, 14, 20, 14);
 
@@ -40,10 +41,13 @@ public class StorageDevice extends DispenserBlock {
                 .sound(SoundType.GLASS)
                 .noOcclusion()
                 );
+        this.registerDefaultState(this.getStateDefinition().any().setValue(BlockStateProperties.WATERLOGGED, false));
     }
 
-    protected @NotNull DispenseItemBehavior getDispenseMethod(@NotNull Level level, @NotNull ItemStack itemStack) {
-        return DISPENSE_BEHAVIOUR;
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(BlockStateProperties.WATERLOGGED);
     }
 
     public @NotNull BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
@@ -57,7 +61,10 @@ public class StorageDevice extends DispenserBlock {
 
     @Override
     public @NotNull BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        boolean flag = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(BlockStateProperties.WATERLOGGED, flag);
     }
 
     protected void dispenseFrom(@NotNull ServerLevel serverLevel, @NotNull BlockPos blockPos) {
@@ -96,12 +103,26 @@ public class StorageDevice extends DispenserBlock {
     }
 
     @Override
+    public @NotNull FluidState getFluidState(BlockState state) {
+        return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public @NotNull BlockState updateShape(BlockState state, @NotNull Direction facing, @NotNull BlockState facingState, @NotNull LevelAccessor world, @NotNull BlockPos currentPos, @NotNull BlockPos facingPos) {
+        if (state.getValue(BlockStateProperties.WATERLOGGED)) {
+            world.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+        }
+        return super.updateShape(state, facing, facingState, world, currentPos, facingPos);
+    }
+
+    @Override
     public void onRemove(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos blockPos, @NotNull BlockState blockState, boolean flag) {
         if(!state.is(blockState.getBlock()) &&
                 level.getBlockEntity(blockPos) instanceof StorageDeviceEntity deviceEntity &&
                 level instanceof ServerLevel serverLevel){
             ItemStack itemstack = new ItemStack(ErModItems.STORAGE_DEVICE.get());
-            deviceEntity.saveToItem(itemstack);
+            if(!deviceEntity.isEmpty())
+                deviceEntity.saveToItem(itemstack);
             if (deviceEntity.hasCustomName()) {
                 itemstack.setHoverName(deviceEntity.getCustomName());
             }
