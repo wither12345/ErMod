@@ -5,7 +5,7 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.client.models.WhopperflowerModel;
-import net.wither.er.client.renderer.LinkMechanismBaseRenderer;
+import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.LunarChargedCloudRenderer;
 import net.wither.er.client.renderer.LunarCrystallizeRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoSpikeRenderer;

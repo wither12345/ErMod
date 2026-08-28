@@ -3,6 +3,7 @@
 */
 package net.mcreator.er.init;
 
+import net.wither.er.block.entity.StorageDeviceEntity;
 import net.wither.er.block.entity.WhopperflowerCropEntity;
 import net.wither.er.block.entity.LinkMechanismBaseEntity;
 import net.wither.er.block.entity.BurningDirtEntity;
@@ -25,6 +26,7 @@ public class ErModBlockEntities {
 	public static final RegistryObject<BlockEntityType<BurningDirtEntity>> BURNING_DIRT = register("burning_dirt", ErModBlocks.BURNING_DIRT, BurningDirtEntity::new);
 	public static final RegistryObject<BlockEntityType<WhopperflowerCropEntity>> WHOPPERFLOWER_CROP = register("whopperflower_crop", ErModBlocks.WHOPPERFLOWER_CROP, WhopperflowerCropEntity::new);
 	public static final RegistryObject<BlockEntityType<LinkMechanismBaseEntity>> LINK_MECHANISM_ENTITY = register("link_mechanism_entity", ErModBlocks.LINK_MECHANISM_BASE, LinkMechanismBaseEntity::new);
+    public static final RegistryObject<BlockEntityType<StorageDeviceEntity>> STORAGE_DEVICE = register("storage_device", ErModBlocks.STORAGE_DEVICE_BASE, StorageDeviceEntity::new);
 
 	// End of user code block custom block entities
 	private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String registryname, RegistryObject<Block> block, BlockEntityType.BlockEntitySupplier<T> supplier) {

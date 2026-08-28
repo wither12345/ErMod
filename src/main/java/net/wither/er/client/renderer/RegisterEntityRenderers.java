@@ -6,6 +6,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
+import net.wither.er.client.renderer.block.StorageDeviceRenderer;
 import net.wither.er.client.renderer.whopperflower.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -34,5 +36,6 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER_PROJECTILE.get(), CryoWhopperflowerProjectileRenderer::new);
         event.registerBlockEntityRenderer(ErModBlockEntities.LINK_MECHANISM_ENTITY.get(), LinkMechanismBaseRenderer::new);
         event.registerEntityRenderer(ErModEntities.LINK_MECHANISM_TELPHER.get(), LinkMechanismTelpherRenderer::new);
+        event.registerBlockEntityRenderer(ErModBlockEntities.STORAGE_DEVICE.get(), StorageDeviceRenderer::new);
     }
 }

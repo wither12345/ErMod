@@ -21,7 +21,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.block.entity.LinkMechanismBaseEntity;
-import net.wither.er.client.renderer.LinkMechanismBaseRenderer;
+import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.morabag.MoraBagItemPlus;

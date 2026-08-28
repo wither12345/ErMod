@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "group": "craft_storage_device",
+  "category": "misc",
+  "pattern": [
+    "ppp",
+    "p p",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "er:prime_ice_resource"
+    }
+  },
+  "result": {
+    "item": "er:storage_device"
+  }
+}

@@ -1,4 +1,4 @@
-package net.wither.er.client.renderer;
+package net.wither.er.client.renderer.block;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

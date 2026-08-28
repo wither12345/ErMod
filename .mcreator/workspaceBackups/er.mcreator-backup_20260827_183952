@@ -2041,11 +2041,11 @@
       "registry_name": "element_anvil",
       "metadata": {
         "files": [
+          "src/main/resources/assets/er/blockstates/element_anvil.json",
+          "src/main/resources/assets/er/models/block/element_anvil.json",
           "src/main/java/net/mcreator/er/block/ElementAnvilBlock.java",
           "src/main/resources/data/er/loot_tables/blocks/element_anvil.json",
-          "src/main/resources/assets/er/blockstates/element_anvil.json",
-          "src/main/resources/assets/er/models/item/element_anvil.json",
-          "src/main/resources/assets/er/models/block/element_anvil.json"
+          "src/main/resources/assets/er/models/item/element_anvil.json"
         ]
       }
     },
@@ -4446,13 +4446,6 @@
     "ITEMS:er:sands_of_eon": [
       "CUSTOM:LuckyDogsHourglass"
     ],
-    "ITEMS:er:one_star_artifact": [
-      "CUSTOM:LuckyDogsClover",
-      "CUSTOM:LuckyDogsEagleFeather",
-      "CUSTOM:LuckyDogsHourglass",
-      "CUSTOM:LuckyDogsGoblet",
-      "CUSTOM:LuckyDogsSilverCirclet"
-    ],
     "BLOCKS:minecraft:logs": [
       "CUSTOM:CuihuaLog"
     ],
@@ -4473,13 +4466,6 @@
     ],
     "ITEMS:er:electro_infusion": [
       "CUSTOM:ElectroSword"
-    ],
-    "ITEMS:er:three_star_artifact": [
-      "CUSTOM:LuckyDogsClover",
-      "CUSTOM:LuckyDogsEagleFeather",
-      "CUSTOM:LuckyDogsHourglass",
-      "CUSTOM:LuckyDogsGoblet",
-      "CUSTOM:LuckyDogsSilverCirclet"
     ],
     "BLOCKS:minecraft:stairs": [
       "~CUSTOM:CuihuaStairs"
@@ -5077,7 +5063,17 @@
       "artifact_effect.er.gambler.1": "  2-Piece Set: Increases Elemental Skill DMG by 20%.",
       "artifact_effect.er.gambler.2": "  4-Piece Set: Defeating an opponent has 100% chance to remove Elemental Skill CD. Can only occur once every 15s.",
       "item.er.fragile_resin": "Fragile Resin",
-      "item.er.original_resin": "Original Resin"
+      "item.er.original_resin": "Original Resin",
+      "item.er.instructors_brooch": "Instructor\u0027s Brooch",
+      "item.er.instructors_feather_accessory": "Instructor\u0027s Feather Accessory",
+      "item.er.instructors_pocket_watch": "Instructor\u0027s Pocket Watch",
+      "item.er.instructors_tea_cup": "Instructor\u0027s Tea Cup",
+      "item.er.instructors_cap": "Instructor\u0027s Cap",
+      "artifact_effect.er.instructor": "Instructor",
+      "artifact_effect.er.instructor.1": "  2-Piece Set: Increases Elemental Mastery by 80.",
+      "artifact_effect.er.instructor.2": "  4-Piece Set: Upon triggering an Elemental Reaction, increases Elemental Mastery by 120 for 8s.",
+      "item.er.prime_ice_resource": "Prime Ice Resource",
+      "block.er.link_mechanism": "Link Mechanism"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5525,7 +5521,17 @@
       "artifact_effect.er.gambler.1": "  2件套：元素战技造成的伤害提升20%。",
       "artifact_effect.er.gambler.2": "  4件套：击败敌人时， 有100%概率清除元素战技的冷却时间。 该效果每15秒至多触发一次。",
       "item.er.fragile_resin": "脆弱树脂",
-      "item.er.original_resin": "原粹树脂"
+      "item.er.original_resin": "原粹树脂",
+      "item.er.instructors_brooch": "教官的胸花",
+      "item.er.instructors_feather_accessory": "教官的羽饰",
+      "item.er.instructors_pocket_watch": "教官的怀表",
+      "item.er.instructors_tea_cup": "教官的茶杯",
+      "item.er.instructors_cap": "教官的帽子",
+      "artifact_effect.er.instructor": "教官",
+      "artifact_effect.er.instructor.1": "  2件套：元素精通提高80点。",
+      "artifact_effect.er.instructor.2": "  4件套：触发元素反应后，元素精通提高120点，持续8秒。",
+      "item.er.prime_ice_resource": "臻冰计量",
+      "block.er.link_mechanism": "连锁机关"
     }
   },
   "metadata": {
@@ -5571,7 +5577,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",
