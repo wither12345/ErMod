@@ -5187,6 +5187,10 @@
       "item.er.pyro_hoe": "Pyro Hoe",
       "item.er.electro_hoe": "Electro Hoe",
       "item.er.cryo_hoe": "Cryo Hoe",
+      "item.er.geo_hoe": "Geo Hoe",
+      "item.er.hydro_hoe": "Hydro Hoe",
+      "item.er.anemo_hoe": "Anemo Hoe",
+      "item.er.dendro_hoe": "Dendro Hoe",
       "block.er.whopperflower_crop": "Whopperflower Seed",
       "advancements.flower_it_flowers.title": "Flower it Flowers",
       "advancements.flower_it_flowers.describe": "Harvest a Whopperflower",
@@ -5267,7 +5271,20 @@
       "item.er.instructors_cap": "Instructor\u0027s Cap",
       "artifact_effect.er.instructor": "Instructor",
       "artifact_effect.er.instructor.1": "  2-Piece Set: Increases Elemental Mastery by 80.",
-      "artifact_effect.er.instructor.2": "  4-Piece Set: Upon triggering an Elemental Reaction, increases Elemental Mastery by 120 for 8s."
+      "artifact_effect.er.instructor.2": "  4-Piece Set: Upon triggering an Elemental Reaction, increases Elemental Mastery by 120 for 8s.",
+      "item.er.prime_ice_resource": "Prime Ice Resource",
+      "block.er.link_mechanism": "Link Mechanism",
+      "block.er.storage_device": "Storage Device",
+      "effect.er.instructor_bless": "Instructor Bless",
+      "advancements.prime_ice.title": "Prime Ice Resource",
+      "advancements.prime_ice.descr": "get some Prime Ice Resource",
+      "advancements.quick_move.title": "Quick Move",
+      "advancements.quick_move.descr": "get Link Mechanism",
+      "advancements.pack_away.title": "Pack Away",
+      "advancements.pack_away.descr": "get Storage Device, remain items when break",
+      "block.er.ambient_bollard": "Ambient Bollard",
+      "lore.er.ambient.speed": "Switch Ambient Bollard‘s effect to speed",
+      "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5724,7 +5741,20 @@
       "item.er.instructors_cap": "教官的帽子",
       "artifact_effect.er.instructor": "教官",
       "artifact_effect.er.instructor.1": "  2件套：元素精通提高80点。",
-      "artifact_effect.er.instructor.2": "  4件套：触发元素反应后，元素精通提高120点，持续8秒。"
+      "artifact_effect.er.instructor.2": "  4件套：触发元素反应后，元素精通提高120点，持续8秒。",
+      "item.er.prime_ice_resource": "臻冰计量",
+      "block.er.link_mechanism": "连锁机关",
+      "block.er.storage_device": "寄物装置",
+      "effect.er.instructor_bless": "教官祝福",
+      "advancements.prime_ice.title": "臻冰计量",
+      "advancements.prime_ice.descr": "获得一些臻冰计量",
+      "advancements.quick_move.title": "快速移动",
+      "advancements.quick_move.descr": "获得连锁机关",
+      "advancements.pack_away.title": "打包带走",
+      "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物",
+      "block.er.ambient_bollard": "氛围桩",
+      "lore.er.ambient.speed": "将氛围桩切换为移动速度提高",
+      "lore.er.ambient.heal": "将氛围桩切换为生命回复"
     }
   },
   "metadata": {
@@ -5771,7 +5801,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.5",
+    "version": "1.1.7",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",
