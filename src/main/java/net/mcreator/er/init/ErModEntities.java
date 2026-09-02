@@ -101,6 +101,10 @@ public class ErModEntities {
 			EntityType.Builder.<CryoWhopperflowerProjectile>of(CryoWhopperflowerProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.3f, 0.3f));
 	public static final RegistryObject<EntityType<LinkMechanismTelpher>> LINK_MECHANISM_TELPHER = register("link_mechanism_telpher",
 			EntityType.Builder.<LinkMechanismTelpher>of(LinkMechanismTelpher::new, MobCategory.MISC).noSave().noSummon().setShouldReceiveVelocityUpdates(true).clientTrackingRange(4).updateInterval(5).sized(0.2f, 0.2f));
+	public static final RegistryObject<EntityType<HealOrbEntity>> HEAL_ORB = register("heal_orb",
+			EntityType.Builder.of(HealOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
+	public static final RegistryObject<EntityType<SpeedOrbEntity>> SPEED_ORB = register("speed_orb",
+			EntityType.Builder.of(SpeedOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 
 	// End of user code block custom entities
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

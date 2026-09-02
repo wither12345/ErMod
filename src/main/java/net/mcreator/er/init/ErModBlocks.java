@@ -3,11 +3,7 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.block.WhopperflowerCrop;
-import net.wither.er.block.StorageDevice;
-import net.wither.er.block.LinkMechanismBase;
-import net.wither.er.block.ElementalFarmBlock;
-import net.wither.er.block.BurningDirt;
+import net.wither.er.block.*;
 
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -93,6 +89,7 @@ public class ErModBlocks {
 			() -> new FlowerBlock(MobEffects.MOVEMENT_SPEED, 10, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 	public static final RegistryObject<Block> LINK_MECHANISM_BASE = REGISTRY.register("link_mechanism", LinkMechanismBase::new);
 	public static final RegistryObject<Block> STORAGE_DEVICE_BASE = REGISTRY.register("storage_device", StorageDevice::new);
+	public static final RegistryObject<Block> AMBIENT_BOLLARD = REGISTRY.register("ambient_bollard", AmbientBollard::new);
 
 	private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
 		return true;

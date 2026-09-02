@@ -67,6 +67,7 @@ public class BurningDirtEntity extends BlockEntity implements TraceableEntity {
             serverLevel.setBlock(this.getBlockPos().above(), Blocks.AIR.defaultBlockState(), 3);
         }
     }
+
     @Override
     public void load(@NotNull CompoundTag tag) {
         super.load(tag);

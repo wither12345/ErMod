@@ -27,8 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class EnergyOrb extends Entity {
-	public static final EntityDataAccessor<Integer> DATA_Element = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.INT);
-	public static final EntityDataAccessor<Float> DATA_Amount = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.FLOAT);
+	public static final EntityDataAccessor<Integer> DATA_ELEMENT = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.INT);
+	public static final EntityDataAccessor<Float> DATA_AMOUNT = SynchedEntityData.defineId(EnergyOrb.class, EntityDataSerializers.FLOAT);
 	private int age;
 	private int health = 5;
 	private Player followingPlayer;
@@ -40,13 +40,13 @@ public class EnergyOrb extends Entity {
 
 	@Override
 	protected void defineSynchedData() {
-		this.entityData.define(DATA_Element, 0);
-		this.entityData.define(DATA_Amount, 1f);
+		this.entityData.define(DATA_ELEMENT, 0);
+		this.entityData.define(DATA_AMOUNT, 1f);
 	}
 
 	public void setType(int element, float amount) {
-		this.entityData.set(DATA_Element, element);
-		this.entityData.set(DATA_Amount, amount);
+		this.entityData.set(DATA_ELEMENT, element);
+		this.entityData.set(DATA_AMOUNT, amount);
 	}
 
 	@Override
@@ -143,8 +143,8 @@ public class EnergyOrb extends Entity {
 	public void addAdditionalSaveData(CompoundTag compound) {
 		compound.putShort("Health", (short) this.health);
 		compound.putShort("Age", (short) this.age);
-		compound.putInt("Element", this.entityData.get(DATA_Element));
-		compound.putFloat("Amount", this.entityData.get(DATA_Amount));
+		compound.putInt("Element", this.entityData.get(DATA_ELEMENT));
+		compound.putFloat("Amount", this.entityData.get(DATA_AMOUNT));
 	}
 
 	@Override
@@ -152,9 +152,9 @@ public class EnergyOrb extends Entity {
 		this.health = compound.getShort("Health");
 		this.age = compound.getShort("Age");
 		if (compound.contains("Element"))
-			this.entityData.set(DATA_Element, compound.getInt("Element"));
+			this.entityData.set(DATA_ELEMENT, compound.getInt("Element"));
 		if (compound.contains("Amount"))
-			this.entityData.set(DATA_Amount, compound.getFloat("Amount"));
+			this.entityData.set(DATA_AMOUNT, compound.getFloat("Amount"));
 	}
 
 	@Override
@@ -185,11 +185,11 @@ public class EnergyOrb extends Entity {
 	}
 
 	public float getAmount() {
-		return this.entityData.get(DATA_Amount);
+		return this.entityData.get(DATA_AMOUNT);
 	}
 
 	public int getElement() {
-		return this.entityData.get(DATA_Element);
+		return this.entityData.get(DATA_ELEMENT);
 	}
 
 	@Override

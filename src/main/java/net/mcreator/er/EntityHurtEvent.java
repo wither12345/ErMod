@@ -301,7 +301,7 @@ public class EntityHurtEvent {
 			return entity.getPersistentData().getInt("erLevel");
 		else if(entity instanceof OwnableEntity ownable)
 			return getEntityLevel(ownable.getOwner()) ;
-		return 0 ;
+		return 1 ;
 	}
 
 	public static double getElementalMastery(Entity entity){

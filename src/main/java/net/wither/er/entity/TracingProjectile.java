@@ -118,9 +118,9 @@ public abstract class TracingProjectile extends Projectile {
             this.targetUUID = target.getUUID();
             this.cachedTarget = target;
         }
+    }
 
-
-    }public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> dataAccessor) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> dataAccessor) {
         if (TARGET.equals(dataAccessor)) {
             int i = this.getEntityData().get(TARGET);
             if(i > 0){
@@ -133,7 +133,6 @@ public abstract class TracingProjectile extends Projectile {
                 this.targetUUID = null;
             }
         }
-
         super.onSyncedDataUpdated(dataAccessor);
     }
 
@@ -154,14 +153,16 @@ public abstract class TracingProjectile extends Projectile {
     }
 
     protected void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
         if (this.targetUUID != null) {
-            tag.putUUID("Owner", this.targetUUID);
+            tag.putUUID("Target", this.targetUUID);
         }
     }
 
     protected void readAdditionalSaveData(CompoundTag tag) {
-        if (tag.hasUUID("Owner")) {
-            this.targetUUID = tag.getUUID("Owner");
+        super.readAdditionalSaveData(tag);
+        if (tag.hasUUID("Target")) {
+            this.targetUUID = tag.getUUID("Target");
             this.cachedTarget = null;
         }
     }

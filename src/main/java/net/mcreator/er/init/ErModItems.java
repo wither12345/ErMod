@@ -281,6 +281,10 @@ public class ErModItems {
 	public static final RegistryObject<Item> PYRO_HOE = REGISTRY.register("pyro_hoe", () -> new ElementalHoe(Element.Category.PYRO));
 	public static final RegistryObject<Item> ELECTRO_HOE = REGISTRY.register("electro_hoe", () -> new ElementalHoe(Element.Category.ELECTRO));
 	public static final RegistryObject<Item> CRYO_HOE = REGISTRY.register("cryo_hoe", () -> new ElementalHoe(Element.Category.CRYO));
+	public static final RegistryObject<Item> GEO_HOE = REGISTRY.register("geo_hoe", () -> new ElementalHoe(Element.Category.GEO));
+	public static final RegistryObject<Item> ANEMO_HOE = REGISTRY.register("anemo_hoe", () -> new ElementalHoe(Element.Category.ANEMO));
+	public static final RegistryObject<Item> DENDRO_HOE = REGISTRY.register("dendro_hoe", () -> new ElementalHoe(Element.Category.DENDRO));
+	public static final RegistryObject<Item> HYDRO_HOE = REGISTRY.register("hydro_hoe", () -> new ElementalHoe(Element.Category.HYDRO));
 	public static final RegistryObject<Item> SWEET_FLOWER = block(ErModBlocks.SWEET_FLOWER);
 	public static final RegistryObject<Item> WHOPPERFLOWER_SEED = REGISTRY.register("whopperflower_seed", WhopperflowerSeedItem::new);
 	public static final RegistryObject<Item> CRYO_WHOPPERFLOWER_FRUIT = REGISTRY.register("cryo_whopperflower_fruit", () -> new WhopperflowerFruit(ShieldRegistry.CRYO_WHOPPERFLOWER));
@@ -313,6 +317,7 @@ public class ErModItems {
 	public static final RegistryObject<Item> LINK_MECHANISM = REGISTRY.register("link_mechanism", LinkMechanismItem::new);
 	public static final RegistryObject<Item> PRIME_ICE_RESOURCE = REGISTRY.register("prime_ice_resource", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> STORAGE_DEVICE = REGISTRY.register("storage_device", StorageDeviceItem::new);
+	public static final RegistryObject<Item> AMBIENT_BOLLARD = REGISTRY.register("ambient_bollard", () -> new BlockItem(ErModBlocks.AMBIENT_BOLLARD.get(), new Item.Properties()));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

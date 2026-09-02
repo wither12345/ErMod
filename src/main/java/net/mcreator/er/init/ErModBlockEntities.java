@@ -7,6 +7,7 @@ import net.wither.er.block.entity.WhopperflowerCropEntity;
 import net.wither.er.block.entity.StorageDeviceEntity;
 import net.wither.er.block.entity.LinkMechanismBaseEntity;
 import net.wither.er.block.entity.BurningDirtEntity;
+import net.wither.er.block.entity.AmbientBollardEntity;
 
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,6 +28,7 @@ public class ErModBlockEntities {
 	public static final RegistryObject<BlockEntityType<WhopperflowerCropEntity>> WHOPPERFLOWER_CROP = register("whopperflower_crop", ErModBlocks.WHOPPERFLOWER_CROP, WhopperflowerCropEntity::new);
 	public static final RegistryObject<BlockEntityType<LinkMechanismBaseEntity>> LINK_MECHANISM_ENTITY = register("link_mechanism_entity", ErModBlocks.LINK_MECHANISM_BASE, LinkMechanismBaseEntity::new);
 	public static final RegistryObject<BlockEntityType<StorageDeviceEntity>> STORAGE_DEVICE = register("storage_device", ErModBlocks.STORAGE_DEVICE_BASE, StorageDeviceEntity::new);
+	public static final RegistryObject<BlockEntityType<AmbientBollardEntity>> AMBIENT_BOLLARD = register("ambient_bollard", ErModBlocks.AMBIENT_BOLLARD, AmbientBollardEntity::new);
 
 	// End of user code block custom block entities
 	private static <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String registryname, RegistryObject<Block> block, BlockEntityType.BlockEntitySupplier<T> supplier) {

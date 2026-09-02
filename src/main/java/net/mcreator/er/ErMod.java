@@ -69,7 +69,7 @@ public class ErMod {
 		ElementalAttributesRegister.EFFECT_REGISTRY.register(bus);
 		ElementalAttributesRegister.POT_REGISTRY.register(bus);
 		RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
-		RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
+		//RecipeTypeRegister.RECIPE_SERIALIZERS.register(bus);
 		ErMenus.REGISTRY.register(bus);
 		MobEffectRegister.REGISTRY.register(bus);
 		ExtraTabs.REGISTRY.register(bus);

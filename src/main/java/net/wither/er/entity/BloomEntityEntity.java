@@ -159,7 +159,7 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 							this
 					), basicDamage
 							* EntityHurtEvent.getElementalMasteryMultiply(1, EntityHurtEvent.getElementalMastery(damager))
-							* EntityHurtEvent.getLevelMultiply(damager)
+							* EntityHurtEvent.getLevelMultiply(damager == null ? this : damager)
 							* (EntityHurtEvent.shouldHurt(damager,entity_iterator) ? 1 : 0.05f)
 			);
 		}

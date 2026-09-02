@@ -13,8 +13,32 @@
       "apply":{"model": "er:block/farmlands/electro"}
     },
     {
+      "when": {"element": "dendro", "moisture": "7"},
+      "apply":{"model": "er:block/farmlands/dendro_moist"}
+    },
+    {
+      "when": {"element": "dendro", "moisture": "!7"},
+      "apply":{"model": "er:block/farmlands/dendro"}
+    },
+    {
+      "when": {"element": "anemo", "moisture": "7"},
+      "apply":{"model": "er:block/farmlands/anemo_moist"}
+    },
+    {
+      "when": {"element": "anemo", "moisture": "!7"},
+      "apply":{"model": "er:block/farmlands/anemo"}
+    },
+    {
       "when": {"element": "cryo"},
       "apply":{"model": "er:block/farmlands/cryo"}
+    },
+    {
+      "when": {"element": "geo"},
+      "apply":{"model": "er:block/farmlands/geo"}
+    },
+    {
+      "when": {"element": "hydro"},
+      "apply":{"model": "er:block/farmlands/hydro"}
     }
   ]
 }

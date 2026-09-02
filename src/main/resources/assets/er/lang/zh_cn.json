@@ -372,6 +372,10 @@
   "item.er.pyro_hoe": "火元素锄",
   "item.er.electro_hoe": "雷元素锄",
   "item.er.cryo_hoe": "冰元素锄",
+  "item.er.geo_hoe": "岩元素锄",
+  "item.er.hydro_hoe": "水元素锄",
+  "item.er.anemo_hoe": "风元素锄",
+  "item.er.dendro_hoe": "草元素锄",
   "block.er.whopperflower_crop": "骗骗花种子",
   "advancements.flower_it_flowers.title": "种花得花",
   "advancements.flower_it_flowers.describe": "收获一只骗骗花",
@@ -462,5 +466,8 @@
   "advancements.quick_move.title": "快速移动",
   "advancements.quick_move.descr": "获得连锁机关",
   "advancements.pack_away.title": "打包带走",
-  "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物"
+  "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物",
+  "block.er.ambient_bollard": "氛围桩",
+  "lore.er.ambient.speed": "将氛围桩切换为移动速度提高",
+  "lore.er.ambient.heal": "将氛围桩切换为生命回复"
 }
