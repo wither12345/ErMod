@@ -159,7 +159,7 @@ public class BloomEntityEntity extends LivingEntity implements TraceableEntity{
 			entity_iterator.hurt(
 					new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) , this),
                     basicDamage
-							* EntityHurtEvent.getLevelMultiply(damager)
+							* EntityHurtEvent.getLevelMultiply(damager == null ? this : damager)
 							* (EntityHurtEvent.shouldHurt(damager,entity_iterator) ? 1 : 0.05f)
 			);
 		}

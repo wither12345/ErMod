@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": true,
+  "group": "craft_ambient_bollard",
+  "category": "misc",
+  "pattern": [
+    " p ",
+    " p ",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "er:prime_ice_resource"
+    }
+  },
+  "result": {
+    "id": "er:ambient_bollard"
+  }
+}

@@ -30,7 +30,8 @@
   "rewards": {
     "recipes": [
       "er:craft_link_mechanism",
-      "er:craft_storage_device"
+      "er:craft_storage_device",
+      "er:craft_ambient_bollard"
     ]
   }
 }

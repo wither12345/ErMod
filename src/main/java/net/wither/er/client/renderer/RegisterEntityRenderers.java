@@ -37,5 +37,7 @@ public class RegisterEntityRenderers {
         event.registerBlockEntityRenderer(ErModBlockEntities.LINK_MECHANISM_ENTITY.get(), LinkMechanismBaseRenderer::new);
         event.registerEntityRenderer(ErModEntities.LINK_MECHANISM_TELPHER.get(), LinkMechanismTelpherRenderer::new);
         event.registerBlockEntityRenderer(ErModBlockEntities.STORAGE_DEVICE.get(), StorageDeviceRenderer::new);
+        event.registerEntityRenderer(ErModEntities.HEAL_ORB.get(), HealOrbRenderer::new);
+        event.registerEntityRenderer(ErModEntities.SPEED_ORB.get(), SpeedOrbRenderer::new);
     }
 }

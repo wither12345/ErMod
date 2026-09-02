@@ -4,7 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FarmBlock;
@@ -21,7 +23,7 @@ import static net.wither.er.elements.Element.Category.*;
 
 public class ElementalFarmBlock extends FarmBlock {
     public static final EnumProperty<Element.Category> ELEMENT = EnumProperty.create("element", Element.Category.class);
-    private static final EnumSet<Element.Category> FERTILE_ELEMENT = EnumSet.of(ELECTRO, HYDRO, DENDRO);
+    private static final EnumSet<Element.Category> FERTILE_ELEMENT = EnumSet.of(ELECTRO, ANEMO, DENDRO);
     public ElementalFarmBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(ELEMENT, GEO));
@@ -33,7 +35,8 @@ public class ElementalFarmBlock extends FarmBlock {
 
     @Override
     public boolean isFertile(@NotNull BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
-        return FERTILE_ELEMENT.contains(state.getValue(ELEMENT)) && super.isFertile(state, level, pos);
+        Element.Category category = state.getValue(ELEMENT);
+        return (FERTILE_ELEMENT.contains(category) && super.isFertile(state, level, pos) || category == HYDRO);
     }
 
     @Override
@@ -61,5 +64,11 @@ public class ElementalFarmBlock extends FarmBlock {
     protected void createBlockStateDefinition(StateDefinition.@NotNull Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(ELEMENT);
+    }
+
+    @Override
+    public void fallOn(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockPos blockPos, @NotNull Entity entity, float v) {
+        if(getCategory(blockState) != GEO)
+            super.fallOn(level, blockState, blockPos, entity, v);
     }
 }

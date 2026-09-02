@@ -139,6 +139,10 @@ public class ExtraTabs {
             tabData.accept(PYRO_HOE);
             tabData.accept(ELECTRO_HOE);
             tabData.accept(CRYO_HOE);
+            tabData.accept(GEO_HOE);
+            tabData.accept(ANEMO_HOE);
+            tabData.accept(DENDRO_HOE);
+            tabData.accept(HYDRO_HOE);
         } else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
             addArmorGroup(tabData, ANEMO_ARMOR);
             addArmorGroup(tabData, HYDRO_ARMOR);
@@ -150,6 +154,7 @@ public class ExtraTabs {
         } else if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             tabData.accept(LINK_MECHANISM);
             tabData.accept(STORAGE_DEVICE);
+            tabData.accept(AMBIENT_BOLLARD);
         }
     }
 

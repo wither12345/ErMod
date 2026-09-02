@@ -152,14 +152,16 @@ public abstract class TracingProjectile extends Projectile {
     }
 
     protected void addAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
         if (this.targetUUID != null) {
-            tag.putUUID("Owner", this.targetUUID);
+            tag.putUUID("Target", this.targetUUID);
         }
     }
 
-    protected void readAdditionalSaveData(CompoundTag tag) {
-        if (tag.hasUUID("Owner")) {
-            this.targetUUID = tag.getUUID("Owner");
+    protected void readAdditionalSaveData(@NotNull CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.hasUUID("Target")) {
+            this.targetUUID = tag.getUUID("Target");
             this.cachedTarget = null;
         }
     }

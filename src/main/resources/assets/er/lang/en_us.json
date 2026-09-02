@@ -373,6 +373,10 @@
   "item.er.pyro_hoe": "Pyro Hoe",
   "item.er.electro_hoe": "Electro Hoe",
   "item.er.cryo_hoe": "Cryo Hoe",
+  "item.er.geo_hoe": "Geo Hoe",
+  "item.er.hydro_hoe": "Hydro Hoe",
+  "item.er.anemo_hoe": "Anemo Hoe",
+  "item.er.dendro_hoe": "Dendro Hoe",
   "block.er.whopperflower_crop": "Whopperflower Seed",
   "advancements.flower_it_flowers.title": "Flower it Flowers",
   "advancements.flower_it_flowers.describe": "Harvest a Whopperflower",
@@ -463,5 +467,8 @@
   "advancements.quick_move.title": "Quick Move",
   "advancements.quick_move.descr": "get Link Mechanism",
   "advancements.pack_away.title": "Pack Away",
-  "advancements.pack_away.descr": "get Storage Device, remain items when break"
+  "advancements.pack_away.descr": "get Storage Device, remain items when break",
+  "block.er.ambient_bollard": "Ambient Bollard",
+  "lore.er.ambient.speed": "Switch Ambient Bollard‘s effect to speed",
+  "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal"
 }

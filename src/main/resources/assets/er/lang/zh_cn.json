@@ -463,5 +463,8 @@
   "advancements.quick_move.title": "快速移动",
   "advancements.quick_move.descr": "获得连锁机关",
   "advancements.pack_away.title": "打包带走",
-  "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物"
+  "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物",
+  "block.er.ambient_bollard": "氛围桩",
+  "lore.er.ambient.speed": "将氛围桩切换为移动速度提高",
+  "lore.er.ambient.heal": "将氛围桩切换为生命回复"
 }

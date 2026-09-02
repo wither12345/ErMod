@@ -46,17 +46,11 @@ public class EnergyOrbRenderer extends EntityRenderer<EnergyOrb> {
 		float f1 = (float) (i % 4 * 16 + 16) / 64.0F;
 		float f2 = (float) (i / 4 * 16) / 64.0F;
 		float f3 = (float) (i / 4 * 16 + 16) / 64.0F;
-		float f4 = 1.0F;
-		float f5 = 0.5F;
-		float f6 = 0.25F;
-		float f7 = 255.0F;
-		float f8 = ((float) orb.tickCount + p_114601_) / 2.0F;
 		int j = getR(orb.getElement());
 		int k = getG(orb.getElement());
 		int l = getB(orb.getElement());
 		stack.translate(0.0F, 0.1F, 0.0F);
 		stack.mulPose(this.entityRenderDispatcher.cameraOrientation());
-		float f9 = 0.3F;
 		stack.scale(0.3F, 0.3F, 0.3F);
 		VertexConsumer vertexconsumer = source.getBuffer(RENDER_TYPE);
 		PoseStack.Pose posestack$pose = stack.last();
