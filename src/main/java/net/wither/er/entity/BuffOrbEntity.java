@@ -36,13 +36,13 @@ public abstract class BuffOrbEntity extends Entity {
             if (this.getSavePos() != null)
                 this.setPos(this.getSavePos().getCenter());
             if (this.level() instanceof ServerLevel)
-                this.setTarget(this.level().getNearestPlayer(this, 4));
+                this.setTarget(this.level().getNearestPlayer(this, 5));
         } else {
             Vec3 vec3 = target.position().subtract(this.position());
             double d = vec3.lengthSqr();
-            if (d > 16 && !this.level().isClientSide())
+            if (d > 25 && !this.level().isClientSide())
                 this.setTarget(null);
-            else if (d > 0.04)
+            else if (d > 0.25)
                 this.move(MoverType.SELF, vec3.normalize().scale(0.2));
             else {
                 this.onTouch(target);

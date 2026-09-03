@@ -15,6 +15,6 @@ public class SpeedOrbEntity extends BuffOrbEntity{
     @Override
     protected void onTouch(Entity entity) {
         if(entity instanceof LivingEntity living)
-            living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 400));
+            living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300));
     }
 }

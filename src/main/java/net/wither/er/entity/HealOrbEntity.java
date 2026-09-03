@@ -13,6 +13,6 @@ public class HealOrbEntity extends BuffOrbEntity{
     @Override
     protected void onTouch(Entity entity) {
         if(entity instanceof LivingEntity living)
-            living.heal(living.getMaxHealth() * 0.1f);
+            living.heal(living.getMaxHealth() * 0.2f);
     }
 }

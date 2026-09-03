@@ -470,5 +470,13 @@
   "advancements.pack_away.descr": "get Storage Device, remain items when break",
   "block.er.ambient_bollard": "Ambient Bollard",
   "lore.er.ambient.speed": "Switch Ambient Bollard‘s effect to speed",
-  "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal"
+  "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal",
+  "item.er.medal_of_the_brave": "Medal of the Brave",
+  "item.er.prospect_of_the_brave": "Prospect of the Brave",
+  "item.er.fortitude_of_the_brave": "Fortitude of the Brave",
+  "item.er.outset_of_the_brave": "Outset of the Brave",
+  "item.er.crown_of_the_brave": "Crown of the Brave",
+  "artifact_effect.er.brave_heart": "Brave Heart",
+  "artifact_effect.er.brave_heart.1": "  2-Piece Set: ATK +18%.",
+  "artifact_effect.er.brave_heart.2": "  4-Piece Set: Increases DMG by 30% against opponents with more than 50% HP."
 }

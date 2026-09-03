@@ -8,221 +8,151 @@
           "type": "minecraft:item",
           "name": "er:berserkers_rose",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:berserkers_indigo_feather",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:berserkers_timepiece",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:berserkers_bone_goblet",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:berserkers_battle_mask",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:scholars_bookmark",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:scholars_quill_pen",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:scholars_clock",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:scholars_ink_cup",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:scholars_lens",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:gamblers_brooch",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:gamblers_feather_accessory",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:gamblers_pocket_watch",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:gamblers_dice_cup",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:gamblers_earrings",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:instructors_brooch",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:instructors_feather_accessory",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:instructors_pocket_watch",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:instructors_tea_cup",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
         },
         {
           "type": "minecraft:item",
           "name": "er:instructors_cap",
           "weight": 1,
-          "functions": [
-            {
-              "function": "er:artifact_init",
-              "star": 4
-            }
-          ]
+          "functions": [{"function": "er:artifact_init","star": 4}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:medal_of_the_brave",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 4}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:prospect_of_the_brave",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 4}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:fortitude_of_the_brave",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 4}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:outset_of_the_brave",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 4}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:crown_of_the_brave",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 4}]
         }
       ]
     }

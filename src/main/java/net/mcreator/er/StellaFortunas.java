@@ -115,12 +115,12 @@ public abstract class StellaFortunas extends Item {
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack itemstack, Item.@NotNull TooltipContext context, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
 		if (itemstack.getItem() instanceof StellaFortunas stella) {
-			list.add(Component.literal("+" + new java.text.DecimalFormat("##").format(itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level"))));
 			int level = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1;
 			int experience = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("experience");
-			int percent = Math.max(Math.min((int) (40 * experience / getExpReq(level)), 40), 0);
+			int percent = Math.max(Math.min(40 * experience / getExpReq(level), 40), 0);
 			int ascension = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("ascension");
-			list.add(Component.literal(experience + "/" + getExpReq(level)));
+            list.add(Component.literal("+" + new java.text.DecimalFormat("##").format(level)));
+            list.add(Component.literal(experience + "/" + getExpReq(level)));
 			String greenBars = "|".repeat(percent);
 			String whiteBars = "|".repeat(40 - percent);
 			list.add(Component.literal("§a" + greenBars + "§f" + whiteBars));

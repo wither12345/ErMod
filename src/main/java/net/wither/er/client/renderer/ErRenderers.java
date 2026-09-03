@@ -2,6 +2,7 @@ package net.wither.er.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -89,7 +90,7 @@ public class ErRenderers {
 			Matrix4f matrix4f = posestack.last().pose();
 			float f = Minecraft.getInstance().options.getBackgroundOpacity(0.25F);
 			int j = (int) (f * 255.0F) << 24;
-			Component level = Component.literal("level." + entity.getPersistentData().getInt("erLevel"));
+			Component level = Component.literal("level." + EntityHurtEvent.getEntityLevel(entity));
 			Font font = renderer.getFont();
 			float f1 = (float) (-font.width(level) / 2);
 			font.drawInBatch(level, f1, 0, 553648127, false, matrix4f, bufferSource, flag ? Font.DisplayMode.SEE_THROUGH : Font.DisplayMode.NORMAL, j, packedLight);

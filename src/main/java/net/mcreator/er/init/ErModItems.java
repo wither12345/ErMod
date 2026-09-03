@@ -318,6 +318,11 @@ public class ErModItems {
 	public static final DeferredItem<Item> PRIME_ICE_RESOURCE = REGISTRY.register("prime_ice_resource", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> STORAGE_DEVICE = REGISTRY.register("storage_device", StorageDeviceItem::new);
 	public static final DeferredItem<Item> AMBIENT_BOLLARD = block(ErModBlocks.AMBIENT_BOLLARD);
+	public static final DeferredItem<Item> MEDAL_OF_THE_BRAVE = REGISTRY.register("medal_of_the_brave", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.BRAVE_HEART));
+	public static final DeferredItem<Item> PROSPECT_OF_THE_BRAVE = REGISTRY.register("prospect_of_the_brave", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.BRAVE_HEART));
+	public static final DeferredItem<Item> FORTITUDE_OF_THE_BRAVE = REGISTRY.register("fortitude_of_the_brave", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BRAVE_HEART));
+	public static final DeferredItem<Item> OUTSET_OF_THE_BRAVE = REGISTRY.register("outset_of_the_brave", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BRAVE_HEART));
+	public static final DeferredItem<Item> CROWN_OF_THE_BRAVE = REGISTRY.register("crown_of_the_brave", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BRAVE_HEART));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

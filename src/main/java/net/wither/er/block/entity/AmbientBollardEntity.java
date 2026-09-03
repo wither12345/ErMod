@@ -44,7 +44,7 @@ public class AmbientBollardEntity extends BlockEntity implements TraceableEntity
             entity.ticker ++ ;
             if(entity.interactCd > 0)
                 entity.interactCd --;
-            if(entity.ticker >= 400){
+            if(entity.ticker >= 1200){
                 entity.ticker = 0;
                 BlockPos posAbv = blockPos.above();
                 Entity entityToSpawn = entity.spawnType.spawn(serverLevel, posAbv, MobSpawnType.SPAWNER);
