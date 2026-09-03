@@ -469,5 +469,13 @@
   "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物",
   "block.er.ambient_bollard": "氛围桩",
   "lore.er.ambient.speed": "将氛围桩切换为移动速度提高",
-  "lore.er.ambient.heal": "将氛围桩切换为生命回复"
+  "lore.er.ambient.heal": "将氛围桩切换为生命回复",
+  "item.er.medal_of_the_brave": "勇士的勋章",
+  "item.er.prospect_of_the_brave": "勇士的期许",
+  "item.er.fortitude_of_the_brave": "勇士的坚毅",
+  "item.er.outset_of_the_brave": "勇士的壮行",
+  "item.er.crown_of_the_brave": "勇士的冠冕",
+  "artifact_effect.er.brave_heart": "勇士之心",
+  "artifact_effect.er.brave_heart.1": "  2件套：攻击力提高18%。",
+  "artifact_effect.er.brave_heart.2": "  4件套：对生命值高于50%的敌人，造成的伤害增加30%。"
 }

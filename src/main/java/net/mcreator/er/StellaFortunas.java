@@ -33,14 +33,15 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.OnBurstAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.StellaFortunaData;
 import org.jetbrains.annotations.Nullable;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -110,11 +111,11 @@ public abstract class StellaFortunas extends Item {
 	@Override
 	public void appendHoverText(ItemStack itemstack, @Nullable Level access, List<Component> list, TooltipFlag flag) {
 		if (itemstack.getItem() instanceof StellaFortunas stella) {
-			list.add(Component.literal("+" + new java.text.DecimalFormat("##").format(itemstack.getOrCreateTag().getInt("level"))));
 			int level = itemstack.getOrCreateTag().getInt("level") + 1;
 			int experience = itemstack.getOrCreateTag().getInt("experience");
-			int percent = Math.max(Math.min((int) (40 * experience / getExpReq(level)), 40), 0);
+			int percent = Math.max(Math.min(40 * experience / getExpReq(level), 40), 0);
 			int ascension = itemstack.getOrCreateTag().getInt("ascension");
+            list.add(Component.literal("+" + new DecimalFormat("##").format(level)));
 			list.add(Component.literal(experience + "/" + getExpReq(level)));
 			String greenBars = "|".repeat(percent);
 			String whiteBars = "|".repeat(40 - percent);

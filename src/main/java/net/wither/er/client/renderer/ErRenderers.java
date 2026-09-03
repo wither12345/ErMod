@@ -2,6 +2,7 @@ package net.wither.er.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -85,7 +86,7 @@ public class ErRenderers {
 	private static void renderLevel(Entity entity, PoseStack posestack, MultiBufferSource bufferSource, LivingEntityRenderer<?,?> renderer, int packedLight, float partialTick) {
 		EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
 		double d0 = dispatcher.distanceToSqr(entity);
-        Component level = Component.literal("level." + entity.getPersistentData().getInt("erLevel"));
+        Component level = Component.literal("level." + EntityHurtEvent.getEntityLevel(entity));
         boolean flag = !entity.isDiscrete();
         float f = entity.getNameTagOffsetY();
         posestack.pushPose();

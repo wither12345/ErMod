@@ -35,6 +35,11 @@
     "er:instructors_feather_accessory",
     "er:instructors_pocket_watch",
     "er:instructors_tea_cup",
-    "er:instructors_cap"
+    "er:instructors_cap",
+    "er:medal_of_the_brave",
+    "er:prospect_of_the_brave",
+    "er:fortitude_of_the_brave",
+    "er:outset_of_the_brave",
+    "er:crown_of_the_brave"
   ]
 }
