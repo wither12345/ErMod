@@ -1912,26 +1912,6 @@
       "path": "~/Artifacts"
     },
     {
-      "name": "AffixShard_Description",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "affix_shard_description",
-      "metadata": {
-        "return_type": "string",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/AffixShard_DescriptionProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
-    },
-    {
       "name": "ArtifactExperiencePercentage",
       "type": "procedure",
       "compiles": true,
@@ -5284,7 +5264,15 @@
       "advancements.pack_away.descr": "get Storage Device, remain items when break",
       "block.er.ambient_bollard": "Ambient Bollard",
       "lore.er.ambient.speed": "Switch Ambient Bollard‘s effect to speed",
-      "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal"
+      "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal",
+      "item.er.medal_of_the_brave": "Medal of the Brave",
+      "item.er.prospect_of_the_brave": "Prospect of the Brave",
+      "item.er.fortitude_of_the_brave": "Fortitude of the Brave",
+      "item.er.outset_of_the_brave": "Outset of the Brave",
+      "item.er.crown_of_the_brave": "Crown of the Brave",
+      "artifact_effect.er.brave_heart": "Brave Heart",
+      "artifact_effect.er.brave_heart.1": "  2-Piece Set: ATK +18%.",
+      "artifact_effect.er.brave_heart.2": "  4-Piece Set: Increases DMG by 30% against opponents with more than 50% HP."
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5661,6 +5649,10 @@
       "item.er.pyro_hoe": "火元素锄",
       "item.er.electro_hoe": "雷元素锄",
       "item.er.cryo_hoe": "冰元素锄",
+      "item.er.geo_hoe": "岩元素锄",
+      "item.er.hydro_hoe": "水元素锄",
+      "item.er.anemo_hoe": "风元素锄",
+      "item.er.dendro_hoe": "草元素锄",
       "block.er.whopperflower_crop": "骗骗花种子",
       "advancements.flower_it_flowers.title": "种花得花",
       "advancements.flower_it_flowers.describe": "收获一只骗骗花",
@@ -5754,7 +5746,15 @@
       "advancements.pack_away.descr": "获得寄物装置，敲碎后保留内容物",
       "block.er.ambient_bollard": "氛围桩",
       "lore.er.ambient.speed": "将氛围桩切换为移动速度提高",
-      "lore.er.ambient.heal": "将氛围桩切换为生命回复"
+      "lore.er.ambient.heal": "将氛围桩切换为生命回复",
+      "item.er.medal_of_the_brave": "勇士的勋章",
+      "item.er.prospect_of_the_brave": "勇士的期许",
+      "item.er.fortitude_of_the_brave": "勇士的坚毅",
+      "item.er.outset_of_the_brave": "勇士的壮行",
+      "item.er.crown_of_the_brave": "勇士的冠冕",
+      "artifact_effect.er.brave_heart": "勇士之心",
+      "artifact_effect.er.brave_heart.1": "  2件套：攻击力提高18%。",
+      "artifact_effect.er.brave_heart.2": "  4件套：对生命值高于50%的敌人，造成的伤害增加30%。"
     }
   },
   "metadata": {
@@ -5801,7 +5801,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

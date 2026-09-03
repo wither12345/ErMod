@@ -31,11 +31,6 @@ public class PlayerRespawnProcedure {
 			return;
 		ErItemVariables.PlayerVariables _vars = entity.getData(ErItemVariables.PLAYER_VARIABLES);
 		StellaFortunas.applyAttr((LivingEntity) entity, _vars.Stella_Fortuna);
-		ArtifactAttrAddProcedure.execute(entity, _vars.Flower_Of_Life);
-		ArtifactAttrAddProcedure.execute(entity, _vars.Plume_of_Death);
-		ArtifactAttrAddProcedure.execute(entity, _vars.Sands_Of_Eon);
-		ArtifactAttrAddProcedure.execute(entity, _vars.Goblet_Of_Eonothem);
-		ArtifactAttrAddProcedure.execute(entity, _vars.Circlet_Of_Logos);
 		_vars.syncPlayerVariables(entity);
 		if (entity instanceof LivingEntity _livingEntity0 && _livingEntity0.getAttributes().hasAttribute(ErModAttributes.CRIT_DAMAGE))
 			_livingEntity0.getAttribute(ErModAttributes.CRIT_DAMAGE).setBaseValue(0.5);

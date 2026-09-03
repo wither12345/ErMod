@@ -1,28 +1,19 @@
 package net.mcreator.er.item;
 
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.api.distmarker.Dist;
-
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.ClickAction;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.network.chat.Component;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.client.Minecraft;
-
-import net.mcreator.er.procedures.AffixShard_DescriptionProcedure;
-import net.mcreator.er.init.ErModItems;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;
-import net.wither.er.item.data.artifactdata.MinorAffix;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -34,13 +25,13 @@ public class MainAffixShardItem extends Item {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public boolean isFoil(ItemStack itemstack) {
+	public boolean isFoil(@NotNull ItemStack itemstack) {
 		return true;
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack itemstack, Item.TooltipContext context, List<Component> list, TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack itemstack, Item.@NotNull TooltipContext context, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
 		super.appendHoverText(itemstack, context, list, flag);
 		MainAffix affix = itemstack.get(DataComponentsRegister.ARTIFACT_MAIN.get());
 		if(affix != null)
