@@ -108,6 +108,10 @@ public class AmbientBollardEntity extends BlockEntity implements TraceableEntity
             return Component.translatable("lore.er.ambient.speed");
         }
         else if(this.spawnType == ErModEntities.SPEED_ORB.get()) {
+            this.spawnType = ErModEntities.ENERGY_BUFF_ORB.get();
+            return Component.translatable("lore.er.ambient.energy");
+        }
+        else if(this.spawnType == ErModEntities.ENERGY_BUFF_ORB.get()) {
             this.spawnType = ErModEntities.HEAL_ORB.get();
             return Component.translatable("lore.er.ambient.heal");
         }

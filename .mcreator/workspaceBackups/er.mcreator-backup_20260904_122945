@@ -736,28 +736,6 @@
       }
     },
     {
-      "name": "MoraBagUse",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mora_bag_use",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/MoraBagUseProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      }
-    },
-    {
       "name": "CraftMoraBag",
       "type": "recipe",
       "compiles": true,
@@ -1909,26 +1887,6 @@
       "path": "~/Artifacts"
     },
     {
-      "name": "ArtifactExperiencePercentage",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifact_experience_percentage",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArtifactExperiencePercentageProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
-    },
-    {
       "name": "RarityGemstone_Count",
       "type": "procedure",
       "compiles": true,
@@ -1977,26 +1935,6 @@
           "src/main/java/net/mcreator/er/ERConfig.java"
         ]
       }
-    },
-    {
-      "name": "RollMinorAttribute",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "roll_minor_attribute",
-      "metadata": {
-        "return_type": "logic",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/RollMinorAttributeProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
     },
     {
       "name": "CraftHydroSword",
@@ -2133,20 +2071,6 @@
           "src/main/java/net/mcreator/er/procedures/PlayTickProcedure.java"
         ]
       }
-    },
-    {
-      "name": "ArtifactEffect",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifact_effect",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArtifactEffectProcedure.java"
-        ],
-        "dependencies": []
-      },
-      "path": "~/Artifacts"
     },
     {
       "name": "ErWeapon",
@@ -3929,28 +3853,6 @@
         "files": [
           "src/main/java/net/mcreator/er/client/particle/BlossomOmenParticleParticle.java",
           "src/main/resources/assets/er/particles/blossom_omen_particle.json"
-        ]
-      }
-    },
-    {
-      "name": "BlossomOfWealthOnClick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "blossom_of_wealth_on_click",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "sourceentity",
-            "type": "entity"
-          }
-        ],
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/BlossomOfWealthOnClickProcedure.java"
         ]
       }
     },

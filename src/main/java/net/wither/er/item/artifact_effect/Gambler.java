@@ -11,7 +11,7 @@ import net.wither.er.network.ErCombatVariables;
 
 import java.util.UUID;
 
-public class Gambler extends TwoSetAttrEffect implements KillAbility {
+public class Gambler extends AttrArtifactEffect implements KillAbility {
     private static final AttributeModifier MODIFIER = new AttributeModifier(UUID.fromString("4E6C456B-A2DD-7E17-7F71-AC6D2890DBA5"), "er:gambler", 0.2, AttributeModifier.Operation.MULTIPLY_BASE);
 
     public Gambler() {

@@ -9,7 +9,7 @@ import net.wither.er.item.data.weapon.HealthFloatingAbility;
 
 import java.util.UUID;
 
-public class Berserker extends TwoSetAttrEffect implements HealthFloatingAbility {
+public class Berserker extends AttrArtifactEffect implements HealthFloatingAbility {
     private static final UUID BERSERKER = UUID.fromString("5F92757D-9E1B-8DA1-B0D0-E656B4F5416D");
     private static final AttributeModifier MODIFIER_LOW = new AttributeModifier(BERSERKER, "er:berserker_low_hp", 0.24, AttributeModifier.Operation.ADDITION);
 

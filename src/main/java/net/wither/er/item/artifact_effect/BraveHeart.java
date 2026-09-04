@@ -9,7 +9,7 @@ import net.wither.er.item.data.weapon.DamageAbility;
 
 import java.util.UUID;
 
-public class BraveHeart extends TwoSetAttrEffect implements DamageAbility {
+public class BraveHeart extends AttrArtifactEffect implements DamageAbility {
     private static final UUID BRAVE_HEART = UUID.fromString("14524487-7FF5-9482-35E6-770812E06294");
     private static final AttributeModifier MODIFIER = new AttributeModifier(BRAVE_HEART, "er:brave_heart", 0.18, AttributeModifier.Operation.MULTIPLY_BASE);
 

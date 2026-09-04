@@ -108,6 +108,11 @@ public class ExtraTabs {
             tabData.accept(FORTITUDE_OF_THE_BRAVE);
             tabData.accept(OUTSET_OF_THE_BRAVE);
             tabData.accept(CROWN_OF_THE_BRAVE);
+            tabData.accept(TINY_MIRACLES_FLOWER);
+            tabData.accept(TINY_MIRACLES_FEATHER);
+            tabData.accept(TINY_MIRACLES_HOURGLASS);
+            tabData.accept(TINY_MIRACLES_GOBLET);
+            tabData.accept(TINY_MIRACLES_EARRINGS);
 
 			List<String> attrs = new ArrayList<>();
 			addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);

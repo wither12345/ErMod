@@ -10,10 +10,10 @@ import java.util.function.Supplier;
 public class ArtifactEffectRegistry {
     public static final Supplier<ArtifactEffect> EMPTY = AdditionalRegistries.ARTIFACT_EFFECTS.register("empty", ArtifactEffect::new);
     public static final Supplier<ArtifactEffect> ADVENTURER = AdditionalRegistries.ARTIFACT_EFFECTS.register("adventurer",
-            () -> new TwoSetAttrEffect(Attributes.MAX_HEALTH, new AttributeModifier(UUID.fromString("B4F18551-C180-B888-ACCA-A4962ACDB56D"), "adventurer", 20, AttributeModifier.Operation.ADDITION))
+            () -> new AttrArtifactEffect(Attributes.MAX_HEALTH, new AttributeModifier(UUID.fromString("B4F18551-C180-B888-ACCA-A4962ACDB56D"), "adventurer", 20, AttributeModifier.Operation.ADDITION))
     );
     public static final Supplier<ArtifactEffect> LUCKY_DOG = AdditionalRegistries.ARTIFACT_EFFECTS.register("lucky_dog",
-            () -> new TwoSetAttrEffect(Attributes.ARMOR, new AttributeModifier(UUID.fromString("2635FFBD-AC7E-9CD9-7B9F-CBB530A6FA9A"), "lucky_dog", 100, AttributeModifier.Operation.ADDITION))
+            () -> new AttrArtifactEffect(Attributes.ARMOR, new AttributeModifier(UUID.fromString("2635FFBD-AC7E-9CD9-7B9F-CBB530A6FA9A"), "lucky_dog", 100, AttributeModifier.Operation.ADDITION))
     );
     public static final Supplier<ArtifactEffect> TRAVELING_DOCTOR = AdditionalRegistries.ARTIFACT_EFFECTS.register("traveling_doctor", TravelingDoctor::new);
     public static final Supplier<ArtifactEffect> BERSERKER = AdditionalRegistries.ARTIFACT_EFFECTS.register("berserker", Berserker::new);
@@ -21,4 +21,5 @@ public class ArtifactEffectRegistry {
     public static final Supplier<ArtifactEffect> GAMBLER = AdditionalRegistries.ARTIFACT_EFFECTS.register("gambler", Gambler::new);
     public static final Supplier<ArtifactEffect> INSTRUCTOR = AdditionalRegistries.ARTIFACT_EFFECTS.register("instructor", Instructor::new);
     public static final Supplier<ArtifactEffect> BRAVE_HEART = AdditionalRegistries.ARTIFACT_EFFECTS.register("brave_heart", BraveHeart::new);
+    public static final Supplier<ArtifactEffect> TINY_MIRACLE = AdditionalRegistries.ARTIFACT_EFFECTS.register("tiny_miracle", TinyMiracle::new);
 }

@@ -39,5 +39,6 @@ public class RegisterEntityRenderers {
         event.registerBlockEntityRenderer(ErModBlockEntities.STORAGE_DEVICE.get(), StorageDeviceRenderer::new);
         event.registerEntityRenderer(ErModEntities.HEAL_ORB.get(), HealOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.SPEED_ORB.get(), SpeedOrbRenderer::new);
+        event.registerEntityRenderer(ErModEntities.ENERGY_BUFF_ORB.get(), EnergyBuffOrbRenderer::new);
     }
 }

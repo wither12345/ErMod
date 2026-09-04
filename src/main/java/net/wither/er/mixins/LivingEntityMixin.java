@@ -28,7 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.artifact_effect.TwoSetAttrEffect;
+import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
@@ -284,7 +284,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		AttributeMap attributeMap = this.getAttributes() ;
 		for(Object2IntMap.Entry<ArtifactEffect> holderEntry : er$effectMap.object2IntEntrySet()){
 			ArtifactEffect effect = holderEntry.getKey() ;
-			if(effect instanceof TwoSetAttrEffect attrEffect)
+			if(effect instanceof AttrArtifactEffect attrEffect)
 				attrEffect.removeAttributeModifiers(attributeMap);
 		}
 	}
@@ -294,7 +294,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		AttributeMap attributeMap = this.getAttributes() ;
 		for(Object2IntMap.Entry<ArtifactEffect> holderEntry : er$effectMap.object2IntEntrySet()){
 			ArtifactEffect effect = holderEntry.getKey() ;
-			if(effect instanceof TwoSetAttrEffect attrEffect)
+			if(effect instanceof AttrArtifactEffect attrEffect)
 				attrEffect.addAttributeModifiers(attributeMap, holderEntry.getIntValue());
 		}
 	}

@@ -34,6 +34,7 @@ public class PlayTickProcedure {
 			return;
 		if (entity instanceof Player && ((Level) world).getGameTime() % 20 == 1) {
 			ErModVariables.PlayerVariables _vars = entity.getCapability(ErModVariables.PLAYER_VARIABLES).orElse(new ErModVariables.PlayerVariables());
+			_vars.statue_health = Math.min(_vars.statue_health + 10, 500);
 			if (entity instanceof Player living && (living.getHealth() < living.getMaxHealth() || living.getFoodData().getFoodLevel() < 20)) {
 				for (int i = -3; i <= 3; i++)
 					for (int j = -2; j <= 2; j++)

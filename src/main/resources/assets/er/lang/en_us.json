@@ -470,6 +470,7 @@
   "block.er.ambient_bollard": "Ambient Bollard",
   "lore.er.ambient.speed": "Switch Ambient Bollard‘s effect to speed",
   "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal",
+  "lore.er.ambient.energy": "Switch Ambient Bollard‘s effect to energy",
   "item.er.medal_of_the_brave": "Medal of the Brave",
   "item.er.prospect_of_the_brave": "Prospect of the Brave",
   "item.er.fortitude_of_the_brave": "Fortitude of the Brave",
@@ -477,5 +478,13 @@
   "item.er.crown_of_the_brave": "Crown of the Brave",
   "artifact_effect.er.brave_heart": "Brave Heart",
   "artifact_effect.er.brave_heart.1": "  2-Piece Set: ATK +18%.",
-  "artifact_effect.er.brave_heart.2": "  4-Piece Set: Increases DMG by 30% against opponents with more than 50% HP."
+  "artifact_effect.er.brave_heart.2": "  4-Piece Set: Increases DMG by 30% against opponents with more than 50% HP.",
+  "item.er.tiny_miracles_flower": "Tiny Miracle\u0027s Flower",
+  "item.er.tiny_miracles_feather": "Tiny Miracle\u0027s Feather",
+  "item.er.tiny_miracles_hourglass": "Tiny Miracle\u0027s Hourglass",
+  "item.er.tiny_miracles_goblet": "Tiny Miracle\u0027s Goblet",
+  "item.er.tiny_miracles_earrings": "Tiny Miracle\u0027s Earrings",
+  "artifact_effect.er.tiny_miracle": "Tiny Miracle",
+  "artifact_effect.er.tiny_miracle.1": "  2-Piece Set: All Elemental RES increased by 20%.",
+  "artifact_effect.er.tiny_miracle.2": "  4-Piece Set: Incoming elemental DMG increases corresponding Elemental RES by 30% for 10s. Can only occur once every 10s."
 }

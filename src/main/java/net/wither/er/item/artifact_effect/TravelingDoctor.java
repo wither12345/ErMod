@@ -7,7 +7,7 @@ import net.wither.er.item.data.weapon.OnBurstAbility;
 
 import java.util.UUID;
 
-public class TravelingDoctor extends TwoSetAttrEffect implements OnBurstAbility {
+public class TravelingDoctor extends AttrArtifactEffect implements OnBurstAbility {
     public TravelingDoctor() {
         super(ErModAttributes.INCOMING_HEALING_BONUS.get(), new AttributeModifier(UUID.fromString("CA95A88C-A643-4928-22FB-CBC73183C84A"), "traveling_doctor" , 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
     }

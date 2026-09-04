@@ -36,8 +36,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
-import net.wither.er.init.ErAttributeRegister;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.AuraContainerInterface;
@@ -48,6 +46,9 @@ import net.wither.er.entity.ErEntityInterface;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.network.DamageDisplayMessage;
@@ -120,8 +121,8 @@ public class EntityHurtEvent {
 
 
             float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
-            if (entity instanceof ErEntityInterface enti) {
-                List<ShieldStack> shields = enti.er$getShieldStacks();
+            if (entity instanceof ErEntityInterface anInterface) {
+                List<ShieldStack> shields = anInterface.er$getShieldStacks();
                 float shield_absorb = 0f;
                 for (ShieldStack shield : shields) {
                     if(elementSourceInterface.er$getSource() != null)
@@ -129,8 +130,20 @@ public class EntityHurtEvent {
                     else
                         shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
                 }
+                final_amount -= shield_absorb;
+                event.setAmount(final_amount);
 
-                event.setAmount(final_amount - shield_absorb);
+                Object2IntMap<ArtifactEffect> map = anInterface.er$getEffectMap();
+                for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                    if(effect.getKey() instanceof BeAttackedAbility ability){
+                        ability.beAttacked(entity, damagesource, modifier, final_amount, effect.getIntValue());
+                    }
+                }
+                if(entity.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof BeAttackedAbility ability) {
+                    CompoundTag tag = entity.getMainHandItem().getOrCreateTag();
+                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                    ability.beAttacked(entity, damagesource, modifier, final_amount, refinement);
+                }
             }
         }
 	}

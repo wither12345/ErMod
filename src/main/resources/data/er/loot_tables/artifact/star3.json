@@ -242,6 +242,36 @@
           "name": "er:crown_of_the_brave",
           "weight": 1,
           "functions": [{"function": "er:artifact_init","star": 3}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:tiny_miracles_flower",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 3}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:tiny_miracles_feather",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 3}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:tiny_miracles_hourglass",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 3}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:tiny_miracles_goblet",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 3}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:tiny_miracles_earrings",
+          "weight": 1,
+          "functions": [{"function": "er:artifact_init","star": 3}]
         }
       ]
     }

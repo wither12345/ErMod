@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class Instructor extends TwoSetAttrEffect implements ReactionAbility {
+public class Instructor extends AttrArtifactEffect implements ReactionAbility {
     private static final AttributeModifier MODIFIER = new AttributeModifier(UUID.fromString("6A77C1CD-1C77-1A97-931F-2C03E892466E"), "er:instructor", 80, AttributeModifier.Operation.ADDITION);
 
     public Instructor() {
