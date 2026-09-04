@@ -8,7 +8,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.wither.er.item.data.weapon.HealthFloatingAbility;
 
-public class Berserker extends TwoSetAttrEffect implements HealthFloatingAbility {
+public class Berserker extends AttrArtifactEffect implements HealthFloatingAbility {
     private static final AttributeModifier MODIFIER_LOW = new AttributeModifier(ResourceLocation.parse("er:berserker_low_hp"), 0.24, AttributeModifier.Operation.ADD_VALUE);
     private static final AttributeModifier MODIFIER = new AttributeModifier(ResourceLocation.parse("er:berserker"), 0.12, AttributeModifier.Operation.ADD_VALUE);
 

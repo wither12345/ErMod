@@ -51,6 +51,7 @@ import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.DamageDisplayMessage;
@@ -120,8 +121,8 @@ public class EntityHurtEvent {
 
 			float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
             
-			if (entity instanceof ErEntityInterface enti) {
-				List<ShieldStack> shields = enti.er$getShieldStacks();
+			if (entity instanceof ErEntityInterface anInterface) {
+				List<ShieldStack> shields = anInterface.er$getShieldStacks();
 				float shield_absorb = 0f;
 				for (ShieldStack shield : shields) {
 					if(elementSourceInterface.er$getSource() != null)
@@ -129,8 +130,20 @@ public class EntityHurtEvent {
 					else
 						shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
 				}
-				event.setAmount(final_amount - shield_absorb);
-			}
+                final_amount -= shield_absorb;
+				event.setAmount(final_amount);
+
+                Object2IntMap<Holder<ArtifactEffect>> map = anInterface.er$getEffectMap();
+                for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
+                    if(effect.getKey().value() instanceof BeAttackedAbility ability){
+                        ability.beAttacked(entity, damagesource, modifier, final_amount, effect.getIntValue());
+                    }
+                }
+                WeaponRefinement refinement = entity.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
+                if (refinement != null && refinement.getAbility() instanceof BeAttackedAbility ability)
+                    ability.beAttacked(entity, damagesource, modifier, final_amount, refinement.refineLevel());
+
+            }
 		}
 		//PacketDistributor.sendToAllPlayers(new ErData(entity.getId(), entity.getPersistentData().getInt("Frozen")));
 	}

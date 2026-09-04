@@ -8,7 +8,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.wither.er.item.data.weapon.DamageAbility;
 
-public class BraveHeart extends TwoSetAttrEffect implements DamageAbility {
+public class BraveHeart extends AttrArtifactEffect implements DamageAbility {
     private static final AttributeModifier MODIFIER = new AttributeModifier(ResourceLocation.parse("er:brave_heart"), 0.18, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
 
     public BraveHeart() {

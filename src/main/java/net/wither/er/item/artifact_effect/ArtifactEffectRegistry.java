@@ -14,10 +14,10 @@ public class ArtifactEffectRegistry {
             ArtifactEffect::new
     );
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> ADVENTURER = ARTIFACT_EFFECTS.register("adventurer",
-            () -> new TwoSetAttrEffect(Attributes.MAX_HEALTH, new AttributeModifier(ResourceLocation.parse("er:adventure"), 20, AttributeModifier.Operation.ADD_VALUE))
+            () -> new AttrArtifactEffect(Attributes.MAX_HEALTH, new AttributeModifier(ResourceLocation.parse("er:adventure"), 20, AttributeModifier.Operation.ADD_VALUE))
     );
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> LUCKY_DOG = ARTIFACT_EFFECTS.register("lucky_dog",
-            () -> new TwoSetAttrEffect(Attributes.ARMOR, new AttributeModifier(ResourceLocation.parse("er:lucky_dog"), 100, AttributeModifier.Operation.ADD_VALUE))
+            () -> new AttrArtifactEffect(Attributes.ARMOR, new AttributeModifier(ResourceLocation.parse("er:lucky_dog"), 100, AttributeModifier.Operation.ADD_VALUE))
     );
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> TRAVELING_DOCTOR = ARTIFACT_EFFECTS.register("traveling_doctor", TravelingDoctor::new);
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> BERSERKER = ARTIFACT_EFFECTS.register("berserker", Berserker::new);
@@ -25,4 +25,5 @@ public class ArtifactEffectRegistry {
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> GAMBLER = ARTIFACT_EFFECTS.register("gambler", Gambler::new);
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> INSTRUCTOR = ARTIFACT_EFFECTS.register("instructor", Instructor::new);
     public static final DeferredHolder<ArtifactEffect, ArtifactEffect> BRAVE_HEART = ARTIFACT_EFFECTS.register("brave_heart", BraveHeart::new);
+    public static final DeferredHolder<ArtifactEffect, ArtifactEffect> TINY_MIRACLE = ARTIFACT_EFFECTS.register("tiny_miracle", TinyMiracle::new);
 }

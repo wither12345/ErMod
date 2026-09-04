@@ -759,28 +759,6 @@
       }
     },
     {
-      "name": "MoraBagUse",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mora_bag_use",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/MoraBagUseProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      }
-    },
-    {
       "name": "CraftMoraBag",
       "type": "recipe",
       "compiles": true,
@@ -897,25 +875,6 @@
       "metadata": {
         "files": [
           "src/main/resources/data/er/enchantment/wealth.json"
-        ]
-      }
-    },
-    {
-      "name": "HuntersBow_Pulling",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "hunters_bow_pulling",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/HuntersBow_PullingProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
         ]
       }
     },
@@ -1912,46 +1871,6 @@
       "path": "~/Artifacts"
     },
     {
-      "name": "AffixShard_Description",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "affix_shard_description",
-      "metadata": {
-        "return_type": "string",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/AffixShard_DescriptionProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
-    },
-    {
-      "name": "ArtifactExperiencePercentage",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifact_experience_percentage",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArtifactExperiencePercentageProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
-    },
-    {
       "name": "DMG",
       "type": "procedure",
       "compiles": true,
@@ -2030,26 +1949,6 @@
           "src/main/java/net/mcreator/er/ERConfig.java"
         ]
       }
-    },
-    {
-      "name": "RollMinorAttribute",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "roll_minor_attribute",
-      "metadata": {
-        "return_type": "logic",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/RollMinorAttributeProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
     },
     {
       "name": "CraftHydroSword",
@@ -2154,52 +2053,6 @@
       }
     },
     {
-      "name": "ArtifactAttrRemove",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifact_attr_remove",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArtifactAttrRemoveProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
-    },
-    {
-      "name": "ArtifactAttrAdd",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifact_attr_add",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArtifactAttrAddProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      },
-      "path": "~/Artifacts"
-    },
-    {
       "name": "PlayTick",
       "type": "procedure",
       "compiles": true,
@@ -2232,20 +2085,6 @@
           "src/main/java/net/mcreator/er/procedures/PlayTickProcedure.java"
         ]
       }
-    },
-    {
-      "name": "ArtifactEffect",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "artifact_effect",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ArtifactEffectProcedure.java"
-        ],
-        "dependencies": []
-      },
-      "path": "~/Artifacts"
     },
     {
       "name": "ErWeapon",
@@ -2688,36 +2527,6 @@
         ]
       },
       "path": "~/Multiplys"
-    },
-    {
-      "name": "HuntersBowDo",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "hunters_bow_do",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/HuntersBowDoProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          },
-          {
-            "name": "time",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
     },
     {
       "name": "CrystallizeShieldEnd",
@@ -5285,6 +5094,7 @@
       "block.er.ambient_bollard": "Ambient Bollard",
       "lore.er.ambient.speed": "Switch Ambient Bollard‘s effect to speed",
       "lore.er.ambient.heal": "Switch Ambient Bollard‘s effect to heal",
+      "lore.er.ambient.energy": "Switch Ambient Bollard‘s effect to energy",
       "item.er.medal_of_the_brave": "Medal of the Brave",
       "item.er.prospect_of_the_brave": "Prospect of the Brave",
       "item.er.fortitude_of_the_brave": "Fortitude of the Brave",
@@ -5292,7 +5102,15 @@
       "item.er.crown_of_the_brave": "Crown of the Brave",
       "artifact_effect.er.brave_heart": "Brave Heart",
       "artifact_effect.er.brave_heart.1": "  2-Piece Set: ATK +18%.",
-      "artifact_effect.er.brave_heart.2": "  4-Piece Set: Increases DMG by 30% against opponents with more than 50% HP."
+      "artifact_effect.er.brave_heart.2": "  4-Piece Set: Increases DMG by 30% against opponents with more than 50% HP.",
+      "item.er.tiny_miracles_flower": "Tiny Miracle\u0027s Flower",
+      "item.er.tiny_miracles_feather": "Tiny Miracle\u0027s Feather",
+      "item.er.tiny_miracles_hourglass": "Tiny Miracle\u0027s Hourglass",
+      "item.er.tiny_miracles_goblet": "Tiny Miracle\u0027s Goblet",
+      "item.er.tiny_miracles_earrings": "Tiny Miracle\u0027s Earrings",
+      "artifact_effect.er.tiny_miracle": "Tiny Miracle",
+      "artifact_effect.er.tiny_miracle.1": "  2-Piece Set: All Elemental RES increased by 20%.",
+      "artifact_effect.er.tiny_miracle.2": "  4-Piece Set: Incoming elemental DMG increases corresponding Elemental RES by 30% for 10s. Can only occur once every 10s."
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5767,14 +5585,23 @@
       "block.er.ambient_bollard": "氛围桩",
       "lore.er.ambient.speed": "将氛围桩切换为移动速度提高",
       "lore.er.ambient.heal": "将氛围桩切换为生命回复",
+      "lore.er.ambient.energy": "将氛围桩切换为元素能量",
       "item.er.medal_of_the_brave": "勇士的勋章",
       "item.er.prospect_of_the_brave": "勇士的期许",
       "item.er.fortitude_of_the_brave": "勇士的坚毅",
       "item.er.outset_of_the_brave": "勇士的壮行",
       "item.er.crown_of_the_brave": "勇士的冠冕",
       "artifact_effect.er.brave_heart": "勇士之心",
-      "artifact_effect.er.brave_heart.1": "  2件套：ATK +18%.",
-      "artifact_effect.er.brave_heart.2": "  4件套：Increases DMG by 30% against opponents with more than 50% HP."
+      "artifact_effect.er.brave_heart.1": "  2件套：攻击力提高18%。",
+      "artifact_effect.er.brave_heart.2": "  4件套：对生命值高于50%的敌人，造成的伤害增加30%。",
+      "item.er.tiny_miracles_flower": "奇迹之花",
+      "item.er.tiny_miracles_feather": "奇迹之羽",
+      "item.er.tiny_miracles_hourglass": "奇迹之沙",
+      "item.er.tiny_miracles_goblet": "奇迹之杯",
+      "item.er.tiny_miracles_earrings": "奇迹耳坠",
+      "artifact_effect.er.tiny_miracle": "奇迹",
+      "artifact_effect.er.tiny_miracle.1": "  2件套：所有元素抗性提高20%。",
+      "artifact_effect.er.tiny_miracle.2": "  4件套：受到某个元素类型的伤害后， 相应的抗性提升30%， 持续10秒。 该效果每10秒只能触发一次。"
     }
   },
   "metadata": {
@@ -5821,7 +5648,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.7",
+    "version": "1.1.9",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

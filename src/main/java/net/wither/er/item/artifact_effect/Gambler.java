@@ -10,7 +10,7 @@ import net.wither.er.init.EffectRegister;
 import net.wither.er.item.data.weapon.KillAbility;
 import net.wither.er.network.ErCombatVariables;
 
-public class Gambler extends TwoSetAttrEffect implements KillAbility {
+public class Gambler extends AttrArtifactEffect implements KillAbility {
     private static final AttributeModifier MODIFIER = new AttributeModifier(ResourceLocation.parse("er:gambler"), 0.2, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
 
     public Gambler() {

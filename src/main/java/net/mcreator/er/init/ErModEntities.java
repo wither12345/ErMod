@@ -106,6 +106,8 @@ public class ErModEntities {
 			EntityType.Builder.of(HealOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 	public static final DeferredHolder<EntityType<?>, EntityType<SpeedOrbEntity>> SPEED_ORB = register("speed_orb",
 			EntityType.Builder.of(SpeedOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
+	public static final DeferredHolder<EntityType<?>, EntityType<EnergyBuffOrbEntity>> ENERGY_BUFF_ORB = register("energy_buff_orb",
+			EntityType.Builder.of(EnergyBuffOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 
 	// End of user code block custom entities
 	private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

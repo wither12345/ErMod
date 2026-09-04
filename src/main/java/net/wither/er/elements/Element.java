@@ -341,7 +341,7 @@ public abstract class Element {
         private final TagKey<DamageType> tagStrong;//2
         private final String nameLowerCase ;
 
-        Category(int color , @Nullable DeferredHolder<Attribute, Attribute> damageAttr , @Nullable DeferredHolder<Attribute, Attribute> resAttr, boolean dmgPotType, DeferredHolder<Item, Item> brewIngredient, Supplier<Element> defaultElement){
+        Category(int color , @NotNull DeferredHolder<Attribute, Attribute> damageAttr , @NotNull DeferredHolder<Attribute, Attribute> resAttr, boolean dmgPotType, DeferredHolder<Item, Item> brewIngredient, Supplier<Element> defaultElement){
             this.defaultElement = defaultElement;
             id = count ++;
             this.color = color ;

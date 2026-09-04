@@ -117,10 +117,10 @@ public class ArtifactTransmuterGuiMenu extends AbstractContainerMenu {
         ItemStack slot1 = this.getSlot(1).getItem() ;
         ItemStack slot0 = this.getSlot(0).getItem() ;
         ArtifactData artifactData = slot1.getComponents().get(DataComponentsRegister.ARTIFACT.get());
-        if(artifactData != null && slot0.getComponents().get(DataComponents.CUSTOM_DATA) != null){
+        if(artifactData != null && slot0.has(DataComponentsRegister.MORA_BAG.get())){
             int experience = artifactData.level().experience() ;
             int total_experience = artifactData.level().total_experience() ;
-            final int mora = slot0.getComponents().get(DataComponents.CUSTOM_DATA).copyTag().getInt("moras") ;
+            final int mora = slot0.getComponents().getOrDefault(DataComponentsRegister.MORA_BAG.get(), 0);
             shrink[0] = 0 ;
             minorUpgrade = 0 ;
             int lv = artifactData.level().level() ;
@@ -168,8 +168,8 @@ public class ArtifactTransmuterGuiMenu extends AbstractContainerMenu {
         ItemStack slot1 = this.getSlot(1).getItem() ;
         ItemStack slot0 = this.getSlot(0).getItem() ;
         ArtifactData artifactData = slot1.getComponents().get(DataComponentsRegister.ARTIFACT.get());
-        if(artifactData != null && slot0.getComponents().get(DataComponents.CUSTOM_DATA) != null){
-            final int mora = slot0.getComponents().get(DataComponents.CUSTOM_DATA).copyTag().getInt("moras") ;
+        if(artifactData != null && slot0.has(DataComponentsRegister.MORA_BAG.get())){
+            final int mora = slot0.getComponents().getOrDefault(DataComponentsRegister.MORA_BAG.get(), 0);
             for(int i = 2 ; i < 6 ; i ++){
                 this.getSlot(i).getItem().shrink(shrink[i - 1]);
             }

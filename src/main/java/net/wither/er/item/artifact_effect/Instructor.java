@@ -1,27 +1,20 @@
 package net.wither.er.item.artifact_effect;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ProjectileWeaponItem;
 import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
-import net.wither.er.entity.EnergyOrb;
 import net.wither.er.init.EffectRegister;
-import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
 import net.wither.er.item.data.weapon.ReactionAbility;
-import net.wither.er.network.ErCombatVariables;
-import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
 
-public class Instructor extends TwoSetAttrEffect implements ReactionAbility {
+public class Instructor extends AttrArtifactEffect implements ReactionAbility {
     private static final AttributeModifier MODIFIER = new AttributeModifier(ResourceLocation.parse("er:instructor"), 80, AttributeModifier.Operation.ADD_VALUE);
 
     public Instructor() {

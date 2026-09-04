@@ -323,6 +323,11 @@ public class ErModItems {
 	public static final DeferredItem<Item> FORTITUDE_OF_THE_BRAVE = REGISTRY.register("fortitude_of_the_brave", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BRAVE_HEART));
 	public static final DeferredItem<Item> OUTSET_OF_THE_BRAVE = REGISTRY.register("outset_of_the_brave", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BRAVE_HEART));
 	public static final DeferredItem<Item> CROWN_OF_THE_BRAVE = REGISTRY.register("crown_of_the_brave", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BRAVE_HEART));
+	public static final DeferredItem<Item> TINY_MIRACLES_FLOWER = REGISTRY.register("tiny_miracles_flower", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.TINY_MIRACLE));
+	public static final DeferredItem<Item> TINY_MIRACLES_FEATHER = REGISTRY.register("tiny_miracles_feather", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.TINY_MIRACLE));
+	public static final DeferredItem<Item> TINY_MIRACLES_HOURGLASS = REGISTRY.register("tiny_miracles_hourglass", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.TINY_MIRACLE));
+	public static final DeferredItem<Item> TINY_MIRACLES_GOBLET = REGISTRY.register("tiny_miracles_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.TINY_MIRACLE));
+	public static final DeferredItem<Item> TINY_MIRACLES_EARRINGS = REGISTRY.register("tiny_miracles_earrings", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.TINY_MIRACLE));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
