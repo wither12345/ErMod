@@ -13,6 +13,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "ProjectileMixin",
+    "RangedAttributeAccessor",
     "ServerPlayerMixin"
   ],
   "client": [

@@ -33,6 +33,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -148,7 +149,7 @@ public class EntityHurtEvent {
         }
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public static void afterDamage(LivingDamageEvent event){
 		int dmg = Mth.ceil(event.getAmount()) ;
         DamageSource source = event.getSource();

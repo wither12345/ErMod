@@ -25,14 +25,15 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
     }
 
     public static void handle(final DamageDisplayMessage data, final Supplier<NetworkEvent.Context> contextSupplier) {
-        if(Minecraft.getInstance().level == null)
+        Minecraft minecraft = Minecraft.getInstance();
+        if(minecraft.level == null)
             return;
-        Entity entity = Minecraft.getInstance().level.getEntity(data.id());
+        Entity entity = minecraft.level.getEntity(data.id());
         NetworkEvent.Context context = contextSupplier.get();
         if(context.getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             context.enqueueWork(() -> {
-                if (entity == Minecraft.getInstance().player) {
-                    ErOverlay.updateDamage(data.damage(), data.color());
+                if (entity == minecraft.player) {
+                    ErOverlay.updateDamage(data.damage(), data.color(), minecraft);
                 } else if (entity != null && entity.level() instanceof ClientLevel) {
                     RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5, entity.getY() + 2, entity.getZ() + Math.random() - 0.5, data.critical(), data.type());
                 }
