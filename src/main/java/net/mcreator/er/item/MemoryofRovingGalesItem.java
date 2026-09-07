@@ -58,7 +58,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 
 	public void ElementalSkillEnd(LivingEntity entity) {
 		ErCombatVariables.PlayerVariables vars = entity.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
-		if (vars.animationTime > 0) {
+		if (vars.animationTime > 0 && vars.animationId == 20) {
 			if (vars.animationTime < 990) {
 				entity.getPersistentData().putBoolean("skillPressed", true);
 				vars.skillCooldown = 8;
@@ -70,11 +70,11 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 			}
             vars.animationTime = 14;
             vars.animationId = 21;
+            CompoundTag message = new CompoundTag();
+            message.putInt("elementalAbsorption", 0);
+            sendMessage(entity, message);
+            vars.syncWithId(entity, 0b00_0011_0011);
 		}
-		CompoundTag message = new CompoundTag();
-		message.putInt("elementalAbsorption", 0);
-		sendMessage(entity, message);
-        vars.syncWithId(entity, 0b00_0011_0011);
 	}
 
 	public void ElementalBurstStart(LivingEntity entity) {

@@ -2,16 +2,25 @@
   "replace": false,
   "values": [
     {
-      "id": "er:waster_greatsword",
-      "required": false
-    },
-    "er:anemo_sword",
-    {
       "id": "er:dark_iron_sword",
       "required": false
     },
     "er:geo_sword",
     "er:dendro_sword",
+    {
+      "id": "er:silver_sword",
+      "required": false
+    },
+    "er:cryo_sword",
+    {
+      "id": "er:waster_greatsword",
+      "required": false
+    },
+    {
+      "id": "er:travelers_handy_sword",
+      "required": false
+    },
+    "er:anemo_sword",
     "er:pyro_sword",
     {
       "id": "er:cool_steel",
@@ -19,11 +28,6 @@
     },
     "er:electro_sword",
     "er:hydro_sword",
-    {
-      "id": "er:silver_sword",
-      "required": false
-    },
-    "er:cryo_sword",
     {
       "id": "er:dull_blade",
       "required": false

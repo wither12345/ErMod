@@ -486,5 +486,6 @@
   "item.er.tiny_miracles_earrings": "Tiny Miracle\u0027s Earrings",
   "artifact_effect.er.tiny_miracle": "Tiny Miracle",
   "artifact_effect.er.tiny_miracle.1": "  2-Piece Set: All Elemental RES increased by 20%.",
-  "artifact_effect.er.tiny_miracle.2": "  4-Piece Set: Incoming elemental DMG increases corresponding Elemental RES by 30% for 10s. Can only occur once every 10s."
+  "artifact_effect.er.tiny_miracle.2": "  4-Piece Set: Incoming elemental DMG increases corresponding Elemental RES by 30% for 10s. Can only occur once every 10s.",
+  "item.er.travelers_handy_sword": "Travelers Handy Sword"
 }
