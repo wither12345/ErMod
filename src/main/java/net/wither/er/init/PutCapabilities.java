@@ -3,6 +3,7 @@ package net.wither.er.init;
 import net.mcreator.er.item.Artifact;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraftforge.common.util.FakePlayer;
@@ -30,10 +31,16 @@ public class PutCapabilities {
     @SubscribeEvent
     public static void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
         Item item = event.getObject().getItem();
-        if (hasLevelComponents(item))
+        if(hasLevelComponents(item))
             event.addCapability(new ResourceLocation("er", "weapon_level"), new WeaponLevelData.CapabilityProvider());
         if(item == Items.DIAMOND_SWORD)
-            event.addCapability(new ResourceLocation("er", "weapon_attr"), new WeaponAttributeData.CapabilityProvider(ATTACK_DAMAGE, 0.018, true));
+            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(ATTACK_DAMAGE, 0.018, true));
+        else if (item == Items.DIAMOND_HELMET || item == Items.DIAMOND_CHESTPLATE || item == Items.DIAMOND_LEGGINGS || item == Items.DIAMOND_BOOTS)
+            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(Attributes.MAX_HEALTH,0.009,true));
+        else if(item == Items.NETHERITE_SWORD)
+            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(ATTACK_DAMAGE, 0.036, true));
+        else if (item == Items.NETHERITE_HELMET || item == Items.NETHERITE_CHESTPLATE || item == Items.NETHERITE_LEGGINGS || item == Items.NETHERITE_BOOTS)
+            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(Attributes.MAX_HEALTH,0.009,true));
         if(item instanceof Artifact artifact)
             event.addCapability(new ResourceLocation("er", "artifact"), new ArtifactData.CapabilityProvider(artifact.getSlot(), artifact.getEffect()));
     }

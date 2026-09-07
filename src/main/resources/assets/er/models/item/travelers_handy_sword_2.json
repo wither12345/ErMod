@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/travelers_handy_sword_2"
+  }
+}

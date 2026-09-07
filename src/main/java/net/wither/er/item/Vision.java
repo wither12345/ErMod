@@ -25,7 +25,8 @@ public class Vision extends Item {
     public enum Frame{
         MONDSTADT,
         LIYUE,
-        MOON_WHEEL;
+        MOON_WHEEL,
+        SUMERU;
 
         public static Frame fromId(int i){
             return Frame.values()[i];

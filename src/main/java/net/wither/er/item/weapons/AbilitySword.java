@@ -1,17 +1,31 @@
 package net.wither.er.item.weapons;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.Nullable;
 
-public class AbilitySword extends SwordItem implements AbilityWeapon{
-    private final Object ability ;
+public class AbilitySword extends SwordItem implements AbilityWeapon {
+    private final Object ability;
     private final RegistryObject<Item> item;
-    public AbilitySword(Object ability, RegistryObject<Item> item, Tier p_43269_, int p_43270_, float p_43271_, Properties p_43272_) {
-        super(p_43269_, p_43270_, p_43271_, p_43272_);
+    private final ICapabilityProvider provider;
+
+    public AbilitySword(Object ability,
+                        RegistryObject<Item> item,
+                        Tier tier,
+                        int i,
+                        float v,
+                        Properties properties,
+                        ICapabilityProvider provider
+    ) {
+        super(tier, i, v, properties);
         this.ability = ability;
         this.item = item;
+        this.provider = provider;
     }
 
     @Override
@@ -22,5 +36,10 @@ public class AbilitySword extends SwordItem implements AbilityWeapon{
     @Override
     public Item getRefinementItem() {
         return item.get();
+    }
+
+    @Override
+    public @Nullable ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return provider;
     }
 }

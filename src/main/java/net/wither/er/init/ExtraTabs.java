@@ -29,6 +29,7 @@ public class ExtraTabs {
                     () -> new ItemStack(UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
                 addVisions(tabData, 0);
                 addVisions(tabData, 1);
+                addVisions(tabData, 3);
                 addVisions(tabData, 2);
             }).build());
 
@@ -166,6 +167,7 @@ public class ExtraTabs {
 			tabData.accept(SILVER_SWORD);
             tabData.accept(COOL_STEEL);
             tabData.accept(DARK_IRON_SWORD);
+            tabData.accept(TRAVELERS_HANDY_SWORD);
 		} else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(BURNING_DIRT);
             tabData.accept(SWEET_FLOWER);

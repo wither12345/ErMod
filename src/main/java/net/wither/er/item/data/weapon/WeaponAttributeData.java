@@ -1,28 +1,24 @@
 package net.wither.er.item.data.weapon;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.UUID;
+
 public record WeaponAttributeData(Attribute attribute, double baseAmount, boolean type) {
+    public static final ResourceLocation LOCATION = new ResourceLocation("er", "weapon_attr");
     public static final Capability<WeaponAttributeData> WEAPON_ATTR = CapabilityManager.get(new CapabilityToken<>() {
     });
-
-    public static final Codec<WeaponAttributeData> BASIC_CODEC = RecordCodecBuilder.create(instance ->
-            instance.group(
-                    ForgeRegistries.ATTRIBUTES.getCodec().fieldOf("attribute").forGetter(WeaponAttributeData::attribute),
-                    Codec.DOUBLE.fieldOf("baseAmount").forGetter(WeaponAttributeData::baseAmount),
-                    Codec.BOOL.fieldOf("type").forGetter(WeaponAttributeData::type)
-            ).apply(instance, WeaponAttributeData::new)
-    );
 
     public static class CapabilityProvider implements ICapabilityProvider {
         public CapabilityProvider(WeaponAttributeData data){
@@ -41,5 +37,21 @@ public record WeaponAttributeData(Attribute attribute, double baseAmount, boolea
         public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
             return cap == WEAPON_ATTR ? instance.cast() : LazyOptional.empty();
         }
+    }
+
+    public AttributeModifier getModifier(UUID uuid, int level){
+        double multi = 1 + (level / 5) * 0.2d ;
+        return new AttributeModifier(
+                uuid, "secondary", this.getFinalAmount(baseAmount * multi), this.type ? AttributeModifier.Operation.MULTIPLY_BASE : AttributeModifier.Operation.ADDITION
+        );
+    }
+
+    private double getFinalAmount(double amount){
+        if(type) {
+            BigDecimal bd = new BigDecimal(amount);
+            bd = bd.setScale(3, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        }
+        return (int)(amount + 0.5);
     }
 }

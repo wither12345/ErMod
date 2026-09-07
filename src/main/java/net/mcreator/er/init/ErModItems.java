@@ -3,44 +3,37 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.shield.ShieldRegistry;
-import net.wither.er.item.weapons.ErTiers;
-import net.wither.er.item.weapons.Claymore;
-import net.wither.er.item.weapons.AbilitySword;
-import net.wither.er.item.morabag.MoraBagItemPlus;
-import net.wither.er.item.data.weapon.WeaponLevelData;
-import net.wither.er.item.data.weapon.ReactionAbility;
-import net.wither.er.item.data.weapon.FunctionalAbilities;
-import net.wither.er.item.data.weapon.DamageAbility;
-import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
-import net.wither.er.item.*;
-import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.elements.Element;
-
-import net.minecraftforge.registries.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.client.renderer.item.ItemProperties;
-
-import net.mcreator.er.procedures.WoodenClubPropertyValueProviderProcedure;
-import net.mcreator.er.procedures.RarityGemstone_CountProcedure;
-import net.mcreator.er.item.*;
 import net.mcreator.er.ErMod;
+import net.mcreator.er.item.*;
+import net.mcreator.er.procedures.RarityGemstone_CountProcedure;
+import net.mcreator.er.procedures.WoodenClubPropertyValueProviderProcedure;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import net.wither.er.elements.Element;
+import net.wither.er.entity.ArtifactSlot;
+import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.*;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.item.data.weapon.*;
+import net.wither.er.item.morabag.MoraBagItemPlus;
+import net.wither.er.item.weapons.AbilitySword;
+import net.wither.er.item.weapons.Claymore;
+import net.wither.er.item.weapons.ErTiers;
+import net.wither.er.shield.ShieldRegistry;
+
+import static net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ErModItems {
@@ -258,10 +251,25 @@ public class ErModItems {
 	public static final RegistryObject<Item> BERSERKERS_TIMEPIECE = REGISTRY.register("berserkers_timepiece", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BERSERKER));
 	public static final RegistryObject<Item> BERSERKERS_BONE_GOBLET = REGISTRY.register("berserkers_bone_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BERSERKER));
 	public static final RegistryObject<Item> BERSERKERS_BATTLE_MASK = REGISTRY.register("berserkers_battle_mask", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BERSERKER));
-	public static final RegistryObject<Item> COOL_STEEL = REGISTRY.register("cool_steel", () -> new AbilitySword((DamageAbility) FunctionalAbilities::coolSteel, ErModItems.COOL_STEEL, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
+	public static final RegistryObject<Item> COOL_STEEL = REGISTRY.register("cool_steel",
+            () -> new AbilitySword((DamageAbility) FunctionalAbilities::coolSteel,
+                    ErModItems.COOL_STEEL, ErTiers.STAR_3, 3, -2.4f,
+                    new Item.Properties(),
+                    new WeaponAttributeData.CapabilityProvider(ATTACK_DAMAGE, 0.0765, true)
+            ));
 	public static final RegistryObject<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword",
-			() -> new AbilitySword((ReactionAbility) FunctionalAbilities::darkIronSword, ErModItems.DARK_IRON_SWORD, ErTiers.STAR_3, 3, -2.4f, new Item.Properties()));
-	public static final RegistryObject<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
+			() -> new AbilitySword((ReactionAbility) FunctionalAbilities::darkIronSword,
+                    ErModItems.DARK_IRON_SWORD, ErTiers.STAR_3, 3, -2.4f,
+                    new Item.Properties(),
+                    new WeaponAttributeData.CapabilityProvider(ErModAttributes.ELEMENTAL_MASTERY.get(), 30.6, false)
+            ));
+    public static final RegistryObject<Item> TRAVELERS_HANDY_SWORD = REGISTRY.register("travelers_handy_sword",
+            () -> new AbilitySword((EnergyOrbPickupAbility) FunctionalAbilities::travelersHandySword,
+                    ErModItems.TRAVELERS_HANDY_SWORD, ErTiers.STAR_3, 3, -2.4f,
+                    new Item.Properties(),
+                    new WeaponAttributeData.CapabilityProvider(Attributes.ARMOR, 0.0636, true)
+            ));
+    public static final RegistryObject<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
 	public static final RegistryObject<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final RegistryObject<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
 	public static final RegistryObject<Item> ANEMO_VISION = REGISTRY.register("anemo_vision", () -> new Vision(Element.Category.ANEMO));
@@ -341,6 +349,7 @@ public class ErModItems {
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
+            registerWeapon(TRAVELERS_HANDY_SWORD.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());
