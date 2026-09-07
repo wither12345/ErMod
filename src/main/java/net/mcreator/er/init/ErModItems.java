@@ -348,7 +348,7 @@ public class ErModItems {
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
-            registerWeapon(TRAVELERS_HANDY_SWORD.get());
+			registerWeapon(TRAVELERS_HANDY_SWORD.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());

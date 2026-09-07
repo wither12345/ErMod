@@ -16,5 +16,4 @@ public class EntityModifierRegistry {
 	public static final Supplier<EntityModifier.Builder> BOOTS = MODIFIERS.register("boots", () -> (j -> ItemGiver.read(j, EquipmentSlot.FEET)));
 	public static final Supplier<EntityModifier.Builder> MAIN_HAND = MODIFIERS.register("main_hand", () -> (j -> ItemGiver.read(j, EquipmentSlot.MAINHAND)));
     public static final Supplier<EntityModifier.Builder> ATTRIBUTE = MODIFIERS.register("attribute", () -> AttributeGiver::read);
-
 }

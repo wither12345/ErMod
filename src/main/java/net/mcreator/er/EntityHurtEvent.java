@@ -163,7 +163,6 @@ public class EntityHurtEvent {
 	}
 
     private static void modifyDamageSource(DamageSource source, Entity entity){
-        int elemental_type = 0;
         float gauge ;
         DamageModifierInterface damageModifierInterface = (DamageModifierInterface) source;
 
@@ -191,10 +190,10 @@ public class EntityHurtEvent {
             elementSourceInterface.er$setElement(source1) ;
         }
 
-        if(source.getEntity() != null)
-            elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
-        if(elemental_type != 0)
-            elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), ResourceLocation.parse("er:default"), 1, getEle(elemental_type).isApplicable())) ;
+        if(source.getEntity() != null && elementSourceInterface.er$getSource() == null) {
+            int elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
+            elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), ResourceLocation.parse("er:default"), 1, getEle(elemental_type).isApplicable()));
+        }
     }
 
     private static void modifyReaction(DamageSource source){
