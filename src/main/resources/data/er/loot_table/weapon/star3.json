@@ -7,11 +7,16 @@
         {
           "type": "minecraft:item",
           "name": "er:cool_steel",
-          "weight": 5
+          "weight": 1
         },
         {
           "type": "minecraft:item",
           "name": "er:dark_iron_sword",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "er:travelers_handy_sword",
           "weight": 1
         }
       ]
