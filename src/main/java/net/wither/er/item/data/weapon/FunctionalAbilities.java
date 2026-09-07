@@ -25,4 +25,8 @@ public class FunctionalAbilities {
             livingEntity.addEffect(new MobEffectInstance(EffectRegister.OVERLOADED, 240, level - 1));
         }
     }
+
+    public static void travelersHandySword(Entity orb, LivingEntity picker, int level){
+        picker.heal((0.0075f + 0.0025f * level) * picker.getMaxHealth());
+    }
 }

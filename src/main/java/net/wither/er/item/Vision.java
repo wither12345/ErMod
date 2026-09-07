@@ -33,7 +33,8 @@ public class Vision extends Item {
     public enum Frame{
         MONDSTADT("mondstadt"),
         LIYUE("liyue"),
-        MOON_WHEEL("moon_wheel");
+        MOON_WHEEL("moon_wheel"),
+        SUMERU("sumeru");
 
         private final String name ;
 

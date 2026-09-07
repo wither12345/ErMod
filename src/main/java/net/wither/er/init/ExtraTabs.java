@@ -34,6 +34,7 @@ public class ExtraTabs {
                     () -> new ItemStack(UNOWNED_VISION.get())).displayItems((parameters, tabData) -> {
                 addVisions(tabData, Vision.Frame.MONDSTADT);
                 addVisions(tabData, Vision.Frame.LIYUE);
+                addVisions(tabData, Vision.Frame.SUMERU);
                 addVisions(tabData, Vision.Frame.MOON_WHEEL);
             }).build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
@@ -141,6 +142,7 @@ public class ExtraTabs {
 			tabData.accept(SILVER_SWORD);
             tabData.accept(COOL_STEEL);
             tabData.accept(DARK_IRON_SWORD);
+            tabData.accept(TRAVELERS_HANDY_SWORD);
 		}else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(SWEET_FLOWER);
             tabData.accept(BURNING_DIRT);

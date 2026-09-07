@@ -32,18 +32,14 @@ public class ItemAttrProcedure {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(weaponLevel, level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
-					event.addModifier(dataAttr.attributeHolder(), new AttributeModifier(
-									weaponSecondary, dataAttr.baseAmount() * getSecondaryMultiply(level), dataAttr.type() ? AttributeModifier.Operation.ADD_MULTIPLIED_BASE : AttributeModifier.Operation.ADD_VALUE
-							), EquipmentSlotGroup.MAINHAND
+					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(weaponSecondary, level), EquipmentSlotGroup.MAINHAND
 					);
 				}
 			} else if (item.getItem() instanceof BowInterface bowInterface) {
 				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(weaponLevel, bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
-					event.addModifier(dataAttr.attributeHolder(), new AttributeModifier(
-							weaponSecondary, dataAttr.baseAmount() * getSecondaryMultiply(level), dataAttr.type() ? AttributeModifier.Operation.ADD_MULTIPLIED_BASE : AttributeModifier.Operation.ADD_VALUE
-							), EquipmentSlotGroup.MAINHAND
+					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(weaponSecondary, level), EquipmentSlotGroup.MAINHAND
 					);
 				}
 			}
@@ -56,9 +52,7 @@ public class ItemAttrProcedure {
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
 					ResourceLocation resourceLocation_1 = ResourceLocation.parse("er:armor_secondary." + armor.getType().getName());
-					event.addModifier(dataAttr.attributeHolder(), new AttributeModifier(
-							resourceLocation_1, dataAttr.baseAmount() * getSecondaryMultiply(level), dataAttr.type() ? AttributeModifier.Operation.ADD_MULTIPLIED_BASE : AttributeModifier.Operation.ADD_VALUE
-							), EquipmentSlotGroup.bySlot(armor.getEquipmentSlot())
+					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(resourceLocation_1, level), EquipmentSlotGroup.bySlot(armor.getEquipmentSlot())
 					);
 				}
 			}
@@ -69,10 +63,6 @@ public class ItemAttrProcedure {
 		if(star == 0)
 			return  ascension ;
 		return star * 0.5 * ascension ;
-	}
-
-	private static double getSecondaryMultiply(int level){
-		return 1 + (level / 5) * 0.2d ;
 	}
 	/*
 	ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("enchantment.infusion");

@@ -8,6 +8,7 @@ import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.morabag.MoraBagItemPlus;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.item.data.weapon.WeaponLevelData;
+import net.wither.er.item.data.weapon.WeaponAttributeData;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.*;
 import net.wither.er.init.WeaponAbilityRegister;
@@ -33,6 +34,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.client.renderer.item.ItemProperties;
@@ -257,10 +259,15 @@ public class ErModItems {
 	public static final DeferredItem<Item> BERSERKERS_TIMEPIECE = REGISTRY.register("berserkers_timepiece", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BERSERKER));
 	public static final DeferredItem<Item> BERSERKERS_BONE_GOBLET = REGISTRY.register("berserkers_bone_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BERSERKER));
 	public static final DeferredItem<Item> BERSERKERS_BATTLE_MASK = REGISTRY.register("berserkers_battle_mask", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BERSERKER));
-	public static final DeferredItem<Item> COOL_STEEL = REGISTRY.register("cool_steel", () -> new SwordItem(ErTiers.STAR_3,
-			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.COOL_STEEL, ErModItems.COOL_STEEL, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
-	public static final DeferredItem<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword", () -> new SwordItem(ErTiers.STAR_3,
-			new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DARK_IRON, ErModItems.DARK_IRON_SWORD, 1)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> COOL_STEEL = REGISTRY.register("cool_steel",
+			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.COOL_STEEL, ErModItems.COOL_STEEL, 1))
+					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ATTACK_DAMAGE, 0.0765, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> DARK_IRON_SWORD = REGISTRY.register("dark_iron_sword",
+			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DARK_IRON, ErModItems.DARK_IRON_SWORD, 1))
+					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(ErModAttributes.ELEMENTAL_MASTERY, 30.6, false)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> TRAVELERS_HANDY_SWORD = REGISTRY.register("travelers_handy_sword",
+			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.JOURNEY, ErModItems.TRAVELERS_HANDY_SWORD, 1))
+					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ARMOR, 0.0636, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
 	public static final DeferredItem<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
 	public static final DeferredItem<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
@@ -341,6 +348,7 @@ public class ErModItems {
 			registerWeapon(WASTER_GREATSWORD.get());
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
+            registerWeapon(TRAVELERS_HANDY_SWORD.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());

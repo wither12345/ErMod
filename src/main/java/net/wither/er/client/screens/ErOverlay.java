@@ -131,82 +131,78 @@ public class ErOverlay {
 	private static void mayberenderPlayerStamina(Player player, GuiGraphics graphics) {
 		Minecraft minecraft = Minecraft.getInstance();
 		Gui gui = minecraft.gui;
-		if (minecraft.gameMode.canHurtPlayer()) {
-			if (player != null) {
-				int i1 = graphics.guiWidth() / 2 + 91;
-				minecraft.getProfiler().push("stamina");
-				double maxStamina = player.getAttribute(ErModAttributes.MAX_STAMINA).getValue();
-				ErCombatVariables.PlayerVariables vars = player.getData(ErCombatVariables.PLAYER_VARIABLES);
-				int i3 = 20;
-				int j3 = (int) (vars.stamina / maxStamina * 20);
-				int rightHeight = gui.rightHeight;
-				if (j3 < i3) {
-					int j2 = graphics.guiHeight() - rightHeight;
-					int l3 = Mth.ceil((double) (j3 - 2) * 10.0 / (double) i3);
-					int i4 = Mth.ceil((double) j3 * 10.0 / (double) i3) - l3;
-					RenderSystem.disableDepthTest();
-					RenderSystem.depthMask(false);
-					RenderSystem.enableBlend();
-					RenderSystem.setShader(GameRenderer::getPositionTexShader);
-					RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-					RenderSystem.setShaderColor(1, 1, 1, 1);
-					for (int j4 = 0; j4 < l3 + i4; j4++) {
-						graphics.blitSprite(STAMINA_SPRITE, i1 - j4 * 8 - 9, j2, 9, 9);
-					}
-					RenderSystem.disableBlend();
-					RenderSystem.depthMask(true);
-					RenderSystem.defaultBlendFunc();
-					RenderSystem.enableDepthTest();
-					RenderSystem.setShaderColor(1, 1, 1, 1);
-					rightHeight += 10;
-				}
-				minecraft.getProfiler().pop();
-				gui.rightHeight = rightHeight;
-			}
-		}
-	}
+        if (minecraft.gameMode != null && minecraft.gameMode.canHurtPlayer() && player != null) {
+            int i1 = graphics.guiWidth() / 2 + 91;
+            minecraft.getProfiler().push("stamina");
+            double maxStamina = player.getAttribute(ErModAttributes.MAX_STAMINA).getValue();
+            ErCombatVariables.PlayerVariables vars = player.getData(ErCombatVariables.PLAYER_VARIABLES);
+            int i3 = 20;
+            int j3 = (int) (vars.stamina / maxStamina * 20);
+            int rightHeight = gui.rightHeight;
+            if (j3 < i3) {
+                int j2 = graphics.guiHeight() - rightHeight;
+                int l3 = Mth.ceil((double) (j3 - 2) * 10.0 / (double) i3);
+                int i4 = Mth.ceil((double) j3 * 10.0 / (double) i3) - l3;
+                RenderSystem.disableDepthTest();
+                RenderSystem.depthMask(false);
+                RenderSystem.enableBlend();
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+                RenderSystem.setShaderColor(1, 1, 1, 1);
+                for (int j4 = 0; j4 < l3 + i4; j4++) {
+                    graphics.blitSprite(STAMINA_SPRITE, i1 - j4 * 8 - 9, j2, 9, 9);
+                }
+                RenderSystem.disableBlend();
+                RenderSystem.depthMask(true);
+                RenderSystem.defaultBlendFunc();
+                RenderSystem.enableDepthTest();
+                RenderSystem.setShaderColor(1, 1, 1, 1);
+                rightHeight += 10;
+            }
+            minecraft.getProfiler().pop();
+            gui.rightHeight = rightHeight;
+        }
+    }
 
 	private static void renderPlayerHealthBar(Player player, GuiGraphics graphics) {
 		Minecraft minecraft = Minecraft.getInstance();
 		Gui gui = minecraft.gui;
-		if (minecraft.gameMode.canHurtPlayer()) {
-			if (player != null) {
-				int l = graphics.guiWidth() / 2 - 91;
-				minecraft.getProfiler().push("er_health");
-				float health = player.getHealth() ;
-				float max_health = player.getMaxHealth();
-				ErCombatVariables.PlayerVariables vars = player.getData(ErCombatVariables.PLAYER_VARIABLES);
-				int leftHeight = gui.leftHeight;
-				int j2 = graphics.guiHeight() - leftHeight;
-				RenderSystem.enableBlend();
+        if (minecraft.gameMode != null && minecraft.gameMode.canHurtPlayer() && player != null) {
+            int l = graphics.guiWidth() / 2 - 91;
+            minecraft.getProfiler().push("er_health");
+            float health = player.getHealth();
+            float max_health = player.getMaxHealth();
+            ErCombatVariables.PlayerVariables vars = player.getData(ErCombatVariables.PLAYER_VARIABLES);
+            int leftHeight = gui.leftHeight;
+            int j2 = graphics.guiHeight() - leftHeight;
+            RenderSystem.enableBlend();
 
-				graphics.blitSprite(HEALTH_BAR_BASE, l , j2, 81, 9);
-				graphics.blitSprite(HEALTH_BAR_BLINKING, 81 , 9 , 0 , 0,  l , j2, calculateHealth(lastHealth, max_health), 9);
-				graphics.blitSprite(HEALTH_BAR_FILLING, 81 , 9 , 0 , 0,  l , j2, calculateHealth(health, max_health), 9);
-				if(player.getAbsorptionAmount() > 0)
-					graphics.blitSprite(HEALTH_BAR_ABSORBING, 81 , 9 , 0 , 0,  l , j2, calculateHealth(player.getAbsorptionAmount(), max_health), 9);
+            graphics.blitSprite(HEALTH_BAR_BASE, l, j2, 81, 9);
+            graphics.blitSprite(HEALTH_BAR_BLINKING, 81, 9, 0, 0, l, j2, calculateHealth(lastHealth, max_health), 9);
+            graphics.blitSprite(HEALTH_BAR_FILLING, 81, 9, 0, 0, l, j2, calculateHealth(health, max_health), 9);
+            if (player.getAbsorptionAmount() > 0)
+                graphics.blitSprite(HEALTH_BAR_ABSORBING, 81, 9, 0, 0, l, j2, calculateHealth(player.getAbsorptionAmount(), max_health), 9);
 
-				Font font = minecraft.font ;
-				String s = (int)(health + player.getAbsorptionAmount()) + "/" + (int)max_health ;
-				int j = l - font.width(s) / 2 + 41;
-				graphics.drawString(font, s, j, j2 + 1, 0xffffff, false);
+            Font font = minecraft.font;
+            String s = (int) (health + player.getAbsorptionAmount()) + "/" + (int) max_health;
+            int j = l - font.width(s) / 2 + 41;
+            graphics.drawString(font, s, j, j2 + 1, 0xffffff, false);
 
-				if(lastDamageTick + 20 >= Minecraft.getInstance().level.getGameTime()) {
-					j = l + font.width(s) / 2 + 45;
-					graphics.drawString(font, "-" + lastDamage, j + 1, j2 + 1, 0, false);
-					graphics.drawString(font, "-" + lastDamage, j, j2 + 2, 0, false);
-					graphics.drawString(font, "-" + lastDamage, j - 1, j2 + 1, 0, false);
-					graphics.drawString(font, "-" + lastDamage, j , j2, 0, false);
-					graphics.drawString(font, "-" + lastDamage, j, j2 + 1, (Minecraft.getInstance().level.getGameTime() % 8 >= 4 ? damageColor : 0xffffffff), false);
-				}
+            if (lastDamageTick + 20 >= Minecraft.getInstance().level.getGameTime()) {
+                j = l + font.width(s) / 2 + 45;
+                graphics.drawString(font, "-" + lastDamage, j + 1, j2 + 1, 0, false);
+                graphics.drawString(font, "-" + lastDamage, j, j2 + 2, 0, false);
+                graphics.drawString(font, "-" + lastDamage, j - 1, j2 + 1, 0, false);
+                graphics.drawString(font, "-" + lastDamage, j, j2, 0, false);
+                graphics.drawString(font, "-" + lastDamage, j, j2 + 1, (Minecraft.getInstance().level.getGameTime() % 8 >= 4 ? damageColor : 0xffffffff), false);
+            }
 
-				RenderSystem.disableBlend();
-				leftHeight += 10;
-				minecraft.getProfiler().pop();
-				gui.leftHeight = leftHeight;
-			}
-		}
-	}
+            RenderSystem.disableBlend();
+            leftHeight += 10;
+            minecraft.getProfiler().pop();
+            gui.leftHeight = leftHeight;
+        }
+    }
 
 	private static void RenderPlayerArmor(Player player, GuiGraphics graphics) {
 		Minecraft minecraft = Minecraft.getInstance();

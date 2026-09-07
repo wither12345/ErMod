@@ -15,6 +15,12 @@
         "er:vision_frame": 2
       },
       "model": "er:item/unowned_moon_wheel"
+    },
+    {
+      "predicate": {
+        "er:vision_frame": 3
+      },
+      "model": "er:item/unowned_sumeru_vision"
     }
   ]
 }
