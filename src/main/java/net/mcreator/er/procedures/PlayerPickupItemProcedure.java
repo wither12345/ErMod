@@ -3,7 +3,7 @@ package net.mcreator.er.procedures;
 import net.minecraft.world.entity.player.Player;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
@@ -27,7 +27,7 @@ public class PlayerPickupItemProcedure {
         ItemStack item;
 		ArtifactData data = itemStack.getComponents().get(DataComponentsRegister.ARTIFACT.get());
 		if (itemStack.getItem() == ErModItems.MORA.get()) {
-			if (entity instanceof ErEntityInterface entityInterface && entityInterface.er$getArtifactEffectLevel(ArtifactEffectRegistry.LUCKY_DOG) > 3) {
+			if (entity instanceof IErEntity entityInterface && entityInterface.er$getArtifactEffectLevel(ArtifactEffectRegistry.LUCKY_DOG) > 3) {
 				entity.heal(6);
 			}
 			if (entity.getCapability(Capabilities.ItemHandler.ENTITY, null) instanceof IItemHandlerModifiable _modHandler) {

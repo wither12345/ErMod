@@ -8,6 +8,9 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.block.StorageDeviceRenderer;
+import net.wither.er.client.renderer.hypostasiscube.ElectroCubeCrystalRenderer;
+import net.wither.er.client.renderer.hypostasiscube.ElectroCubeProjectileRenderer;
+import net.wither.er.client.renderer.hypostasiscube.ElectroHypostasisCubeRenderer;
 import net.wither.er.client.renderer.slime.*;
 import net.wither.er.client.renderer.whopperflower.*;
 
@@ -40,5 +43,8 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.HEAL_ORB.get(), HealOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.SPEED_ORB.get(), SpeedOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.ENERGY_BUFF_ORB.get(), EnergyBuffOrbRenderer::new);
+        event.registerEntityRenderer(ErModEntities.ELECTRO_HYPOSTASIS_CUBE.get(), ElectroHypostasisCubeRenderer::new);
+        event.registerEntityRenderer(ErModEntities.ELECTRO_CUBE_PROJECTILE.get(), ElectroCubeProjectileRenderer::new);
+        event.registerEntityRenderer(ErModEntities.ELECTRO_CUBE_CRYSTAL.get(), ElectroCubeCrystalRenderer::new);
     }
 }

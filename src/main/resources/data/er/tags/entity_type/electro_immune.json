@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "er:electro_slime"
+    "er:electro_slime",
+    "er:electro_hypostasis_cube"
   ]
 }

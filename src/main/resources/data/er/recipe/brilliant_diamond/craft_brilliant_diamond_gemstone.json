@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "craft_brilliant_diamond_gemstone",
+  "category": "misc",
+  "ingredients": [
+    {"item": "er:agnidus_agate_gemstone"},
+    {"item": "er:varunada_lazurite_gemstone"},
+    {"item": "er:vajrada_amethyst_gemstone"},
+    {"item": "er:vayuda_turquoise_gemstone"},
+    {"item": "er:shivada_jade_gemstone"},
+    {"item": "er:prithiva_topaz_gemstone"},
+    {"item": "er:nagadus_emerald_gemstone"}
+  ],
+  "result": {
+    "id": "er:brilliant_diamond_gemstone"
+  }
+}

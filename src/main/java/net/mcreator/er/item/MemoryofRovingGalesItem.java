@@ -109,7 +109,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 
 	@Override
 	public float getSpeed(LivingEntity entity, int animationId) {
-		if (animationId < this.getMaxCombo(entity) || animationId == 10) {
+		if (animationId < this.getMaxNormalAttack(entity) || animationId == 10) {
 			return (float) (entity.getAttributeValue(Attributes.ATTACK_SPEED));
 		}
 		return 1f;
@@ -137,7 +137,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 		return travelerAnimation.NormalAttack4;
 	}
 
-	public int getMaxCombo(LivingEntity entity) {
+	public int getMaxNormalAttack(LivingEntity entity) {
 		return 5;
 	}
 
@@ -176,7 +176,7 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(animationId, 1));
 			}
 		}
-		if (time <= this.getFinishTick(entity, animationId, speed) && animationId <= this.getMaxCombo(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {
+		if (time <= this.getFinishTick(entity, animationId, speed) && animationId <= this.getMaxNormalAttack(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {
 			ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
 			if (vars.stamina >= this.getChargedAttackCost(entity)) {
 				vars.stamina -= this.getChargedAttackCost(entity);

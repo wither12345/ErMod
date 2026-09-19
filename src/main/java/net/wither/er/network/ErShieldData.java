@@ -9,7 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 
 public record ErShieldData(int entityID, CompoundTag shield) implements CustomPacketPayload {
 	//true = add shield false = remove shield
@@ -30,7 +30,7 @@ public record ErShieldData(int entityID, CompoundTag shield) implements CustomPa
 		if (!Minecraft.getInstance().level.isClientSide())
 			return;
 		context.enqueueWork(() -> {
-			if(entity instanceof ErEntityInterface enti)
+			if(entity instanceof IErEntity enti)
 				enti.er$setShields(data.shield);
 		});
 	}

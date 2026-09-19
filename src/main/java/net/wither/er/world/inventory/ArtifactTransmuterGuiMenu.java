@@ -1,7 +1,6 @@
 package net.wither.er.world.inventory;
 
 import net.mcreator.er.init.ErModItems;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -11,7 +10,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
 import net.wither.er.item.data.artifactdata.ArtifactData;
@@ -173,7 +171,7 @@ public class ArtifactTransmuterGuiMenu extends AbstractContainerMenu {
             for(int i = 2 ; i < 6 ; i ++){
                 this.getSlot(i).getItem().shrink(shrink[i - 1]);
             }
-            CustomData.update(DataComponents.CUSTOM_DATA, slot0, tag -> tag.putInt("moras", mora - shrink[0]));
+            slot0.set(DataComponentsRegister.MORA_BAG.get(), mora - shrink[0]);
             slot1.update(DataComponentsRegister.ARTIFACT.get(), artifactData , d -> d.setLevel(new ArtifactLevel(newLv, newExp, newTotalExp), minorUpgrade)) ;
         }
     }

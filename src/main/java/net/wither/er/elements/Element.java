@@ -29,12 +29,9 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.BloomEntity;
 import net.wither.er.entity.LunarChargedCloud;
-import net.wither.er.init.AdvancementTriggerRegister;
-import net.wither.er.init.ErAttributeRegister;
-import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.init.ElementRegistry;
+import net.wither.er.init.*;
 import net.wither.er.item.Vision;
 import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
@@ -99,7 +96,7 @@ public abstract class Element {
 
     public void end(AuraContainer container){
         if(container.getOwner() instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.updateElements(container.toInt());
+            auraContainerInterface.er$updateElements(container.toInt());
         }
     }
 
@@ -124,11 +121,13 @@ public abstract class Element {
     }
 
     public static boolean isLunar(Entity entity){
-        return entity instanceof Player player && player.getData(ErItemVariables.PLAYER_VARIABLES).Vision.get(DataComponentsRegister.VISION_FRAME) == Vision.Frame.MOON_WHEEL;
+        return (entity instanceof LivingEntity living && living.hasEffect(EffectRegister.LUNAR_BLESS)) ||
+                (entity instanceof Player player &&
+                player.getData(ErItemVariables.PLAYER_VARIABLES).Vision.get(DataComponentsRegister.VISION_FRAME) == Vision.Frame.MOON_WHEEL);
     }
 
     public static float reacting(ElementSource source, ElementalAura aura , float coefficient){
-        float gauge_reduction = 0 ;
+        float gauge_reduction;
         float gauge = source.getGauge();
         if (gauge * coefficient >= aura.getGauge()) {
             gauge_reduction = aura.getGauge() / coefficient ;
@@ -263,7 +262,7 @@ public abstract class Element {
                                  EntityHurtEvent.DamageModifier modifier,
                                  @Nullable Entity applier){
         if (auraContainer.getOwner() instanceof Entity entity && entity.level() instanceof ServerLevel serverLevel) {
-            BloomEntityEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
+            BloomEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
             if(entityToSpawn != null) {
                 entityToSpawn.setOwner(applier);
                 entityToSpawn.moveTo(entity.position().offsetRandom(RandomSource.create(), 1));

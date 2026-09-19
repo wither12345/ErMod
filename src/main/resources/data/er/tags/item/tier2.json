@@ -5,6 +5,8 @@
     "er:stained_mask",
     "er:slime_secretions",
     "er:sharp_arrowhead",
-    "er:shimmering_nectar"
+    "er:shimmering_nectar",
+    "er:lightning_prism",
+    "#er:element_fragments"
   ]
 }

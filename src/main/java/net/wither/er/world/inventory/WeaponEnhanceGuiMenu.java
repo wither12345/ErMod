@@ -1,7 +1,6 @@
 package net.wither.er.world.inventory;
 
 import net.mcreator.er.init.ErModItems;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -11,7 +10,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -28,29 +26,19 @@ import static net.wither.er.item.data.weapon.WeaponLevelData.getMaxLevel;
 import static net.wither.er.item.data.weapon.WeaponLevelData.not_enhanceable;
 
 public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
-    /*
-    public final Map<String, Object> menuState = new HashMap<>() {
-        @Override
-        public Object put(String key, Object value) {
-            if (!this.containsKey(key) && this.size() >= 7)
-                return null;
-            return super.put(key, value);
-        }
-    };
-     */
     public final Level world;
     public final Player entity;
-    private final IItemHandler internal;
     private final Container container = new TransientCraftingContainer(this,5,1);
     private AscensionRecipe.Single ascensionRecipe ;
     private int mora_use ;
+    private final int[] shrink = {0, 0, 0};
 
     public WeaponEnhanceGuiMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         super(ErMenus.WEAPON_ENHANCE_GUI.get(), id);
         this.entity = inv.player;
         this.world = inv.player.level();
 
-        this.internal = new ItemStackHandler(1);
+        IItemHandler internal = new ItemStackHandler(1);
         this.addSlot(new MoraSlot(container, 0, 79, 17));
         this.addSlot(new Slot(container, 1, 25, 35));
         this.addSlot(new Slot(container, 2, 61, 53));
@@ -70,16 +58,12 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                         }
                     }
                     else {
-                        for (int index0 = 2; index0 < 5; index0++) {
-                            if(ascensionRecipe.getInput(index0 - 2) != null)
-                                menu.getSlot(index0).getItem().shrink(ascensionRecipe.getInput(index0 - 2).getCount());
+                        for (int index0 = 0; index0 < 3; index0++) {
+                            if(WeaponEnhanceGuiMenu.this.shrink[index0] > 0)
+                                menu.getSlot(index0 + 2).getItem().shrink(WeaponEnhanceGuiMenu.this.shrink[index0]);
                         }
                     }
-
-                    if (mora_bag.getComponents().has(DataComponents.CUSTOM_DATA)) {
-                        final int mora = mora_bag.getComponents().get(DataComponents.CUSTOM_DATA).copyTag().getInt("moras") - mora_use;
-                        CustomData.update(DataComponents.CUSTOM_DATA, mora_bag, tag -> tag.putInt("moras", mora));
-                    }
+                    mora_bag.update(DataComponentsRegister.MORA_BAG, 0, m -> m - mora_use);
 
                     player.containerMenu.broadcastChanges();
                 }
@@ -128,6 +112,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
             }
             if (itemstack1.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
+                this.setChanged();
             } else {
                 slot.setChanged();
             }
@@ -210,7 +195,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                     total_experience += exp;
                 }
                 ItemStack mora_bag = this.getSlot(0).getItem();
-                if (mora_bag.getComponents().has(DataComponents.CUSTOM_DATA) && mora_use <= mora_bag.getComponents().get(DataComponents.CUSTOM_DATA).copyTag().getInt("moras")) {
+                if (mora_use <= mora_bag.getOrDefault(DataComponentsRegister.MORA_BAG, 0)) {
                     output = item_0.copy();
                     while (experience >= WeaponLevelData.getMaxExp(level, star) && level < getMaxLevel(ascension)) {
                         experience -= WeaponLevelData.getMaxExp(level, star);
@@ -252,12 +237,23 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
         if(ascensionRecipe == null)
             return false ;
         ItemStack mora_bag = this.getSlot(0).getItem();
-        if (!mora_bag.getComponents().has(DataComponents.CUSTOM_DATA) || ascensionRecipe.getMora() > mora_bag.getComponents().get(DataComponents.CUSTOM_DATA).copyTag().getInt("moras"))
+        if (ascensionRecipe.getMora() > mora_bag.getOrDefault(DataComponentsRegister.MORA_BAG, 0))
             return false ;
-        for (int index = 0; index < 3; index++) {
-            if(ascensionRecipe.getInput(index) != null && !ascensionRecipe.getInput(index).match(this.getSlot(index + 2).getItem()))
-                return false ;
+        int test = 0;
+        for (int j = 0; j < 3; j++) {//slot
+            shrink[j] = 0;
+            for(int i = 0; i < 3; i ++){//recipe$input id
+                AscensionRecipe.Input input = ascensionRecipe.getInput(i);
+                if(input == null){
+                    shrink[j] = 0;
+                    test |= 1 << i;
+                }
+                else if(input.match(this.getSlot(j + 2).getItem())) {
+                    shrink[j] = input.getCount();
+                    test |= 1 << i;
+                }
+            }
         }
-        return true ;
+        return test == 7 ;
     }
 }

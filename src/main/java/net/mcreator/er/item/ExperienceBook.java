@@ -2,6 +2,7 @@ package net.mcreator.er.item;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
+import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.network.ErItemVariables;
 
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
@@ -48,20 +49,20 @@ public class ExperienceBook extends Item {
 			if(player instanceof ServerPlayer serverPlayer && !(serverPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE)) {
 				int mora = 0;
 				if (player.getCapability(Capabilities.ItemHandler.ENTITY, null) instanceof IItemHandlerModifiable modHandlerIter) {
-					int solts = modHandlerIter.getSlots();
-					for (int _idx = 0; _idx < solts && mora < this.value * 5; _idx++) {
+					int slots = modHandlerIter.getSlots();
+					for (int _idx = 0; _idx < slots && mora < this.value * 5; _idx++) {
 						ItemStack iterator = modHandlerIter.getStackInSlot(_idx);
 						if (iterator.getItem() == ErModItems.MORA.get())
 							mora += iterator.getCount();
 						else if (iterator.getItem() == ErModItems.MORA_BAG.get())
-							mora += iterator.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("moras");
+							mora += iterator.getOrDefault(DataComponentsRegister.MORA_BAG, 0);
 					}
 					if (mora < this.value * 5) {
 						player.displayClientMessage(Component.literal((Component.translatable("message.er.no_enough_mora").getString())), false);
 						return false;
 					}
 					mora = this.value * 5;
-					for (int _idx = 0; _idx < solts && mora > 0; _idx++) {
+					for (int _idx = 0; _idx < slots && mora > 0; _idx++) {
 						ItemStack iterator = modHandlerIter.getStackInSlot(_idx);
 						if (iterator.getItem() == ErModItems.MORA.get()) {
 							if (iterator.getCount() >= mora) {
@@ -71,18 +72,28 @@ public class ExperienceBook extends Item {
 								mora -= iterator.getCount();
 								iterator.shrink(iterator.getCount());
 							}
-						} else if (iterator.getItem() == ErModItems.MORA_BAG.get() || iterator.getItem() == ErModItems.A_BAG_OF_MORA.get()) {
-							int inv = iterator.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("moras");
+						} else if (iterator.getItem() == ErModItems.MORA_BAG.get()) {
+							int inv = iterator.getOrDefault(DataComponentsRegister.MORA_BAG, 0);
 							if (inv >= mora) {
 								final int rest = inv - mora;
-								CustomData.update(DataComponents.CUSTOM_DATA, iterator, tag -> tag.putInt("moras", rest));
+                                iterator.update(DataComponentsRegister.MORA_BAG, 0, m -> rest);
 								mora = 0;
 							} else {
 								mora -= inv;
-								CustomData.update(DataComponents.CUSTOM_DATA, iterator, tag -> tag.putInt("moras", 0));
+                                iterator.set(DataComponentsRegister.MORA_BAG, 0);
 							}
-						}
-					}
+						} else if (iterator.getItem() == ErModItems.A_BAG_OF_MORA.get()) {
+                            int inv = iterator.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("moras");
+                            if (inv >= mora) {
+                                final int rest = inv - mora;
+                                CustomData.update(DataComponents.CUSTOM_DATA, iterator, tag -> tag.putInt("moras", rest));
+                                mora = 0;
+                            } else {
+                                mora -= inv;
+                                CustomData.update(DataComponents.CUSTOM_DATA, iterator, tag -> tag.putInt("moras", 0));
+                            }
+                        }
+                    }
 				}
 				stack.shrink(1);
 			}

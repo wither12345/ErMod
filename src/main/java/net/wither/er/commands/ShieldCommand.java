@@ -9,7 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldStack;
@@ -28,7 +28,7 @@ public class ShieldCommand {
 							//nEntity entity = EntityArgument.getOptionalEntities(arguments, "entity");
 							Collection<? extends Entity> entities = EntityArgument.getEntities(arguments, "entity");
 							for (Entity entity : entities) {
-								if (entity instanceof ErEntityInterface living) {
+								if (entity instanceof IErEntity living) {
 									living.er$cleanShield();
 									//List<ErShield> shields = ErShieldEntity.getShields(living);
 									//for (ErShield shield : shields) {
@@ -51,7 +51,7 @@ public class ShieldCommand {
 													float health = FloatArgumentType.getFloat(arguments, "health");
 													int time = IntegerArgumentType.getInteger(arguments, "time");
 													for (Entity entity : entities) {
-														if (entity instanceof ErEntityInterface living)
+														if (entity instanceof IErEntity living)
 															living.er$addShield(new ShieldStack(shield, health, time));
 														//ErShieldEntity.addShield(living, new ShieldStack(shield, health, time));
 													}
@@ -64,7 +64,7 @@ public class ShieldCommand {
 									Collection<? extends Entity> entities = EntityArgument.getEntities(arguments, "entity");
 									ErShield shield = ResourceArgument.getResource(arguments, "shield", AdditionalRegistries.SHIELD).value();
 									for (Entity entity : entities) {
-										if (entity instanceof ErEntityInterface living)
+										if (entity instanceof IErEntity living)
 											living.er$removeShield(shield);
 										//if (entity instanceof LivingEntity living)
 										//	ErShieldEntity.removeShield(living, shield);

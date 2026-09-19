@@ -51,7 +51,7 @@ public class AuraContainer {
 
     public void update(){
         if(owner instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.updateElements(this.toInt());
+            auraContainerInterface.er$updateElements(this.toInt());
         }
     }
 

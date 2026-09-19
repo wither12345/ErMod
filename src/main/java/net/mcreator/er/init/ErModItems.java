@@ -335,6 +335,16 @@ public class ErModItems {
 	public static final DeferredItem<Item> TINY_MIRACLES_HOURGLASS = REGISTRY.register("tiny_miracles_hourglass", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.TINY_MIRACLE));
 	public static final DeferredItem<Item> TINY_MIRACLES_GOBLET = REGISTRY.register("tiny_miracles_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.TINY_MIRACLE));
 	public static final DeferredItem<Item> TINY_MIRACLES_EARRINGS = REGISTRY.register("tiny_miracles_earrings", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.TINY_MIRACLE));
+	public static final DeferredItem<Item> LIGHTNING_PRISM = REGISTRY.register("lightning_prism", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> LIGHTNING_PRISM_UPGRADE = REGISTRY.register("lightning_prism_upgrade", () -> new Item(new Item.Properties()));
+	public static final ElementGemstones BRILLIANT_DIAMOND = new ElementGemstones(REGISTRY, "brilliant_diamond");
+	public static final ElementGemstones AGNIDUS_AGATE = new ElementGemstones(REGISTRY, "agnidus_agate");
+	public static final ElementGemstones VARUNADA_LAZURITE = new ElementGemstones(REGISTRY, "varunada_lazurite");
+	public static final ElementGemstones VAJRADA_AMETHYST = new ElementGemstones(REGISTRY, "vajrada_amethyst");
+	public static final ElementGemstones VAYUDA_TURQUOISE = new ElementGemstones(REGISTRY, "vayuda_turquoise");
+	public static final ElementGemstones SHIVADA_JADE = new ElementGemstones(REGISTRY, "shivada_jade");
+	public static final ElementGemstones PRITHIVA_TOPAZ = new ElementGemstones(REGISTRY, "prithiva_topaz");
+	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

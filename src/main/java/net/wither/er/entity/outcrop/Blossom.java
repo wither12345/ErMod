@@ -40,7 +40,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 
-import static net.mcreator.er.init.ErModMobEffects.DISORDER_OMEN;
 import static net.minecraft.world.effect.MobEffects.BAD_OMEN;
 
 public abstract class Blossom extends Mob {
@@ -156,8 +155,7 @@ public abstract class Blossom extends Mob {
             }
         }
         int left = l ;
-		l = left ;
-		r = all_waves.size() - 1 ;
+        r = all_waves.size() - 1 ;
         while (l < r) {
             int mid =  l + (r - l + 1) / 2;
             if(all_waves.get(mid).quality > max_quality){
@@ -177,16 +175,14 @@ public abstract class Blossom extends Mob {
 		}
         waves.sort(Comparator.comparingInt(wave -> wave.quality));
 		Iterator<OutcropWave> iterator = waves.iterator() ;
-		int cnt = 0 ;
-		boolean first = true ;
+        boolean first = true ;
 		while (iterator.hasNext()) {
 			OutcropWave wave = iterator.next();
 			if(wave.quality > max_quality || waves.size() > count ||(wave.quality == max_quality && first && Math.random() < 0.5))
 				iterator.remove();
 			else {
 				max_quality -= wave.quality ;
-				cnt ++ ;
-			}
+            }
 			first = false ;
 		}
 	}
@@ -238,7 +234,7 @@ public abstract class Blossom extends Mob {
 	}
 
 	@Override
-	public boolean ignoreExplosion(Explosion explosion) {
+	public boolean ignoreExplosion(@NotNull Explosion explosion) {
 		return true;
 	}
 
@@ -247,18 +243,13 @@ public abstract class Blossom extends Mob {
 		return true;
 	}
 
-	@Override
-	public void baseTick() {
-		super.baseTick();
-	}
-
 	public void addMobLeft(int count){
 		mob_left += count ;
 	}
 
 
 	@Override
-	public void stopSeenByPlayer(ServerPlayer player) {
+	public void stopSeenByPlayer(@NotNull ServerPlayer player) {
 		super.stopSeenByPlayer(player);
 		this.bossInfo.removePlayer(player);
 	}
@@ -273,6 +264,7 @@ public abstract class Blossom extends Mob {
                     if (trounceBlossom != null) {
                         trounceBlossom.setLootTable(this.getLoot());
 						trounceBlossom.setOmenLevel(this.entityData.get(DATA_OMEN_LEVEL));
+                        ApplyErlevelProcedure.execute(trounceBlossom, this.getPersistentData().getInt("erLevel"));
 						ApplyErlevelProcedure.execute(trounceBlossom , EntityHurtEvent.getEntityLevel(this));
 					}
 					this.bossInfo.removeAllPlayers();

@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.wither.er.entity.Hyperbloom;
@@ -30,21 +29,12 @@ public class HyperbloomRenderer extends EntityRenderer<Hyperbloom> {
         p_114083_.mulPose(this.entityRenderDispatcher.cameraOrientation());
         PoseStack.Pose posestack$pose = p_114083_.last();
         VertexConsumer vertexconsumer = p_114084_.getBuffer(RENDER_TYPE);
-        vertex(vertexconsumer, posestack$pose, p_114085_, 0.0F, 0, 0, 1);
-        vertex(vertexconsumer, posestack$pose, p_114085_, 1.0F, 0, 1, 1);
-        vertex(vertexconsumer, posestack$pose, p_114085_, 1.0F, 1, 1, 0);
-        vertex(vertexconsumer, posestack$pose, p_114085_, 0.0F, 1, 0, 0);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, p_114085_, 0.0F, 0, 0, 1);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, p_114085_, 1.0F, 0, 1, 1);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, p_114085_, 1.0F, 1, 1, 0);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, p_114085_, 0.0F, 1, 0, 0);
         p_114083_.popPose();
         super.render(hyperbloom, p_114081_, p_114082_, p_114083_, p_114084_, p_114085_);
-    }
-
-    private static void vertex(VertexConsumer p_254095_, PoseStack.Pose p_324420_, int p_253829_, float p_253995_, int p_254031_, int p_253641_, int p_254243_) {
-        p_254095_.addVertex(p_324420_, p_253995_ - 0.5F, (float)p_254031_ - 0.25F, 0.0F)
-                .setColor(-1)
-                .setUv((float)p_253641_, (float)p_254243_)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(p_253829_)
-                .setNormal(p_324420_, 0.0F, 1.0F, 0.0F);
     }
 
     public @NotNull ResourceLocation getTextureLocation(@NotNull Hyperbloom hyperbloom) {

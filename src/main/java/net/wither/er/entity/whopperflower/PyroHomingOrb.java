@@ -1,7 +1,6 @@
 package net.wither.er.entity.whopperflower;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.init.ErModBlocks;
 import net.mcreator.er.init.ErModEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -13,12 +12,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.wither.er.block.IBlockBehavior;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.TracingProjectile;
 import net.wither.er.init.ElementRegistry;
@@ -77,23 +74,17 @@ public class PyroHomingOrb extends TracingProjectile {
                                     ), (float) dmg * 0.22f)
                     );
 
-            for (int i = -1; i <= 1; i++)
-                for (int j = -1; j <= 1; j++)
-                    for (int k = -1; k <= 1; k++)
-                        if ((level.getBlockState(BlockPos.containing(x + i, y + k, z + j))).getBlock() == Blocks.GRASS_BLOCK) {
-                            level.setBlock(BlockPos.containing(x + i, y + k, z + j), ErModBlocks.BURNING_DIRT.get().defaultBlockState(), 3);
-                            if (!level.isClientSide()) {
-                                BlockPos _bp = BlockPos.containing(x + i, y + k, z + j);
-                                BlockEntity _blockEntity = level.getBlockEntity(_bp);
-                                BlockState _bs = level.getBlockState(_bp);
-                                if (_blockEntity != null)
-                                    if (owner != null) {
-                                        _blockEntity.getPersistentData().putString("UUID", owner.getStringUUID());
-                                    }
-                                if (level instanceof Level _level)
-                                    _level.sendBlockUpdated(_bp, _bs, _bs, 3);
-                            }
+            BlockPos blockPos = this.getOnPos();
+            for (int i = -2; i <= 2; i++)
+                for (int j = -2; j <= 2; j++)
+                    for (int k = -1; k <= 1; k++) {
+                        BlockPos offPos = blockPos.offset(i, j, k);
+                        if (level.getBlockState(offPos).getBlock() instanceof IBlockBehavior blockBehavior) {
+                            blockBehavior.er$getReactionBehavior().ifPresent(
+                                    behavior -> behavior.reacted(level, offPos, ElementRegistry.PYRO.get(), this.getOwner(), false)
+                            );
                         }
+                    }
             this.discard();
         }
     }

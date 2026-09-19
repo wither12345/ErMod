@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.wither.er.entity.EnergyBuffOrbEntity;
@@ -30,21 +29,12 @@ public class EnergyBuffOrbRenderer extends EntityRenderer<EnergyBuffOrbEntity> {
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         PoseStack.Pose posestack$pose = poseStack.last();
         VertexConsumer vertexconsumer = source.getBuffer(RENDER_TYPE);
-        vertex(vertexconsumer, posestack$pose, i, 0.0F, 0, 0, 1);
-        vertex(vertexconsumer, posestack$pose, i, 1.0F, 0, 1, 1);
-        vertex(vertexconsumer, posestack$pose, i, 1.0F, 1, 1, 0);
-        vertex(vertexconsumer, posestack$pose, i, 0.0F, 1, 0, 0);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 0.0F, 0, 0, 1);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 1.0F, 0, 1, 1);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 1.0F, 1, 1, 0);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 0.0F, 1, 0, 0);
         poseStack.popPose();
         super.render(projectile, v, v1, poseStack, source, i);
-    }
-
-    private static void vertex(VertexConsumer vertexConsumer, PoseStack.Pose pose, int i, float v, int i1, int i2, int i3) {
-        vertexConsumer.addVertex(pose, v - 0.5F, (float)i1 - 0.25F, 0.0F)
-                .setColor(-1)
-                .setUv((float)i2, (float)i3)
-                .setOverlay(OverlayTexture.NO_OVERLAY)
-                .setLight(i)
-                .setNormal(pose, 0.0F, 1.0F, 0.0F);
     }
 
     public @NotNull ResourceLocation getTextureLocation(@NotNull EnergyBuffOrbEntity projectile) {

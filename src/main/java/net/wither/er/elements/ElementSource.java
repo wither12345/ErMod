@@ -1,8 +1,6 @@
 package net.wither.er.elements;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -20,8 +18,6 @@ public class ElementSource {
     private final int time ;
     private final int count ;
     private final boolean permanent;
-
-    public static final ResourceKey<DamageType> ReactionKey = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:reaction")) ;
 
     public ElementSource(@NotNull Element element, @Nullable ResourceLocation resourceLocation , float gauge , boolean applicable) {
         this(element,resourceLocation,gauge,applicable,50,2, false);
@@ -73,7 +69,7 @@ public class ElementSource {
     }
 
     public static DamageSource createDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable ElementSource source){
-        return createDamageSource(type,directEntity,directEntity,null,source);
+        return createDamageSource(type, directEntity, directEntity, null, source);
     }
 
     public static DamageSource createDamageSource(DamageSource damageSource, @Nullable ElementSource elementSource){

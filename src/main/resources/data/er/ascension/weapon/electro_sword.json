@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:electro_sword"
+    "er:electro_sword",
+    "er:electro_helmet",
+    "er:electro_chestplate",
+    "er:electro_leggings",
+    "er:electro_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:electro_crystal",
           "count": 6
+        },
+        {
+          "item": "er:vajrada_amethyst_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:electro_crystal",
           "count": 12
+        },
+        {
+          "item": "er:vajrada_amethyst_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_electro",
           "count": 2
+        },
+        {
+          "item": "er:vajrada_amethyst_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_electro",
+          "count": 4
+        },
+        {
+          "item": "er:vajrada_amethyst_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_electro",
           "count": 12
+        },
+        {
+          "item": "er:vajrada_amethyst_chunk",
+          "count": 4
         }
       ]
     }

@@ -3,6 +3,7 @@ package net.wither.er.client.renderer.damge;
 import com.mojang.blaze3d.font.GlyphInfo;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.mcreator.er.ERClientConfig;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -61,25 +62,26 @@ public class RenderSpecialDamage {
         StringDecomposer.iterateFormatted(p_273765_, Style.EMPTY, font$stringrenderoutput);
     }
 
-    private static void renderChar(ShadeGlyph bakedGlyph, boolean p_254262_, float x, float y, Matrix4f matrix4f, VertexConsumer vertexConsumer, float r, float g, float b, float a, int p_253905_, RenderDamageAmount.DamageDisplayType type) {
+    private static void renderChar(ShadeGlyph bakedGlyph, boolean italic, float x, float y, Matrix4f matrix4f, VertexConsumer vertexConsumer, float r, float g, float b, float a, int p_253905_, RenderDamageAmount.DamageDisplayType type) {
+        int count = ERClientConfig.DAMAGE_CUTTING.get();
         switch (type){
             case LUNAR -> {
-                for(int i = 0 ; i < 8 ; i ++)
-                    bakedGlyph.er$render(i, 8, p_254262_, x, y, matrix4f, vertexConsumer,
-                            mix(i, 8, r),
-                            mix(i, 8, g),
-                            mix(i, 8, b),
+                for(int i = 0 ; i < count ; i ++)
+                    bakedGlyph.er$render(i, count, italic, x, y, matrix4f, vertexConsumer,
+                            mix(i, count, r),
+                            mix(i, count, g),
+                            mix(i, count, b),
                             a, p_253905_);
             }
             case STELLAR -> {
-                for(int i = 0 ; i < 8 ; i ++)
-                    bakedGlyph.er$render(i, 8, p_254262_, x, y, matrix4f, vertexConsumer,
-                            mix(8 - i, 8, r),
-                            mix(8 - i, 8, g),
-                            mix(8 - i, 8, b),
+                for(int i = 0 ; i < count ; i ++)
+                    bakedGlyph.er$render(i, count, italic, x, y, matrix4f, vertexConsumer,
+                            mix(count - i, count, r),
+                            mix(count - i, count, g),
+                            mix(count - i, count, b),
                             a, p_253905_);
             }
-            case NORMAL -> bakedGlyph.er$render(0, 1, p_254262_, x, y, matrix4f, vertexConsumer, r, g, b, a, p_253905_);
+            case NORMAL -> bakedGlyph.er$render(0, 1, italic, x, y, matrix4f, vertexConsumer, r, g, b, a, p_253905_);
         }
     }
 

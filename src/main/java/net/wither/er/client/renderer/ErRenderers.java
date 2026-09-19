@@ -23,7 +23,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.RenderShield;
 import org.joml.Matrix4f;
@@ -47,11 +47,11 @@ public class ErRenderers {
 		renderShield(entity, poseStack, bufferSource, renderer, light);
 		renderLevel(entity, poseStack, bufferSource, renderer, light, event.getPartialTick());
 		if(entity instanceof AuraContainerInterface auraContainerInterface)
-			renderElements(auraContainerInterface.getElements(), entity,poseStack,bufferSource,light);
+			renderElements(auraContainerInterface.er$getElements(), entity,poseStack,bufferSource,light);
 	}
 
 	private static void renderShield(LivingEntity entity, PoseStack poseStack, MultiBufferSource bufferSource, LivingEntityRenderer renderer, int light) {
-		if (entity instanceof ErEntityInterface enti) {
+		if (entity instanceof IErEntity enti) {
 			List<ErShield> shields = enti.er$getShields();
 			for (ErShield shield : shields) {
 				if (shield instanceof RenderShield rend) {

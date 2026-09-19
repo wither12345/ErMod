@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:anemo_sword"
+    "er:anemo_sword",
+    "er:anemo_helmet",
+    "er:anemo_chestplate",
+    "er:anemo_leggings",
+    "er:anemo_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:dandelion_seed",
           "count": 6
+        },
+        {
+          "item": "er:vayuda_turquoise_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:dandelion_seed",
           "count": 12
+        },
+        {
+          "item": "er:vayuda_turquoise_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_anemo",
           "count": 2
+        },
+        {
+          "item": "er:vayuda_turquoise_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_anemo",
+          "count": 4
+        },
+        {
+          "item": "er:vayuda_turquoise_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_anemo",
           "count": 12
+        },
+        {
+          "item": "er:vayuda_turquoise_chunk",
+          "count": 4
         }
       ]
     }

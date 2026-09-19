@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "id": "er:agnidus_agate_sliver",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "er:agnidus_agate_fragment",
+    "count": 1
+  },
+  "mora": 300
+}

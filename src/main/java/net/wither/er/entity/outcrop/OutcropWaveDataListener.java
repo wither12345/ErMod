@@ -28,6 +28,8 @@ public class OutcropWaveDataListener extends SimpleJsonResourceReloadListener{
     }
 
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager manager, @NotNull ProfilerFiller filler) {
+        waves.clear();
+        waveMap.clear();
         RegistryOps<JsonElement> registryops = this.makeConditionalOps();
         ImmutableMap.Builder<ResourceLocation, AdvancementHolder> builder = ImmutableMap.builder();
         map.forEach((location, element) -> {

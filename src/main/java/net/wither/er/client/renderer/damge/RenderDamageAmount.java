@@ -75,13 +75,13 @@ public class RenderDamageAmount {
             return added_tick + maxTime < now_time ;
         }
 
-        public void render(Camera camera , MultiBufferSource.BufferSource bufferSource,float partialTick){
+        public void render(Camera camera, MultiBufferSource.BufferSource bufferSource, float partialTick){
             RenderSystem.disableDepthTest();
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             String s = String.valueOf(damage);
 
-            RenderSpecialDamage.renderLunarText(bufferSource, camera, s, x, y, z, color ,calculateSize(partialTick), type);
+            RenderSpecialDamage.renderLunarText(bufferSource, camera, s, x, y, z, color, calculateSize(partialTick), type);
         }
 
         private static void renderFloatingText(MultiBufferSource source , Camera camera, String string, double x, double y, double z, int color, float scaling) {

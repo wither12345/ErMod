@@ -33,6 +33,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.mcreator.er.init.ErModItems;
+import org.jetbrains.annotations.NotNull;
 
 public class TartagliaEntity extends Monster implements RangedAttackMob {
 	private final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.BLUE, ServerBossEvent.BossBarOverlay.PROGRESS);
@@ -49,7 +50,7 @@ public class TartagliaEntity extends Monster implements RangedAttackMob {
 	protected void registerGoals() {
 
 		super.registerGoals();
-		this.goalSelector.addGoal(4, new RangedBowAttackGoal(this, 0D, 25, 15.0F) {
+		this.goalSelector.addGoal(4, new RangedBowAttackGoal<TartagliaEntity>(this, 0D, 25, 15.0F) {
 			@Override
 			public boolean canUse() {
 				LivingEntity entity = TartagliaEntity.this;
@@ -62,7 +63,7 @@ public class TartagliaEntity extends Monster implements RangedAttackMob {
 				return entity.getMainHandItem().getItem() instanceof BowItem;
 			}
 		});
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal(this, Player.class, true, false));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true, false));
 		this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -75,12 +76,12 @@ public class TartagliaEntity extends Monster implements RangedAttackMob {
 	}
 
 	@Override
-	public Vec3 getPassengerRidingPosition(Entity entity) {
+	public @NotNull Vec3 getPassengerRidingPosition(@NotNull Entity entity) {
 		return super.getPassengerRidingPosition(entity).add(0, -0.35F, 0);
 	}
 
 	@Override
-	public SoundEvent getHurtSound(DamageSource ds) {
+	public @NotNull SoundEvent getHurtSound(@NotNull DamageSource ds) {
 		return BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.hurt"));
 	}
 
@@ -100,13 +101,13 @@ public class TartagliaEntity extends Monster implements RangedAttackMob {
 	}
 
 	@Override
-	public void startSeenByPlayer(ServerPlayer player) {
+	public void startSeenByPlayer(@NotNull ServerPlayer player) {
 		super.startSeenByPlayer(player);
 		this.bossInfo.addPlayer(player);
 	}
 
 	@Override
-	public void stopSeenByPlayer(ServerPlayer player) {
+	public void stopSeenByPlayer(@NotNull ServerPlayer player) {
 		super.stopSeenByPlayer(player);
 		this.bossInfo.removePlayer(player);
 	}

@@ -25,7 +25,7 @@ public class ElectroSlimeRenderer extends MobRenderer<ElectroSlime, ModelElectro
 
             @Override
             public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int light, @NotNull ElectroSlime entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                if (entity instanceof AuraContainerInterface auraContainerInterface && (auraContainerInterface.getElements() & (3 << (Element.RenderId.ELECTRO.getId() << 1))) != 0) {
+                if (entity instanceof AuraContainerInterface auraContainerInterface && (auraContainerInterface.er$getElements() & (3 << (Element.RenderId.ELECTRO.getId() << 1))) != 0) {
                     VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.eyes(LAYER_TEXTURE));
                     this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0));
                 }

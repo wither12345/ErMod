@@ -45,7 +45,7 @@ import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ErAttributeRegister;
@@ -59,6 +59,7 @@ import net.wither.er.network.ErItemVariables;
 import net.wither.er.shield.ShieldStack;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @EventBusSubscriber
@@ -80,8 +81,8 @@ public class EntityHurtEvent {
 
 		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
             DamageModifier modifier = modifierInterface.er$getModifier();
-            if(sourceentity instanceof ErEntityInterface erEntityInterface){
-                Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+            if(sourceentity instanceof IErEntity erEntity){
+                Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
                 for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                     if(effect.getKey().value() instanceof DamageAbility damageAbility){
                         damageAbility.onHurt(damagesource, entity, modifier, effect.getIntValue());
@@ -121,7 +122,7 @@ public class EntityHurtEvent {
 
 			float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
             
-			if (entity instanceof ErEntityInterface anInterface) {
+			if (entity instanceof IErEntity anInterface) {
 				List<ShieldStack> shields = anInterface.er$getShieldStacks();
 				float shield_absorb = 0f;
 				for (ShieldStack shield : shields) {
@@ -191,9 +192,7 @@ public class EntityHurtEvent {
         }
 
         if(source.getEntity() != null && elementSourceInterface.er$getSource() == null) {
-            int elemental_type = getInfusionType(source.getEntity().level(), source.getEntity(), source.getDirectEntity());
-            if(elemental_type != 0)
-                elementSourceInterface.er$setElement(new ElementSource(getEle(elemental_type), ResourceLocation.parse("er:default"), 1, getEle(elemental_type).isApplicable()));
+            elementSourceInterface.er$setElement(getElementSource(source.getEntity().level(), source.getEntity(), source.getDirectEntity()));
         }
     }
 
@@ -238,6 +237,36 @@ public class EntityHurtEvent {
 			modifier.res_multiply *= (100f - (float) entity.getAttributeValue(element.getResAttr())) / 100f ;
 	}
 
+    @Nullable
+    public static ElementSource getElementSource(LevelAccessor world, Entity entity, Entity immediatesourceentity){
+        if (entity == null) return null;
+        Element element = null;
+        if (immediatesourceentity == entity) {
+            if (entity instanceof LivingEntity && ((LivingEntity) entity).getMainHandItem().getItem() instanceof MultipleInfusion) {
+                Item item = ((LivingEntity) entity).getMainHandItem().getItem();
+                element = getEle(((MultipleInfusion) item).getInfusion(((LivingEntity) entity).getMainHandItem(), entity));
+            }
+            if (IsAnemoInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.ANEMO.get();
+            } else if (IsCryoInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.CRYO.get();
+            } else if (IsDendroInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.DENDRO.get();
+            } else if (IsElectroInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.ELECTRO.get();
+            } else if (IsGeoInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.GEO.get();
+            } else if (IsHydroInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.HYDRO.get();
+            } else if (IsPyroInfusionProcedure.execute(world, entity)) {
+                element = ElementRegistry.PYRO.get();
+            }
+        }
+        if(element == null) return null;
+        return new ElementSource(element, ResourceLocation.parse("er:default"), 1, element.isApplicable());
+    }
+
+    @Deprecated(forRemoval = true)
 	public static int getInfusionType(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
 		if (entity == null)
 			return 0;

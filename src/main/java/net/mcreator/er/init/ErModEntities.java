@@ -5,6 +5,9 @@ package net.mcreator.er.init;
 
 import net.wither.er.entity.whopperflower.*;
 import net.wither.er.entity.slimes.*;
+import net.wither.er.entity.hypostasiscube.ElectroHypostasisCube;
+import net.wither.er.entity.hypostasiscube.ElectroCubeProjectile;
+import net.wither.er.entity.hypostasiscube.ElectroCubeCrystal;
 import net.wither.er.entity.*;
 
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -60,8 +63,8 @@ public class ErModEntities {
 	public static final DeferredHolder<EntityType<?>, EntityType<ButterflyEntity>> BUTTERFLY = register("butterfly",
 			EntityType.Builder.<ButterflyEntity>of(ButterflyEntity::new, MobCategory.AMBIENT).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.5f, 0.3f));
 	// Start of user code block custom entities
-	public static final DeferredHolder<EntityType<?>, EntityType<BloomEntityEntity>> BLOOM_ENTITY = register("dendro_core",
-			EntityType.Builder.of(BloomEntityEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.4f, 0.4f));
+	public static final DeferredHolder<EntityType<?>, EntityType<BloomEntity>> BLOOM_ENTITY = register("dendro_core",
+			EntityType.Builder.of(BloomEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.4f, 0.4f));
 	public static final DeferredHolder<EntityType<?>, EntityType<ArcEntity>> ARC = register("arc",
 			EntityType.Builder.of(ArcEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 	public static final DeferredHolder<EntityType<?>, EntityType<Hyperbloom>> HYPERBLOOM = register("hyperbloom",
@@ -108,6 +111,12 @@ public class ErModEntities {
 			EntityType.Builder.of(SpeedOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
 	public static final DeferredHolder<EntityType<?>, EntityType<EnergyBuffOrbEntity>> ENERGY_BUFF_ORB = register("energy_buff_orb",
 			EntityType.Builder.of(EnergyBuffOrbEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.2f, 0.2f));
+	public static final DeferredHolder<EntityType<?>, EntityType<ElectroHypostasisCube>> ELECTRO_HYPOSTASIS_CUBE = register("electro_hypostasis_cube",
+			EntityType.Builder.of(ElectroHypostasisCube::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 0.8f));
+	public static final DeferredHolder<EntityType<?>, EntityType<ElectroCubeProjectile>> ELECTRO_CUBE_PROJECTILE = register("electro_cube_projectile",
+			EntityType.Builder.<ElectroCubeProjectile>of(ElectroCubeProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.5f, 0.5f));
+	public static final DeferredHolder<EntityType<?>, EntityType<ElectroCubeCrystal>> ELECTRO_CUBE_CRYSTAL = register("electro_cube_crystal",
+			EntityType.Builder.<ElectroCubeCrystal>of(ElectroCubeCrystal::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).noSave().sized(0.8f, 0.8f));
 
 	// End of user code block custom entities
 	private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

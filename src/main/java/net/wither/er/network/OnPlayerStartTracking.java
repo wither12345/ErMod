@@ -6,14 +6,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 
 @EventBusSubscriber
 public class OnPlayerStartTracking {
 	@SubscribeEvent
 	public static void OnStartTracking(PlayerEvent.StartTracking event) {
 		Entity target = event.getTarget();
-		if (target instanceof ErEntityInterface enti && event.getEntity() instanceof ServerPlayer player) {
+		if (target instanceof IErEntity enti && event.getEntity() instanceof ServerPlayer player) {
 			enti.er$syncShield(player);
 			PacketDistributor.sendToPlayer(player, new SyncLevelData(target.getId(), target.getPersistentData().getInt("erLevel")));
 		}

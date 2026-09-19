@@ -27,8 +27,8 @@ public class EnergyBuffOrbEntity extends BuffOrbEntity{
                 ErCombatVariables.PlayerVariables vars = serverPlayer.getData(ErCombatVariables.PLAYER_VARIABLES);
                 vars.energyAmount = Math.min(fortuna.getEnergyCost(serverPlayer), vars.energyAmount + 5 * (float) serverPlayer.getAttributeValue(ErModAttributes.ENERGY_RECHARGE) / 100);
                 vars.syncWithId(serverPlayer, 0b00_0100_0000);
-                if(serverPlayer instanceof ErEntityInterface erEntityInterface){
-                    Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+                if(serverPlayer instanceof IErEntity erEntity){
+                    Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
                     for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                         if(effect.getKey().value() instanceof EnergyOrbPickupAbility ability){
                             ability.onPick(this, serverPlayer, effect.getIntValue());

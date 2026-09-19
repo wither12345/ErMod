@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -47,6 +48,15 @@ public class CombatAnimation {
 		PacketDistributor.sendToServer(new AnimationMessage());
 	}
 
+    @SubscribeEvent
+    public static void onLeftBlock(PlayerInteractEvent.LeftClickBlock event){
+        Player player = event.getEntity();
+        if(player.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortunas fortunas && fortunas.hasAnimation(player)){
+            event.setCanceled(true);
+            PacketDistributor.sendToServer(new AnimationMessage());
+        }
+    }
+
 	@SubscribeEvent
 	public static void onClientTick(ClientTickEvent.Post event) {
 		if (presstime > 0) {
@@ -72,18 +82,18 @@ public class CombatAnimation {
 			return false;
 		Item item = stellaFortuna.getItem();
 		ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
-		if (item instanceof StellaFortunas SFitem && SFitem.hasAnimation(entity)) {
+		if (item instanceof StellaFortunas SFItem && SFItem.hasAnimation(entity)) {
 			float speed = (float) entity.getAttribute(Attributes.ATTACK_SPEED).getValue();
 			int combo = vars.animationId;
-			if (vars.animationTime > SFitem.getFinishTick(entity, combo, speed) || !entity.onGround()) {
+			if (vars.animationTime > SFItem.getFinishTick(entity, combo, speed) || !entity.onGround()) {
 				return true;
 			}
-			if (vars.animationTime > 0 && vars.animationId < SFitem.getMaxCombo(entity))
+			if (vars.animationTime > 0 && vars.animationId < SFItem.getMaxNormalAttack(entity))
 				vars.animationId += 1;
 			else
 				vars.animationId = 0;
 			entity.setSprinting(false);
-			vars.animationTime = SFitem.getAnimationTick(entity, combo, speed);
+			vars.animationTime = SFItem.getAnimationTick(entity, combo, speed);
             vars.syncWithId(entity, 0b00_0000_0011);
 			return true;
 		}

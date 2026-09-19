@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "id": "er:vayuda_turquoise_fragment",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "er:vayuda_turquoise_chunk",
+    "count": 1
+  },
+  "mora": 900
+}

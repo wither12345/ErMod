@@ -8,6 +8,7 @@ import net.wither.er.client.model.WhopperflowerModel;
 import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.LunarChargedCloudRenderer;
 import net.wither.er.client.renderer.LunarCrystallizeRenderer;
+import net.wither.er.client.renderer.hypostasiscube.AbstractHypostasisCubeRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoSpikeRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoWhopperflowerProjectileRenderer;
 import net.wither.er.client.renderer.whopperflower.PyroHomingRobRenderer;
@@ -25,5 +26,6 @@ public class LayerDefinitionsRegister {
         event.registerLayerDefinition(CryoSpikeRenderer.LAYER_LOCATION, CryoSpikeRenderer::createBodyLayer);
         event.registerLayerDefinition(CryoWhopperflowerProjectileRenderer.LAYER_LOCATION, CryoWhopperflowerProjectileRenderer::createBodyLayer);
         event.registerLayerDefinition(LinkMechanismBaseRenderer.LAYER_LOCATION, LinkMechanismBaseRenderer::createBodyLayer);
+        event.registerLayerDefinition(AbstractHypostasisCubeRenderer.LAYER_LOCATION, AbstractHypostasisCubeRenderer::createBodyLayer);
     }
 }

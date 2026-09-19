@@ -17,29 +17,21 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.wither.er.entity.EnergyOrb;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.KillAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.entity.outcrop.Blossom;
-
-import javax.annotation.Nullable;
-import java.util.Comparator;
-import java.util.List;
 
 @EventBusSubscriber
 public class EntityDeathProcedure {
@@ -92,8 +84,8 @@ public class EntityDeathProcedure {
 				_level.addFreshEntity(entityToSpawn);
 			}
 		}
-        if(sourceentity instanceof ErEntityInterface erEntityInterface){
-            Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+        if(sourceentity instanceof IErEntity erEntity){
+            Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
             for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                 if(effect.getKey().value() instanceof KillAbility ability){
                     ability.onKill(source, entity, effect.getIntValue());

@@ -7,6 +7,7 @@ import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.loottables.RegisterLootModifier;
 import net.wither.er.loottables.RegisterLootFunction;
+import net.wither.er.loottables.LootConditionRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.init.*;
 import net.wither.er.entity.outcrop.EntityModifierRegistry;
@@ -80,6 +81,8 @@ public class ErMod {
 		ErAttributeRegister.REGISTRY.register(modEventBus);
 		ArmorMaterialsRegister.REGISTRY.register(modEventBus);
 		AdvancementTriggerRegister.TRIGGER_TYPES.register(modEventBus);
+		SerializerRegister.SERIALIZERS.register(modEventBus);
+		LootConditionRegister.LOOT_CONDITION_TYPES.register(modEventBus);
 		// End of user code block mod init
 	}
 

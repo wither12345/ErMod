@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:cryo_sword"
+    "er:cryo_sword",
+    "er:cryo_helmet",
+    "er:cryo_chestplate",
+    "er:cryo_leggings",
+    "er:cryo_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:mist_flower_corolla",
           "count": 6
+        },
+        {
+          "item": "er:shivada_jade_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:mist_flower_corolla",
           "count": 12
+        },
+        {
+          "item": "er:shivada_jade_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_cryo",
           "count": 2
+        },
+        {
+          "item": "er:shivada_jade_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_cryo",
+          "count": 4
+        },
+        {
+          "item": "er:shivada_jade_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_cryo",
           "count": 12
+        },
+        {
+          "item": "er:shivada_jade_chunk",
+          "count": 4
         }
       ]
     }

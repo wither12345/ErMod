@@ -23,16 +23,16 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.listener.onHealthFloating;
 import net.wither.er.init.AdditionalRegistries;
-import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
 import net.wither.er.shield.ErShield;
@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Set;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements Attackable, ErEntityInterface , AuraContainerInterface {
+public abstract class LivingEntityMixin extends Entity implements Attackable, IErEntity, AuraContainerInterface {
     @Unique private final ArrayList<ShieldStack> er$shields = new ArrayList<>();
 	@Unique private final AuraContainer er$auraContainer = new AuraContainer(this);
     @Unique private float er$lastHealth ;
@@ -97,9 +97,8 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void addAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
 		CompoundTag tag = new CompoundTag();
-		for (ShieldStack shield : er$shields) {
+		for (ShieldStack shield : er$shields)
 			tag.put(AdditionalRegistries.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
-		}
 		compound.put("ErShield", tag);
 
 		ListTag listtag = new ListTag();
@@ -125,9 +124,9 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 
             for(ArtifactSlot slot: ArtifactSlot.values()){
 				compoundtag1 = list_tag.getCompound(slot.getId());
-                this.setArtifact(slot, ItemStack.parseOptional(this.registryAccess(), compoundtag1));
+                this.er$setArtifact(slot, ItemStack.parseOptional(this.registryAccess(), compoundtag1));
 			}
-			this.updateArtifact();
+			this.er$updateArtifact();
 		}
 	}
 
@@ -184,32 +183,30 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 
 	public void er$syncShield() {
 		CompoundTag tag = new CompoundTag();
-		for (ShieldStack shield : er$shields) {
+		for (ShieldStack shield : er$shields)
 			tag.put(AdditionalRegistries.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
-		}
 		PacketDistributor.sendToPlayersTrackingEntityAndSelf(this, new ErShieldData(this.getId(), tag));
 	}
 
 	public void er$syncShield(ServerPlayer player) {
 		CompoundTag tag = new CompoundTag();
-		for (ShieldStack shield : er$shields) {
+		for (ShieldStack shield : er$shields)
 			tag.put(AdditionalRegistries.SHIELD_REGISTRY.getKey(shield.getShield()).toString(), shield.toTag());
-		}
 		PacketDistributor.sendToPlayer(player, new ErShieldData(this.getId(), tag));
 	}
 
 	@Override
-	public int getElements() {
+	public int er$getElements() {
 		return this.entityData.get(ER$ELEMENT);
 	}
 
 	@Override
-	public void updateElements(int elements) {
+	public void er$updateElements(int elements) {
 		this.entityData.set(ER$ELEMENT, elements);
 	}
 
 	@Override
-	public void setArtifact(ArtifactSlot slot, ItemStack itemStack) {
+	public void er$setArtifact(ArtifactSlot slot, ItemStack itemStack) {
 		ArtifactData data = er$getArtifact(slot).getComponents().get(DataComponentsRegister.ARTIFACT.get());
 		if(this.level() instanceof ServerLevel && data != null)
 			data.remove((LivingEntity)(Object) this);
@@ -232,7 +229,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 	}
 
 	@Override
-	public void updateArtifact(){
+	public void er$updateArtifact(){
 		Object2IntMap<Holder<ArtifactEffect>> newEffectMap = new Object2IntArrayMap<>();
 		for (ItemStack artifact : er$artifactItem) {
 			ArtifactData artifactData = artifact.getComponents().get(DataComponentsRegister.ARTIFACT.get());

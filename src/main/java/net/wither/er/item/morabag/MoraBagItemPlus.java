@@ -171,12 +171,12 @@ public class MoraBagItemPlus extends Item {
         return ItemStack.EMPTY;
     }
 
-    private static int getMoraFromCustomData(ItemStack itemStack){
+    public static int getMoraFromCustomData(ItemStack itemStack){
         CompoundTag data = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
         return data.contains("moras") ? data.getInt("moras") : 0 ;
     }
 
-    private static void putMora(ItemStack stack, int count){
+    public static void putMora(ItemStack stack, int count){
         stack.update(DataComponentsRegister.MORA_BAG.get(), Math.max(0, count), c -> c + count);
     }
 

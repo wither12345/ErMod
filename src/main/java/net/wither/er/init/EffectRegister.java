@@ -5,10 +5,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.wither.er.effect.EffectHarmful;
-import net.wither.er.effect.InstructorBless;
-import net.wither.er.effect.OverloadEffect;
-import net.wither.er.effect.TinyMiracleEffect;
+import net.wither.er.effect.*;
 
 public class EffectRegister {
     public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(Registries.MOB_EFFECT, ErMod.MODID);
@@ -17,4 +14,5 @@ public class EffectRegister {
     public static final Holder<MobEffect> GAMBLER_CD = REGISTRY.register("gambler_cd", EffectHarmful::new);
     public static final Holder<MobEffect> INSTRUCTOR_BLESS = REGISTRY.register("instructor_bless", InstructorBless::new);
     public static final Holder<MobEffect> TINY_MIRACLE = REGISTRY.register("tiny_miracle", TinyMiracleEffect::new);
+    public static final Holder<MobEffect> LUNAR_BLESS = REGISTRY.register("lunar_bless", LunarBless::new);
 }

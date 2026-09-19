@@ -20,7 +20,7 @@ import net.minecraft.core.component.DataComponents;
 import net.mcreator.er.ERConfig;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.ArtifactLevel;
@@ -54,10 +54,10 @@ public class Artifact extends Item {
 			return false;
 		ArtifactSlot slot = data.slot() ;
 		ItemStack itemStack1 = itemStack.split(1);
-		if (livingentity instanceof ErEntityInterface entityInterface) {
+		if (livingentity instanceof IErEntity entityInterface) {
 			if(entityInterface.er$getArtifact(slot) == ItemStack.EMPTY){
-				entityInterface.setArtifact(slot, itemStack1);
-				entityInterface.updateArtifact();
+				entityInterface.er$setArtifact(slot, itemStack1);
+				entityInterface.er$updateArtifact();
 				return true ;
 			}
 		}

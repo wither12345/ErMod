@@ -24,6 +24,7 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
     }
 
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager manager, @NotNull ProfilerFiller filler) {
+        ascensionRecipeMap.clear();
         map.forEach((location, element) -> {
             try {
                 read(element.getAsJsonObject());

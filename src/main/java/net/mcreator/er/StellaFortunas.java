@@ -16,13 +16,16 @@ package net.mcreator.er;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -38,9 +41,12 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.block.IBlockBehavior;
+import net.wither.er.elements.Element;
+import net.wither.er.elements.ElementSource;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.OnBurstAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.ErItemVariables;
@@ -84,7 +90,7 @@ public abstract class StellaFortunas extends Item {
 
 	public abstract boolean hasAnimation(LivingEntity entity);
 
-	public abstract int getMaxCombo(LivingEntity entity);
+	public abstract int getMaxNormalAttack(LivingEntity entity);
 
 	public abstract int getAnimationTick(LivingEntity entity, int combo, float speed);
 
@@ -97,8 +103,8 @@ public abstract class StellaFortunas extends Item {
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
 
 	public void onBurst(LivingEntity entity){
-        if(entity instanceof ErEntityInterface erEntityInterface){
-            Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+        if(entity instanceof IErEntity erEntity){
+            Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
             for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                 if(effect.getKey().value() instanceof OnBurstAbility ability){
                     ability.onBurst(entity, effect.getIntValue());
@@ -131,7 +137,7 @@ public abstract class StellaFortunas extends Item {
 	}
 
 	public float getSpeed(LivingEntity entity, int combo) {
-		if (combo < this.getMaxCombo(entity)) {
+		if (combo < this.getMaxNormalAttack(entity)) {
 			return (float) (entity.getAttribute(Attributes.ATTACK_SPEED).getValue());
 		}
 		return 1f;
@@ -265,25 +271,28 @@ public abstract class StellaFortunas extends Item {
 			return verticalDist >= -height / 2 && verticalDist <= height / 2;
 		}
 		*/
-	public static void PerformAttack(LivingEntity entity, double RangeMulti, double RectWidth, double RectHeight, Vec3 BasicPos, float DamageMulti) {
+	public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, Vec3 basicPos, float DamageMulti) {
 		Level world = entity.level();
 		double attackRange = (entity instanceof Player ? entity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE) : 3) * RangeMulti;
 		float yaw = entity.getYRot();
 		Vec3 lookVec = new Vec3(-Math.sin(yaw * Math.PI / 180), 0, Math.cos(yaw * Math.PI / 180)).normalize();
 		Vec3 forward = lookVec.scale(attackRange);
-		AABB roughArea = new AABB(BasicPos, BasicPos.add(forward)).inflate(RectWidth + 1, RectHeight + 1, RectWidth + 1);
-		for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> {
-			if (e == entity)
-				return false;
-			AABB targetAABB = e.getBoundingBox().move(BasicPos.scale(-1)); // 转换到局部坐标系
-			return isAABBInRotatedRect(targetAABB, lookVec, attackRange, RectWidth, RectHeight);
-		})) {
-			float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * DamageMulti;
-			if (entity instanceof Player player)
-				target.hurt(entity.damageSources().playerAttack(player), damage);
-			else
-				target.hurt(entity.damageSources().mobAttack(entity), damage);
-		}
+		AABB roughArea = new AABB(basicPos, basicPos.add(forward)).inflate(rectWidth + 1, rectHeight + 1, rectWidth + 1);
+        ElementSource elementSource = EntityHurtEvent.getElementSource(world, entity, entity);
+
+        for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> {
+            if (e == entity)
+                return false;
+            AABB targetAABB = e.getBoundingBox().move(basicPos.scale(-1));
+            return isAABBInRotatedRect(targetAABB, lookVec, attackRange, rectWidth, rectHeight);
+        }))
+        {
+            float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * DamageMulti;
+            DamageSource damageSource = entity instanceof Player player ? entity.damageSources().playerAttack(player): entity.damageSources().mobAttack(entity);
+            if(elementSource != null)
+                ElementSource.createDamageSource(damageSource, elementSource.copy());
+            target.hurt(damageSource, damage);
+        }
 		/*
 		if (world instanceof ServerLevel serverLevel) {
 			Vec3 _forward = lookVec.scale(attackRange);
@@ -302,7 +311,9 @@ public abstract class StellaFortunas extends Item {
 			}
 		}
 		*/
-	}
+        Element element = elementSource == null ? null : elementSource.getElement();
+        interactBlocks(roughArea, element, entity, world, basicPos, lookVec, attackRange, rectWidth, rectHeight);
+    }
 
 	private static boolean isAABBInRotatedRect(AABB aabb, Vec3 direction, double length, double width, double height) {
 		Vec3 right = new Vec3(-direction.z, 0, direction.x).normalize();
@@ -322,4 +333,36 @@ public abstract class StellaFortunas extends Item {
 		double max = (axis.x > 0 ? aabb.maxX : aabb.minX) * axis.x + (axis.y > 0 ? aabb.maxY : aabb.minY) * axis.y + (axis.z > 0 ? aabb.maxZ : aabb.minZ) * axis.z;
 		return new double[]{min, max};
 	}
+    
+    private static void interactBlocks(AABB aabb, Element element, Entity entity, Level level, Vec3 basicPos, Vec3 lookVec, double attackRange, double RectWidth, double RectHeight){
+        for(int x = (int) (aabb.minX + 0.5) ; x < aabb.maxX + 0.5; x ++)
+            for(int y = (int) (aabb.minY + 0.5) ; y < aabb.maxY + 0.5; y ++)
+                for(int z = (int) (aabb.minZ + 0.5) ; z < aabb.maxZ + 0.5; z ++){
+                    if(isAABBInRotatedRect(x + 0.5, y + 0.5, z + 0.5, basicPos, lookVec, attackRange, RectWidth, RectHeight)){
+                        BlockPos blockPos = new BlockPos(x, y, z);
+                        if(level.getBlockState(blockPos).getBlock() instanceof IBlockBehavior blockBehavior)
+                            blockBehavior.er$getReactionBehavior().ifPresent(a -> a.reacted(level, blockPos, element, entity, true));
+                    }
+                }
+    }
+
+    private static boolean isAABBInRotatedRect(double x, double y, double z, Vec3 basicPos, Vec3 direction, double length, double width, double height) {
+        Vec3 right = new Vec3(-direction.z, 0, direction.x).normalize();
+        Vec3 up = new Vec3(0, 1, 0);
+        x -= basicPos.x;
+        y -= basicPos.y;
+        z -= basicPos.z;
+        double forwardProj = getAABBProjection(x, y, z, direction);
+        if (forwardProj < 0 || forwardProj > length)
+            return false;
+        double rightProj = getAABBProjection(x, y, z, right);
+        if (rightProj < -width / 2 || rightProj > width / 2)
+            return false;
+        double upProj = getAABBProjection(x, y, z, up);
+        return upProj > -height / 2 && upProj < height / 2;
+    }
+
+    private static double getAABBProjection(double x, double y, double z, Vec3 axis) {
+        return x * axis.x + y * axis.y + z * axis.z;
+    }
 }

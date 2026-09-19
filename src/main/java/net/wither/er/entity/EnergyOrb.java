@@ -175,8 +175,8 @@ public class EnergyOrb extends Entity {
 				ErCombatVariables.PlayerVariables vars = serverplayer.getData(ErCombatVariables.PLAYER_VARIABLES);
 				vars.energyAmount = Math.min(fortuna.getEnergyCost(player), vars.energyAmount + this.getAmount() * (float) player.getAttributeValue(ErModAttributes.ENERGY_RECHARGE) / 100);
 				vars.syncWithId(player, 0b00_0100_0000);
-                if(serverplayer instanceof ErEntityInterface erEntityInterface){
-                    Object2IntMap<Holder<ArtifactEffect>> map = erEntityInterface.er$getEffectMap();
+                if(serverplayer instanceof IErEntity erEntity){
+                    Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
                     for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                         if(effect.getKey().value() instanceof EnergyOrbPickupAbility ability){
                             ability.onPick(this, serverplayer, effect.getIntValue());

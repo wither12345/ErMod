@@ -2,7 +2,7 @@ package net.mcreator.er.entity;
 
 import net.wither.er.shield.ShieldStack;
 import net.wither.er.init.ShieldRegistry;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.CicinMage;
 
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -229,7 +229,7 @@ public class FatuiElectroCicinMageEntity extends CicinMage {
 
 		@Override
 		public boolean canContinueToUse() {
-			if (mage instanceof ErEntityInterface enti)
+			if (mage instanceof IErEntity enti)
 				return mage.getTarget() != null && !enti.er$getShields().isEmpty() || time > 0;
 			return false;
 		}
@@ -244,7 +244,7 @@ public class FatuiElectroCicinMageEntity extends CicinMage {
 		public void tick() {
 			time--;
 			if (time == 1) {
-				if (mage.globalCd <= 0 && mage instanceof ErEntityInterface enti) {
+				if (mage.globalCd <= 0 && mage instanceof IErEntity enti) {
                     ShieldStack shield = new ShieldStack(ShieldRegistry.THUNDER_SHIELD.get(), 5, 240);
 					enti.er$addShield(shield);
 					for (LivingEntity i : mage.summonings) {

@@ -102,6 +102,7 @@ public class TrounceBlossomEntity extends PathfinderMob {
 				return InteractionResult.FAIL;
 			LootParams.Builder builder = new LootParams.Builder((ServerLevel) this.level());
 			builder.withOptionalParameter(LootContextParams.THIS_ENTITY, this);
+            builder.withOptionalParameter(LootContextParams.ATTACKING_ENTITY, player);
             ItemStack itemStack = player.getMainHandItem();
             if(itemStack.is(ErModItems.FRAGILE_RESIN.get())) {
                 builder.withOptionalParameter(TrounceBlossomEntity.BLOSSOM_MULTI, 3d);

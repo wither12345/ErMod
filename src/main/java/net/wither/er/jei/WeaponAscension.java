@@ -12,15 +12,14 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.mcreator.er.init.ErModBlocks;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.recipe.ascension.AscensionRecipe;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
+import org.jetbrains.annotations.NotNull;
 
 public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.AscensionEntry> {
     public final static ResourceLocation UID = ResourceLocation.parse("er:weapon_ascension");
@@ -34,12 +33,12 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     }
 
     @Override
-    public mezz.jei.api.recipe.RecipeType<AscensionRecipeListener.AscensionEntry> getRecipeType() {
+    public mezz.jei.api.recipe.@NotNull RecipeType<AscensionRecipeListener.AscensionEntry> getRecipeType() {
         return ErJeiPlugin.WeaponAscensionType;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return Component.literal("Weapon Ascension");
     }
 
@@ -59,12 +58,12 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     }
 
     @Override
-    public void draw(AscensionRecipeListener.AscensionEntry recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(AscensionRecipeListener.@NotNull AscensionEntry recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, AscensionRecipeListener.AscensionEntry recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, AscensionRecipeListener.AscensionEntry recipe, @NotNull IFocusGroup focuses) {
         IRecipeSlotBuilder build = builder.addSlot(RecipeIngredientRole.INPUT, 17, 21);
         ItemStack keyItem = new ItemStack(recipe.key()) ;
         if(keyItem.getComponents().has(DataComponentsRegister.WEAPON_LEVEL.get())) {
@@ -75,7 +74,7 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
 
         build = builder.addSlot(RecipeIngredientRole.INPUT, 71, 3);
         ItemStack moraBag = new ItemStack(ErModItems.MORA_BAG.get()).copy();
-        CustomData.update(DataComponents.CUSTOM_DATA, moraBag, tag -> tag.putInt("moras", recipe.recipe().getMora()));
+        moraBag.set(DataComponentsRegister.MORA_BAG.get(), recipe.recipe().getMora());
         build.addItemStack(moraBag) ;
 
         for(int i = 0 ; i < 3 ; i ++) {

@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 public class AscensionRecipe {
     private final Single[] singles = new Single[6] ;
 
@@ -40,6 +42,7 @@ public class AscensionRecipe {
             }
         }
 
+        @Nullable
         public Input getInput(int i){
             return inputs[i] ;
         }

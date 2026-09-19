@@ -3,7 +3,6 @@ package net.wither.er.world.inventory;
 import io.netty.buffer.ByteBuf;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,9 +15,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
+import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
 import net.wither.er.recipe.converting.AlchemyConvertingRecipe;
 import net.wither.er.recipe.converting.AlchemyConvertingRecipeListener;
@@ -329,7 +328,7 @@ public class AlchemyGuiMenu extends AbstractContainerMenu {
     }
 
     private boolean test(AlchemyCraftingRecipe recipe) {
-        if(slots.getFirst().getItem().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("moras") < recipe.getMora())
+        if(slots.getFirst().getItem().getOrDefault(DataComponentsRegister.MORA_BAG.get(), 0) < recipe.getMora())
             return false;
         NonNullList<ItemStack> ingredients = recipe.getIngredient();
         for(int index = 1 ; index <= 3 ; index ++) {
@@ -399,8 +398,8 @@ public class AlchemyGuiMenu extends AbstractContainerMenu {
                         menu.getSlot(i).remove(menu.stackedCrafting.getIngredient().get(i - 1).getCount());
                     }
                     ItemStack moraBag = menu.getSlot(0).getItem();
-                    final int _tagValue = (moraBag.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("moras")) - menu.stackedCrafting.getMora();
-                    CustomData.update(DataComponents.CUSTOM_DATA, moraBag, tag -> tag.putInt("moras", _tagValue));
+                    final int moraVal = moraBag.getOrDefault(DataComponentsRegister.MORA_BAG, 0) - menu.stackedCrafting.getMora();
+                    moraBag.set(DataComponentsRegister.MORA_BAG.get(), moraVal);
                 }
                 menu.slotsChanged(container);
             }
