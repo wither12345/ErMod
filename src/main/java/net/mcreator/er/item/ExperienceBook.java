@@ -13,8 +13,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.wither.er.network.ErItemVariables;
+import org.jetbrains.annotations.NotNull;
 
 public class ExperienceBook extends Item {
 	int value;
@@ -25,7 +28,7 @@ public class ExperienceBook extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
+	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player entity, @NotNull InteractionHand hand) {
 		InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
 		ItemStack stack = entity.getItemInHand(hand) ;
 		if (world instanceof ServerLevel level) {
@@ -42,10 +45,11 @@ public class ExperienceBook extends Item {
 			}
 			if(player instanceof ServerPlayer serverPlayer && !(serverPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE)) {
 				int mora = 0;
-				if (player.getCapability(ForgeCapabilities.ITEM_HANDLER, null) instanceof IItemHandlerModifiable modHandlerIter) {
-					int solts = modHandlerIter.getSlots();
-					for (int _idx = 0; _idx < solts && mora < this.value * 5; _idx++) {
-						ItemStack iterator = modHandlerIter.getStackInSlot(_idx);
+                LazyOptional<IItemHandler> optHandler = player.getCapability(ForgeCapabilities.ITEM_HANDLER);
+				if (optHandler.isPresent() && optHandler.resolve().isPresent() && optHandler.resolve().get() instanceof IItemHandlerModifiable modifiable) {
+					int slots = modifiable.getSlots();
+					for (int _idx = 0; _idx < slots && mora < this.value * 5; _idx++) {
+						ItemStack iterator = modifiable.getStackInSlot(_idx);
 						if (iterator.getItem() == ErModItems.MORA.get())
 							mora += iterator.getCount();
 						else if (iterator.getItem() == ErModItems.MORA_BAG.get())
@@ -56,8 +60,8 @@ public class ExperienceBook extends Item {
 						return false;
 					}
 					mora = this.value * 5;
-					for (int _idx = 0; _idx < solts && mora > 0; _idx++) {
-						ItemStack iterator = modHandlerIter.getStackInSlot(_idx);
+					for (int _idx = 0; _idx < slots && mora > 0; _idx++) {
+						ItemStack iterator = modifiable.getStackInSlot(_idx);
 						if (iterator.getItem() == ErModItems.MORA.get()) {
 							if (iterator.getCount() >= mora) {
 								iterator.shrink(mora);

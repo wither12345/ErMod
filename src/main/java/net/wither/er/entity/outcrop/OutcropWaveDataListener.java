@@ -25,6 +25,8 @@ public class OutcropWaveDataListener extends SimpleJsonResourceReloadListener{
     }
 
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager manager, @NotNull ProfilerFiller filler) {
+        waveMap.clear();
+        waves.clear();
         map.forEach((location, element) -> {
             try {
                 OutcropWave wave = OutcropWave.read(element, location) ;

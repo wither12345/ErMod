@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.shield.ShieldStack;
 
@@ -42,7 +42,7 @@ public class EntityTickProcedure {
 	private static void execute(@Nullable Event event, LevelAccessor world, double x, double y, double z, Entity entity) {
 		if (entity == null)
 			return;
-		if (entity.level() instanceof ServerLevel && entity instanceof ErEntityInterface enti) {
+		if (entity.level() instanceof ServerLevel && entity instanceof IErEntity enti) {
 			List<ShieldStack> shields = enti.er$getShieldStacks();
 			boolean changed = false;
 			Iterator<ShieldStack> iterator = shields.iterator();

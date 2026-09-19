@@ -4,7 +4,8 @@ import net.mcreator.er.init.ErModEntities;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.BloomEntity;
+import net.wither.er.entity.hypostasiscube.HypostasisCube;
 import net.wither.er.entity.slimes.AnemoSlime;
 import net.wither.er.entity.slimes.ElementalSlime;
 import net.wither.er.entity.whopperflower.Whopperflower;
@@ -13,7 +14,7 @@ import net.wither.er.entity.whopperflower.Whopperflower;
 public class RegisterAttributes {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(ErModEntities.BLOOM_ENTITY.get(), BloomEntityEntity.createAttributes().build());
+        event.put(ErModEntities.BLOOM_ENTITY.get(), BloomEntity.createAttributes().build());
         event.put(ErModEntities.ELECTRO_SLIME.get(),  ElementalSlime.createAttributes().build());
         event.put(ErModEntities.GEO_SLIME.get(),  ElementalSlime.createAttributes().build());
         event.put(ErModEntities.PYRO_SLIME.get(),  ElementalSlime.createAttributes().build());
@@ -23,5 +24,7 @@ public class RegisterAttributes {
         event.put(ErModEntities.ANEMO_SLIME.get(),  AnemoSlime.createAttributes().build());
         event.put(ErModEntities.PYRO_WHOPPERFLOWER.get(), Whopperflower.createAttributes().build());
         event.put(ErModEntities.CRYO_WHOPPERFLOWER.get(), Whopperflower.createAttributes().build());
+        event.put(ErModEntities.ELECTRO_HYPOSTASIS_CUBE.get(),  HypostasisCube.createAttributes().build());
+        event.put(ErModEntities.ELECTRO_CUBE_CRYSTAL.get(),  HypostasisCube.createAttributes().build());
     }
 }

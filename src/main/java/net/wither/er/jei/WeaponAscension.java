@@ -15,8 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
@@ -37,17 +36,17 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     }
 
     @Override
-    public mezz.jei.api.recipe.RecipeType<AscensionRecipeListener.AscensionEntry> getRecipeType() {
+    public mezz.jei.api.recipe.@NotNull RecipeType<AscensionRecipeListener.AscensionEntry> getRecipeType() {
         return ErJeiPlugin.WeaponAscensionType;
     }
 
     @Override
-    public Component getTitle() {
+    public @NotNull Component getTitle() {
         return Component.literal("Weapon Ascension");
     }
 
     @Override
-    public IDrawable getIcon() {
+    public @NotNull IDrawable getIcon() {
         return this.icon;
     }
 
@@ -62,12 +61,12 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     }
 
     @Override
-    public void draw(AscensionRecipeListener.AscensionEntry recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(AscensionRecipeListener.@NotNull AscensionEntry recipe, @NotNull IRecipeSlotsView recipeSlotsView, @NotNull GuiGraphics guiGraphics, double mouseX, double mouseY) {
         this.background.draw(guiGraphics);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, AscensionRecipeListener.AscensionEntry recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, AscensionRecipeListener.AscensionEntry recipe, @NotNull IFocusGroup focuses) {
         IRecipeSlotBuilder build = builder.addSlot(INPUT, 17, 21);
         ItemStack keyItem = new ItemStack(recipe.key());
         if (WEAPON_LEVEL.itemHas(keyItem)) {
@@ -96,8 +95,7 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     }
 
     @Override
-    @Nullable
-    public IDrawable getBackground() {
+    public @NotNull IDrawable getBackground() {
         return null;
     }
 }

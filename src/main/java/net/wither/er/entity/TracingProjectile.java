@@ -105,7 +105,7 @@ public abstract class TracingProjectile extends Projectile {
                 .sorted(Comparator.comparingDouble(e -> e.distanceToSqr(this.getX(), this.getY(), this.getZ())))
                 .filter(LivingEntity::isAlive)
                 .filter(e -> EntityHurtEvent.shouldHurt(e,owner))
-                .filter(e -> !(e instanceof BloomEntityEntity))
+                .filter(e -> !(e instanceof BloomEntity))
                 .findFirst();
         if(found.isEmpty())
             return null;

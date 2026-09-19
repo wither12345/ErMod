@@ -1,0 +1,103 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:lightning_prism",
+          "weight": 1,
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:looting_enchant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:vajrada_amethyst_sliver",
+          "weight": 1,
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:looting_enchant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:vajrada_amethyst_fragment",
+          "weight": 1,
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:looting_enchant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:vajrada_amethyst_chunk",
+          "weight": 1,
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:looting_enchant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:vajrada_amethyst_gemstone",
+          "weight": 1,
+          "functions": [
+            {
+              "count": 1,
+              "function": "minecraft:looting_enchant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.1,
+          "condition": "minecraft:random_chance_with_looting",
+          "looting_multiplier": 0.05
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "er:lightning_prism_upgrade"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "er:entities/electro_hypostasis_cube"
+}

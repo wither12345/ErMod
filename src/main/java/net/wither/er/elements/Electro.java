@@ -17,7 +17,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.entity.ArcEntity;
-import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.BloomEntity;
 import net.wither.er.entity.Hyperbloom;
 import net.wither.er.entity.LunarChargedCloud;
 import net.wither.er.init.ElementRegistry;
@@ -61,7 +61,7 @@ public class Electro extends Element{
 
     @Override
     public boolean shouldReact(AuraContainer container, @Nullable Entity applier) {
-        if(container.getOwner() instanceof BloomEntityEntity bloom){
+        if(container.getOwner() instanceof BloomEntity bloom){
             if (bloom.level() instanceof ServerLevel _level) {
                 Hyperbloom hyperbloom = ErModEntities.HYPERBLOOM.get().spawn(_level, bloom.getOnPos().above(2), MobSpawnType.MOB_SUMMONED);
                 if(hyperbloom != null && applier != null) {

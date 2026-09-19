@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.BloomEntity;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -35,7 +35,7 @@ public class Pyro extends Element{
 
     @Override
     public boolean shouldReact(AuraContainer container, @Nullable Entity applier) {
-        if(container.getOwner() instanceof BloomEntityEntity bloom){
+        if(container.getOwner() instanceof BloomEntity bloom){
             bloom.explode(9f, applier);
             return false ;
         }

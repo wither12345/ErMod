@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "craft_brilliant_diamond_fragment",
+  "category": "misc",
+  "ingredients": [
+    {"item": "er:agnidus_agate_fragment"},
+    {"item": "er:varunada_lazurite_fragment"},
+    {"item": "er:vajrada_amethyst_fragment"},
+    {"item": "er:vayuda_turquoise_fragment"},
+    {"item": "er:shivada_jade_fragment"},
+    {"item": "er:prithiva_topaz_fragment"},
+    {"item": "er:nagadus_emerald_fragment"}
+  ],
+  "result": {
+    "item": "er:brilliant_diamond_fragment"
+  }
+}

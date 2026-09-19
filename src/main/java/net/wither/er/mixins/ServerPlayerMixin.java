@@ -7,24 +7,24 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin extends LivingEntity implements ErEntityInterface{
+public abstract class ServerPlayerMixin extends LivingEntity implements IErEntity {
     protected ServerPlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
         super(p_20966_, p_20967_);
     }
 
     @Inject(method = "restoreFrom", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;replaceWith(Lnet/minecraft/world/entity/player/Inventory;)V"))
     public void restoreFrom(ServerPlayer player, boolean flag, CallbackInfo info) {
-        if(player instanceof ErEntityInterface entityInterface) {
+        if(player instanceof IErEntity entityInterface) {
             for (ArtifactSlot slot : ArtifactSlot.values())
                 this.er$setArtifact(slot, entityInterface.er$getArtifact(slot));
-            entityInterface.er$updateArtifact();
+            this.er$updateArtifact();
         }
     }
 

@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.wither.er.elements.Element;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -54,8 +54,8 @@ public class BurningDirtEntity extends BlockEntity implements TraceableEntity {
     public void burn(@NotNull Entity entity) {
         if(this.level instanceof ServerLevel serverLevel &&
                 !entity.getType().is(BURNING_BYPASSES) &&
-                entity instanceof ErEntityInterface erEntityInterface &&
-                erEntityInterface.er$shouldBurnBlock(serverLevel.getGameTime())) {
+                entity instanceof IErEntity erEntity &&
+                erEntity.er$shouldBurnBlock(serverLevel.getGameTime())) {
             Entity owner = this.getOwner();
             entity.hurt(new DamageSource(serverLevel.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BURNING), owner), EntityHurtEvent.getLevelMultiply(getOwner()));
         }

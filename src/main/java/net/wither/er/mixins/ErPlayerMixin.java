@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
 public abstract class ErPlayerMixin extends LivingEntity implements AnimationStater, ErPlayerInterface {
-	@Unique public AnimationState animationState0 = new AnimationState();
+    @Unique public AnimationState er$animationState0 = new AnimationState();
     @Unique private int er$selectedMora;
 
 	protected ErPlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
@@ -43,11 +43,11 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 	@Unique
 	@Override
 	public AnimationState getState() {
-		return animationState0;
+		return er$animationState0;
 	}
 
 	public void stopAnimation() {
-		this.animationState0.animateWhen(false, this.tickCount);
+		this.er$animationState0.animateWhen(false, this.tickCount);
 	}
 
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;moveCloak()V"))
@@ -96,12 +96,12 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		if (this.level().isClientSide()) {
 			if (vars.animationTime > 0) {
 				if (this.getPersistentData().getInt("animation_type") != vars.animationId) {
-					this.animationState0.animateWhen(false, this.tickCount);
+					this.er$animationState0.animateWhen(false, this.tickCount);
 					this.getPersistentData().putInt("animation_type", vars.animationId);
 				}
-				this.animationState0.animateWhen(true, this.tickCount);
+				this.er$animationState0.animateWhen(true, this.tickCount);
 			} else {
-				this.animationState0.animateWhen(false, this.tickCount);
+				this.er$animationState0.animateWhen(false, this.tickCount);
 			}
 		}
 		if (SF != null) {

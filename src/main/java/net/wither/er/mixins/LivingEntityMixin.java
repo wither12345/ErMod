@@ -32,7 +32,7 @@ import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.data.artifactdata.ArtifactData;
@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Set;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements Attackable, ErEntityInterface , AuraContainerInterface {
+public abstract class LivingEntityMixin extends Entity implements Attackable, IErEntity, AuraContainerInterface {
 	@Unique private final ArrayList<ShieldStack> er$shields = new ArrayList<>();
 	@Unique private final AuraContainer er$container = new AuraContainer(this);
     @Unique private float er$lastHealth ;
@@ -189,7 +189,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, Er
 		}
 	}
 
-	public void cleanShield() {
+	public void er$cleanShield() {
 		er$shields.clear();
 		er$syncShield();
 	}

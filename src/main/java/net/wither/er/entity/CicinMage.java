@@ -139,7 +139,7 @@ public abstract class CicinMage extends Monster {
 		public boolean canUse() {
 			mage.transferCash();
             mage.summonings.removeIf(sum -> sum == null || !sum.isAlive());
-			if (mage instanceof ErEntityInterface enti)
+			if (mage instanceof IErEntity enti)
 				return mage.getTarget() != null && mage.globalCd <= 0 && mage.summonings.size() < count && enti.er$getShieldStacks().isEmpty();
 			return false;
 		}

@@ -166,12 +166,12 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 	public void AnimationTicking(LivingEntity entity, int combo, int time, float speed) {
 		if (entity.level() instanceof ServerLevel) {
 			if (combo == 10 && time == (int) (24 / speed) + 1) {
-				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(combo, 0));
+				PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(combo, 0));
 			}
 			if (combo == 2 & time == (int) (21 / speed) + 1)
-				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(2, 0));
+				PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(2, 0));
 			if (combo != 2 && time == (int) (22 / speed) + 1) {
-				PerformAttack(entity, 1, 2.2, 2.5, entity.getEyePosition(), DamageMulti(combo, 1));
+				PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(combo, 1));
 			}
 		}
 		if (time <= this.getFinishTick(entity, combo, speed) && combo <= this.getMaxCombo(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {

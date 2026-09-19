@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:pyro_sword"
+    "er:pyro_sword",
+    "er:pyro_helmet",
+    "er:pyro_chestplate",
+    "er:pyro_leggings",
+    "er:pyro_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:flaming_flower_stamen",
           "count": 6
+        },
+        {
+          "item": "er:agnidus_agate_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:flaming_flower_stamen",
           "count": 12
+        },
+        {
+          "item": "er:agnidus_agate_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_pyro",
           "count": 2
+        },
+        {
+          "item": "er:agnidus_agate_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_pyro",
+          "count": 4
+        },
+        {
+          "item": "er:agnidus_agate_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_pyro",
           "count": 12
+        },
+        {
+          "item": "er:agnidus_agate_chunk",
+          "count": 4
         }
       ]
     }

@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:agnidus_agate_chunk",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:agnidus_agate_gemstone",
+    "count": 1
+  },
+  "mora": 2700
+}

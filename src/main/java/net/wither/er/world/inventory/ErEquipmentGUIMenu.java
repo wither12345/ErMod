@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.LazyOptional;
 import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
 import net.wither.er.item.data.artifactdata.ArtifactData;
@@ -51,12 +51,12 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
         Container container = new SimpleContainer( 7);
         this.addSlot(new VisionSlot(entity, container, 0, 43, 53));
         this.addSlot(new StellaFortunaSlot(entity, container, 1, 115, 53));
-        if(this.entity instanceof ErEntityInterface erEntityInterface) {
-            this.addSlot(new ArtifactItemSlot(erEntityInterface, ArtifactSlot.FLOWER_OF_LIFE, container, 2, 7, 26));
-            this.addSlot(new ArtifactItemSlot(erEntityInterface, ArtifactSlot.PLUME_OF_DEATH, container, 3, 43, 26));
-            this.addSlot(new ArtifactItemSlot(erEntityInterface, ArtifactSlot.SAND_OF_EON, container, 4, 79, 26));
-            this.addSlot(new ArtifactItemSlot(erEntityInterface, ArtifactSlot.GOBLET_OF_EONOTHEM, container, 5, 115, 26));
-            this.addSlot(new ArtifactItemSlot(erEntityInterface, ArtifactSlot.CIRCLET_OF_LOGOS, container, 6, 151, 26));
+        if(this.entity instanceof IErEntity erEntity) {
+            this.addSlot(new ArtifactItemSlot(erEntity, ArtifactSlot.FLOWER_OF_LIFE, container, 2, 7, 26));
+            this.addSlot(new ArtifactItemSlot(erEntity, ArtifactSlot.PLUME_OF_DEATH, container, 3, 43, 26));
+            this.addSlot(new ArtifactItemSlot(erEntity, ArtifactSlot.SAND_OF_EON, container, 4, 79, 26));
+            this.addSlot(new ArtifactItemSlot(erEntity, ArtifactSlot.GOBLET_OF_EONOTHEM, container, 5, 115, 26));
+            this.addSlot(new ArtifactItemSlot(erEntity, ArtifactSlot.CIRCLET_OF_LOGOS, container, 6, 151, 26));
         }
         for (int si = 0; si < 3; ++si)
             for (int sj = 0; sj < 9; ++sj)
@@ -151,14 +151,14 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
 
     private static class ArtifactItemSlot extends Slot{
         private final ArtifactSlot slot;
-        private final ErEntityInterface erEntityInterface;
+        private final IErEntity erEntity;
         private final ResourceLocation empty;
 
-        public ArtifactItemSlot(ErEntityInterface player, ArtifactSlot slot, Container container, int id, int x, int y) {
+        public ArtifactItemSlot(IErEntity player, ArtifactSlot slot, Container container, int id, int x, int y) {
             super(container, id, x, y);
             this.slot = slot;
-            this.erEntityInterface = player;
-            this.container.setItem(this.getSlotIndex(), erEntityInterface.er$getArtifact(slot).copy());
+            this.erEntity = player;
+            this.container.setItem(this.getSlotIndex(), erEntity.er$getArtifact(slot).copy());
             this.empty = new ResourceLocation(ErMod.MODID, "item/" + slot.getSerializedName() + "_empty");
         }
 
@@ -171,8 +171,8 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
         @Override
         public void setChanged() {
             super.setChanged();
-            this.erEntityInterface.er$setArtifact(this.slot, this.getItem());
-            erEntityInterface.er$updateArtifact();
+            this.erEntity.er$setArtifact(this.slot, this.getItem());
+            erEntity.er$updateArtifact();
         }
 
         @Override

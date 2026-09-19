@@ -4,35 +4,43 @@
   "convertibles": [
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:ponder_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:ponder_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:sing_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:sing_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:seek_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:seek_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:feel_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:feel_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:admire_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:admire_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:call_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:call_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:yearn_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:yearn_goat_horn"}
     },
     {
       "id": "minecraft:goat_horn",
-      "components":{"minecraft:instrument":"minecraft:dream_goat_horn"}
+      "Count": 1,
+      "tag":{"instrument":"minecraft:dream_goat_horn"}
     }
   ]
 }

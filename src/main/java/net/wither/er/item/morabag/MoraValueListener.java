@@ -28,6 +28,7 @@ public class MoraValueListener extends SimpleJsonResourceReloadListener {
 
     @Override
     protected void apply(@NotNull Map<ResourceLocation, JsonElement> resourceLocationJsonElementMap, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
+        moraVals.clear();
         for(JsonElement element : resourceLocationJsonElementMap.values()){
             try {
                 read(element);

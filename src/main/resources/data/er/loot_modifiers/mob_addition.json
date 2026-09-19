@@ -1,5 +1,8 @@
 {
   "type": "er:mob_drop_loot_modifier",
   "conditions": [
+    {
+      "condition": "er:mob_drop"
+    }
   ]
 }

@@ -4,20 +4,20 @@ import net.mcreator.er.client.model.Modelbloom;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.BloomEntity;
 
-public class BloomEntityRenderer extends LivingEntityRenderer<BloomEntityEntity, Modelbloom<BloomEntityEntity>> {
+public class BloomEntityRenderer extends LivingEntityRenderer<BloomEntity, Modelbloom<BloomEntity>> {
     public BloomEntityRenderer(EntityRendererProvider.Context context) {
-        super(context, new Modelbloom<BloomEntityEntity>(context.bakeLayer(Modelbloom.LAYER_LOCATION)), 0.4f);
+        super(context, new Modelbloom<BloomEntity>(context.bakeLayer(Modelbloom.LAYER_LOCATION)), 0.4f);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BloomEntityEntity entity) {
+    public ResourceLocation getTextureLocation(BloomEntity entity) {
         return new ResourceLocation("er:textures/entities/bloom_entity.png");
     }
 
     @Override
-    protected boolean shouldShowName(BloomEntityEntity p_115333_) {
+    protected boolean shouldShowName(BloomEntity p_115333_) {
         return false;
     }
 }

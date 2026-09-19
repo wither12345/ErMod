@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "craft_brilliant_diamond_sliver",
+  "category": "misc",
+  "ingredients": [
+    {"item": "er:agnidus_agate_sliver"},
+    {"item": "er:varunada_lazurite_sliver"},
+    {"item": "er:vajrada_amethyst_sliver"},
+    {"item": "er:vayuda_turquoise_sliver"},
+    {"item": "er:shivada_jade_sliver"},
+    {"item": "er:prithiva_topaz_sliver"},
+    {"item": "er:nagadus_emerald_sliver"}
+  ],
+  "result": {
+    "item": "er:brilliant_diamond_sliver"
+  }
+}

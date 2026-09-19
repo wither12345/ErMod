@@ -5,6 +5,7 @@
   "refmap": "er.refmap.json",
   "mixins": [
     "AbstractSkeletonMixin",
+    "BlockBehaviorMixin",
     "CombatRulesMixin",
     "CropBlockMixin",
     "DamageSourceMixin",

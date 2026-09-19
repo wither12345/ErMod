@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.network.NetworkEvent;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 
 import java.util.function.Supplier;
 
@@ -26,7 +26,7 @@ public record ErShieldData(int entityID, CompoundTag shield)  {
 		Entity entity = Minecraft.getInstance().level.getEntity(data.entityID());
 		if (!Minecraft.getInstance().level.isClientSide())
 			return;
-		if(entity instanceof ErEntityInterface enti)
+		if(entity instanceof IErEntity enti)
 			enti.er$setShields(data.shield);
 		contextSupplier.get().setPacketHandled(true);
 	}

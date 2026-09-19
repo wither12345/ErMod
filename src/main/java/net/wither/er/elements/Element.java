@@ -28,7 +28,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.RegistryObject;
-import net.wither.er.entity.BloomEntityEntity;
+import net.wither.er.entity.BloomEntity;
 import net.wither.er.entity.LunarChargedCloud;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
@@ -257,7 +257,7 @@ public abstract class Element {
                                        EntityHurtEvent.DamageModifier modifier,
                                        @Nullable Entity applier){
         if (auraContainer.getOwner() instanceof Entity entity && entity.level() instanceof ServerLevel serverLevel) {
-            BloomEntityEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
+            BloomEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
             if(entityToSpawn != null) {
                 entityToSpawn.setOwner(applier);
                 entityToSpawn.moveTo(entity.position().offsetRandom(RandomSource.create(), 1));

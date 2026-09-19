@@ -29,29 +29,19 @@ import static net.wither.er.item.data.weapon.WeaponLevelData.*;
 import static net.wither.er.recipe.ascension.AscensionRecipeListener.get;
 
 public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
-    /*
-    public final Map<String, Object> menuState = new HashMap<>() {
-        @Override
-        public Object put(String key, Object value) {
-            if (!this.containsKey(key) && this.size() >= 7)
-                return null;
-            return super.put(key, value);
-        }
-    };
-     */
     public final Level world;
     public final Player entity;
-    private final IItemHandler internal;
     private final Container container = new TransientCraftingContainer(this,5,1);
     private AscensionRecipe.Single ascensionRecipe ;
     private int mora_use ;
+    private final int[] shrink = {0, 0, 0};
 
     public WeaponEnhanceGuiMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
         super(ErMenus.WEAPON_ENHANCE_GUI.get(), id);
         this.entity = inv.player;
         this.world = inv.player.level();
 
-        this.internal = new ItemStackHandler(1);
+        IItemHandler internal = new ItemStackHandler(1);
         this.addSlot(new MoraSlot(container, 0, 79, 17));
         this.addSlot(new Slot(container, 1, 25, 35));
         this.addSlot(new Slot(container, 2, 61, 53));
@@ -71,9 +61,9 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                         }
                     }
                     else {
-                        for (int index0 = 2; index0 < 5; index0++) {
-                            if(ascensionRecipe.getInput(index0 - 2) != null)
-                                menu.getSlot(index0).getItem().shrink(ascensionRecipe.getInput(index0 - 2).getCount());
+                        for (int index0 = 0; index0 < 3; index0++) {
+                            if(WeaponEnhanceGuiMenu.this.shrink[index0] > 0)
+                                menu.getSlot(index0 + 2).getItem().shrink(WeaponEnhanceGuiMenu.this.shrink[index0]);
                         }
                     }
 
@@ -102,7 +92,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
 
     @Override
     public void slotsChanged(@NotNull Container container) {
-        setChanged() ;
+        this.setChanged() ;
         super.slotsChanged(container);
     }
 
@@ -129,6 +119,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
             }
             if (itemstack1.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
+                this.setChanged();
             } else {
                 slot.setChanged();
             }
@@ -256,10 +247,21 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
         ItemStack mora_bag = this.getSlot(0).getItem();
         if (!mora_bag.getOrCreateTag().contains("moras") || ascensionRecipe.getMora() > mora_bag.getOrCreateTag().getInt("moras"))
             return false ;
-        for (int index = 0; index < 3; index++) {
-            if(ascensionRecipe.getInput(index) != null && !ascensionRecipe.getInput(index).match(this.getSlot(index + 2).getItem()))
-                return false ;
+        int test = 0;
+        for (int j = 0; j < 3; j++) {//slot
+            shrink[j] = 0;
+            for(int i = 0; i < 3; i ++){//recipe$input id
+                AscensionRecipe.Input input = ascensionRecipe.getInput(i);
+                if(input == null){
+                    shrink[j] = 0;
+                    test |= 1 << i;
+                }
+                else if(ascensionRecipe.getInput(i).match(this.getSlot(j + 2).getItem())) {
+                    shrink[j] = ascensionRecipe.getInput(i).getCount();
+                    test |= 1 << i;
+                }
+            }
         }
-        return true ;
+        return test == 7 ;
     }
 }

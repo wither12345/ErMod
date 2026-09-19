@@ -2,7 +2,7 @@ package net.wither.er.entity.whopperflower;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldStack;
 
@@ -10,7 +10,7 @@ import java.util.EnumSet;
 
 public abstract class ConsumeFruitGoal extends Goal {
     protected final Whopperflower whopperflower;
-    private final ErEntityInterface erEntityInterface;
+    private final IErEntity erEntity;
     protected Entity target;
     private final ErShield shield;
     protected int time ;
@@ -18,7 +18,7 @@ public abstract class ConsumeFruitGoal extends Goal {
 
     public ConsumeFruitGoal(Whopperflower whopperflower, ErShield shield) {
         this.whopperflower = whopperflower;
-        this.erEntityInterface = (ErEntityInterface)whopperflower;
+        this.erEntity = (IErEntity)whopperflower;
         this.shield = shield;
         this.setFlags(EnumSet.of(Flag.TARGET, Flag.LOOK));
     }
@@ -64,7 +64,7 @@ public abstract class ConsumeFruitGoal extends Goal {
             this.time++;
             if (this.time == 4) {
                 this.whopperflower.setAction(Whopperflower.Action.SHIELD);
-                erEntityInterface.er$addShield(new ShieldStack(shield, 5, 200));
+                erEntity.er$addShield(new ShieldStack(shield, 5, 200));
             }
             else if(this.time == 105){
                 this.whopperflower.consumeFruit();

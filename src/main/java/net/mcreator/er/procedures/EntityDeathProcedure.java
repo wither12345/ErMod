@@ -25,7 +25,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.entity.EnergyOrb;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.KillAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
@@ -82,8 +82,8 @@ public class EntityDeathProcedure {
 				_level.addFreshEntity(entityToSpawn);
 			}
 		}
-        if(sourceentity instanceof ErEntityInterface erEntityInterface){
-            Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+        if(sourceentity instanceof IErEntity erEntity){
+            Object2IntMap<ArtifactEffect> map = erEntity.er$getEffectMap();
             for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
                 if(effect.getKey() instanceof KillAbility ability){
                     ability.onKill(source, entity, effect.getIntValue());

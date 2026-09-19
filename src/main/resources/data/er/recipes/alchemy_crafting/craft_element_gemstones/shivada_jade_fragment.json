@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:shivada_jade_sliver",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:shivada_jade_fragment",
+    "count": 1
+  },
+  "mora": 300
+}

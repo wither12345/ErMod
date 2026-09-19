@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:prithiva_topaz_sliver",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:prithiva_topaz_fragment",
+    "count": 1
+  },
+  "mora": 300
+}

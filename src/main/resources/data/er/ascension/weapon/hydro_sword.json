@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:hydro_sword"
+    "er:hydro_sword",
+    "er:hydro_helmet",
+    "er:hydro_chestplate",
+    "er:hydro_leggings",
+    "er:hydro_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:lotus_head",
           "count": 6
+        },
+        {
+          "item": "er:varunada_lazurite_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:lotus_head",
           "count": 12
+        },
+        {
+          "item": "er:varunada_lazurite_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_hydro",
           "count": 2
+        },
+        {
+          "item": "er:varunada_lazurite_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_hydro",
+          "count": 4
+        },
+        {
+          "item": "er:varunada_lazurite_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_hydro",
           "count": 12
+        },
+        {
+          "item": "er:varunada_lazurite_chunk",
+          "count": 4
         }
       ]
     }

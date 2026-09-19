@@ -16,11 +16,14 @@ package net.mcreator.er;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.animation.AnimationDefinition;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -33,7 +36,10 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.block.IBlockBehavior;
+import net.wither.er.elements.Element;
+import net.wither.er.elements.ElementSource;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.OnBurstAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
@@ -94,8 +100,8 @@ public abstract class StellaFortunas extends Item {
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
 
 	public void onBurst(LivingEntity entity){
-        if(entity instanceof ErEntityInterface erEntityInterface){
-            Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+        if(entity instanceof IErEntity erEntity){
+            Object2IntMap<ArtifactEffect> map = erEntity.er$getEffectMap();
             for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
                 if(effect.getKey() instanceof OnBurstAbility ability){
                     ability.onBurst(entity, effect.getIntValue());
@@ -217,24 +223,24 @@ public abstract class StellaFortunas extends Item {
 	}
 
 	/*
-		public static void PerformAttack(LivingEntity entity, double RangeMulti, double RectWidth, double RectHeight, float DamageMulti) {
+		public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, float DamageMulti) {
 			Level world = entity.level();
 			double attackRange = (entity instanceof Player ? entity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE) : 3) * RangeMulti;
 			Vec3 lookVec = entity.getLookAngle().normalize();
 			Vec3 eyePos = entity.getEyePosition();
 			Vec3 forward = lookVec.scale(attackRange);
-			Vec3 right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(RectWidth / 2);
-			Vec3 up = new Vec3(0, RectHeight / 2, 0);
+			Vec3 right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(rectWidth / 2);
+			Vec3 up = new Vec3(0, rectHeight / 2, 0);
 			Vec3[] corners = {eyePos.add(forward).add(right).add(up), eyePos.add(forward).add(right).subtract(up), eyePos.add(forward).subtract(right).add(up), eyePos.add(forward).subtract(right).subtract(up)};
-			AABB roughArea = new AABB(eyePos, eyePos.add(forward)).inflate(RectWidth + 1, RectHeight + 1, RectWidth + 1);
-			for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> e != entity && isInRotatedRect(e.position(), eyePos, lookVec, attackRange, RectWidth, RectHeight))) {
+			AABB roughArea = new AABB(eyePos, eyePos.add(forward)).inflate(rectWidth + 1, rectHeight + 1, rectWidth + 1);
+			for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> e != entity && isInRotatedRect(e.position(), eyePos, lookVec, attackRange, rectWidth, rectHeight))) {
 				float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * DamageMulti;
 				target.hurt(entity.damageSources().mobAttack(entity), damage);
 			}
 			if (world instanceof ServerLevel serverLevel) {
 				Vec3 _forward = lookVec.scale(attackRange);
-				Vec3 _right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(RectWidth / 2);
-				Vec3 _up = new Vec3(0, RectHeight / 2, 0);
+				Vec3 _right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(rectWidth / 2);
+				Vec3 _up = new Vec3(0, rectHeight / 2, 0);
 				for (int i = 0; i < 20; i++) {
 					double t = i / 20.0;
 					Vec3 p1 = eyePos.add(_forward.scale(t)).add(_right).add(_up);
@@ -261,44 +267,50 @@ public abstract class StellaFortunas extends Item {
 			return verticalDist >= -height / 2 && verticalDist <= height / 2;
 		}
 		*/
-	public static void PerformAttack(LivingEntity entity, double RangeMulti, double RectWidth, double RectHeight, Vec3 BasicPos, float DamageMulti) {
+	public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, Vec3 basicPos, float DamageMulti) {
 		Level world = entity.level();
 		double attackRange = 3 * RangeMulti;
 		float yaw = entity.getYRot();
 		Vec3 lookVec = new Vec3(-Math.sin(yaw * Math.PI / 180), 0, Math.cos(yaw * Math.PI / 180)).normalize();
 		Vec3 forward = lookVec.scale(attackRange);
-		AABB roughArea = new AABB(BasicPos, BasicPos.add(forward)).inflate(RectWidth + 1, RectHeight + 1, RectWidth + 1);
-		for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> {
-			if (e == entity)
-				return false;
-			AABB targetAABB = e.getBoundingBox().move(BasicPos.scale(-1)); // 转换到局部坐标系
-			return isAABBInRotatedRect(targetAABB, lookVec, attackRange, RectWidth, RectHeight);
-		})) {
+		AABB roughArea = new AABB(basicPos, basicPos.add(forward)).inflate(rectWidth + 1, rectHeight + 1, rectWidth + 1);
+
+        ElementSource elementSource = EntityHurtEvent.getElementSource(world, entity, entity);
+
+        for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> {
+                if (e == entity)
+                    return false;
+                AABB targetAABB = e.getBoundingBox().move(basicPos.scale(-1));
+                return isAABBInRotatedRect(targetAABB, lookVec, attackRange, rectWidth, rectHeight);
+            }))
+        {
 			float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * DamageMulti;
-			if (entity instanceof Player player)
-				target.hurt(entity.damageSources().playerAttack(player), damage);
-			else
-				target.hurt(entity.damageSources().mobAttack(entity), damage);
-		}
-		/*
-		if (world instanceof ServerLevel serverLevel) {
-			Vec3 _forward = lookVec.scale(attackRange);
-			Vec3 _right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(RectWidth / 2);
-			Vec3 _up = new Vec3(0, RectHeight / 2, 0);
-			for (int i = 0; i < 20; i++) {
-				double t = i / 20.0;
-				Vec3 p1 = BasicPos.add(_forward.scale(t)).add(_right).add(_up);
-				Vec3 p2 = BasicPos.add(_forward.scale(t)).add(_right).subtract(_up);
-				Vec3 p3 = BasicPos.add(_forward.scale(t)).subtract(_right).add(_up);
-				Vec3 p4 = BasicPos.add(_forward.scale(t)).subtract(_right).subtract(_up);
-				serverLevel.sendParticles(ParticleTypes.END_ROD, p1.x, p1.y, p1.z, 1, 0, 0, 0, 0);
-				serverLevel.sendParticles(ParticleTypes.END_ROD, p2.x, p2.y, p2.z, 1, 0, 0, 0, 0);
-				serverLevel.sendParticles(ParticleTypes.END_ROD, p3.x, p3.y, p3.z, 1, 0, 0, 0, 0);
-				serverLevel.sendParticles(ParticleTypes.END_ROD, p4.x, p4.y, p4.z, 1, 0, 0, 0, 0);
-			}
-		}
-		*/
-	}
+            DamageSource damageSource = entity instanceof Player player ? entity.damageSources().playerAttack(player): entity.damageSources().mobAttack(entity);
+			if(elementSource != null)
+                ElementSource.createDamageSource(damageSource, elementSource.copy());
+            target.hurt(damageSource, damage);
+        }
+        /*
+        if (world instanceof ServerLevel serverLevel) {
+            Vec3 _forward = lookVec.scale(attackRange);
+            Vec3 _right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(rectWidth / 2);
+            Vec3 _up = new Vec3(0, rectHeight / 2, 0);
+            for (int i = 0; i < 20; i++) {
+                double t = i / 20.0;
+                Vec3 p1 = basicPos.add(_forward.scale(t)).add(_right).add(_up);
+                Vec3 p2 = basicPos.add(_forward.scale(t)).add(_right).subtract(_up);
+                Vec3 p3 = basicPos.add(_forward.scale(t)).subtract(_right).add(_up);
+                Vec3 p4 = basicPos.add(_forward.scale(t)).subtract(_right).subtract(_up);
+                serverLevel.sendParticles(ParticleTypes.END_ROD, p1.x, p1.y, p1.z, 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(ParticleTypes.END_ROD, p2.x, p2.y, p2.z, 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(ParticleTypes.END_ROD, p3.x, p3.y, p3.z, 1, 0, 0, 0, 0);
+                serverLevel.sendParticles(ParticleTypes.END_ROD, p4.x, p4.y, p4.z, 1, 0, 0, 0, 0);
+            }
+        }
+         */
+        Element element = elementSource == null ? null : elementSource.getElement();
+        interactBlocks(roughArea, element, entity, world, basicPos, lookVec, attackRange, rectWidth, rectHeight);
+    }
 
 	private static boolean isAABBInRotatedRect(AABB aabb, Vec3 direction, double length, double width, double height) {
 		Vec3 right = new Vec3(-direction.z, 0, direction.x).normalize();
@@ -318,4 +330,36 @@ public abstract class StellaFortunas extends Item {
 		double max = (axis.x > 0 ? aabb.maxX : aabb.minX) * axis.x + (axis.y > 0 ? aabb.maxY : aabb.minY) * axis.y + (axis.z > 0 ? aabb.maxZ : aabb.minZ) * axis.z;
 		return new double[]{min, max};
 	}
+
+    private static void interactBlocks(AABB aabb, Element element, Entity entity, Level level, Vec3 basicPos, Vec3 lookVec, double attackRange, double RectWidth, double RectHeight){
+        for(int x = (int) (aabb.minX + 0.5) ; x < aabb.maxX + 0.5; x ++)
+            for(int y = (int) (aabb.minY + 0.5) ; y < aabb.maxY + 0.5; y ++)
+                for(int z = (int) (aabb.minZ + 0.5) ; z < aabb.maxZ + 0.5; z ++){
+                    if(isAABBInRotatedRect(x + 0.5, y + 0.5, z + 0.5, basicPos, lookVec, attackRange, RectWidth, RectHeight)){
+                        BlockPos blockPos = new BlockPos(x, y, z);
+                        if(level.getBlockState(blockPos).getBlock() instanceof IBlockBehavior blockBehavior)
+                            blockBehavior.er$getReactionBehavior().ifPresent(a -> a.reacted(level, blockPos, element, entity, true));
+                    }
+                }
+    }
+
+    private static boolean isAABBInRotatedRect(double x, double y, double z, Vec3 basicPos, Vec3 direction, double length, double width, double height) {
+        Vec3 right = new Vec3(-direction.z, 0, direction.x).normalize();
+        Vec3 up = new Vec3(0, 1, 0);
+        x -= basicPos.x;
+        y -= basicPos.y;
+        z -= basicPos.z;
+        double forwardProj = getAABBProjection(x, y, z, direction);
+        if (forwardProj < 0 || forwardProj > length)
+            return false;
+        double rightProj = getAABBProjection(x, y, z, right);
+        if (rightProj < -width / 2 || rightProj > width / 2)
+            return false;
+        double upProj = getAABBProjection(x, y, z, up);
+        return upProj > -height / 2 && upProj < height / 2;
+    }
+
+    private static double getAABBProjection(double x, double y, double z, Vec3 axis) {
+        return x * axis.x + y * axis.y + z * axis.z;
+    }
 }

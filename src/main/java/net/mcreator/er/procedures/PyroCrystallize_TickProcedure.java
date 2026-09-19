@@ -2,7 +2,7 @@ package net.mcreator.er.procedures;
 
 import net.wither.er.shield.ShieldStack;
 import net.wither.er.shield.ShieldRegistry;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.AABB;
@@ -22,7 +22,7 @@ public class PyroCrystallize_TickProcedure {
 			{
 				final Vec3 _center = new Vec3(x, y, z);
 				for (Entity entityiterator : world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(1 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList()) {
-					if (entityiterator instanceof ErEntityInterface enti && (entityiterator.getStringUUID()).equals(entity.getPersistentData().getString("UUID"))) {
+					if (entityiterator instanceof IErEntity enti && (entityiterator.getStringUUID()).equals(entity.getPersistentData().getString("UUID"))) {
 						enti.er$addShield(new ShieldStack(ShieldRegistry.PYRO_CTYSTALLIZE.get(), entity.getPersistentData().getFloat("health"), 200));
 						if (!entity.level().isClientSide())
 							entity.discard();

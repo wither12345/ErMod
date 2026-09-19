@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:vayuda_turquoise_sliver",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:vayuda_turquoise_fragment",
+    "count": 1
+  },
+  "mora": 300
+}

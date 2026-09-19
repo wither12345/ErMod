@@ -72,7 +72,7 @@ public class ElementSource {
     }
 
     public static DamageSource createDamageSource(Holder<DamageType> type, @Nullable Entity directEntity, @Nullable ElementSource source){
-        return createDamageSource(type,directEntity,directEntity,null,source);
+        return createDamageSource(type,directEntity,directEntity,null, source);
     }
 
     public static DamageSource createDamageSource(DamageSource damageSource, @Nullable ElementSource elementSource){

@@ -22,7 +22,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.RenderShield;
 import org.joml.Matrix4f;
@@ -49,7 +49,7 @@ public class ErRenderers {
 	}
 
 	private static void renderShield(LivingEntity entity, PoseStack poseStack, MultiBufferSource bufferSource, LivingEntityRenderer<?,?> renderer, int light) {
-		if (entity instanceof ErEntityInterface enti) {
+		if (entity instanceof IErEntity enti) {
 			List<ErShield> shields = enti.er$getShields();
 			for (ErShield shield : shields) {
 				if (shield instanceof RenderShield rend) {

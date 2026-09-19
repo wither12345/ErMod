@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:geo_sword"
+    "er:geo_sword",
+    "er:geo_helmet",
+    "er:geo_chestplate",
+    "er:geo_leggings",
+    "er:geo_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:cor_lapis",
           "count": 6
+        },
+        {
+          "item": "er:prithiva_topaz_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:cor_lapis",
           "count": 12
+        },
+        {
+          "item": "er:prithiva_topaz_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_geo",
           "count": 2
+        },
+        {
+          "item": "er:prithiva_topaz_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_geo",
+          "count": 4
+        },
+        {
+          "item": "er:prithiva_topaz_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_geo",
           "count": 12
+        },
+        {
+          "item": "er:prithiva_topaz_chunk",
+          "count": 4
         }
       ]
     }

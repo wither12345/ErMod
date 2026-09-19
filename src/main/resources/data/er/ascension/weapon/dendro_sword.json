@@ -1,6 +1,10 @@
 {
   "items" : [
-    "er:dendro_sword"
+    "er:dendro_sword",
+    "er:dendro_helmet",
+    "er:dendro_chestplate",
+    "er:dendro_leggings",
+    "er:dendro_boots"
   ],
   "ascension" : [
     {
@@ -18,6 +22,10 @@
         {
           "item": "er:sumeru_rose",
           "count": 6
+        },
+        {
+          "item": "er:nagadus_emerald_sliver",
+          "count": 1
         }
       ]
     },
@@ -27,6 +35,10 @@
         {
           "item": "er:sumeru_rose",
           "count": 12
+        },
+        {
+          "item": "er:nagadus_emerald_sliver",
+          "count": 2
         }
       ]
     },
@@ -36,6 +48,10 @@
         {
           "item": "er:condensed_dendro",
           "count": 2
+        },
+        {
+          "item": "er:nagadus_emerald_sliver",
+          "count": 4
         }
       ]
     },
@@ -44,6 +60,10 @@
       "ingredient": [
         {
           "item": "er:condensed_dendro",
+          "count": 4
+        },
+        {
+          "item": "er:nagadus_emerald_fragment",
           "count": 4
         }
       ]
@@ -54,6 +74,10 @@
         {
           "item": "er:condensed_dendro",
           "count": 12
+        },
+        {
+          "item": "er:nagadus_emerald_chunk",
+          "count": 4
         }
       ]
     }

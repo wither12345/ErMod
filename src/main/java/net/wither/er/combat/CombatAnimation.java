@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.event.InputEvent;
@@ -45,6 +46,17 @@ public class CombatAnimation {
 	public static void onLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
 		ErMod.PACKET_HANDLER.sendToServer(new AnimationMessage());
 	}
+
+    @SubscribeEvent
+    public static void onLeftBlock(PlayerInteractEvent.LeftClickBlock event){
+        Player player = event.getEntity();
+        if(player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof StellaFortunas fortunas &&
+            fortunas.hasAnimation(player)
+        ){
+            event.setCanceled(true);
+            ErMod.PACKET_HANDLER.sendToServer(new AnimationMessage());
+        }
+    }
 
 	@SubscribeEvent
 	public static void onClientTick(TickEvent.ClientTickEvent event) {

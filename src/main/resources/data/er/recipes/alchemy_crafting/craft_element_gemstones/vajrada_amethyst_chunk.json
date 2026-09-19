@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:vajrada_amethyst_fragment",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:vajrada_amethyst_chunk",
+    "count": 1
+  },
+  "mora": 900
+}

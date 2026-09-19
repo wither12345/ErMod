@@ -146,11 +146,21 @@ public class ExtraTabs {
             tabData.accept(ENCHANTED_MYSTIC_ENHANCEMENT_ORE);
             tabData.accept(PYRO_WHOPPERFLOWER_FRUIT);
             tabData.accept(CRYO_WHOPPERFLOWER_FRUIT);
+            tabData.accept(LIGHTNING_PRISM);
+            tabData.accept(LIGHTNING_PRISM_UPGRADE);
             ItemStack moraBag = new ItemStack(MORA_BAG.get());
 			moraBag.getOrCreateTag().putInt("moras", 999999999);
             tabData.accept(moraBag);
             tabData.accept(SANCTIFYING_UNCTION);
             tabData.accept(SANCTIFYING_ESSENCE);
+            BRILLIANT_DIAMOND.addToTab(tabData);
+            AGNIDUS_AGATE.addToTab(tabData);
+            VARUNADA_LAZURITE.addToTab(tabData);
+            VAJRADA_AMETHYST.addToTab(tabData);
+            VAYUDA_TURQUOISE.addToTab(tabData);
+            SHIVADA_JADE.addToTab(tabData);
+            PRITHIVA_TOPAZ.addToTab(tabData);
+            NAGADUS_EMERALD.addToTab(tabData);
         } else if(tabData.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
 			tabData.accept(ELECTRO_SLIME_SPAWN_EGG);
 			tabData.accept(GEO_SLIME_SPAWN_EGG);

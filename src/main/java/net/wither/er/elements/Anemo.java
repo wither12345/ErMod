@@ -1,7 +1,6 @@
 package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.init.ErModBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -11,11 +10,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.wither.er.block.IBlockBehavior;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -63,6 +60,18 @@ public class Anemo extends Element{
                                     ), 2.4f * EntityHurtEvent.getLevelMultiply(applier))
                     );
 
+            BlockPos blockPos = entity.getOnPos();
+            for (int i = -2; i <= 2; i++)
+                for (int j = -1; j <= 1; j++)
+                    for (int k = -2; k <= 2; k++) {
+                        BlockPos offPos = blockPos.offset(i, j, k);
+                        if (level.getBlockState(offPos).getBlock() instanceof IBlockBehavior blockBehavior) {
+                            blockBehavior.er$getReactionBehavior().ifPresent(
+                                    behavior -> behavior.reacted(level, offPos, self, applier, false)
+                            );
+                        }
+                    }
+            /*
             if (category == Category.PYRO) {
                 BlockPos blockPos = entity.getOnPos();
                 for (int i = -2; i <= 2; i++)
@@ -83,6 +92,7 @@ public class Anemo extends Element{
                             }
                         }
             }
+             */
         }
         return gauge;
     }

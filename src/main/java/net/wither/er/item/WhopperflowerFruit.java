@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldStack;
 import org.jetbrains.annotations.NotNull;
@@ -45,8 +45,8 @@ public class WhopperflowerFruit extends Item {
     public void onUseTick(@NotNull Level level, @NotNull LivingEntity entity, @NotNull ItemStack itemStack, int t) {
         if (level instanceof ServerLevel &&
                 entity instanceof Player player &&
-                entity instanceof ErEntityInterface erEntityInterface
-                && !erEntityInterface.er$getShields().contains(shield.get())
+                entity instanceof IErEntity erEntity
+                && !erEntity.er$getShields().contains(shield.get())
         ) {
             player.getCooldowns().addCooldown(itemStack.getItem(), 40);
             player.stopUsingItem();
@@ -57,8 +57,8 @@ public class WhopperflowerFruit extends Item {
     public void onStopUsing(@NotNull ItemStack stack, @NotNull LivingEntity entity, int t) {
         super.onStopUsing(stack, entity, t);
         if(entity.level() instanceof ServerLevel && t > 0){
-            ErEntityInterface erEntityInterface = (ErEntityInterface) entity;
-            erEntityInterface.er$removeShield(shield.get());
+            IErEntity erEntity = (IErEntity) entity;
+            erEntity.er$removeShield(shield.get());
         }
     }
 
@@ -66,8 +66,8 @@ public class WhopperflowerFruit extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand hand) {
         InteractionResultHolder<ItemStack> ar = super.use(level, player, hand);
         if(level instanceof ServerLevel) {
-            ErEntityInterface erEntityInterface = (ErEntityInterface) player;
-            erEntityInterface.er$addShield(new ShieldStack(shield.get(), 5, 60));
+            IErEntity erEntity = (IErEntity) player;
+            erEntity.er$addShield(new ShieldStack(shield.get(), 5, 60));
         }
         player.startUsingItem(hand);
         return ar;

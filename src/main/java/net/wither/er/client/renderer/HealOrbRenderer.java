@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.wither.er.entity.HealOrbEntity;
@@ -30,22 +29,12 @@ public class HealOrbRenderer extends EntityRenderer<HealOrbEntity> {
         poseStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
         PoseStack.Pose posestack$pose = poseStack.last();
         VertexConsumer vertexconsumer = source.getBuffer(RENDER_TYPE);
-        vertex(vertexconsumer, posestack$pose, i, 0.0F, 0, 0, 1);
-        vertex(vertexconsumer, posestack$pose, i, 1.0F, 0, 1, 1);
-        vertex(vertexconsumer, posestack$pose, i, 1.0F, 1, 1, 0);
-        vertex(vertexconsumer, posestack$pose, i, 0.0F, 1, 0, 0);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 0.0F, 0, 0, 1);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 1.0F, 0, 1, 1);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 1.0F, 1, 1, 0);
+        RenderVertex.vertex(vertexconsumer, posestack$pose, i, 0.0F, 1, 0, 0);
         poseStack.popPose();
         super.render(projectile, v, v1, poseStack, source, i);
-    }
-
-    private static void vertex(VertexConsumer vertexConsumer, PoseStack.Pose pose, int i, float v, int i1, int i2, int i3) {
-        vertexConsumer.vertex(pose.pose(), v - 0.5F, (float)i1 - 0.25F, 0.0F)
-                .color(-1)
-                .uv((float)i2, (float)i3)
-                .overlayCoords(OverlayTexture.NO_OVERLAY)
-                .uv2(15728880)
-                .normal(0.0F, 1.0F, 0.0F)
-                .endVertex();
     }
 
     public @NotNull ResourceLocation getTextureLocation(@NotNull HealOrbEntity projectile) {

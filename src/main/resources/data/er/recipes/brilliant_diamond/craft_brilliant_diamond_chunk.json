@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "craft_brilliant_diamond_chunk",
+  "category": "misc",
+  "ingredients": [
+    {"item": "er:agnidus_agate_chunk"},
+    {"item": "er:varunada_lazurite_chunk"},
+    {"item": "er:vajrada_amethyst_chunk"},
+    {"item": "er:vayuda_turquoise_chunk"},
+    {"item": "er:shivada_jade_chunk"},
+    {"item": "er:prithiva_topaz_chunk"},
+    {"item": "er:nagadus_emerald_chunk"}
+  ],
+  "result": {
+    "item": "er:brilliant_diamond_chunk"
+  }
+}

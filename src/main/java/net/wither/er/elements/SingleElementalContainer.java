@@ -9,7 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
 import net.wither.er.api.EventListener;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.entity.ErEntityInterface;
+import net.wither.er.entity.IErEntity;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.item.data.weapon.ReactionAbility;
 import net.wither.er.item.weapons.AbilityWeapon;
@@ -35,6 +35,12 @@ public class SingleElementalContainer {
         return category;
     }
 
+    public float getGauge(Element element){
+        if(this.hasElement(element))
+            return this.auras.get(element).getGauge();
+        return 0;
+    }
+
     public boolean hasElement(Element element){
         return auras.containsKey(element) ;
     }
@@ -44,8 +50,8 @@ public class SingleElementalContainer {
         for(Map.Entry<Element, ElementalAura> auraEntry : auras.entrySet()){
             Element ele = auraEntry.getKey();
             if(ele.canReact(source)){
-                if(applier instanceof ErEntityInterface erEntityInterface){
-                    Object2IntMap<ArtifactEffect> map = erEntityInterface.er$getEffectMap();
+                if(applier instanceof IErEntity erEntity){
+                    Object2IntMap<ArtifactEffect> map = erEntity.er$getEffectMap();
                     for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
                         if(effect.getKey() instanceof ReactionAbility ability){
                             ability.onReaction(container, source, ele, damageModifier, applier, effect.getIntValue());

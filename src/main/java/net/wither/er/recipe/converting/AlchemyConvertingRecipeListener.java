@@ -36,6 +36,7 @@ public class AlchemyConvertingRecipeListener extends SimpleJsonResourceReloadLis
 
     @Override
     protected void apply(@NotNull Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager resourceManager, @NotNull ProfilerFiller profilerFiller) {
+        recipes.clear();
         mapToRead = map;
     }
 
