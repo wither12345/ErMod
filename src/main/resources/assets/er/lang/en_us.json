@@ -520,5 +520,10 @@
   "item.er.shivada_jade_gemstone": "Shivada Jade Gemstone",
   "item.er.prithiva_topaz_gemstone": "Prithiva Topaz Gemstone",
   "item.er.nagadus_emerald_gemstone": "Nagadus Emerald Gemstone",
-  "item.er.brilliant_diamond_gemstone": "Brilliant Diamond Gemstone"
+  "item.er.brilliant_diamond_gemstone": "Brilliant Diamond Gemstone",
+  "item.er.lightning_prism": "Lightning Prism",
+  "item.er.lightning_prism_upgrade": "Lightning Prism Upgrade",
+  "entity.er.electro_hypostasis_cube": "Electro Hypostasis Cube",
+  "block.er.boss_spawner": "Boss Spawner",
+  "effect.er.tiny_miracle": "Tiny Miracle RES"
 }

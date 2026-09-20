@@ -3,11 +3,7 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.block.entity.WhopperflowerCropEntity;
-import net.wither.er.block.entity.StorageDeviceEntity;
-import net.wither.er.block.entity.LinkMechanismBaseEntity;
-import net.wither.er.block.entity.BurningDirtEntity;
-import net.wither.er.block.entity.AmbientBollardEntity;
+import net.wither.er.block.entity.*;
 
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -35,6 +31,7 @@ public class ErModBlockEntities {
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LinkMechanismBaseEntity>> LINK_MECHANISM_ENTITY = register("link_mechanism_entity", ErModBlocks.LINK_MECHANISM_BASE, LinkMechanismBaseEntity::new);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StorageDeviceEntity>> STORAGE_DEVICE = register("storage_device", ErModBlocks.STORAGE_DEVICE_BASE, StorageDeviceEntity::new);
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AmbientBollardEntity>> AMBIENT_BOLLARD = register("ambient_bollard", ErModBlocks.AMBIENT_BOLLARD, AmbientBollardEntity::new);
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BossSpawnerEntity>> BOSS_SPAWNER = register("boss_spawner", ErModBlocks.BOSS_SPAWNER, BossSpawnerEntity::new);
 
 	// End of user code block custom block entities
 	private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> register(String registryname, DeferredHolder<Block, Block> block, BlockEntityType.BlockEntitySupplier<T> supplier) {

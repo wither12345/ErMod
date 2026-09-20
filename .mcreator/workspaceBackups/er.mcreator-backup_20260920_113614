@@ -3173,28 +3173,6 @@
       }
     },
     {
-      "name": "AlchemyCraftGUIChanging",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "alchemy_craft_gui_changing",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/AlchemyCraftGUIChangingProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "CraftingBenchClick",
       "type": "procedure",
       "compiles": true,
@@ -5096,7 +5074,44 @@
       "artifact_effect.er.tiny_miracle": "Tiny Miracle",
       "artifact_effect.er.tiny_miracle.1": "  2-Piece Set: All Elemental RES increased by 20%.",
       "artifact_effect.er.tiny_miracle.2": "  4-Piece Set: Incoming elemental DMG increases corresponding Elemental RES by 30% for 10s. Can only occur once every 10s.",
-      "item.er.travelers_handy_sword": "Travelers Handy Sword"
+      "item.er.travelers_handy_sword": "Travelers Handy Sword",
+      "item.er.agnidus_agate_sliver": "Agnidus Agate Sliver",
+      "item.er.varunada_lazurite_sliver": "Varunada Lazurite Sliver",
+      "item.er.vajrada_amethyst_sliver": "Vajrada Amethyst Sliver",
+      "item.er.vayuda_turquoise_sliver": "Vayuda Turquoise Sliver",
+      "item.er.shivada_jade_sliver": "Shivada Jade Sliver",
+      "item.er.prithiva_topaz_sliver": "Prithiva Topaz Sliver",
+      "item.er.nagadus_emerald_sliver": "Nagadus Emerald Sliver",
+      "item.er.brilliant_diamond_sliver": "Brilliant Diamond Sliver",
+      "item.er.agnidus_agate_fragment": "Agnidus Agate Fragment",
+      "item.er.varunada_lazurite_fragment": "Varunada Lazurite Fragment",
+      "item.er.vajrada_amethyst_fragment": "Vajrada Amethyst Fragment",
+      "item.er.vayuda_turquoise_fragment": "Vayuda Turquoise Fragment",
+      "item.er.shivada_jade_fragment": "Shivada Jade Fragment",
+      "item.er.prithiva_topaz_fragment": "Prithiva Topaz Fragment",
+      "item.er.nagadus_emerald_fragment": "Nagadus Emerald Fragment",
+      "item.er.brilliant_diamond_fragment": "Brilliant Diamond Fragment",
+      "item.er.agnidus_agate_chunk": "Agnidus Agate Chunk",
+      "item.er.varunada_lazurite_chunk": "Varunada Lazurite Chunk",
+      "item.er.vajrada_amethyst_chunk": "Vajrada Amethyst Chunk",
+      "item.er.vayuda_turquoise_chunk": "Vayuda Turquoise Chunk",
+      "item.er.shivada_jade_chunk": "Shivada Jade Chunk",
+      "item.er.prithiva_topaz_chunk": "Prithiva Topaz Chunk",
+      "item.er.nagadus_emerald_chunk": "Nagadus Emerald Chunk",
+      "item.er.brilliant_diamond_chunk": "Brilliant Diamond Chunk",
+      "item.er.agnidus_agate_gemstone": "Agnidus Agate Gemstone",
+      "item.er.varunada_lazurite_gemstone": "Varunada Lazurite Gemstone",
+      "item.er.vajrada_amethyst_gemstone": "Vajrada Amethyst Gemstone",
+      "item.er.vayuda_turquoise_gemstone": "Vayuda Turquoise Gemstone",
+      "item.er.shivada_jade_gemstone": "Shivada Jade Gemstone",
+      "item.er.prithiva_topaz_gemstone": "Prithiva Topaz Gemstone",
+      "item.er.nagadus_emerald_gemstone": "Nagadus Emerald Gemstone",
+      "item.er.brilliant_diamond_gemstone": "Brilliant Diamond Gemstone",
+      "item.er.lightning_prism": "Lightning Prism",
+      "item.er.lightning_prism_upgrade": "Lightning Prism Upgrade",
+      "entity.er.electro_hypostasis_cube": "Electro Hypostasis Cube",
+      "block.er.boss_spawner": "Boss Spawner",
+      "effect.er.tiny_miracle": "Tiny Miracle RES"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5588,7 +5603,44 @@
       "artifact_effect.er.tiny_miracle": "奇迹",
       "artifact_effect.er.tiny_miracle.1": "  2件套：所有元素抗性提高20%。",
       "artifact_effect.er.tiny_miracle.2": "  4件套：受到某个元素类型的伤害后， 相应的抗性提升30%， 持续10秒。 该效果每10秒只能触发一次。",
-      "item.er.travelers_handy_sword": "旅行剑"
+      "item.er.travelers_handy_sword": "旅行剑",
+      "item.er.agnidus_agate_sliver": "燃愿玛瑙碎屑",
+      "item.er.varunada_lazurite_sliver": "涤净青金碎屑",
+      "item.er.vajrada_amethyst_sliver": "最胜紫晶碎屑",
+      "item.er.vayuda_turquoise_sliver": "自在松石碎屑",
+      "item.er.shivada_jade_sliver": "哀叙冰玉碎屑",
+      "item.er.prithiva_topaz_sliver": "坚牢黄玉碎屑",
+      "item.er.nagadus_emerald_sliver": "生长碧翡碎屑",
+      "item.er.brilliant_diamond_sliver": "璀璨原钻碎屑",
+      "item.er.agnidus_agate_fragment": "燃愿玛瑙断片",
+      "item.er.varunada_lazurite_fragment": "涤净青金断片",
+      "item.er.vajrada_amethyst_fragment": "最胜紫晶断片",
+      "item.er.vayuda_turquoise_fragment": "自在松石断片",
+      "item.er.shivada_jade_fragment": "哀叙冰玉断片",
+      "item.er.prithiva_topaz_fragment": "坚牢黄玉断片",
+      "item.er.nagadus_emerald_fragment": "生长碧翡断片",
+      "item.er.brilliant_diamond_fragment": "璀璨原钻断片",
+      "item.er.agnidus_agate_chunk": "燃愿玛瑙块",
+      "item.er.varunada_lazurite_chunk": "涤净青金块",
+      "item.er.vajrada_amethyst_chunk": "最胜紫晶块",
+      "item.er.vayuda_turquoise_chunk": "自在松石块",
+      "item.er.shivada_jade_chunk": "哀叙冰玉块",
+      "item.er.prithiva_topaz_chunk": "坚牢黄玉块",
+      "item.er.nagadus_emerald_chunk": "生长碧翡块",
+      "item.er.brilliant_diamond_chunk": "璀璨原钻块",
+      "item.er.agnidus_agate_gemstone": "燃愿玛瑙",
+      "item.er.varunada_lazurite_gemstone": "涤净青金",
+      "item.er.vajrada_amethyst_gemstone": "最胜紫晶",
+      "item.er.vayuda_turquoise_gemstone": "自在松石",
+      "item.er.shivada_jade_gemstone": "哀叙冰玉",
+      "item.er.prithiva_topaz_gemstone": "坚牢黄玉",
+      "item.er.nagadus_emerald_gemstone": "生长碧翡",
+      "item.er.brilliant_diamond_gemstone": "璀璨原钻",
+      "item.er.lightning_prism": "雷光棱镜",
+      "item.er.lightning_prism_upgrade": "雷光棱镜升级",
+      "entity.er.electro_hypostasis_cube": "无相之雷",
+      "block.er.boss_spawner": "Boss生成器",
+      "effect.er.tiny_miracle": "奇迹庇护"
     }
   },
   "metadata": {
@@ -5635,7 +5687,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.9",
+    "version": "1.2.0",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

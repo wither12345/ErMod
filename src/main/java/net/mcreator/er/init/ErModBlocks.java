@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.core.BlockPos;
 
@@ -89,9 +90,14 @@ public class ErModBlocks {
 	public static final DeferredBlock<Block> LINK_MECHANISM_BASE = REGISTRY.register("link_mechanism", LinkMechanismBase::new);
 	public static final DeferredBlock<Block> STORAGE_DEVICE_BASE = REGISTRY.register("storage_device", StorageDevice::new);
 	public static final DeferredBlock<Block> AMBIENT_BOLLARD = REGISTRY.register("ambient_bollard", AmbientBollard::new);
+	public static final DeferredBlock<Block> BOSS_SPAWNER = REGISTRY.register("boss_spawner", BossSpawner::new);
 
 	private static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
 		return true;
+	}
+
+	public static boolean never(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, EntityType<?> entityType) {
+		return false;
 	}
 
 	// End of user code block custom blocks

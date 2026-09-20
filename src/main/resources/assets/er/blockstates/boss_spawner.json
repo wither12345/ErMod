@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "er:block/boss_spawner"
+    }
+  }
+}
