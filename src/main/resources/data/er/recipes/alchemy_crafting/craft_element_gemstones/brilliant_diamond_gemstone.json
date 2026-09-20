@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:brilliant_diamond_chunk",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:brilliant_diamond_gemstone",
+    "count": 1
+  },
+  "mora": 6300
+}
