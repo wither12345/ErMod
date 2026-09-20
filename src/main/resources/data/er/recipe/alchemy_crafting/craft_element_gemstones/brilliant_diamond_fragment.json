@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "id": "er:brilliant_diamond_sliver",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "er:brilliant_diamond_fragment",
+    "count": 1
+  },
+  "mora": 700
+}

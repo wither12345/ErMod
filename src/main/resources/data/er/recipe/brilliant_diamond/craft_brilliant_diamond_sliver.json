@@ -12,6 +12,7 @@
     {"item": "er:nagadus_emerald_sliver"}
   ],
   "result": {
-    "id": "er:brilliant_diamond_sliver"
+    "id": "er:brilliant_diamond_sliver",
+    "count": 3
   }
 }

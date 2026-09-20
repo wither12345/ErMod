@@ -12,6 +12,7 @@
     {"item": "er:nagadus_emerald_fragment"}
   ],
   "result": {
-    "id": "er:brilliant_diamond_fragment"
+    "id": "er:brilliant_diamond_fragment",
+    "count": 3
   }
 }

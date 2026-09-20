@@ -12,6 +12,7 @@
     {"item": "er:nagadus_emerald_gemstone"}
   ],
   "result": {
-    "id": "er:brilliant_diamond_gemstone"
+    "id": "er:brilliant_diamond_gemstone",
+    "count": 3
   }
 }

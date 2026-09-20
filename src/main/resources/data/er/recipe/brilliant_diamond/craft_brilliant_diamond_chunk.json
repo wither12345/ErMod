@@ -12,6 +12,7 @@
     {"item": "er:nagadus_emerald_chunk"}
   ],
   "result": {
-    "id": "er:brilliant_diamond_chunk"
+    "id": "er:brilliant_diamond_chunk",
+    "count": 3
   }
 }
