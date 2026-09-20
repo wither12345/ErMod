@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "dupe_lightning_prism_upgrade",
+  "category": "misc",
+  "pattern": [
+    "pcp",
+    "pup",
+    "ppp"
+  ],
+  "key": {
+    "p": {
+      "item": "er:lightning_prism"
+    },
+    "u": {
+      "item": "er:lightning_prism_upgrade"
+    },
+    "c": {
+      "item": "er:vajrada_amethyst_chunk"
+    }
+  },
+  "result": {
+    "item": "er:lightning_prism_upgrade",
+    "count": 2
+  }
+}

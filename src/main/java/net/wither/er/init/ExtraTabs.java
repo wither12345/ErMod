@@ -171,6 +171,7 @@ public class ExtraTabs {
 			tabData.accept(ANEMO_SLIME_SPAWN_EGG);
             tabData.accept(PYRO_FLOWER_SPAWN_EGG);
             tabData.accept(CRYO_FLOWER_SPAWN_EGG);
+            tabData.accept(ELECTRO_HYPOSTASIS_CUBE_SPAWN_EGG);
 		} else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
 			tabData.accept(DULL_BLADE);
 			tabData.accept(WASTER_GREATSWORD);
@@ -202,6 +203,7 @@ public class ExtraTabs {
             tabData.accept(LINK_MECHANISM);
             tabData.accept(STORAGE_DEVICE);
             tabData.accept(AMBIENT_BOLLARD);
+            tabData.accept(BOSS_SPAWNER);
         }
     }
     

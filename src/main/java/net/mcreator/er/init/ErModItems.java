@@ -339,6 +339,8 @@ public class ErModItems {
 	public static final ElementGemstones SHIVADA_JADE = new ElementGemstones(REGISTRY, "shivada_jade");
 	public static final ElementGemstones PRITHIVA_TOPAZ = new ElementGemstones(REGISTRY, "prithiva_topaz");
 	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
+	public static final RegistryObject<Item> ELECTRO_HYPOSTASIS_CUBE_SPAWN_EGG = REGISTRY.register("electro_hypostasis_cube_egg", () -> new ForgeSpawnEggItem(ErModEntities.ELECTRO_HYPOSTASIS_CUBE, 0xff88ff, 0xffddff, new Item.Properties()));
+	public static final RegistryObject<Item> BOSS_SPAWNER = block(ErModBlocks.BOSS_SPAWNER);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

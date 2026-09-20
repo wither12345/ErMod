@@ -6,6 +6,7 @@ import net.mcreator.er.init.ErModEntities;
 import net.mcreator.er.procedures.ApplyErlevelProcedure;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -44,6 +45,7 @@ public abstract class HypostasisCube extends Monster {
 
     private final int[] animateTime = {0, 0};
     protected int respawnCounter = 3;
+    @Nullable protected BlockPos savedPos;
     @NotNull private HypostasisCubeState animate = HypostasisCubeState.NORMAL;
 
     protected HypostasisCube(EntityType<? extends Monster> entityType, Level level) {
@@ -110,7 +112,7 @@ public abstract class HypostasisCube extends Monster {
 
     public void onDeath(){
         if(this.level() instanceof ServerLevel serverLevel) {
-            TrounceBlossomEntity trounceBlossom = ErModEntities.TROUNCE_BLOSSOM.get().spawn(serverLevel, BlockPos.containing(this.getX(), this.getY(), this.getZ()), MobSpawnType.MOB_SUMMONED);
+            TrounceBlossomEntity trounceBlossom = ErModEntities.TROUNCE_BLOSSOM.get().spawn(serverLevel, this.getOnPos().below(), MobSpawnType.MOB_SUMMONED);
             if (trounceBlossom != null) {
                 trounceBlossom.setLootTable(this.getLoot());
                 trounceBlossom.setOmenLevel(this.entityData.get(DATA_OMEN_LEVEL));
@@ -130,6 +132,8 @@ public abstract class HypostasisCube extends Monster {
         if(this.respawnCounter > 0) {
             this.setHealth(1);
             if(!this.isAnimate(HypostasisCubeState.RESPAWN)) {
+                if(this.savedPos != null)
+                    this.setPos(this.savedPos.getCenter());
                 this.turnTo(HypostasisCubeState.RESPAWN, 3);
                 this.tryRespawn();
             }
@@ -144,6 +148,9 @@ public abstract class HypostasisCube extends Monster {
             this.onDeath();
             this.discard();
         }
+
+        if(this.savedPos == null)
+            this.savedPos = this.getOnPos();
 
         this.keepDistance();
 
@@ -238,9 +245,15 @@ public abstract class HypostasisCube extends Monster {
     }
 
     @Override
+    public void push(double x, double y, double z) {
+    }
+
+    @Override
     public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("respawn", this.respawnCounter);
+        if(this.savedPos != null)
+            compoundTag.put("savedPos", NbtUtils.writeBlockPos(this.savedPos));
     }
 
     @Override
@@ -248,6 +261,8 @@ public abstract class HypostasisCube extends Monster {
         super.readAdditionalSaveData(compoundTag);
         if(compoundTag.contains("respawn"))
             this.respawnCounter = compoundTag.getInt("respawn");
+        if(compoundTag.contains("savedPos"))
+            this.savedPos = NbtUtils.readBlockPos(compoundTag.getCompound("savePos"));
     }
 
     @Override
