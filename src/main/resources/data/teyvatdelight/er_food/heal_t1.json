@@ -1,0 +1,10 @@
+{
+  "items": [
+    "teyvatdelight:mushroom_chicken_skewer",
+    "teyvatdelight:grilled_tiger_fish"
+  ],
+  "food_addition": {
+    "heal_amount": 20,
+    "heal_percent": 0.09
+  }
+}

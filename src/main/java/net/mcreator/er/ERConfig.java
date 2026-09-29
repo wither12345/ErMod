@@ -38,7 +38,7 @@ public class ERConfig {
 	public static final ModConfigSpec.ConfigValue<Boolean> ARMOR_RULE_MODIFY;
 	/*
 	 * dmg : 1:7
-	 * hp  : 2:9
+	 * hp  : 1:45-1：50
 	*/
 	static {
         BUILDER.push("weapon");

@@ -36,6 +36,9 @@ public class ExtraTabs {
                 addVisions(tabData, Vision.Frame.LIYUE);
                 addVisions(tabData, Vision.Frame.SUMERU);
                 addVisions(tabData, Vision.Frame.MOON_WHEEL);
+                addDelusions(tabData, Vision.Frame.MONDSTADT);
+                addDelusions(tabData, Vision.Frame.LIYUE);
+                addDelusions(tabData, Vision.Frame.SUMERU);
             }).build());
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
             () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.artifacts")).icon(() -> new ItemStack(LUCKY_DOGS_CLOVER.get())).displayItems((parameters, tabData) -> {
@@ -189,6 +192,17 @@ public class ExtraTabs {
         addVision(tabData, DENDRO_VISION, frame);
         addVision(tabData, CRYO_VISION, frame);
         addVision(tabData, GEO_VISION, frame);
+    }
+
+    private static void addDelusions(CreativeModeTab.Output tabData, Vision.Frame frame){
+        addVision(tabData, UNOWNED_DELUSION, frame);
+        addVision(tabData, PYRO_DELUSION, frame);
+        addVision(tabData, HYDRO_DELUSION, frame);
+        addVision(tabData, ANEMO_DELUSION, frame);
+        addVision(tabData, ELECTRO_DELUSION, frame);
+        addVision(tabData, DENDRO_DELUSION, frame);
+        addVision(tabData, CRYO_DELUSION, frame);
+        addVision(tabData, GEO_DELUSION, frame);
     }
 
     private static void addVision(CreativeModeTab.Output tabData, DeferredItem<Item> item, Vision.Frame frame){

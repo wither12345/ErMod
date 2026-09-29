@@ -9,6 +9,7 @@ import net.wither.er.item.morabag.MoraBagItemPlus;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.*;
 import net.wither.er.init.WeaponAbilityRegister;
@@ -268,7 +269,7 @@ public class ErModItems {
 	public static final DeferredItem<Item> TRAVELERS_HANDY_SWORD = REGISTRY.register("travelers_handy_sword",
 			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.JOURNEY, ErModItems.TRAVELERS_HANDY_SWORD, 1))
 					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ARMOR, 0.0636, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
-	public static final DeferredItem<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
+	public static final DeferredItem<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", () -> new EmptyVision());
 	public static final DeferredItem<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
 	public static final DeferredItem<Item> ANEMO_VISION = REGISTRY.register("anemo_vision", () -> new Vision(Element.Category.ANEMO));
@@ -276,6 +277,14 @@ public class ErModItems {
 	public static final DeferredItem<Item> HYDRO_VISION = REGISTRY.register("hydro_vision", () -> new Vision(Element.Category.HYDRO));
 	public static final DeferredItem<Item> DENDRO_VISION = REGISTRY.register("dendro_vision", () -> new Vision(Element.Category.DENDRO));
 	public static final DeferredItem<Item> ELECTRO_VISION = REGISTRY.register("electro_vision", () -> new Vision(Element.Category.ELECTRO));
+	public static final DeferredItem<Item> UNOWNED_DELUSION = REGISTRY.register("unowned_delusion", () -> new EmptyVision(new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> PYRO_DELUSION = REGISTRY.register("pyro_delusion", () -> new Vision(Element.Category.PYRO, new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> CRYO_DELUSION = REGISTRY.register("cryo_delusion", () -> new Vision(Element.Category.CRYO, new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> ANEMO_DELUSION = REGISTRY.register("anemo_delusion", () -> new Vision(Element.Category.ANEMO, new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> GEO_DELUSION = REGISTRY.register("geo_delusion", () -> new Vision(Element.Category.GEO, new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> HYDRO_DELUSION = REGISTRY.register("hydro_delusion", () -> new Vision(Element.Category.HYDRO, new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> DENDRO_DELUSION = REGISTRY.register("dendro_delusion", () -> new Vision(Element.Category.DENDRO, new DelusionData(0.5f, 0.2f, 0.01f)));
+	public static final DeferredItem<Item> ELECTRO_DELUSION = REGISTRY.register("electro_delusion", () -> new Vision(Element.Category.ELECTRO, new DelusionData(0.5f, 0.2f, 0.01f)));
 	public static final DeferredItem<Item> FIRM_ARROWHEAD = REGISTRY.register("firm_arrowhead", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> SHARP_ARROWHEAD = REGISTRY.register("sharp_arrowhead", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> WEATHERED_ARROWHEAD = REGISTRY.register("weathered_arrowhead", () -> new Item(new Item.Properties()));
@@ -345,6 +354,8 @@ public class ErModItems {
 	public static final ElementGemstones SHIVADA_JADE = new ElementGemstones(REGISTRY, "shivada_jade");
 	public static final ElementGemstones PRITHIVA_TOPAZ = new ElementGemstones(REGISTRY, "prithiva_topaz");
 	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
+	public static final DeferredItem<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
@@ -367,6 +378,16 @@ public class ErModItems {
 			registerVision(HYDRO_VISION.get());
 			registerVision(DENDRO_VISION.get());
 			registerVision(ELECTRO_VISION.get());
+			registerVision(ANEMO_DELUSION.get());
+			registerVision(UNOWNED_DELUSION.get());
+			registerVision(PYRO_DELUSION.get());
+			registerVision(CRYO_DELUSION.get());
+			registerVision(ANEMO_DELUSION.get());
+			registerVision(GEO_DELUSION.get());
+			registerVision(HYDRO_DELUSION.get());
+			registerVision(DENDRO_DELUSION.get());
+			registerVision(ELECTRO_DELUSION.get());
+			registerVision(ANEMO_DELUSION.get());
 		}
 
 		private static void registerVision(Item vision) {

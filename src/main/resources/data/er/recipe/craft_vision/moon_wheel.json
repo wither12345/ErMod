@@ -1,5 +1,6 @@
 {
   "type": "er:vision_frame_recipe",
   "category": "misc",
-  "frame": "moon_wheel"
+  "frame": "moon_wheel",
+  "enable_delusion": false
 }

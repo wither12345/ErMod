@@ -27,7 +27,6 @@ public class ItemGiver extends EntityModifier{
     public void apply(Entity entity , int level) {
         if (entity instanceof LivingEntity living) {
             ItemStack itemToApply = new ItemStack(added_item) ;
-
             living.setItemSlot(slot, itemToApply);
         }
     }

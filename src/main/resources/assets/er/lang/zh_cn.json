@@ -1,4 +1,5 @@
 {
+  "item.er.unowned_vision": "无主神之眼",
   "item.er.pyro_vision": "火神之眼",
   "item.er.hydro_vision": "水神之眼",
   "item.er.cryo_vision": "冰神之眼",
@@ -6,6 +7,15 @@
   "item.er.dendro_vision": "草神之眼",
   "item.er.geo_vision": "岩神之眼",
   "item.er.anemo_vision": "风神之眼",
+  "item.er.unowned_delusion": "空邪眼",
+  "item.er.pyro_delusion": "火邪眼",
+  "item.er.hydro_delusion": "水邪眼",
+  "item.er.cryo_delusion": "冰邪眼",
+  "item.er.electro_delusion": "雷邪眼",
+  "item.er.dendro_delusion": "草邪眼",
+  "item.er.geo_delusion": "岩邪眼",
+  "item.er.anemo_delusion": "风邪眼",
+  "item.er.unowned_moon_wheel": "无主月之轮",
   "item.er.pyro_moon_wheel": "火月之轮",
   "item.er.hydro_moon_wheel": "水月之轮",
   "item.er.cryo_moon_wheel": "冰月之轮",
@@ -354,9 +364,6 @@
   "death.attack.lunar_charged.item": "%1$s felt numb with the help of %2$s using %3$s",
   "death.attack.lunar_charged": "%1$s felt numb",
   "item_group.er.artifacts": "圣遗物",
-  "item.er.empty_moon_wheel": "无主月之轮",
-  "item.er.unowned_moon_wheel": "无主月之轮",
-  "item.er.unowned_vision": "无主神之眼",
   "death.attack.lunar_crystallize.item": "%1$s was killed by %2$s using %3$s",
   "death.attack.lunar_crystallize": "%1$s died",
   "death.attack.lunar_crystallize.player": "%1$s died whilst trying to escape %2$s",
@@ -525,5 +532,7 @@
   "item.er.lightning_prism_upgrade": "雷光棱镜升级",
   "entity.er.electro_hypostasis_cube": "无相之雷",
   "block.er.boss_spawner": "Boss生成器",
-  "effect.er.tiny_miracle": "奇迹庇护"
+  "effect.er.tiny_miracle": "奇迹庇护",
+  "item.er.seal_of_life": "生之印",
+  "item.er.lantern_of_life": "生之灯"
 }

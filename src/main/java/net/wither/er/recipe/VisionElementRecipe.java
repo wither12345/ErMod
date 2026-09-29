@@ -1,34 +1,33 @@
 package net.wither.er.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.mcreator.er.ErMod;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.RecipeSerializerRegister;
 import net.wither.er.item.Vision;
+import net.wither.er.item.data.DelusionData;
 import org.jetbrains.annotations.NotNull;
 
 public class VisionElementRecipe extends CustomRecipe {
     private final ItemStack result ;
     private final Ingredient ingredient;
-    private static final TagKey<Item> VISION_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "vision"));
+    private final boolean delusion;
 
-    public VisionElementRecipe(CraftingBookCategory category, ItemStack result, Ingredient ingredient) {
+    public VisionElementRecipe(CraftingBookCategory category, ItemStack result, Ingredient ingredient, boolean delusion) {
         super(category);
         this.result = result;
         this.ingredient = ingredient;
+        this.delusion = delusion;
     }
 
     public ItemStack getResult() {
@@ -39,6 +38,10 @@ public class VisionElementRecipe extends CustomRecipe {
         return ingredient;
     }
 
+    public boolean isDelusion() {
+        return delusion;
+    }
+
     @Override
     public boolean isSpecial() {
         return false;
@@ -47,7 +50,7 @@ public class VisionElementRecipe extends CustomRecipe {
     @Override
     public @NotNull NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> ingredients = NonNullList.create();
-        ingredients.add(Ingredient.of(ErModItems.UNOWNED_VISION));
+        ingredients.add(Ingredient.of(delusion ? ErModItems.UNOWNED_DELUSION : ErModItems.UNOWNED_VISION));
         ingredients.add(this.ingredient);
         for (int i = 2; i < 9; i++) {
             ingredients.add(Ingredient.EMPTY);
@@ -67,7 +70,7 @@ public class VisionElementRecipe extends CustomRecipe {
         for(int k = 0; k < craftingInput.size(); ++k) {
             ItemStack itemstack = craftingInput.getItem(k);
             if (!itemstack.isEmpty()) {
-                if (itemstack.is(VISION_TAG)) {
+                if (itemstack.is(Vision.TAG) && this.delusion == itemstack.has(DataComponentsRegister.DELUSION.get())) {
                     ++i;
                 } else {
                     if (!ingredient.test(itemstack)) {
@@ -92,8 +95,11 @@ public class VisionElementRecipe extends CustomRecipe {
 
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack = input.getItem(i);
-            if (itemStack.is(VISION_TAG)) {
+            if (itemStack.is(Vision.TAG)) {
                 vision.set(DataComponentsRegister.VISION_FRAME, itemStack.getOrDefault(DataComponentsRegister.VISION_FRAME, Vision.Frame.MONDSTADT));
+                DelusionData data = itemStack.get(DataComponentsRegister.DELUSION);
+                if(data != null)
+                    vision.set(DataComponentsRegister.DELUSION, data);
                 break;
             }
         }
@@ -115,14 +121,15 @@ public class VisionElementRecipe extends CustomRecipe {
                 instance.group(
                         CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(VisionElementRecipe::category),
                         ItemStack.CODEC.fieldOf("result").forGetter(VisionElementRecipe::getResult),
-                        Ingredient.CODEC.fieldOf("ingredient").forGetter(VisionElementRecipe::getIngredient)
-
+                        Ingredient.CODEC.fieldOf("ingredient").forGetter(VisionElementRecipe::getIngredient),
+                        Codec.BOOL.fieldOf("delusion").orElse(false).forGetter(VisionElementRecipe::isDelusion)
                 ).apply(instance, VisionElementRecipe::new)
         );
         private static final  StreamCodec<RegistryFriendlyByteBuf, VisionElementRecipe> streamCodec = StreamCodec.composite(
                 CraftingBookCategory.STREAM_CODEC, VisionElementRecipe::category,
                 ItemStack.STREAM_CODEC, VisionElementRecipe::getResult,
                 Ingredient.CONTENTS_STREAM_CODEC,VisionElementRecipe::getIngredient,
+                ByteBufCodecs.BOOL, VisionElementRecipe::isDelusion,
                 VisionElementRecipe::new
         );
 

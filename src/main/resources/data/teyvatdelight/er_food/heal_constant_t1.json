@@ -1,0 +1,15 @@
+{
+  "items": [
+    "teyvatdelight:radish_veggie_soup"
+  ],
+  "food_addition": {
+    "heal_amount": 20,
+    "apply_effects": [
+      {
+        "id": "minecraft:regeneration",
+        "amplifier": 4,
+        "duration": 100
+      }
+    ]
+  }
+}

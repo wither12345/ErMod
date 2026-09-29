@@ -1,5 +1,6 @@
 package net.wither.er.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.mcreator.er.ErMod;
@@ -8,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -18,17 +20,19 @@ import net.minecraft.world.level.Level;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.RecipeSerializerRegister;
 import net.wither.er.item.Vision;
+import net.wither.er.item.data.DelusionData;
 import org.jetbrains.annotations.NotNull;
 
 public class VisionFrameRecipe extends CustomRecipe {
     private final Vision.Frame frame;
     private final TagKey<Item> tag ;
-    private static final TagKey<Item> VISION_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "vision"));
+    private final boolean enableDelusion;
 
-    public VisionFrameRecipe(CraftingBookCategory category, Vision.Frame frame) {
+    public VisionFrameRecipe(CraftingBookCategory category, Vision.Frame frame, boolean enableDelusion) {
         super(category);
         this.frame = frame;
         this.tag = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(ErMod.MODID, frame.getName()));
+        this.enableDelusion = enableDelusion;
     }
 
     public Vision.Frame getFrame() {
@@ -58,6 +62,10 @@ public class VisionFrameRecipe extends CustomRecipe {
         return result;
     }
 
+    public boolean isEnableDelusion(){
+        return this.enableDelusion;
+    }
+
     public boolean matches(CraftingInput craftingInput, @NotNull Level level) {
         int i = 0;
         int j = 0;
@@ -65,7 +73,7 @@ public class VisionFrameRecipe extends CustomRecipe {
         for(int k = 0; k < craftingInput.size(); ++k) {
             ItemStack itemstack = craftingInput.getItem(k);
             if (!itemstack.isEmpty()) {
-                if (itemstack.is(VISION_TAG)) {
+                if (itemstack.is(Vision.TAG) && (this.enableDelusion || !itemstack.has(DataComponentsRegister.DELUSION))) {
                     ++i;
                 } else {
                     if (!itemstack.is(tag)) {
@@ -90,8 +98,12 @@ public class VisionFrameRecipe extends CustomRecipe {
 
         for(int i = 0; i < input.size(); ++i) {
             ItemStack itemStack = input.getItem(i);
-            if (itemStack.is(VISION_TAG)) {
+            if (itemStack.is(Vision.TAG)) {
                 vision = itemStack.copy();
+
+                DelusionData data = itemStack.get(DataComponentsRegister.DELUSION);
+                if(data != null)
+                    vision.set(DataComponentsRegister.DELUSION, data);
                 break;
             }
         }
@@ -113,12 +125,14 @@ public class VisionFrameRecipe extends CustomRecipe {
         private static final MapCodec<VisionFrameRecipe> codec = RecordCodecBuilder.mapCodec(instance ->
                 instance.group(
                         CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(VisionFrameRecipe::category),
-                        Vision.FRAME_CODEC.fieldOf("frame").forGetter(VisionFrameRecipe::getFrame)
+                        Vision.FRAME_CODEC.fieldOf("frame").forGetter(VisionFrameRecipe::getFrame),
+                        Codec.BOOL.optionalFieldOf("enable_delusion", true).forGetter(VisionFrameRecipe::isEnableDelusion)
                 ).apply(instance, VisionFrameRecipe::new)
         );
         private static final  StreamCodec<RegistryFriendlyByteBuf, VisionFrameRecipe> streamCodec = StreamCodec.composite(
                 CraftingBookCategory.STREAM_CODEC, VisionFrameRecipe::category,
                 Vision.FRAME_STREAM_CODEC, VisionFrameRecipe::getFrame,
+                ByteBufCodecs.BOOL, VisionFrameRecipe::isEnableDelusion,
                 VisionFrameRecipe::new
         );
 

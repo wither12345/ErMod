@@ -1,0 +1,6 @@
+{
+  "item": "minecraft:apple",
+  "food_addition": {
+    "heal_amount": 6
+  }
+}

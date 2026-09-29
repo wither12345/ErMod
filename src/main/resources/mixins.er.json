@@ -11,12 +11,15 @@
     "ErPlayerMixin",
     "ExplosionDamageCalculatorMixin",
     "FireworkPocketEntityMixin",
+    "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "LocalPlayerMixin",
     "ProjectileMixin",
     "ProjectileWeaponItemMixin",
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "VillagerMixin",
+    "WanderingTraderMixin"
   ],
   "client": [
     "BakedGlyphMixin",

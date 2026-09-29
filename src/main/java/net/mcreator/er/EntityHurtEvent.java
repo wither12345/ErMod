@@ -22,6 +22,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
@@ -38,7 +39,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
 import net.wither.er.elements.AuraContainerInterface;
@@ -48,9 +48,12 @@ import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
-import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.Vision;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
@@ -75,7 +78,7 @@ public class EntityHurtEvent {
 		DamageSource damagesource = event.getSource();
 		LivingEntity entity = event.getEntity();
 		Entity sourceentity = event.getSource().getEntity();
-		float crit_mult = 1;
+        float amount = event.getAmount();
 		modifyDamageSource(damagesource, entity) ;
         modifyReaction(damagesource);
 
@@ -102,6 +105,16 @@ public class EntityHurtEvent {
 			if(source != null) {
                 auraContainerInterface.er$getAuraContainer().addAura(source, modifier, sourceentity);
                 ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
+                DelusionData data = Vision.getDelusion(sourceentity);
+                if(data != null && sourceentity instanceof LivingEntity living){
+                    modifier.crit_multiply += data.critMulti();
+                    modifier.common_multiply += data.dmgMulti();
+                    float dmg = amount * data.healthConsume();
+                    if(living.getHealth() >= dmg)
+                        living.setHealth(living.getHealth() - dmg);
+                    else
+                        living.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.WITHER)), living.getMaxHealth() * 20);
+                }
             }
             else {
                 if (entity.getAttribute(ErAttributeRegister.PHYSICAL_RES) != null)
@@ -113,14 +126,13 @@ public class EntityHurtEvent {
                 modifierInterface.er$getModifier().common_multiply += (float) living.getAttributeValue(ErModAttributes.ELEMENTAL_SKILL_DMG) - 1f;
 
 			if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE) > Math.random()) {
-				crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE);
+                modifier.crit_multiply += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE);
 				modifier.critical = true;
 			}
 
 			if(entity instanceof DendroSlime slime && slime.onGround() && slime.isHiding() && damagesource.getDirectEntity() != null)
 				modifier.reaction_multiply = 0 ;
-
-			float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
+			float final_amount = modifier.calculate(amount, elemental_mastery);
             
 			if (entity instanceof IErEntity anInterface) {
 				List<ShieldStack> shields = anInterface.er$getShieldStacks();
@@ -355,6 +367,7 @@ public class EntityHurtEvent {
         public boolean critical = false ;
         public float reaction_multiply = 1;
         public float common_multiply = 1;
+        public float crit_multiply = 1;
         public float basic = 1;
         public float res_multiply = 1;
         public float additional_amount = 0;
@@ -362,7 +375,22 @@ public class EntityHurtEvent {
         public RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
-            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply;
+            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply * (critical ? crit_multiply : 1);
+        }
+
+        @Override
+        public String toString() {
+            return "DamageModifier{" +
+                    "locked=" + locked +
+                    ", critical=" + critical +
+                    ", reaction_multiply=" + reaction_multiply +
+                    ", common_multiply=" + common_multiply +
+                    ", basic=" + basic +
+                    ", res_multiply=" + res_multiply +
+                    ", additional_amount=" + additional_amount +
+                    ", multiply=" + multiply +
+                    ", type=" + type +
+                    '}';
         }
     }
 

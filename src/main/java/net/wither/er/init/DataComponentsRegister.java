@@ -8,6 +8,8 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.wither.er.item.Vision;
+import net.wither.er.item.data.DelusionData;
+import net.wither.er.item.data.ErFoodData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
@@ -61,10 +63,21 @@ public class DataComponentsRegister {
                     .persistent(Vision.FRAME_CODEC)
                     .networkSynchronized(Vision.FRAME_STREAM_CODEC)
     );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<DelusionData>> DELUSION = REGISTRAR.registerComponentType(
+            "delusion",
+            builder -> builder
+                    .persistent(DelusionData.CODEC)
+                    .networkSynchronized(DelusionData.STREAM_CODEC)
+    );
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> MORA_BAG = REGISTRAR.registerComponentType(
             "mora_bag",
             builder -> builder
                     .persistent(Codec.INT)
                     .networkSynchronized(ByteBufCodecs.INT)
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<ErFoodData>> ER_FOOD = REGISTRAR.registerComponentType(
+            "food",
+            builder -> builder
+                    .persistent(ErFoodData.CODEC)
     );
 }
