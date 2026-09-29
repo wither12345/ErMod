@@ -13,7 +13,7 @@ import net.wither.er.entity.hypostasiscube.ElectroCubeProjectile;
 import org.jetbrains.annotations.NotNull;
 
 public class ElectroCubeProjectileRenderer extends EntityRenderer<ElectroCubeProjectile> {
-    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "textures/entities/electro_hypostasis_cube.png");
+    private static final ResourceLocation LOCATION = new ResourceLocation(ErMod.MODID, "textures/entities/electro_hypostasis_cube.png");
 
     private final ModelPart model;
     private final RenderType renderType;

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "craft_unowned_delusion",
+  "category": "misc",
+  "pattern": [
+    "qsq",
+    "sgs",
+    "qsq"
+  ],
+  "key": {
+    "s": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "item": "er:unowned_delusion"
+  }
+}

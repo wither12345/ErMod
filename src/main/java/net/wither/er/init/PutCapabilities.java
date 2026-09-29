@@ -21,7 +21,7 @@ import static net.wither.er.network.ErItemVariables.PlayerVariablesProvider;
 @Mod.EventBusSubscriber
 public class PutCapabilities {
     @SubscribeEvent
-    public static void onAttachEbtityCapabilities(AttachCapabilitiesEvent<Entity> event) {
+    public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer)) {
             event.addCapability(new ResourceLocation("er", "item_variables"), new PlayerVariablesProvider());
             event.addCapability(new ResourceLocation("er", "combat_variables"), new ErCombatVariables.PlayerVariablesProvider());

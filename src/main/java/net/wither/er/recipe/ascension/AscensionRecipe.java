@@ -2,10 +2,10 @@ package net.wither.er.recipe.ascension;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class AscensionRecipe {
     private final Single[] singles = new Single[6] ;
@@ -55,7 +55,7 @@ public class AscensionRecipe {
 
         private Input(JsonElement element){
             String itemId = element.getAsJsonObject().get("item").getAsString() ;
-            this.item = BuiltInRegistries.ITEM.get(new ResourceLocation(itemId)) ;
+            this.item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)) ;
             if(element.getAsJsonObject().has("count"))
                 this.count = element.getAsJsonObject().get("count").getAsInt() ;
             else

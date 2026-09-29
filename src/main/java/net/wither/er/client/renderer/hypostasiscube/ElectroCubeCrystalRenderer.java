@@ -14,7 +14,7 @@ import net.wither.er.entity.hypostasiscube.ElectroCubeCrystal;
 import org.jetbrains.annotations.NotNull;
 
 public class ElectroCubeCrystalRenderer extends EntityRenderer<ElectroCubeCrystal> {
-    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "textures/entities/electro_hypostasis_cube.png");
+    private static final ResourceLocation LOCATION = new ResourceLocation(ErMod.MODID, "textures/entities/electro_hypostasis_cube.png");
 
     private final RenderType renderType;
     private final RenderType renderTypeE;

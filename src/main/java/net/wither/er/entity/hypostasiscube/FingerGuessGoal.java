@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class FingerGuessGoal extends Goal {
-    private static final ResourceLocation DMG_LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "hand_guess");
+    private static final ResourceLocation DMG_LOCATION = new ResourceLocation(ErMod.MODID, "hand_guess");
     private final ElectroHypostasisCube cube;
     @Nullable private Entity target ;
     private int timer ;

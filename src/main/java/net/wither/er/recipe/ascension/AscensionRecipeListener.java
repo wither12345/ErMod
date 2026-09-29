@@ -2,12 +2,12 @@ package net.wither.er.recipe.ascension;
 
 import com.google.gson.*;
 import net.mcreator.er.ErMod;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -37,11 +37,11 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
     private static void read(JsonObject object){
         ArrayList<Item> items = new ArrayList<>() ;
         if(object.has("item"))
-            items.add(BuiltInRegistries.ITEM.get(new ResourceLocation(object.get("item").getAsString())));
+            items.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(object.get("item").getAsString())));
         else{
             JsonArray itemsArray = object.getAsJsonArray("items") ;
             for(JsonElement itemElement : itemsArray){
-                items.add(BuiltInRegistries.ITEM.get(new ResourceLocation(itemElement.getAsString())));
+                items.add(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemElement.getAsString())));
             }
         }
         JsonArray ascensionArray = object.getAsJsonArray("ascension");

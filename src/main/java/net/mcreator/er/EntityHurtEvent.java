@@ -21,6 +21,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
@@ -39,12 +40,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
-import net.wither.er.elements.*;
+import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.Element;
+import net.wither.er.elements.ElementSource;
+import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
@@ -75,8 +80,8 @@ public class EntityHurtEvent {
         Entity sourceentity = event.getSource().getEntity();
         LevelAccessor world = entity.level();
         if(world.isClientSide()) return;
+        float amount = event.getAmount();
 
-        float crit_mult = 1;
         modifyDamageSource(damagesource, entity) ;
         modifyReaction(damagesource);
         if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
@@ -97,9 +102,24 @@ public class EntityHurtEvent {
             double elemental_mastery = 0 ;
             if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
                 elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
-            if(elementSourceInterface.er$getSource() != null && elementSourceInterface.er$getSource().getElement() != null) {
-                auraContainerInterface.er$getAuraContainer().addAura(elementSourceInterface.er$getSource(), modifier, sourceentity);
-                ApplyElementMultiply(elementSourceInterface.er$getSource().getElement(), entity, sourceentity, modifier);
+            ElementSource source = elementSourceInterface.er$getSource();
+            if(source != null && source.getElement() != null) {
+                auraContainerInterface.er$getAuraContainer().addAura(source, modifier, sourceentity);
+                ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
+                if(sourceentity instanceof LivingEntity living){
+                    Vision.getOptDelusion(living).ifPresent(
+                            data -> {
+                                modifier.crit_multiply += data.critMulti;
+                                modifier.common_multiply += data.dmgMulti;
+                                float dmg = amount * data.healthConsume;
+                                if(living.getHealth() >= dmg)
+                                    living.setHealth(living.getHealth() - dmg);
+                                else
+                                    living.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.WITHER)), living.getMaxHealth() * 20);
+
+                            }
+                    );
+                }
             }
             else {
                 if (entity.getAttribute(ErAttributeRegister.PHYSICAL_RES.get()) != null)
@@ -111,7 +131,7 @@ public class EntityHurtEvent {
                 modifierInterface.er$getModifier().common_multiply += (float) living.getAttributeValue(ErModAttributes.ELEMENTAL_SKILL_DMG.get()) - 1f;
 
             if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
-                crit_mult += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
+                modifier.crit_multiply += (float) living.getAttributeValue(ErModAttributes.CRIT_DAMAGE.get());
                 modifier.critical = true;
             }
 
@@ -119,7 +139,7 @@ public class EntityHurtEvent {
                 modifier.reaction_multiply = 0 ;
 
 
-            float final_amount = modifier.calculate(event.getAmount(), elemental_mastery) * crit_mult;
+            float final_amount = modifier.calculate(amount, elemental_mastery);
             if (entity instanceof IErEntity anInterface) {
                 List<ShieldStack> shields = anInterface.er$getShieldStacks();
                 float shield_absorb = 0f;
@@ -355,6 +375,7 @@ public class EntityHurtEvent {
         public boolean critical = false ;
         public float reaction_multiply = 1;
         public float common_multiply = 1;
+        public float crit_multiply = 1;
         public float basic = 1;
         public float res_multiply = 1;
         public float additional_amount = 0;
@@ -362,7 +383,23 @@ public class EntityHurtEvent {
         private RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
-            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply;
+            return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply * (critical ? crit_multiply : 1);
+        }
+
+        @Override
+        public String toString() {
+            return "DamageModifier{" +
+                    "locked=" + locked +
+                    ", critical=" + critical +
+                    ", reaction_multiply=" + reaction_multiply +
+                    ", common_multiply=" + common_multiply +
+                    ", crit_multiply=" + crit_multiply +
+                    ", basic=" + basic +
+                    ", res_multiply=" + res_multiply +
+                    ", additional_amount=" + additional_amount +
+                    ", multiply=" + multiply +
+                    ", type=" + type +
+                    '}';
         }
     }
 

@@ -19,18 +19,20 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.wither.er.init.RecipeSerializerRegister;
 import net.wither.er.item.Vision;
+import net.wither.er.item.data.DelusionData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class VisionFrameRecipe extends CustomRecipe {
     private final Vision.Frame frame;
     private final TagKey<Item> tag ;
-    private static final TagKey<Item> VISION_TAG = TagKey.create(Registries.ITEM, new ResourceLocation(ErMod.MODID, "vision"));
+    private final boolean enableDelusion;
 
-    public VisionFrameRecipe(ResourceLocation location, Vision.Frame frame) {
+    public VisionFrameRecipe(ResourceLocation location, Vision.Frame frame, boolean enableDelusion) {
         super(location, CraftingBookCategory.MISC);
         this.frame = frame;
         this.tag = TagKey.create(Registries.ITEM, new ResourceLocation(ErMod.MODID, frame.name().toLowerCase()));
+        this.enableDelusion = enableDelusion;
     }
 
     public Vision.Frame getFrame() {
@@ -67,7 +69,7 @@ public class VisionFrameRecipe extends CustomRecipe {
         for(int k = 0; k < container.getContainerSize(); ++k) {
             ItemStack itemstack = container.getItem(k);
             if (!itemstack.isEmpty()) {
-                if (itemstack.is(VISION_TAG)) {
+                if (itemstack.is(Vision.VISION_TAG) && (this.enableDelusion || !Vision.isDelusion(itemstack))) {
                     ++i;
                 } else {
                     if (!itemstack.is(tag)) {
@@ -88,17 +90,25 @@ public class VisionFrameRecipe extends CustomRecipe {
 
     @Override
     public @NotNull ItemStack assemble(CraftingContainer container, @NotNull RegistryAccess access) {
-        ItemStack vision = ItemStack.EMPTY;
 
         for(int i = 0; i < container.getContainerSize(); ++i) {
             ItemStack itemStack = container.getItem(i);
-            if (itemStack.is(VISION_TAG)) {
-                vision = itemStack.copy();
-                break;
+            if (itemStack.is(Vision.VISION_TAG)) {
+                ItemStack vision = itemStack.copy();
+
+                vision.getCapability(DelusionData.DELUSION).ifPresent(dataNew ->
+                        itemStack.getCapability(DelusionData.DELUSION).ifPresent(
+                                data -> {
+                                    dataNew.dmgMulti = data.dmgMulti;
+                                    dataNew.critMulti = data.critMulti;
+                                    dataNew.healthConsume = data.healthConsume;
+                                })
+                );
+                vision.getOrCreateTag().putInt("frame", frame.ordinal());
+                return vision;
             }
         }
-        vision.getOrCreateTag().putInt("frame", frame.ordinal());
-        return vision;
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -114,17 +124,19 @@ public class VisionFrameRecipe extends CustomRecipe {
     public static class Serializer implements RecipeSerializer<VisionFrameRecipe> {
         @Override
         public @NotNull VisionFrameRecipe fromJson(@NotNull ResourceLocation resourceLocation, @NotNull JsonObject jsonObject) {
-            return new VisionFrameRecipe(resourceLocation, Vision.Frame.fromString(jsonObject.get("frame").getAsString()));
+            boolean delusion = !jsonObject.has("enable_delusion") || jsonObject.get("enable_delusion").getAsBoolean();
+            return new VisionFrameRecipe(resourceLocation, Vision.Frame.fromString(jsonObject.get("frame").getAsString()), delusion);
         }
 
         @Override
         public @Nullable VisionFrameRecipe fromNetwork(@NotNull ResourceLocation resourceLocation, @NotNull FriendlyByteBuf friendlyByteBuf) {
-            return new VisionFrameRecipe(resourceLocation, Vision.Frame.fromId(friendlyByteBuf.readInt()));
+            return new VisionFrameRecipe(resourceLocation, Vision.Frame.fromId(friendlyByteBuf.readInt()), friendlyByteBuf.readBoolean());
         }
 
         @Override
         public void toNetwork(@NotNull FriendlyByteBuf friendlyByteBuf, @NotNull VisionFrameRecipe visionFrameRecipe) {
             friendlyByteBuf.writeInt(visionFrameRecipe.frame.ordinal());
+            friendlyByteBuf.writeBoolean(visionFrameRecipe.enableDelusion);
         }
     }
 }

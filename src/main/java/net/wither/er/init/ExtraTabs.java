@@ -31,6 +31,9 @@ public class ExtraTabs {
                 addVisions(tabData, 1);
                 addVisions(tabData, 3);
                 addVisions(tabData, 2);
+                addDelusions(tabData, 0);
+                addDelusions(tabData, 1);
+                addDelusions(tabData, 3);
             }).build());
 
     public static final RegistryObject<CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
@@ -216,6 +219,17 @@ public class ExtraTabs {
         addVision(tabData, DENDRO_VISION, frame);
         addVision(tabData, CRYO_VISION, frame);
         addVision(tabData, GEO_VISION, frame);
+    }
+
+    private static void addDelusions(CreativeModeTab.Output tabData, int frame){
+        addVision(tabData, UNOWNED_DELUSION, frame);
+        addVision(tabData, PYRO_DELUSION, frame);
+        addVision(tabData, HYDRO_DELUSION, frame);
+        addVision(tabData, ANEMO_DELUSION, frame);
+        addVision(tabData, ELECTRO_DELUSION, frame);
+        addVision(tabData, DENDRO_DELUSION, frame);
+        addVision(tabData, CRYO_DELUSION, frame);
+        addVision(tabData, GEO_DELUSION, frame);
     }
 
     private static void addVision(CreativeModeTab.Output tabData, RegistryObject<Item> item, int frame){

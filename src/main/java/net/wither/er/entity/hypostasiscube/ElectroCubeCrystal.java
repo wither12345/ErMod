@@ -9,7 +9,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.ElementalLivingEntity;
+import net.wither.er.entity.ElementalLivingEntity;
 import net.wither.er.client.renderer.hypostasiscube.HypostasisCubeState;
 import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;

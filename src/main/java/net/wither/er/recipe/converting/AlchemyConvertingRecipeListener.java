@@ -20,6 +20,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -50,7 +51,7 @@ public class AlchemyConvertingRecipeListener extends SimpleJsonResourceReloadLis
     }
 
     private static void read(ResourceLocation location, JsonObject object, RegistryAccess access){
-        Item mainMaterial = BuiltInRegistries.ITEM.get(new ResourceLocation(object.get("item").getAsString()));
+        Item mainMaterial = ForgeRegistries.ITEMS.getValue(new ResourceLocation(object.get("item").getAsString()));
         int count = object.get("count").getAsInt();
         JsonArray itemsArray = object.getAsJsonArray("convertibles") ;
         Set<Item> items = new HashSet<>(itemsArray.size()) ;
@@ -69,7 +70,7 @@ public class AlchemyConvertingRecipeListener extends SimpleJsonResourceReloadLis
             else {
                 String s = itemElement.getAsString();
                 if (s.charAt(0) != '#') {
-                    Item itemGet = BuiltInRegistries.ITEM.get(new ResourceLocation(s));
+                    Item itemGet = ForgeRegistries.ITEMS.getValue(new ResourceLocation(s));
                     if (itemGet != Items.AIR) {
                         putItem(items, results, itemGet);
                     }

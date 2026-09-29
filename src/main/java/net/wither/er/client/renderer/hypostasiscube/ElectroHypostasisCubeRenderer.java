@@ -7,7 +7,7 @@ import net.wither.er.entity.hypostasiscube.ElectroHypostasisCube;
 import org.jetbrains.annotations.NotNull;
 
 public class ElectroHypostasisCubeRenderer extends AbstractHypostasisCubeRenderer<ElectroHypostasisCube> {
-    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "textures/entities/electro_hypostasis_cube.png");
+    private static final ResourceLocation LOCATION = new ResourceLocation(ErMod.MODID, "textures/entities/electro_hypostasis_cube.png");
 
     public ElectroHypostasisCubeRenderer(EntityRendererProvider.Context context) {
         super(context);

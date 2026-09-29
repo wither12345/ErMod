@@ -1,0 +1,27 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "er:item/mondstadt_delusion",
+    "layer1": "er:item/dendro_delusion_up"
+  },
+  "overrides": [
+    {
+    "predicate": {
+      "er:vision_frame": 1
+    },
+    "model": "er:item/dendro_liyue_delusion"
+    },
+    {
+      "predicate": {
+        "er:vision_frame": 2
+      },
+      "model": "er:item/dendro_moon_wheel"
+    },
+    {
+      "predicate": {
+        "er:vision_frame": 3
+      },
+      "model": "er:item/dendro_sumeru_delusion"
+    }
+  ]
+}

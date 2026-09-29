@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "er:unowned_vision",
     "er:pyro_vision",
     "er:electro_vision",
     "er:dendro_vision",
@@ -8,6 +9,14 @@
     "er:anemo_vision",
     "er:hydro_vision",
     "er:cryo_vision",
-    "er:unowned_vision"
+    "er:unowned_delusion",
+    "er:pyro_delusion",
+    "er:electro_delusion",
+    "er:dendro_delusion",
+    "er:geo_delusion",
+    "er:anemo_delusion",
+    "er:hydro_delusion",
+    "er:cryo_delusion",
+    "er:unowned_delusion"
   ]
 }

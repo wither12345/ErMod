@@ -22,7 +22,6 @@ public record WeaponAttributeData(Attribute attribute, double baseAmount, boolea
 
     public static class CapabilityProvider implements ICapabilityProvider {
         public CapabilityProvider(WeaponAttributeData data){
-            this.data = data;
             instance = LazyOptional.of(() -> data);
         }
 
@@ -30,7 +29,6 @@ public record WeaponAttributeData(Attribute attribute, double baseAmount, boolea
             this(new WeaponAttributeData(attribute, baseAmount, type));
         }
 
-        private final WeaponAttributeData data ;
         private final LazyOptional<WeaponAttributeData> instance  ;
 
         @Override

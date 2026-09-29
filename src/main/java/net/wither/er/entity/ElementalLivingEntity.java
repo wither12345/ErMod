@@ -1,4 +1,4 @@
-package net.wither.er;
+package net.wither.er.entity;
 
 import net.mcreator.er.ErMod;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public abstract class ElementalLivingEntity extends LivingEntity {
     private final Element element;
-    private static final ResourceLocation ELEMENTAL_LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "init");
+    private static final ResourceLocation ELEMENTAL_LOCATION = new ResourceLocation(ErMod.MODID, "init");
 
     protected ElementalLivingEntity(EntityType<? extends LivingEntity> entityType, Level level, Element element) {
         super(entityType, level);

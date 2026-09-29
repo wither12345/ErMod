@@ -158,7 +158,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
         ItemStack output = ItemStack.EMPTY ;
         WeaponLevelData data = DataComponentsRegister.WEAPON_LEVEL.getData(item_0);
         int refine = 0;
-        if (data != null && !item_0.is(not_enhanceable)) {
+        if (data != null && !item_0.is(NOT_ENHANCEABLE)) {
             int level = data.level();
             int experience = data.experience();
             int total_experience = data.total_experience();

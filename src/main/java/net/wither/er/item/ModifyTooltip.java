@@ -31,7 +31,7 @@ public class ModifyTooltip {
             addArtifactEffectId(artifactData.addTooltip(event.getToolTip()) , list, artifactData.effect().get());
 
 
-        if(weaponLevelData != null && !item.is(WeaponLevelData.not_enhanceable)){
+        if(weaponLevelData != null && !item.is(WeaponLevelData.NOT_ENHANCEABLE)){
             list.add(1, Component.literal("Lv." + weaponLevelData.level() + "/" + WeaponLevelData.getMaxLevel(weaponLevelData.ascension()) + " " + getAscension(weaponLevelData.ascension(), WeaponLevelData.getItemWeaponStar(item))));
             if(weaponLevelData.level() < WeaponLevelData.getMaxLevel(weaponLevelData.ascension()))
                 list.add(2, Component.literal(

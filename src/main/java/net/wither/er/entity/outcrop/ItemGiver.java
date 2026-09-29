@@ -1,13 +1,13 @@
 package net.wither.er.entity.outcrop;
 
 import com.google.gson.JsonElement;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemGiver extends EntityModifier{
     private final EquipmentSlot slot ;
@@ -20,7 +20,7 @@ public class ItemGiver extends EntityModifier{
 
     public static ItemGiver read(JsonElement element, EquipmentSlot slot) {
         String item_name = element.getAsJsonObject().get("item").getAsString() ;
-        return new ItemGiver(slot, BuiltInRegistries.ITEM.get(new ResourceLocation(item_name)));
+        return new ItemGiver(slot, ForgeRegistries.ITEMS.getValue(new ResourceLocation(item_name)));
     }
 
     @Override

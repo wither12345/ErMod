@@ -1,0 +1,11 @@
+{
+  "type": "er:vision_element_recipe",
+  "category": "misc",
+  "ingredient": {
+    "item": "er:condensed_anemo"
+  },
+  "result": {
+    "item": "er:anemo_vision",
+    "count": 1
+  }
+}

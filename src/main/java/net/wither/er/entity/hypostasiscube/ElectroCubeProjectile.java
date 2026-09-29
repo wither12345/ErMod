@@ -22,6 +22,7 @@ import net.wither.er.init.ElementRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class ElectroCubeProjectile extends AbstractHurtingProjectile {
+    private Vec3 speedVec ;
     public ElectroCubeProjectile(EntityType<? extends AbstractHurtingProjectile> entityType, Level level) {
         super(entityType, level);
     }
@@ -30,8 +31,8 @@ public class ElectroCubeProjectile extends AbstractHurtingProjectile {
         this(ErModEntities.ELECTRO_CUBE_PROJECTILE.get(), owner.level());
         this.setOwner(owner);
         this.moveTo(pos);
-        Vec3 shootVec = target.position().subtract(pos).normalize().scale(0.6);
-        this.setDeltaMovement(shootVec);
+        this.speedVec = target.position().subtract(pos).normalize().scale(0.6);
+        this.setDeltaMovement(this.speedVec);
     }
 
     protected void onHit(@NotNull HitResult hitResult) {
@@ -53,7 +54,7 @@ public class ElectroCubeProjectile extends AbstractHurtingProjectile {
                                     ElementSource.createDamageSource(
                                             level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MOB_ATTACK),
                                             owner,
-                                            new ElementSource(ElementRegistry.ELECTRO.get(), ResourceLocation.parse("er:cube.projectile"), 2, true)
+                                            new ElementSource(ElementRegistry.ELECTRO.get(), new ResourceLocation("er:cube.projectile"), 2, true)
                                     ), (float) dmg * 0.25f)
                     );
 
@@ -70,6 +71,13 @@ public class ElectroCubeProjectile extends AbstractHurtingProjectile {
                     }
             this.discard();
         }
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(this.speedVec != null)
+            this.setDeltaMovement(this.speedVec);
     }
 
     @Override

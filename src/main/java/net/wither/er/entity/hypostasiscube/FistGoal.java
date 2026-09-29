@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class FistGoal extends Goal {
-    private static final ResourceLocation DMG_LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "electro_fist");
+    private static final ResourceLocation DMG_LOCATION = new ResourceLocation(ErMod.MODID, "electro_fist");
     private final ElectroHypostasisCube cube;
     @Nullable private Entity target ;
     private int timer ;

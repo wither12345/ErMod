@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 
 public class ClampGoal extends Goal {
-    private static final ResourceLocation DMG_LOCATION = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "electro_clamp");
+    private static final ResourceLocation DMG_LOCATION = new ResourceLocation(ErMod.MODID, "electro_clamp");
     private final ElectroHypostasisCube cube;
     @Nullable private Entity target ;
     private int timer ;

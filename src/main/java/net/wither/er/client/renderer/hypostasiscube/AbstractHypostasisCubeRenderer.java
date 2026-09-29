@@ -19,7 +19,7 @@ import net.wither.er.entity.hypostasiscube.HypostasisCube;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractHypostasisCubeRenderer<T extends HypostasisCube> extends EntityRenderer<T> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "hypostasis_cube"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ErMod.MODID, "hypostasis_cube"), "main");
 
     private final ModelPart model;
     private final RenderType renderTypeE;

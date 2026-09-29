@@ -5,13 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.mcreator.er.ErMod;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class MoraValueListener extends SimpleJsonResourceReloadListener {
     private static void read(JsonElement element){
         JsonObject object = element.getAsJsonObject();
         ResourceLocation location = new ResourceLocation(object.get("item").getAsString());
-        Item item = BuiltInRegistries.ITEM.get(location);
+        Item item = ForgeRegistries.ITEMS.getValue(location);
         if(item != Items.AIR){
             int val = object.get("value").getAsInt();
             moraVals.add(new MoraBagItemPlus.MoraVal(item, val));

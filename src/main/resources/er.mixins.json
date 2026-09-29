@@ -11,11 +11,14 @@
     "DamageSourceMixin",
     "ErPlayerMixin",
     "FireworkPocketEntityMixin",
+    "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "ProjectileMixin",
     "RangedAttributeAccessor",
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "VillagerMixin",
+    "WanderingTraderMixin"
   ],
   "client": [
     "BakedGlyphMixin",

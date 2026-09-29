@@ -21,7 +21,7 @@ import java.util.Objects;
 public final class WeaponLevelData {
     public static final Capability<WeaponLevelData> WEAPON_LEVEL = CapabilityManager.get(new CapabilityToken<>() {
     });
-    public static final TagKey<Item> not_enhanceable = ItemTags.create(new ResourceLocation("er:not_enhanceable"));
+    public static final TagKey<Item> NOT_ENHANCEABLE = ItemTags.create(new ResourceLocation("er:not_enhanceable"));
 
     private int level;
     private int ascension;
@@ -162,7 +162,6 @@ public final class WeaponLevelData {
                 "experience=" + experience + ", " +
                 "total_experience=" + total_experience + ']';
     }
-
 
     public static class CapabilityProvider implements ICapabilitySerializable<CompoundTag> {
         private final WeaponLevelData data = new WeaponLevelData(1, 0, 0, 0);

@@ -1,0 +1,12 @@
+{
+  "type": "er:vision_element_recipe",
+  "category": "misc",
+  "delusion": true,
+  "result": {
+    "item": "er:pyro_delusion",
+    "count": 1
+  },
+  "ingredient": {
+    "item": "er:condensed_pyro"
+  }
+}
