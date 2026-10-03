@@ -4,6 +4,7 @@ import net.mcreator.er.ErMod;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.effect.MobEffect;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.wither.er.effect.*;
 
@@ -15,4 +16,11 @@ public class EffectRegister {
     public static final Holder<MobEffect> INSTRUCTOR_BLESS = REGISTRY.register("instructor_bless", InstructorBless::new);
     public static final Holder<MobEffect> TINY_MIRACLE = REGISTRY.register("tiny_miracle", TinyMiracleEffect::new);
     public static final Holder<MobEffect> LUNAR_BLESS = REGISTRY.register("lunar_bless", LunarBless::new);
+    public static final Holder<MobEffect> APPETIZER = REGISTRY.register("appetizer", Appetizer::new);
+
+    static {
+        if(ModList.get().isLoaded("teyvatdelight")){
+            REGISTRY.register("adeptus_temptation", AdeptusTemptation::new);
+        }
+    }
 }

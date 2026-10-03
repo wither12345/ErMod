@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.entity.AnimationStater;
+import net.wither.er.init.EffectRegister;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErSyncGameRule;
@@ -19,6 +20,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class ErPlayerMixin extends LivingEntity implements AnimationStater, ErPlayerInterface {
@@ -49,8 +51,12 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		this.er$animationState0.animateWhen(false, this.tickCount);
 	}
 
+    @Inject(method = "canEat", at = @At("RETURN"), cancellable = true)
+    public void canEatInject(boolean b, CallbackInfoReturnable<Boolean> cir){
+        cir.setReturnValue(cir.getReturnValue() || this.hasEffect(EffectRegister.APPETIZER));
+    }
+
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;moveCloak()V"))
-	//@Inject(method = "tick", at = @At("HEAD"))
 	public void onTick(CallbackInfo info) {
 		ItemStack stack = this.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna;
 		ErCombatVariables.PlayerVariables vars = this.getData(ErCombatVariables.PLAYER_VARIABLES);

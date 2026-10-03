@@ -16,6 +16,7 @@ import net.wither.er.item.data.artifactdata.MinorAffix;
 import net.wither.er.item.data.weapon.WeaponAttributeData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponRefinement;
+import net.wither.er.item.data.NREData;
 
 
 public class DataComponentsRegister {
@@ -79,5 +80,11 @@ public class DataComponentsRegister {
             "food",
             builder -> builder
                     .persistent(ErFoodData.CODEC)
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<NREData>> NRE = REGISTRAR.registerComponentType(
+            "nre",
+            builder -> builder
+                    .persistent(NREData.CODEC)
+                    .networkSynchronized(NREData.STREAM_CODEC)
     );
 }

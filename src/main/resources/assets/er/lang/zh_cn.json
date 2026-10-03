@@ -534,5 +534,8 @@
   "block.er.boss_spawner": "Boss生成器",
   "effect.er.tiny_miracle": "奇迹庇护",
   "item.er.seal_of_life": "生之印",
-  "item.er.lantern_of_life": "生之灯"
+  "item.er.lantern_of_life": "生之灯",
+  "effect.er.appetizer": "开胃",
+  "effect.er.adeptus_temptation": "仙跳墙",
+  "lore.er.food.heal": "回复生命: "
 }

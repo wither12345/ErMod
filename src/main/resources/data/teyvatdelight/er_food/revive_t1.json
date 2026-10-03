@@ -1,0 +1,23 @@
+{
+  "items": [
+    "teyvatdelight:mora_meat",
+    "teyvatdelight:mondstadt_grilled_fish",
+    "teyvatdelight:grilled_steak",
+    "teyvatdelight:teyvat_fried_egg",
+    "teyvatdelight:stir_fried_filet",
+    "teyvatdelight:bird_egg_yaki",
+    "teyvatdelight:sweet_shrimp_sushi",
+    "teyvatdelight:mint_bean_soup",
+    "teyvatdelight:jade_pattern_tea_egg"
+  ],
+  "food_addition": {
+    "heal_amount": 2,
+    "apply_effects": [
+      {
+        "id": "er:appetizer",
+        "amplifier": 1,
+        "duration": 400
+      }
+    ]
+  }
+}

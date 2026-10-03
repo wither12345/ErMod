@@ -5120,7 +5120,8 @@
       "block.er.boss_spawner": "Boss Spawner",
       "effect.er.tiny_miracle": "Tiny Miracle RES",
       "item.er.seal_of_life": "Seal of Life",
-      "item.er.lantern_of_life": "Lantern of Life"
+      "item.er.lantern_of_life": "Lantern of Life",
+      "lore.er.food.heal": "Heal: "
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -5658,7 +5659,8 @@
       "block.er.boss_spawner": "Boss生成器",
       "effect.er.tiny_miracle": "奇迹庇护",
       "item.er.seal_of_life": "生之印",
-      "item.er.lantern_of_life": "生之灯"
+      "item.er.lantern_of_life": "生之灯",
+      "lore.er.food.heal": "回复生命: "
     }
   },
   "metadata": {

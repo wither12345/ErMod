@@ -15,7 +15,7 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.block.entity.LinkMechanismBaseEntity;
 import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
-import net.wither.er.item.morabag.MoraBagItemPlus;
+import net.wither.er.item.morabag.MoraBagItem;
 import net.wither.er.network.LineMechanismMessage;
 import net.wither.er.network.MoraSelectData;
 
@@ -25,7 +25,7 @@ import java.util.List;
 public class OnEventsClient {
     @SubscribeEvent
     public static void onMouseScroll(ScreenEvent.MouseScrolled.Pre event){
-        List<MoraBagItemPlus.MoraVal> moraVals = MoraBagItemPlus.getVals();
+        List<MoraBagItem.MoraVal> moraVals = MoraBagItem.getVals();
         Screen screen = Minecraft.getInstance().screen;
         if (screen instanceof AbstractContainerScreen<?> containerScreen) {
             ErPlayerInterface playerInterface = (ErPlayerInterface)Minecraft.getInstance().player;

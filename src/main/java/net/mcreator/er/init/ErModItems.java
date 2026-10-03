@@ -3,9 +3,10 @@
 */
 package net.mcreator.er.init;
 
+import net.wither.er.item.NREItem;
 import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
-import net.wither.er.item.morabag.MoraBagItemPlus;
+import net.wither.er.item.morabag.MoraBagItem;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponAttributeData;
@@ -312,7 +313,7 @@ public class ErModItems {
 	public static final ElementalArmorItem.Group DENDRO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ArmorMaterialsRegister.DENDRO, Element.Category.DENDRO);
 	public static final ElementalArmorItem.Group GEO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ArmorMaterialsRegister.GEO, Element.Category.GEO);
 	public static final DeferredItem<Item> CRYO_FLOWER_SPAWN_EGG = REGISTRY.register("cryo_flower_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.CRYO_WHOPPERFLOWER, 0x00ccff, 0xccffff, new Item.Properties()));
-	public static final DeferredItem<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
+	public static final DeferredItem<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItem::new);
 	public static final DeferredItem<Item> SCHOLARS_BOOKMARK = REGISTRY.register("scholars_bookmark", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.SCHOLAR));
 	public static final DeferredItem<Item> SCHOLARS_QUILL_PEN = REGISTRY.register("scholars_quill_pen", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.SCHOLAR));
 	public static final DeferredItem<Item> SCHOLARS_CLOCK = REGISTRY.register("scholars_clock", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.SCHOLAR));
@@ -356,6 +357,7 @@ public class ErModItems {
 	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
 	public static final DeferredItem<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
+    public static final DeferredItem<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

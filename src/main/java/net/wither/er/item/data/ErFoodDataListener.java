@@ -19,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.wither.er.init.DataComponentsRegister;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -95,6 +96,8 @@ public class ErFoodDataListener extends SimpleJsonResourceReloadListener {
 
     @Nullable
     public static ErFoodData getData(ItemStack item){
+        ErFoodData data = item.get(DataComponentsRegister.ER_FOOD);
+        if(data != null) return data;
         if(FOOD_MAP.containsKey(item.getItem()))
             return FOOD_MAP.get(item.getItem()).getFoodData(item);
         return null;

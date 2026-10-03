@@ -109,6 +109,9 @@ public class ExtraTabs {
 			tabData.accept(WANDERERS_ADVICE);
 			tabData.accept(ADVENTURES_EXPERIENCE);
 			tabData.accept(HEROS_WIT);
+            tabData.accept(SEAL_OF_LIFE);
+            tabData.accept(LANTERN_OF_LIFE);
+            tabData.accept(NRE);
 			tabData.accept(FROG);
 			tabData.accept(LIZARD_TAIL);
 			tabData.accept(DUST_OF_AZOTH);

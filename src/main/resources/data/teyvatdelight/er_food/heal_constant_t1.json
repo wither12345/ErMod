@@ -1,9 +1,15 @@
 {
   "items": [
-    "teyvatdelight:radish_veggie_soup"
+    "teyvatdelight:radish_veggie_soup",
+    "teyvatdelight:miso_soup",
+    "teyvatdelight:soba_noodles",
+    "teyvatdelight:almond_trout",
+    "teyvatdelight:honey_char_siu",
+    "teyvatdelight:chenyu_tea_brew",
+    "teyvatdelight:grainfruit_cup"
   ],
   "food_addition": {
-    "heal_amount": 20,
+    "heal_percent": 0.09,
     "apply_effects": [
       {
         "id": "minecraft:regeneration",

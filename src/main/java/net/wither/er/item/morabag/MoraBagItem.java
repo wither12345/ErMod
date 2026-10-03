@@ -30,10 +30,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 
-public class MoraBagItemPlus extends Item {
+public class MoraBagItem extends Item {
     private static List<MoraVal> moraVals;
 
-    public MoraBagItemPlus() {
+    public MoraBagItem() {
 		super(new Properties().stacksTo(1).component(DataComponentsRegister.MORA_BAG.get(), 1));
 	}
 
@@ -58,7 +58,7 @@ public class MoraBagItemPlus extends Item {
 
     @Override
 	public boolean overrideStackedOnOther(ItemStack bag, @NotNull Slot slot, @NotNull ClickAction action, @NotNull Player player) {
-		if (bag.getCount() != 1 || action != ClickAction.SECONDARY)
+		if (bag.getCount() != 1 || action != ClickAction.PRIMARY)
 			return false;
         tryReadFromOld(bag);
         ItemStack itemStack = slot.getItem();
@@ -87,11 +87,9 @@ public class MoraBagItemPlus extends Item {
 
 	@Override
 	public boolean overrideOtherStackedOnMe(@NotNull ItemStack bag, @NotNull ItemStack input_item, @NotNull Slot slot, @NotNull ClickAction action, @NotNull Player player, @NotNull SlotAccess access) {
-		if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
+		if (action == ClickAction.PRIMARY && slot.allowModification(player)) {
             tryReadFromOld(bag);
             if (input_item.isEmpty()) {
-                //int consume = Math.min(mora_count, 64);
-                //bag.update(DataComponentsRegister.MORA_BAG.get(), 0, c -> c - consume);
                 ItemStack itemStack = getItemFromBag(bag, ((ErPlayerInterface)player).er$getMoraIndex());
 				this.playRemoveOneSound(player);
 				access.set(itemStack);

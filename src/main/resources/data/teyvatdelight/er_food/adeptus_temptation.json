@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:xian_tiao_qiang"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:adeptus_temptation",
+        "amplifier": 1,
+        "duration": 6000
+      }
+    ]
+  }
+}

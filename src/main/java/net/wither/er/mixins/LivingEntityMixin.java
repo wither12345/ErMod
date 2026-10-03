@@ -1,5 +1,7 @@
 package net.wither.er.mixins;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
@@ -34,6 +36,7 @@ import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.item.data.artifactdata.ArtifactData;
+import net.wither.er.item.data.NREData;
 import net.wither.er.network.ErShieldData;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldStack;
@@ -93,6 +96,16 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
 	public AuraContainer er$getAuraContainer() {
 		return er$auraContainer;
 	}
+
+    @WrapOperation(method = "triggerItemUseEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;spawnItemParticles(Lnet/minecraft/world/item/ItemStack;I)V"))
+    public void wrapParticle(LivingEntity instance, ItemStack itemStack, int i, Operation<Void> original){
+        NREData data = itemStack.get(DataComponentsRegister.NRE);
+        if(data != null && !data.items().isEmpty()){
+            original.call(instance, data.items().getFirst(), i);
+            return;
+        }
+        original.call(instance, itemStack, i);
+    }
 
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void addAdditionalSaveData(CompoundTag compound, CallbackInfo info) {

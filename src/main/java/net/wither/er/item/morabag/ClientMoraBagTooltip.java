@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ClientMoraBagTooltip implements ClientTooltipComponent {
     private static final ResourceLocation BACKGROUND_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/background");
-    private final List<MoraBagItemPlus.MoraVal> moraVals;
+    private final List<MoraBagItem.MoraVal> moraVals;
     public ClientMoraBagTooltip(MoraBagComponent component){
         this.moraVals = component.getVals();
     }

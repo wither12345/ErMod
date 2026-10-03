@@ -534,5 +534,8 @@
   "block.er.boss_spawner": "Boss Spawner",
   "effect.er.tiny_miracle": "Tiny Miracle RES",
   "item.er.seal_of_life": "Seal of Life",
-  "item.er.lantern_of_life": "Lantern of Life"
+  "item.er.lantern_of_life": "Lantern of Life",
+  "effect.er.appetizer": "Appetizer",
+  "effect.er.adeptus_temptation": "Adeptus\u0027 Temptation",
+  "lore.er.food.heal": "Heal: "
 }

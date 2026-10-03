@@ -8,9 +8,11 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.ErFoodData;
+import net.wither.er.item.data.ErFoodDataListener;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponRefinement;
@@ -43,7 +45,11 @@ public class ModifyTooltip {
             WeaponRefinement refinement = item.get(DataComponentsRegister.WEAPON_REFINEMENT);
             if(refinement != null)
                 list.add(1, Component.translatable("lore.er.refinement").append(" " + refinement.refineLevel()));
+        }
 
+        ErFoodData data = ErFoodDataListener.getData(item);
+        if(data != null){
+            data.addTooltip(list);
         }
     }
 
