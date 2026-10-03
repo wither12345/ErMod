@@ -3517,48 +3517,6 @@
       }
     },
     {
-      "name": "VacuumFieldsDisplacing",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "vacuum_fields_displacing",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "range",
-            "type": "number"
-          },
-          {
-            "name": "strength",
-            "type": "number"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ],
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/VacuumFieldsDisplacingProcedure.java"
-        ]
-      }
-    },
-    {
       "name": "TravelerTornadoAnemo",
       "type": "procedure",
       "compiles": true,
@@ -5037,7 +4995,10 @@
       "item.er.lightning_prism": "Lightning Prism",
       "item.er.lightning_prism_upgrade": "Lightning Prism Upgrade",
       "entity.er.electro_hypostasis_cube": "Electro Hypostasis Cube",
-      "block.er.boss_spawner": "Boss Spawner"
+      "block.er.boss_spawner": "Boss Spawner",
+      "effect.er.tiny_miracle": "Tiny Miracle RES",
+      "effect.er.appetizer": "Appetizer",
+      "lore.er.food.heal": "Heal: "
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5564,7 +5525,10 @@
       "item.er.lightning_prism": "雷光棱镜",
       "item.er.lightning_prism_upgrade": "雷光棱镜升级",
       "entity.er.electro_hypostasis_cube": "无相之雷",
-      "block.er.boss_spawner": "Boss生成器"
+      "block.er.boss_spawner": "Boss生成器",
+      "effect.er.tiny_miracle": "奇迹庇护",
+      "effect.er.appetizer": "开胃",
+      "lore.er.food.heal": "回复生命: "
     }
   },
   "metadata": {
@@ -5610,7 +5574,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.1.11",
+    "version": "1.2.0",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

@@ -1,0 +1,17 @@
+{
+  "items": [
+    "teyvatdelight:warmth",
+    "teyvatdelight:leisure_tea",
+    "teyvatdelight:large_bowl_of_tea"
+  ],
+  "food_addition": {
+    "heal_percent": 0.14,
+    "apply_effects": [
+      {
+        "id": "minecraft:regeneration",
+        "amplifier": 4,
+        "duration": 100
+      }
+    ]
+  }
+}

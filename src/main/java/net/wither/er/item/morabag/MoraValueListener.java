@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class MoraValueListener extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = (new GsonBuilder()).create();
-    public static List<MoraBagItemPlus.MoraVal> moraVals = new ArrayList<>();
+    public static List<MoraBagItem.MoraVal> moraVals = new ArrayList<>();
 
     public MoraValueListener() {
         super(GSON, "mora_value");
@@ -45,7 +45,7 @@ public class MoraValueListener extends SimpleJsonResourceReloadListener {
         Item item = ForgeRegistries.ITEMS.getValue(location);
         if(item != Items.AIR){
             int val = object.get("value").getAsInt();
-            moraVals.add(new MoraBagItemPlus.MoraVal(item, val));
+            moraVals.add(new MoraBagItem.MoraVal(item, val));
         }
         else ErMod.LOGGER.info("Skip for not find item: {}", location);
     }

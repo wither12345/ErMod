@@ -44,6 +44,10 @@ public class ErFoodDataListener extends SimpleJsonResourceReloadListener {
 
     @SubscribeEvent
     public static void onEvent(ServerStartedEvent event){
+        processMap();
+    }
+
+    private static void processMap(){
         cathedMap.forEach((location, element) ->{
             FoodDataProvider provider;
             JsonObject object = element.getAsJsonObject();

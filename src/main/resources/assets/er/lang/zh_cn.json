@@ -524,5 +524,7 @@
   "item.er.lightning_prism_upgrade": "雷光棱镜升级",
   "entity.er.electro_hypostasis_cube": "无相之雷",
   "block.er.boss_spawner": "Boss生成器",
-  "effect.er.tiny_miracle": "奇迹庇护"
+  "effect.er.tiny_miracle": "奇迹庇护",
+  "effect.er.appetizer": "开胃",
+  "lore.er.food.heal": "回复生命: "
 }

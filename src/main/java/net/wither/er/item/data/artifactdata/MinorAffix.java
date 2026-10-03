@@ -23,7 +23,6 @@ import java.util.Random;
 import java.util.UUID;
 
 public record MinorAffix(Attribute attribute, double amount, boolean multi, int count, int upgrade) {
-
     public static void rollingList(List<MinorAffix> affixList, MainAffix MinorAffix, int count){
         if(affixList.size() < 4) {
             List<? extends  String> config_get = ERConfig.MINOR_ATTR.get();

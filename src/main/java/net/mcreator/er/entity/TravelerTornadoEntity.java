@@ -4,7 +4,6 @@ import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModEntities;
 import net.mcreator.er.item.MemoryofRovingGalesItem;
-import net.mcreator.er.procedures.VacuumFieldsDisplacingProcedure;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -26,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
+import net.wither.er.combat.VacuumField;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
@@ -71,12 +71,12 @@ public class TravelerTornadoEntity extends Monster implements OwnableEntity {
 	}
 
 	@Override
-	public SoundEvent getHurtSound(DamageSource ds) {
+	public @NotNull SoundEvent getHurtSound(@NotNull DamageSource ds) {
 		return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.generic.hurt"));
 	}
 
 	@Override
-	public SoundEvent getDeathSound() {
+	public @NotNull SoundEvent getDeathSound() {
 		return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.generic.death"));
 	}
 
@@ -125,7 +125,7 @@ public class TravelerTornadoEntity extends Monster implements OwnableEntity {
         if (this.aliveTick > 5) {
             final Vec3 _center = new Vec3(this.getX(), this.getY() + 2.5, this.getZ());
             if(this.level() instanceof ServerLevel)
-                VacuumFieldsDisplacingProcedure.execute(this.level(), this.getX(), this.getY() + 2.5, this.getZ(), owner, 10, 0.5);
+                VacuumField.vacuum(this.level(), this.getPosition(2.5f), owner, 10, 2);
             this.setDeltaMovement(new Vec3(((-1) * (Math.sin((this.getYRot() / 180d) * Math.PI) / 5)), (this.getDeltaMovement().y()), (Math.cos((this.getYRot() / 180d) * Math.PI) / 5)));
             if (aliveTick % 10 == 0) {
                 if (owner instanceof Player player && player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof MemoryofRovingGalesItem item) {

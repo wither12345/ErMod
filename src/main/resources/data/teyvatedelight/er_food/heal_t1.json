@@ -1,7 +1,17 @@
 {
   "items": [
     "teyvatdelight:mushroom_chicken_skewer",
-    "teyvatdelight:grilled_tiger_fish"
+    "teyvatdelight:grilled_tiger_fish",
+    "teyvatdelight:mint_jelly",
+    "teyvatdelight:rice_buns",
+    "teyvatdelight:dry_braised_fish",
+    "teyvatdelight:bird_egg_sushi",
+    "teyvatdelight:lambad_fish_roll",
+    "teyvatdelight:confit_duck_leg",
+    "teyvatdelight:mint_sauce_grilled_fish",
+    "teyvatdelight:dark_egg",
+    "teyvatdelight:old_courtyard_smoked_sausage",
+    "teyvatdelight:smoked_fish_steak"
   ],
   "food_addition": {
     "heal_amount": 20,

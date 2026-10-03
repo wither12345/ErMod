@@ -1,0 +1,22 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:stained_mask",
+      "count": 10
+    },
+    {
+      "item": "er:slime_secretions",
+      "count": 10
+    },
+    {
+      "item": "er:electro_crystal",
+      "count": 50
+    }
+  ],
+  "output": {
+    "item": "er:nre_menu_30",
+    "count": 1
+  },
+  "mora": 0
+}

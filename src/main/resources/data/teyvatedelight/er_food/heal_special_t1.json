@@ -1,0 +1,15 @@
+{
+  "items": [
+    "teyvatdelight:fruity_skewers",
+    "teyvatdelight:survival_grilled_fish",
+    "teyvatdelight:rain_or_shine",
+    "teyvatdelight:satiety_gel",
+    "teyvatdelight:stratagem",
+    "teyvatdelight:catch_of_the_dark_depths",
+    "teyvatdelight:long_night_flame"
+  ],
+  "food_addition": {
+    "heal_amount": 27,
+    "heal_percent": 0.16
+  }
+}

@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.entity.AnimationStater;
+import net.wither.er.init.MobEffectRegister;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErSyncGameRule;
@@ -19,6 +20,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public abstract class ErPlayerMixin extends LivingEntity implements AnimationStater, ErPlayerInterface {
@@ -50,6 +52,11 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		this.er$animationState0.animateWhen(false, this.tickCount);
 	}
 
+    @Inject(method = "canEat", at = @At("RETURN"), cancellable = true)
+    public void canEatInject(boolean b, CallbackInfoReturnable<Boolean> cir){
+        cir.setReturnValue(cir.getReturnValue() || this.hasEffect(MobEffectRegister.APPETIZER.get()));
+    }
+
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;moveCloak()V"))
 	//@Inject(method = "tick", at = @At("HEAD"))
 	public void ontick(CallbackInfo info) {
@@ -59,7 +66,7 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		float speed = 1f;
 		if (stack.getItem() instanceof StellaFortunas item) {
 			SF = item;
-			speed = (float) SF.getSpeed(this, vars.animationId);
+			speed = SF.getSpeed(this, vars.animationId);
 		}
 		if (vars.animationTime >= 0) {
 			vars.animationTime = vars.animationTime - 1;
@@ -87,8 +94,8 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		} else {
 			if (vars.staminaRecoveryCooldown <= 0) {
 				vars.stamina += 1.1;
-				if (vars.stamina > this.getAttribute(ErModAttributes.MAX_STAMINA.get()).getValue()) {
-					vars.stamina = this.getAttribute(ErModAttributes.MAX_STAMINA.get()).getValue();
+				if (vars.stamina > this.getAttributeValue(ErModAttributes.MAX_STAMINA.get())) {
+					vars.stamina = this.getAttributeValue(ErModAttributes.MAX_STAMINA.get());
 				}
 			} else
 				vars.staminaRecoveryCooldown--;

@@ -6,11 +6,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.wither.er.combat.CombatAnimation;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
-import net.wither.er.item.data.weapon.WeaponLevelData;
+import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
+import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.network.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -46,5 +47,6 @@ public class RegisterDatas {
 		event.register(ArtifactData.class);
 		event.register(MainAffix.class);
 		event.register(MinorAffix.class);
+        event.register(DelusionData.class);
 	}
 }

@@ -3,13 +3,13 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.item.data.DelusionData;
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.weapons.AbilitySword;
-import net.wither.er.item.morabag.MoraBagItemPlus;
+import net.wither.er.item.morabag.MoraBagItem;
 import net.wither.er.item.data.weapon.*;
+import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.*;
 import net.wither.er.init.DataComponentsRegister;
@@ -271,14 +271,14 @@ public class ErModItems {
 	public static final RegistryObject<Item> HYDRO_VISION = REGISTRY.register("hydro_vision", () -> new Vision(Element.Category.HYDRO));
 	public static final RegistryObject<Item> DENDRO_VISION = REGISTRY.register("dendro_vision", () -> new Vision(Element.Category.DENDRO));
 	public static final RegistryObject<Item> ELECTRO_VISION = REGISTRY.register("electro_vision", () -> new Vision(Element.Category.ELECTRO));
-    public static final RegistryObject<Item> UNOWNED_DELUSION = REGISTRY.register("unowned_delusion", () -> new EmptyVision(new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> PYRO_DELUSION = REGISTRY.register("pyro_delusion", () -> new Vision(Element.Category.PYRO, new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> CRYO_DELUSION = REGISTRY.register("cryo_delusion", () -> new Vision(Element.Category.CRYO, new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> ANEMO_DELUSION = REGISTRY.register("anemo_delusion", () -> new Vision(Element.Category.ANEMO, new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> GEO_DELUSION = REGISTRY.register("geo_delusion", () -> new Vision(Element.Category.GEO, new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> HYDRO_DELUSION = REGISTRY.register("hydro_delusion", () -> new Vision(Element.Category.HYDRO, new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> DENDRO_DELUSION = REGISTRY.register("dendro_delusion", () -> new Vision(Element.Category.DENDRO, new DelusionData.CapabilityProvider()));
-    public static final RegistryObject<Item> ELECTRO_DELUSION = REGISTRY.register("electro_delusion", () -> new Vision(Element.Category.ELECTRO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> UNOWNED_DELUSION = REGISTRY.register("unowned_delusion", () -> new EmptyVision(new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> PYRO_DELUSION = REGISTRY.register("pyro_delusion", () -> new Vision(Element.Category.PYRO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> CRYO_DELUSION = REGISTRY.register("cryo_delusion", () -> new Vision(Element.Category.CRYO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> ANEMO_DELUSION = REGISTRY.register("anemo_delusion", () -> new Vision(Element.Category.ANEMO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> GEO_DELUSION = REGISTRY.register("geo_delusion", () -> new Vision(Element.Category.GEO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> HYDRO_DELUSION = REGISTRY.register("hydro_delusion", () -> new Vision(Element.Category.HYDRO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> DENDRO_DELUSION = REGISTRY.register("dendro_delusion", () -> new Vision(Element.Category.DENDRO, new DelusionData.CapabilityProvider()));
+	public static final RegistryObject<Item> ELECTRO_DELUSION = REGISTRY.register("electro_delusion", () -> new Vision(Element.Category.ELECTRO, new DelusionData.CapabilityProvider()));
 	public static final RegistryObject<Item> FIRM_ARROWHEAD = REGISTRY.register("firm_arrowhead", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> SHARP_ARROWHEAD = REGISTRY.register("sharp_arrowhead", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> WEATHERED_ARROWHEAD = REGISTRY.register("weathered_arrowhead", () -> new Item(new Item.Properties()));
@@ -306,7 +306,7 @@ public class ErModItems {
 	public static final ElementalArmorItem.Group DENDRO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ErArmorMaterials.DENDRO, Element.Category.DENDRO);
 	public static final ElementalArmorItem.Group GEO_ARMOR = ElementalArmorItem.Group.createBasic(REGISTRY, ErArmorMaterials.GEO, Element.Category.GEO);
 	public static final RegistryObject<Item> CRYO_FLOWER_SPAWN_EGG = REGISTRY.register("cryo_flower_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.CRYO_WHOPPERFLOWER, 0x00ccff, 0xccffff, new Item.Properties()));
-	public static final RegistryObject<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItemPlus::new);
+	public static final RegistryObject<Item> MORA_BAG = REGISTRY.register("mora_bag", MoraBagItem::new);
 	public static final RegistryObject<Item> SCHOLARS_BOOKMARK = REGISTRY.register("scholars_bookmark", () -> new Artifact(ArtifactSlot.FLOWER_OF_LIFE, ArtifactEffectRegistry.SCHOLAR));
 	public static final RegistryObject<Item> SCHOLARS_QUILL_PEN = REGISTRY.register("scholars_quill_pen", () -> new Artifact(ArtifactSlot.PLUME_OF_DEATH, ArtifactEffectRegistry.SCHOLAR));
 	public static final RegistryObject<Item> SCHOLARS_CLOCK = REGISTRY.register("scholars_clock", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.SCHOLAR));
@@ -350,11 +350,11 @@ public class ErModItems {
 	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
 	public static final RegistryObject<Item> ELECTRO_HYPOSTASIS_CUBE_SPAWN_EGG = REGISTRY.register("electro_hypostasis_cube_egg", () -> new ForgeSpawnEggItem(ErModEntities.ELECTRO_HYPOSTASIS_CUBE, 0xff88ff, 0xffddff, new Item.Properties()));
 	public static final RegistryObject<Item> BOSS_SPAWNER = block(ErModBlocks.BOSS_SPAWNER);
-    public static final RegistryObject<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
+	public static final RegistryObject<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
+	public static final RegistryObject<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
+    public static final RegistryObject<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
 
-
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
 		@SubscribeEvent
 		@OnlyIn(Dist.CLIENT)
@@ -375,14 +375,14 @@ public class ErModItems {
 			registerVision(HYDRO_VISION.get());
 			registerVision(DENDRO_VISION.get());
 			registerVision(ELECTRO_VISION.get());
-            registerVision(UNOWNED_DELUSION.get());
-            registerVision(PYRO_DELUSION.get());
-            registerVision(CRYO_DELUSION.get());
-            registerVision(ANEMO_DELUSION.get());
-            registerVision(GEO_DELUSION.get());
-            registerVision(HYDRO_DELUSION.get());
-            registerVision(DENDRO_DELUSION.get());
-            registerVision(ELECTRO_DELUSION.get());
+			registerVision(UNOWNED_DELUSION.get());
+			registerVision(PYRO_DELUSION.get());
+			registerVision(CRYO_DELUSION.get());
+			registerVision(ANEMO_DELUSION.get());
+			registerVision(GEO_DELUSION.get());
+			registerVision(HYDRO_DELUSION.get());
+			registerVision(DENDRO_DELUSION.get());
+			registerVision(ELECTRO_DELUSION.get());
 		}
 
 		private static void registerVision(Item vision) {

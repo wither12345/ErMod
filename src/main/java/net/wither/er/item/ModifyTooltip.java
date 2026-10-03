@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.data.ErFoodData;
+import net.wither.er.item.data.ErFoodDataListener;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.weapons.AbilityWeapon;
@@ -28,8 +30,7 @@ public class ModifyTooltip {
         WeaponLevelData weaponLevelData = DataComponentsRegister.WEAPON_LEVEL.getData(item);
 
         if(artifactData != null)
-            addArtifactEffectId(artifactData.addTooltip(event.getToolTip()) , list, artifactData.effect().get());
-
+            addArtifactEffectId(artifactData.addTooltip(list) , list, artifactData.effect().get());
 
         if(weaponLevelData != null && !item.is(WeaponLevelData.NOT_ENHANCEABLE)){
             list.add(1, Component.literal("Lv." + weaponLevelData.level() + "/" + WeaponLevelData.getMaxLevel(weaponLevelData.ascension()) + " " + getAscension(weaponLevelData.ascension(), WeaponLevelData.getItemWeaponStar(item))));
@@ -42,6 +43,11 @@ public class ModifyTooltip {
                 CompoundTag tag = item.getOrCreateTag();
                 list.add(1, Component.translatable("lore.er.refinement").append(" " + (tag.contains("refinement") ? tag.getInt("refinement") : 1)));
             }
+        }
+
+        ErFoodData data = ErFoodDataListener.getData(item);
+        if(data != null){
+            data.addTooltip(list);
         }
     }
 

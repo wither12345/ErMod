@@ -1,5 +1,7 @@
 package net.wither.er.mixins;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.EntityHurtEvent;
@@ -27,6 +29,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
+import net.wither.er.item.NREItem;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.elements.AuraContainer;
@@ -35,6 +38,7 @@ import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.data.NREData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
 import net.wither.er.entity.listener.onHealthFloating;
@@ -98,6 +102,18 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
 	public AuraContainer er$getAuraContainer() {
 		return er$container;
 	}
+
+    @WrapOperation(method = "triggerItemUseEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;spawnItemParticles(Lnet/minecraft/world/item/ItemStack;I)V"))
+    public void wrapParticle(LivingEntity instance, ItemStack itemStack, int i, Operation<Void> original){
+        if(itemStack.getItem() instanceof NREItem) {
+            List<ItemStack> items = NREData.read(itemStack);
+            if (!items.isEmpty()) {
+                original.call(instance, items.get(0), i);
+                return;
+            }
+        }
+        original.call(instance, itemStack, i);
+    }
 
 	@Inject(method = "addAdditionalSaveData", at = @At("HEAD"))
 	public void addAdditionalSaveData(CompoundTag compound, CallbackInfo info) {
