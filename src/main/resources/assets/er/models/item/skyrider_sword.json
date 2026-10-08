@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/skyrider_sword"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:ascension": 2
+      },
+      "model": "er:item/skyrider_sword_2"
+    }
+  ]
+}

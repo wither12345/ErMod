@@ -263,6 +263,8 @@ public class ErModItems {
 			new Item.Properties(), new WeaponAttributeData.CapabilityProvider(ErModAttributes.ELEMENTAL_MASTERY.get(), 30.6, false)));
 	public static final RegistryObject<Item> TRAVELERS_HANDY_SWORD = REGISTRY.register("travelers_handy_sword", () -> new AbilitySword((EnergyOrbPickupAbility) FunctionalAbilities::travelersHandySword, ErModItems.TRAVELERS_HANDY_SWORD,
 			ErTiers.STAR_3, 3, -2.4f, new Item.Properties(), new WeaponAttributeData.CapabilityProvider(Attributes.ARMOR, 0.0636, true)));
+    public static final RegistryObject<Item> SKYRIDER_SWORD = REGISTRY.register("skyrider_sword", () -> new AbilitySword((OnBurstAbility) FunctionalAbilities::skyriderSword, ErModItems.SKYRIDER_SWORD,
+            ErTiers.STAR_3, 3, -2.4f, new Item.Properties(), new WeaponAttributeData.CapabilityProvider(ErModAttributes.ENERGY_RECHARGE.get(), 0.113, true)));
 	public static final RegistryObject<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
 	public static final RegistryObject<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final RegistryObject<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
@@ -367,6 +369,7 @@ public class ErModItems {
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
 			registerWeapon(TRAVELERS_HANDY_SWORD.get());
+			registerWeapon(SKYRIDER_SWORD.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());
