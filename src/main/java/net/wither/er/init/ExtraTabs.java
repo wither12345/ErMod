@@ -159,6 +159,7 @@ public class ExtraTabs {
             tabData.accept(COOL_STEEL);
             tabData.accept(DARK_IRON_SWORD);
             tabData.accept(TRAVELERS_HANDY_SWORD);
+            tabData.accept(SKYRIDER_SWORD);
 		}else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(SWEET_FLOWER);
             tabData.accept(BURNING_DIRT);

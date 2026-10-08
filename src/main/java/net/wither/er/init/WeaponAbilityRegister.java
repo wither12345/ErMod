@@ -3,10 +3,7 @@ package net.wither.er.init;
 import net.mcreator.er.ErMod;
 import net.minecraft.core.Holder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
-import net.wither.er.item.data.weapon.FunctionalAbilities;
-import net.wither.er.item.data.weapon.DamageAbility;
-import net.wither.er.item.data.weapon.ReactionAbility;
+import net.wither.er.item.data.weapon.*;
 
 public class WeaponAbilityRegister {
     public static final DeferredRegister<Object> WEAPON_ABILITIES = DeferredRegister.create(AdditionalRegistries.WEAPON_ABILITY_REGISTRY, ErMod.MODID);
@@ -14,4 +11,5 @@ public class WeaponAbilityRegister {
     public static final Holder<Object> COOL_STEEL = WEAPON_ABILITIES.register("bane_of_water_and_ice", () -> (DamageAbility) (FunctionalAbilities::coolSteel));
     public static final Holder<Object> DARK_IRON = WEAPON_ABILITIES.register("overloaded", () -> (ReactionAbility) (FunctionalAbilities::darkIronSword));
     public static final Holder<Object> JOURNEY = WEAPON_ABILITIES.register("journey", () -> (EnergyOrbPickupAbility) (FunctionalAbilities::travelersHandySword));
+    public static final Holder<Object> DETERMINATION = WEAPON_ABILITIES.register("determination", () -> (OnBurstAbility) (FunctionalAbilities::skyriderSword));
 }

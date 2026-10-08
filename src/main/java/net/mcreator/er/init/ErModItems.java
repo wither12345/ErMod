@@ -269,6 +269,9 @@ public class ErModItems {
 	public static final DeferredItem<Item> TRAVELERS_HANDY_SWORD = REGISTRY.register("travelers_handy_sword",
 			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.JOURNEY, ErModItems.TRAVELERS_HANDY_SWORD, 1))
 					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ARMOR, 0.0636, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+    public static final DeferredItem<Item> SKYRIDER_SWORD = REGISTRY.register("skyrider_sword",
+            () -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DETERMINATION, ErModItems.SKYRIDER_SWORD, 1))
+                    .component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(ErModAttributes.ENERGY_RECHARGE, 0.113, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
 	public static final DeferredItem<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", () -> new EmptyVision());
 	public static final DeferredItem<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
@@ -371,6 +374,7 @@ public class ErModItems {
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
 			registerWeapon(TRAVELERS_HANDY_SWORD.get());
+            registerWeapon(SKYRIDER_SWORD.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());

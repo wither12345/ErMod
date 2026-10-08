@@ -1,14 +1,11 @@
 package net.wither.er.client.renderer.damge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.er.ERClientConfig;
 import net.mcreator.er.ErMod;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,6 +18,7 @@ import java.util.List;
 @EventBusSubscriber(modid = ErMod.MODID, value = Dist.CLIENT)
 public class RenderDamageAmount {
     private static final List<DamageAmount> damageNumbers = new ArrayList<>();
+    private static final int MAX_TIME = 20;
 
     public static void addDamage(int damage, int color, double x, double y, double z , boolean critical, DamageDisplayType type){
         if (Minecraft.getInstance().level != null) {
@@ -33,93 +31,47 @@ public class RenderDamageAmount {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
             MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
             Iterator<DamageAmount> iterator = damageNumbers.iterator();
-            while (iterator.hasNext()) {
-                DamageAmount damageAmount = iterator.next();
-                if (Minecraft.getInstance().level != null && damageAmount.check(Minecraft.getInstance().level.getGameTime())) {
-                    iterator.remove();
+
+            if(Minecraft.getInstance().level != null) {
+                long nowTime = Minecraft.getInstance().level.getGameTime();
+                while (iterator.hasNext()) {
+                    DamageAmount damageAmount = iterator.next();
+                    if (damageAmount.check(nowTime))
+                        iterator.remove();
+                    else if (ERClientConfig.DAMAGE_DISPLAY.get())
+                        damageAmount.render(event.getCamera(), bufferSource, event.getPartialTick().getGameTimeDeltaPartialTick(true), nowTime);
                 }
-                else if(ERClientConfig.DAMAGE_DISPLAY.get())
-                    damageAmount.render(event.getCamera(),bufferSource,event.getPartialTick().getGameTimeDeltaTicks());
             }
         }
     }
 
-    public static class DamageAmount{
-        private final long added_tick;
-        private final int damage;
-        private final int color ;
-        private final double x;
-        private final double y;
-        private final double z;
-        private final boolean critical ;
-        private static final int maxTime = 20 ;
-        private float size;
-        private final DamageDisplayType type;
+    public record DamageAmount(
+            long added_tick,
+            int damage,
+            int color,
+            double x,
+            double y,
+            double z,
+            boolean critical,
+            DamageDisplayType type
+    ) {
 
-        public DamageAmount(long added_tick, int amount, int color, double x, double y, double z, boolean critical, DamageDisplayType type) {
-            this.added_tick = added_tick;
-            this.damage = amount;
-            this.color = color;
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.critical = critical;
-            if(critical)
-                this.size = 0.24f ;
-            else
-                this.size = 0 ;
-            this.type = type;
+        public boolean check(long now_time) {
+                return added_tick + MAX_TIME < now_time;
         }
 
-        public boolean check(long now_time){
-            return added_tick + maxTime < now_time ;
-        }
-
-        public void render(Camera camera, MultiBufferSource.BufferSource bufferSource, float partialTick){
+        public void render(Camera camera, MultiBufferSource.BufferSource bufferSource, float partialTick, long nowTime) {
             RenderSystem.disableDepthTest();
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             String s = String.valueOf(damage);
 
-            RenderSpecialDamage.renderLunarText(bufferSource, camera, s, x, y, z, color, calculateSize(partialTick), type);
+            RenderSpecialDamage.renderLunarText(bufferSource, camera, s, x, y, z, color, calculateSize(partialTick, nowTime), type);
         }
 
-        private static void renderFloatingText(MultiBufferSource source , Camera camera, String string, double x, double y, double z, int color, float scaling) {
-            Minecraft minecraft = Minecraft.getInstance();
-            if (camera.isInitialized()) {
-                PoseStack pose = new PoseStack() ;
-                Font font = minecraft.font;
-                double d0 = camera.getPosition().x;
-                double d1 = camera.getPosition().y;
-                double d2 = camera.getPosition().z;
-                pose.pushPose();
-                pose.translate((float) (x - d0), (float) (y - d1) + 0.07F, (float) (z - d2));
-                pose.mulPose(camera.rotation());
-                pose.scale(scaling, -scaling, scaling);
-                float f =(float) (-font.width(string)) / 2.0F ;
-
-                ShaderInstance oldShader = RenderSystem.getShader();
-                font.drawInBatch(string, f, 0.0F, color, false, pose.last().pose(), source, Font.DisplayMode.SEE_THROUGH , 0, 15728880);
-                RenderSystem.setShader(() -> oldShader);
-                pose.popPose();
-            }
-        }
-
-        @Override
-        public String toString() {
-            return "pos[" + x + "," + y + "," + z + "]"  + damage;
-        }
-
-        private float calculateSize(float tick){
-            if(critical){
-                if(size > 0.12)
-                    size -= tick * 0.06f ;
-            }
-            else {
-                if(size < 0.06)
-                  size += tick * 0.03f;
-            }
-            return size ;
+        private float calculateSize(float partialTick, long nowTime) {
+            if (this.critical) return Math.max(0.06f, 0.12f - (nowTime + partialTick - added_tick) * 0.04f * ERClientConfig.CRITICAL_SCALE.get().floatValue());
+            return Math.min(0.03f, (nowTime + partialTick - added_tick) * 0.03f * ERClientConfig.DAMAGE_SCALE.get().floatValue());
         }
     }
 

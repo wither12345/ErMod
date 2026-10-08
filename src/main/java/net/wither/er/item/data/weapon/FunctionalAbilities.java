@@ -29,4 +29,8 @@ public class FunctionalAbilities {
     public static void travelersHandySword(Entity orb, LivingEntity picker, int level){
         picker.heal((0.0075f + 0.0025f * level) * picker.getMaxHealth());
     }
+
+    public static void skyriderSword(LivingEntity entity, int level){
+        entity.addEffect(new MobEffectInstance(EffectRegister.DETERMINATION, 300, level - 1));
+    }
 }

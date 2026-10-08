@@ -23,6 +23,7 @@ public class EffectRegister {
     public static final Holder<MobEffect> TASTED_CRITICAL = REGISTRY.register("tasted_critical", TastedCritical::new);
     public static final Holder<MobEffect> TASTED_PROTECTIVE = REGISTRY.register("tasted_protective", TastedProtective::new);
     public static final Holder<MobEffect> ENERGETIC = REGISTRY.register("energetic", Energetic::new);
+    public static final Holder<MobEffect> DETERMINATION = REGISTRY.register("determination", Determination::new);
 
     static {
         if(ModList.get().isLoaded("teyvatdelight")){

@@ -6,7 +6,10 @@ public class ERClientConfig {
 	public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 	public static final ModConfigSpec SPEC;
 	public static final ModConfigSpec.EnumValue<HealthBarEnum> PLAYER_HEALTH;
+
 	public static final ModConfigSpec.BooleanValue DAMAGE_DISPLAY;
+    public static final ModConfigSpec.DoubleValue DAMAGE_SCALE;
+    public static final ModConfigSpec.DoubleValue CRITICAL_SCALE;
     public static final ModConfigSpec.IntValue DAMAGE_CUTTING;
 	static {
 		BUILDER.push("health_bar");
@@ -14,6 +17,8 @@ public class ERClientConfig {
 		BUILDER.pop();
 		BUILDER.push("damage");
 		DAMAGE_DISPLAY = BUILDER.comment("Enable damage display").define("change player health bar" , true);
+        DAMAGE_SCALE = BUILDER.comment("Control the damage display's size").defineInRange("size" , 1, 0.1, 10);
+        CRITICAL_SCALE = BUILDER.comment("Control the critical damage display's size").defineInRange("critical size" , 1, 0.1,  10);
         DAMAGE_CUTTING = BUILDER.comment("Control the damage display's shade").defineInRange("shade layer" , 8, 1, 1024);
 		BUILDER.pop();
 		SPEC = BUILDER.build();
