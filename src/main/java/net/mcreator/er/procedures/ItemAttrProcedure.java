@@ -16,8 +16,8 @@ import net.wither.er.item.data.weapon.WeaponLevelData;
 
 @EventBusSubscriber
 public class ItemAttrProcedure {
-	private static final ResourceLocation weaponLevel = ResourceLocation.parse("er:weapon_level.damage") ;
-	private static final ResourceLocation weaponSecondary = ResourceLocation.parse("er:weapon_level.secondary") ;
+	private static final ResourceLocation WEAPON_LEVEL = ResourceLocation.parse("er:weapon_level.damage") ;
+	private static final ResourceLocation WEAPON_SECONDARY = ResourceLocation.parse("er:weapon_level.secondary") ;
 
 	@SubscribeEvent
 	public static void addAttributeModifier(ItemAttributeModifierEvent event) {
@@ -29,17 +29,17 @@ public class ItemAttrProcedure {
 			int star = WeaponLevelData.getItemWeaponStar(item) ;
 			if (item.getItem() instanceof TieredItem tieredItem) {
 				Tier tier = tieredItem.getTier();
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(weaponLevel, level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
-					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(weaponSecondary, level), EquipmentSlotGroup.MAINHAND
+					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(WEAPON_SECONDARY, level), EquipmentSlotGroup.MAINHAND
 					);
 				}
 			} else if (item.getItem() instanceof BowInterface bowInterface) {
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(weaponLevel, bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
-					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(weaponSecondary, level), EquipmentSlotGroup.MAINHAND
+					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(WEAPON_SECONDARY, level), EquipmentSlotGroup.MAINHAND
 					);
 				}
 			}

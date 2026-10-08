@@ -12,9 +12,9 @@
     "heal_percent": 0.09,
     "apply_effects": [
       {
-        "id": "minecraft:regeneration",
-        "amplifier": 4,
-        "duration": 100
+        "id": "er:satisfaction",
+        "amplifier": 1,
+        "duration": 600
       }
     ]
   }

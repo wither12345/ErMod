@@ -1,0 +1,16 @@
+{
+  "items": [
+    "teyvatdelight:invigorating_pizza",
+    "teyvatdelight:night_talk"
+  ],
+  "food_addition": {
+    "heal_percent": 0.34,
+    "apply_effects": [
+      {
+        "id": "er:satisfaction",
+        "amplifier": 7,
+        "duration": 600
+      }
+    ]
+  }
+}

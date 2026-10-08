@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:moon_pie"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_protective",
+        "amplifier": 12,
+        "duration": 6000
+      }
+    ]
+  }
+}

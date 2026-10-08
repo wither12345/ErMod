@@ -18,6 +18,11 @@ public record ErFoodDataGroup(List<Simple> dataMap, @Nullable ErFoodData default
         return this.defaultVal;
     }
 
+    @Override
+    public boolean replacePotion() {
+        return true;
+    }
+
     public record Simple(DataComponentPredicate map, ErFoodData data) {
         private boolean test(DataComponentMap itemMap) {
             return map.test(itemMap);

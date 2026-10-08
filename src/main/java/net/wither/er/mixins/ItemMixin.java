@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
-
     @Inject(method = "finishUsingItem", at = @At("HEAD"))
     public void finishInject(ItemStack stack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir){
         FoodProperties properties = stack.get(DataComponents.FOOD);

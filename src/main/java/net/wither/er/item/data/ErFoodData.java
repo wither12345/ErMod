@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.wither.er.network.ErCombatVariables;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,18 +30,18 @@ public record ErFoodData(List<MobEffectInstance> applyEffects, float healAmount,
     }
 
     public void applyTo(LivingEntity living){
-        applyEffects.forEach(
-                instance -> living.addEffect(new MobEffectInstance(instance))
-        );
+        applyEffects.forEach(instance -> living.addEffect(new MobEffectInstance(instance)));
         living.heal(this.healAmount + living.getMaxHealth() * this.healPercent);
-        ErCombatVariables.PlayerVariables var = living.getData(ErCombatVariables.PLAYER_VARIABLES);
-        var.stamina += staminaRecover;
 
         if(staminaRecover > 0) {
+            ErCombatVariables.PlayerVariables var = living.getData(ErCombatVariables.PLAYER_VARIABLES);
+            var.stamina += staminaRecover;
+            var.staminaRecoveryCooldown = 0;
+
             AttributeInstance instance = living.getAttribute(ErModAttributes.MAX_STAMINA);
             if (instance != null && var.stamina > instance.getValue())
                 var.stamina = instance.getValue();
-            var.syncWithId(living, 0b100);
+            var.syncWithId(living, 0b1100);
         }
     }
 
@@ -48,9 +49,9 @@ public record ErFoodData(List<MobEffectInstance> applyEffects, float healAmount,
         String heal = "";
         int index = 1;
         if(this.healAmount > 0)
-            heal += this.healAmount;
+            heal += new DecimalFormat("##").format(this.healAmount);
         if(this.healPercent > 0)
-            heal += (heal.isEmpty() ? "" : " + ") + healPercent * 100 + "%";
+            heal += (heal.isEmpty() ? "" : " + ") + new DecimalFormat("##.#%").format(healPercent);
         if(!heal.isEmpty())
             components.add(index ++, Component.translatable("lore.er.food.heal").append(Component.literal(heal).setStyle(Style.EMPTY.withColor(0x00ff00))));
         if(!this.applyEffects.isEmpty()) {
@@ -58,10 +59,17 @@ public record ErFoodData(List<MobEffectInstance> applyEffects, float healAmount,
             PotionContents.addPotionTooltip(this.applyEffects, pot::add, 0.05f, 1);
             components.addAll(index ++, pot);
         }
+        if(this.staminaRecover > 0)
+            components.add(index ++, Component.translatable("lore.er.food.stamina").append(Component.literal(String.valueOf(staminaRecover)).setStyle(Style.EMPTY.withColor(0xffff00))));
     }
 
     @Override
     public ErFoodData getFoodData(ItemStack itemStack) {
         return this;
+    }
+
+    @Override
+    public boolean replacePotion() {
+        return true;
     }
 }

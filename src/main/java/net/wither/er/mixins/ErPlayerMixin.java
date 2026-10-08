@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.entity.AnimationStater;
 import net.wither.er.init.EffectRegister;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErSyncGameRule;
@@ -81,7 +82,7 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		if (vars.burstCooldown > 0)
 			vars.burstCooldown = Math.max(0f, vars.burstCooldown - 0.05f);
 		if (this.isSprinting() && ErSyncGameRule.getRunningStamina()) {
-			vars.stamina--;
+			vars.stamina -= this.getAttributeValue(ErAttributeRegister.STAMINA_COST);
 			if (vars.stamina <= 0) {
 				this.setSprinting(false);
 				vars.stamina = 0;

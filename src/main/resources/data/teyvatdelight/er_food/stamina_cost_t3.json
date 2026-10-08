@@ -1,0 +1,15 @@
+{
+  "items": [
+    "teyvatdelight:barbatos_ratatouille",
+    "teyvatdelight:honey_roasted_carrots_and_meat"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:energetic",
+        "amplifier": 2,
+        "duration": 18000
+      }
+    ]
+  }
+}

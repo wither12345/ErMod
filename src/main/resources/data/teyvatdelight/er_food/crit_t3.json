@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:pile_em_up"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_critical",
+        "amplifier": 3,
+        "duration": 6000
+      }
+    ]
+  }
+}

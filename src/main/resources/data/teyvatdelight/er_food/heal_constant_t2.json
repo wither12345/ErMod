@@ -1,0 +1,15 @@
+{
+  "items": [
+    "teyvatdelight:flaming_red_bolognese"
+  ],
+  "food_addition": {
+    "heal_percent": 0.2,
+    "apply_effects": [
+      {
+        "id": "er:satisfaction",
+        "amplifier": 3,
+        "duration": 600
+      }
+    ]
+  }
+}

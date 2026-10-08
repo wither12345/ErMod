@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:spicy_vegetable_stew"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:energetic",
+        "amplifier": 1,
+        "duration": 30000
+      }
+    ]
+  }
+}

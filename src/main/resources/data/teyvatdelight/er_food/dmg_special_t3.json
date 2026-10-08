@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:surveyors_egg_burger"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_strong",
+        "amplifier": 6,
+        "duration": 6000
+      }
+    ]
+  }
+}

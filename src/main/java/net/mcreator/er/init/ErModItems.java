@@ -3,7 +3,6 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.item.NREItem;
 import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.morabag.MoraBagItem;
@@ -357,7 +356,7 @@ public class ErModItems {
 	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
 	public static final DeferredItem<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
-    public static final DeferredItem<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
+	public static final DeferredItem<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

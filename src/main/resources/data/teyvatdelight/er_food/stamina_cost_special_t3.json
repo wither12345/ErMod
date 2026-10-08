@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:true_barbatos_ratatouille"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:energetic",
+        "amplifier": 2,
+        "duration": 36000
+      }
+    ]
+  }
+}

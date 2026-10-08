@@ -1,0 +1,16 @@
+{
+  "items": [
+    "teyvatdelight:shrimp_potato_cup",
+    "teyvatdelight:mushroom_pizza"
+  ],
+  "food_addition": {
+    "heal_percent": 0.28,
+    "apply_effects": [
+      {
+        "id": "er:satisfaction",
+        "amplifier": 5,
+        "duration": 600
+      }
+    ]
+  }
+}

@@ -19,6 +19,7 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -32,6 +33,7 @@ import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.EnergyOrb;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.network.ErCombatVariables;
 
 import java.util.Comparator;
@@ -178,8 +180,12 @@ public class MemoryofRovingGalesItem extends StellaFortunas {
 		}
 		if (time <= this.getFinishTick(entity, animationId, speed) && animationId <= this.getMaxNormalAttack(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {
 			ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
-			if (vars.stamina >= this.getChargedAttackCost(entity)) {
-				vars.stamina -= this.getChargedAttackCost(entity);
+            AttributeInstance instance = entity.getAttribute(ErAttributeRegister.STAMINA_COST);
+
+            double multi = instance == null ? 1 : instance.getValue();
+
+			if (vars.stamina >= this.getChargedAttackCost(entity) * multi) {
+				vars.stamina -= this.getChargedAttackCost(entity) * multi;
 				vars.animationId = 10;
 				vars.animationTime = this.getAnimationTick(entity, 10, speed);
 				vars.staminaRecoveryCooldown = 50;

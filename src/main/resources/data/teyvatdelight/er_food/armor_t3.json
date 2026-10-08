@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:calla_lily_seafood_soup"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_protective",
+        "amplifier": 5,
+        "duration": 6000
+      }
+    ]
+  }
+}

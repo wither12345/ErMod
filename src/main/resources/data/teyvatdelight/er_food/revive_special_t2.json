@@ -1,0 +1,17 @@
+{
+  "items": [
+    "teyvatdelight:thick_cloud_pancakes",
+    "teyvatdelight:sparkling_valberry_juice"
+  ],
+  "food_addition": {
+    "heal_percent": 0.15,
+    "heal_amount": 11,
+    "apply_effects": [
+      {
+        "id": "er:appetizer",
+        "amplifier": 2,
+        "duration": 600
+      }
+    ]
+  }
+}

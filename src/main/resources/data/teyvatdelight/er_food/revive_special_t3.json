@@ -1,0 +1,17 @@
+{
+  "items": [
+    "teyvatdelight:nutritious_meal_593",
+    "teyvatdelight:boredom_bubble_gum"
+  ],
+  "food_addition": {
+    "heal_percent": 0.2,
+    "heal_amount": 30,
+    "apply_effects": [
+      {
+        "id": "er:appetizer",
+        "amplifier": 3,
+        "duration": 600
+      }
+    ]
+  }
+}

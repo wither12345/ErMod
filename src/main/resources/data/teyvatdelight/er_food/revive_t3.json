@@ -1,0 +1,16 @@
+{
+  "items": [
+    "teyvatdelight:mint_bubble_gum",
+    "teyvatdelight:crab_roe_ham_bake"
+  ],
+  "food_addition": {
+    "heal_amount": 24,
+    "apply_effects": [
+      {
+        "id": "er:appetizer",
+        "amplifier": 3,
+        "duration": 400
+      }
+    ]
+  }
+}

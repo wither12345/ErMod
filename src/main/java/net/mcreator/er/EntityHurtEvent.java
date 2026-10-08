@@ -110,6 +110,8 @@ public class EntityHurtEvent {
                     modifier.crit_multiply += data.critMulti();
                     modifier.common_multiply += data.dmgMulti();
                     float dmg = amount * data.healthConsume();
+                    if(living instanceof ServerPlayer player)
+                        AdvancementTriggerRegister.DELUSION.get().trigger(player, dmg);
                     if(living.getHealth() >= dmg)
                         living.setHealth(living.getHealth() - dmg);
                     else
@@ -167,9 +169,8 @@ public class EntityHurtEvent {
         DamageSource source = event.getSource();
 		if(source instanceof DamageModifierInterface modifierInterface && dmg > 0) {
             DamageModifier modifier = modifierInterface.er$getModifier();
-            if(modifier.critical && source.getEntity() instanceof ServerPlayer player){
+            if(modifier.critical && source.getEntity() instanceof ServerPlayer player)
                 AdvancementTriggerRegister.CRITICAL_DAMAGE.get().trigger(player, event.getNewDamage());
-            }
 			PacketDistributor.sendToAllPlayers(new DamageDisplayMessage(dmg, event.getEntity().getId(), getARGB(source), modifier.critical, modifier.type));
 		}
         ((ElementSourceInterface)source).er$setElement(null);

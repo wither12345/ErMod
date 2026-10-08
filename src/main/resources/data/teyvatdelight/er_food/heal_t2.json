@@ -1,0 +1,9 @@
+{
+  "items": [
+    "teyvatdelight:sweet_madame"
+  ],
+  "food_addition": {
+    "heal_amount": 24,
+    "heal_percent": 0.22
+  }
+}

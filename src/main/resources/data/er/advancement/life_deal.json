@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "er:seal_of_life"
+    },
+    "title": {
+      "translate": "advancements.life_deal.title"
+    },
+    "description": {
+      "translate": "advancements.life_deal.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wallet_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "er:seal_of_life"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "er:elemental_reaction"
+}

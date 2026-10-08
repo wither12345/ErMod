@@ -1,0 +1,15 @@
+{
+  "items": [
+    "teyvatdelight:butter_matsutake",
+    "teyvatdelight:adventurer_egg_burger"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_strong",
+        "amplifier": 4,
+        "duration": 6000
+      }
+    ]
+  }
+}

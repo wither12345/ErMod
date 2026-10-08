@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "teyvatdelight"
+    }
+  ],
+  "display": {
+    "icon": {
+      "id": "er:sunsettia"
+    },
+    "title": {
+      "translate": "advancements.savor.title"
+    },
+    "description": {
+      "translate": "advancements.savor.descr"
+    }
+  },
+  "criteria": {
+    "trigger_name": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "parent": "er:elemental_reaction"
+}

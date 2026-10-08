@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:fish_flavored_toast"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_protective",
+        "amplifier": 3,
+        "duration": 6000
+      }
+    ]
+  }
+}

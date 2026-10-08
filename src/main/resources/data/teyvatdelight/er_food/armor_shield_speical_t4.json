@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:surf_pie"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_protective",
+        "amplifier": 14,
+        "duration": 6000
+      }
+    ]
+  }
+}

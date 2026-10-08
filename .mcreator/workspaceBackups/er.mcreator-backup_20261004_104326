@@ -3587,48 +3587,6 @@
       }
     },
     {
-      "name": "VacuumFieldsDisplacing",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "vacuum_fields_displacing",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "range",
-            "type": "number"
-          },
-          {
-            "name": "strength",
-            "type": "number"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ],
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/VacuumFieldsDisplacingProcedure.java"
-        ]
-      }
-    },
-    {
       "name": "TravelerTornadoAnemo",
       "type": "procedure",
       "compiles": true,
@@ -5121,7 +5079,33 @@
       "effect.er.tiny_miracle": "Tiny Miracle RES",
       "item.er.seal_of_life": "Seal of Life",
       "item.er.lantern_of_life": "Lantern of Life",
-      "lore.er.food.heal": "Heal: "
+      "effect.er.appetizer": "Appetizer",
+      "effect.er.adeptus_temptation": "Adeptus\u0027 Temptation",
+      "effect.er.satisfaction": "Satisfaction",
+      "effect.er.tasted_physical": "Tasted Physical",
+      "effect.er.tasted_strong": "Tasted Strong",
+      "effect.er.tasted_critical": "Tasted Critical",
+      "effect.er.tasted_protective": "Tasted Protective",
+      "effect.er.energetic": "Energetic",
+      "lore.er.food.heal": "Heal: ",
+      "lore.er.food.stamina": "Stamina Recover",
+      "item.er.nre_menu_30": "NRE (Menu 30)",
+      "advancements.savor.title": "Savor Deliciousness",
+      "advancements.savor.descr": "Load Teyvat Delight Mod",
+      "advancements.delusion_price.title": "Everything has its price",
+      "advancements.delusion_price.descr": "Be counterattacked by delusion with more than 1 damage",
+      "advancements.life_deal.title": "Damon and Pythias",
+      "advancements.life_deal.descr": "Trade a Seal of Life from a Villager by Lantern of Life(Main Hand) and Emerald(Off Hand)",
+      "potion.potency.6": "VI",
+      "potion.potency.7": "VII",
+      "potion.potency.9": "IX",
+      "potion.potency.10": "X",
+      "potion.potency.11": "XI",
+      "potion.potency.12": "XII",
+      "potion.potency.13": "XIII",
+      "potion.potency.14": "XIV",
+      "potion.potency.15": "XV",
+      "attribute.er.stamina_cost": "Stamina Cost"
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -5660,7 +5644,24 @@
       "effect.er.tiny_miracle": "奇迹庇护",
       "item.er.seal_of_life": "生之印",
       "item.er.lantern_of_life": "生之灯",
-      "lore.er.food.heal": "回复生命: "
+      "effect.er.appetizer": "开胃",
+      "effect.er.adeptus_temptation": "仙跳墙",
+      "effect.er.satisfaction": "满足",
+      "effect.er.tasted_physical": "食之有物",
+      "effect.er.tasted_strong": "食之有力",
+      "effect.er.tasted_critical": "食之有暴",
+      "effect.er.tasted_protective": "食之有御",
+      "effect.er.energetic": "精力充沛",
+      "lore.er.food.heal": "回复生命: ",
+      "lore.er.food.stamina": "恢复体力: ",
+      "item.er.nre_menu_30": "叁零式·便携营养袋",
+      "advancements.savor.title": "异世相遇，尽享美味",
+      "advancements.savor.descr": "加载提瓦特乐事",
+      "advancements.delusion_price.title": "但是凡事皆有其代价",
+      "advancements.delusion_price.descr": "被邪眼反噬超过1伤害",
+      "advancements.life_deal.title": "生死之交",
+      "advancements.life_deal.descr": "通过生之灯(主手)和绿宝石(副手)从村民处交易生之印",
+      "attribute.er.stamina_cost": "体力消耗"
     }
   },
   "metadata": {
@@ -5707,7 +5708,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

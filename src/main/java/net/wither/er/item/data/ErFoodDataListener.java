@@ -95,6 +95,11 @@ public class ErFoodDataListener extends SimpleJsonResourceReloadListener {
     }
 
     @Nullable
+    public static FoodDataProvider getProvider(Item item){
+        return FOOD_MAP.get(item);
+    }
+
+    @Nullable
     public static ErFoodData getData(ItemStack item){
         ErFoodData data = item.get(DataComponentsRegister.ER_FOOD);
         if(data != null) return data;

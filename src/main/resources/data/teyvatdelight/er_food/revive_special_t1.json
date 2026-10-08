@@ -13,8 +13,8 @@
     "apply_effects": [
       {
         "id": "er:appetizer",
-        "amplifier": 2,
-        "duration": 400
+        "amplifier": 1,
+        "duration": 600
       }
     ]
   }

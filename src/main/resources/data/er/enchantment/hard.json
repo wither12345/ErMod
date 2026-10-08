@@ -23,12 +23,12 @@
       {
         "amount": {
           "type": "minecraft:linear",
-          "base": 10,
-          "per_level_above_first": 10
+          "base": 0.1,
+          "per_level_above_first": 0.1
         },
         "attribute": "er:shield_strength",
         "id": "enchantment.shield_strength",
-        "operation": "add_value"
+        "operation": "add_multiplied_base"
       }
     ]
   }

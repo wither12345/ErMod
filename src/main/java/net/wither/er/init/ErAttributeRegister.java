@@ -1,12 +1,18 @@
 package net.wither.er.init;
 
+
 import net.mcreator.er.ErMod;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+@EventBusSubscriber
 public class ErAttributeRegister {
     public static final DeferredRegister<Attribute> REGISTRY = DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, ErMod.MODID);
     public static final DeferredHolder<Attribute, Attribute> ANEMO_RES = REGISTRY.register("anemo_res", () -> new RangedAttribute("attribute.er.anemo_res", 0, -512, 100).setSyncable(true));
@@ -17,5 +23,11 @@ public class ErAttributeRegister {
     public static final DeferredHolder<Attribute, Attribute> HYDRO_RES = REGISTRY.register("hydro_res", () -> new RangedAttribute("attribute.er.hydro_res", 0, -512, 100).setSyncable(true));
     public static final DeferredHolder<Attribute, Attribute> PYRO_RES = REGISTRY.register("pyro_res", () -> new RangedAttribute("attribute.er.pyro_res", 0, -512, 100).setSyncable(true));
     public static final DeferredHolder<Attribute, Attribute> PHYSICAL_RES = REGISTRY.register("physical_res", () -> new RangedAttribute("attribute.er.physical_res", 0, -512, 100).setSyncable(true));
+    public static final DeferredHolder<Attribute, Attribute> STAMINA_COST = REGISTRY.register("stamina_cost", () -> new RangedAttribute("attribute.er.stamina_cost", 1, 0, 16).setSyncable(true).setSentiment(Attribute.Sentiment.NEGATIVE));
 
+
+    @SubscribeEvent
+    public static void addAttributes(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, STAMINA_COST);
+    }
 }
