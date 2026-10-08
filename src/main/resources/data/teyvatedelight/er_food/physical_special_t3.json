@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:blessed_symphony"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_physical",
+        "amplifier": 5,
+        "duration": 6000
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:once_upon_a_time_in_mondstadt"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_critical",
+        "amplifier": 6,
+        "duration": 6000
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "items": [
+    "teyvatdelight:dinners_judgment"
+  ],
+  "food_addition": {
+    "heal_amount": 35,
+    "heal_percent": 0.3
+  }
+}

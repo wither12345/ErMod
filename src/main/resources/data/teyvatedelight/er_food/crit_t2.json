@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:satisfying_salad"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_critical",
+        "amplifier": 1,
+        "duration": 6000
+      }
+    ]
+  }
+}

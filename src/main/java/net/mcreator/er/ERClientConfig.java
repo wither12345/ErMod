@@ -10,7 +10,7 @@ public class ERClientConfig {
     public static final ForgeConfigSpec.IntValue DAMAGE_CUTTING;
 	static {
 		BUILDER.push("health_bar");
-		PLAYER_HEALTH = BUILDER.comment("This will change health bar multi").defineEnum("change player health bar" , HealthBarEnum.Bar , HealthBarEnum.values());
+		PLAYER_HEALTH = BUILDER.comment("This will change health bar multi").defineEnum("change player health bar" , HealthBarEnum.BAR, HealthBarEnum.values());
 		BUILDER.pop();
 		BUILDER.push("damage");
 		DAMAGE_DISPLAY = BUILDER.comment("Enable damage display").define("display damage" , true);
@@ -19,7 +19,7 @@ public class ERClientConfig {
 		SPEC = BUILDER.build();
 	}
 	public enum HealthBarEnum{
-		Vanilla ,
-		Bar;
+        VANILLA,
+        BAR;
 	}
 }

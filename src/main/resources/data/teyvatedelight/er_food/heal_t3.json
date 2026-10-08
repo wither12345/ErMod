@@ -1,0 +1,10 @@
+{
+  "items": [
+    "teyvatdelight:northern_apple_stew",
+    "teyvatdelight:mondstadt_hash_brown"
+  ],
+  "food_addition": {
+    "heal_amount": 25,
+    "heal_percent": 0.32
+  }
+}

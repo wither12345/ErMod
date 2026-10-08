@@ -8,7 +8,6 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "er:elemental_reaction",
   "criteria": {
     "dmg": {
       "trigger": "er:critical_damage",
@@ -17,5 +16,6 @@
       }
     }
   },
+  "parent": "er:elemental_reaction",
   "requirements": [["dmg"]]
 }

@@ -19,8 +19,8 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber
 public class ItemAttrProcedure {
-	private static final UUID weaponLevel = UUID.fromString("B0FFBAE0-9CC9-7C55-94F7-47C1CC02C402");
-	private static final UUID weaponSecondary = UUID.fromString("EC9FB524-0C21-DFA3-64C1-9590293A0473");
+	private static final UUID WEAPON_LEVEL = UUID.fromString("B0FFBAE0-9CC9-7C55-94F7-47C1CC02C402");
+	private static final UUID WEAPON_SECONDARY = UUID.fromString("EC9FB524-0C21-DFA3-64C1-9590293A0473");
 
 	@SubscribeEvent
 	public static void addAttributeModifier(ItemAttributeModifierEvent event) {
@@ -33,16 +33,16 @@ public class ItemAttrProcedure {
 			if (event.getSlotType() == EquipmentSlot.MAINHAND) {
 				if (item.getItem() instanceof TieredItem tieredItem) {
 					Tier tier = tieredItem.getTier();
-					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(weaponLevel, "main", level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
+					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
 					WeaponAttributeData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
-						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(weaponSecondary, level));
+						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
 				} else if (item.getItem() instanceof BowInterface bowInterface) {
-					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(weaponLevel, "main", bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
+					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
 					WeaponAttributeData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
-						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(weaponSecondary, level));
+						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
 				}
 			}

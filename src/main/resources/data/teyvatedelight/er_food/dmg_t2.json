@@ -1,0 +1,15 @@
+{
+  "items": [
+    "teyvatdelight:iced_wolfhook_juice",
+    "teyvatdelight:fried_radish_balls"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_strong",
+        "amplifier": 1,
+        "duration": 6000
+      }
+    ]
+  }
+}

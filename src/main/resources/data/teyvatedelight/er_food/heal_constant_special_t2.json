@@ -1,0 +1,16 @@
+{
+  "items": [
+    "teyvatdelight:magical_meat_sauce_pasta",
+    "teyvatdelight:apple_cider"
+  ],
+  "food_addition": {
+    "heal_percent": 0.26,
+    "apply_effects": [
+      {
+        "id": "er:satisfaction",
+        "amplifier": 4,
+        "duration": 600
+      }
+    ]
+  }
+}

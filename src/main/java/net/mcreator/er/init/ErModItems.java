@@ -352,7 +352,7 @@ public class ErModItems {
 	public static final RegistryObject<Item> BOSS_SPAWNER = block(ErModBlocks.BOSS_SPAWNER);
 	public static final RegistryObject<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
-    public static final RegistryObject<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
+	public static final RegistryObject<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

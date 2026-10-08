@@ -1,0 +1,14 @@
+{
+  "items": [
+    "teyvatdelight:cold_cut_platter"
+  ],
+  "food_addition": {
+    "apply_effects": [
+      {
+        "id": "er:tasted_physical",
+        "amplifier": 0,
+        "duration": 6000
+      }
+    ]
+  }
+}

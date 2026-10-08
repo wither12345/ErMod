@@ -1,0 +1,10 @@
+{
+  "items": [
+    "teyvatdelight:first_try_apple_stew",
+    "teyvatdelight:puppy_paw_hash_brown"
+  ],
+  "food_addition": {
+    "heal_amount": 47,
+    "heal_percent": 0.4
+  }
+}

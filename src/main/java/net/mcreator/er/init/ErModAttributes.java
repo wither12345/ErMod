@@ -23,7 +23,7 @@ public class ErModAttributes {
 	public static final DeferredRegister<Attribute> REGISTRY = DeferredRegister.create(ForgeRegistries.ATTRIBUTES, ErMod.MODID);
 	public static final RegistryObject<Attribute> ELEMENTAL_MASTERY = REGISTRY.register("elemental_mastery", () -> new RangedAttribute("attribute.er.elemental_mastery", 0, 0, 32768).setSyncable(true));
 	public static final RegistryObject<Attribute> ENERGY_RECHARGE = REGISTRY.register("energy_recharge", () -> new RangedAttribute("attribute.er.energy_recharge", 100, 0, 1024).setSyncable(true));
-	public static final RegistryObject<Attribute> SHIELD_STRENGTH = REGISTRY.register("shield_strength", () -> new RangedAttribute("attribute.er.shield_strength", 0, -200, 65536).setSyncable(true));
+	public static final RegistryObject<Attribute> SHIELD_STRENGTH = REGISTRY.register("shield_strength", () -> new RangedAttribute("attribute.er.shield_strength", 100, -200, 65536).setSyncable(true));
 	public static final RegistryObject<Attribute> ANEMO_DMG_BONUS = REGISTRY.register("anemo_dmg_bonus", () -> new RangedAttribute("attribute.er.anemo_dmg_bonus", 1, 0, 65536).setSyncable(true));
 	public static final RegistryObject<Attribute> CRYO_DMG_BONUS = REGISTRY.register("cryo_dmg_bonus", () -> new RangedAttribute("attribute.er.cryo_dmg_bonus", 1, 0, 65536).setSyncable(true));
 	public static final RegistryObject<Attribute> DENDRO_DMG_BONUS = REGISTRY.register("dendro_dmg_bonus", () -> new RangedAttribute("attribute.er.dendro_dmg_bonus", 1, 0, 65536).setSyncable(true));

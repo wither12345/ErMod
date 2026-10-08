@@ -2,6 +2,7 @@ package net.wither.er.client.screens;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.mcreator.er.ERClientConfig;
 import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.client.Minecraft;
@@ -74,7 +75,7 @@ public class ErOverlay {
     public static void onRenderer(RenderGuiOverlayEvent event){
         int w = event.getGuiGraphics().guiWidth();
         Player player = Minecraft.getInstance().player;
-        if(event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type()) {
+        if(event.getOverlay() == VanillaGuiOverlay.PLAYER_HEALTH.type() && ERClientConfig.PLAYER_HEALTH.get() == ERClientConfig.HealthBarEnum.BAR) {
             renderPlayerHealthBar(player, event.getGuiGraphics());
             event.setCanceled(true);
         }

@@ -112,6 +112,8 @@ public class EntityHurtEvent {
                                 modifier.crit_multiply += data.critMulti;
                                 modifier.common_multiply += data.dmgMulti;
                                 float dmg = amount * data.healthConsume;
+                                if(living instanceof ServerPlayer player)
+                                    AdvancementTriggerRegister.DELUSION.trigger(player, dmg);
                                 if(living.getHealth() >= dmg)
                                     living.setHealth(living.getHealth() - dmg);
                                 else

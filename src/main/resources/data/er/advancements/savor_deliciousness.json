@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "advancements": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "teyvatdelight"
+        }
+      ],
+      "advancement": {
+        "display": {
+          "icon": {
+            "item": "er:sunsettia"
+          },
+          "title": {
+            "translate": "advancements.savor.title"
+          },
+          "description": {
+            "translate": "advancements.savor.descr"
+          }
+        },
+        "criteria": {
+          "trigger_name": {
+            "trigger": "minecraft:tick"
+          }
+        },
+        "parent": "er:elemental_reaction"
+      }
+    }
+  ]
+}

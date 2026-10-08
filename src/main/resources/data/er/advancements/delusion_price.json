@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "er:unowned_delusion"
+    },
+    "title": {
+      "translate": "advancements.delusion_price.title"
+    },
+    "description": {
+      "translate": "advancements.delusion_price.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "alchemist_0": {
+      "trigger": "er:delusion",
+      "conditions": {
+        "dmg": 1
+      }
+    }
+  },
+  "parent": "er:elemental_reaction"
+}
