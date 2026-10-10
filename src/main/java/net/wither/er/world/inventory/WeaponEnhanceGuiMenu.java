@@ -12,14 +12,16 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
-import net.wither.er.item.weapons.AbilityWeapon;
 import net.wither.er.recipe.ascension.AscensionRecipe;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 import org.jetbrains.annotations.NotNull;
@@ -164,10 +166,12 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
             int total_experience = data.total_experience();
             int ascension = data.ascension();
             int star = WeaponLevelData.getItemWeaponStar(item_0) ;
-            if(item_0.getItem() instanceof AbilityWeapon abilityWeapon){
+            LazyOptional<WeaponAbilityData> dataOptional = item_0.getCapability(WeaponAbilityData.WEAPON_ABILITY);
+            if(dataOptional.isPresent() && dataOptional.resolve().isPresent()){
+                WeaponAbilityData abilityData = dataOptional.resolve().get();
                 for (int index2 = 2; index2 <= 4; index2++) {
                     ItemStack slotItem = this.getSlot(index2).getItem() ;
-                    if(abilityWeapon.getRefinementItem() == slotItem.getItem()){
+                    if(abilityData.ascension().get() != Items.AIR && abilityData.ascension().get() == slotItem.getItem()){
                         CompoundTag tag = slotItem.getOrCreateTag();
                         refine += (tag.contains("refinement") ? tag.getInt("refinement") : 1) ;
                     }

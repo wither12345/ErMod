@@ -255,6 +255,8 @@ public abstract class Whopperflower extends PathfinderMob implements OwnableEnti
         }
         else {
             BlockPos pos = this.getOnPos();
+            while (this.level().getBlockState(pos).canBeReplaced() && pos.getY() <= 256 && pos.getY() >= -64)
+                pos = pos.below();
             this.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
             if(!instance.hasModifier(KNOCKBACK))
                 instance.addTransientModifier(KNOCKBACK);

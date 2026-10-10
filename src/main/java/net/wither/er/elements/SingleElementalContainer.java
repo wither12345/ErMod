@@ -6,13 +6,14 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.wither.er.api.EventListener;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.ElementRegistry;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.ReactionAbility;
-import net.wither.er.item.weapons.AbilityWeapon;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -58,10 +59,15 @@ public class SingleElementalContainer {
                         }
                     }
                 }
-                if(applier instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof ReactionAbility ability){
-                    CompoundTag tag = living.getMainHandItem().getOrCreateTag();
-                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                    ability.onReaction(container, source, ele, damageModifier, applier, refinement);
+                if(applier instanceof LivingEntity living) {
+                    ItemStack handItem = living.getMainHandItem();
+                    handItem.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+                        if (weaponAbility.ability().get() instanceof ReactionAbility ability) {
+                            CompoundTag tag = handItem.getOrCreateTag();
+                            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1;
+                            ability.onReaction(container, source, ele, damageModifier, applier, refinement);
+                        }
+                    });
                 }
 
                 gauge_reducing = Math.max(gauge_reducing, ele.reactWith(container, auraEntry.getValue(), source, damageModifier, applier));

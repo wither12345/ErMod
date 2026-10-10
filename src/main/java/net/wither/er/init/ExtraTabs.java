@@ -179,6 +179,14 @@ public class ExtraTabs {
             tabData.accept(CRYO_FLOWER_SPAWN_EGG);
             tabData.accept(ELECTRO_HYPOSTASIS_CUBE_SPAWN_EGG);
 		} else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
+            tabData.accept(WOODEN_CLUB);
+            tabData.accept(ANEMO_SWORD);
+            tabData.accept(HYDRO_SWORD);
+            tabData.accept(CRYO_SWORD);
+            tabData.accept(ELECTRO_SWORD);
+            tabData.accept(PYRO_SWORD);
+            tabData.accept(DENDRO_SWORD);
+            tabData.accept(GEO_SWORD);
 			tabData.accept(DULL_BLADE);
 			tabData.accept(WASTER_GREATSWORD);
 			tabData.accept(SILVER_SWORD);
@@ -186,6 +194,7 @@ public class ExtraTabs {
             tabData.accept(DARK_IRON_SWORD);
             tabData.accept(TRAVELERS_HANDY_SWORD);
             tabData.accept(SKYRIDER_SWORD);
+            tabData.accept(FILLET_BLADE);
 		} else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(BURNING_DIRT);
             tabData.accept(SWEET_FLOWER);
@@ -200,12 +209,19 @@ public class ExtraTabs {
             tabData.accept(HYDRO_HOE);
         } else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
             addArmorGroup(tabData, ANEMO_ARMOR);
+            tabData.accept(ANEMO_SWORD);
             addArmorGroup(tabData, HYDRO_ARMOR);
+            tabData.accept(HYDRO_SWORD);
             addArmorGroup(tabData, CRYO_ARMOR);
+            tabData.accept(CRYO_SWORD);
             addArmorGroup(tabData, ELECTRO_ARMOR);
+            tabData.accept(ELECTRO_SWORD);
             addArmorGroup(tabData, PYRO_ARMOR);
+            tabData.accept(PYRO_SWORD);
             addArmorGroup(tabData, DENDRO_ARMOR);
+            tabData.accept(DENDRO_SWORD);
             addArmorGroup(tabData, GEO_ARMOR);
+            tabData.accept(GEO_SWORD);
         } else if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {
             tabData.accept(LINK_MECHANISM);
             tabData.accept(STORAGE_DEVICE);

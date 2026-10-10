@@ -3,7 +3,7 @@ package net.wither.er.init;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +16,7 @@ public class DataComponentsRegister {
     public static final HashMap<String, ItemDataHolder<?>> holderHashMap = new HashMap<>();
 
     public static final ItemDataHolder<WeaponLevelData> WEAPON_LEVEL = ItemDataHolder.create("er:weapon_level", WeaponLevelData.WEAPON_LEVEL);
-    public static final ItemDataHolder<WeaponAttributeData> WEAPON_ATTR = ItemDataHolder.create("er:weapon_attr", WeaponAttributeData.WEAPON_ATTR);
+    public static final ItemDataHolder<WeaponAbilityData> WEAPON_ATTR = ItemDataHolder.create("er:weapon_attr", WeaponAbilityData.WEAPON_ABILITY);
     public static final ItemDataHolder<ArtifactData> ARTIFACT = ItemDataHolder.create("er:artifact",  ArtifactData.ARTIFACT_DATA);
 
     public record ItemDataHolder<T>(String id, Capability<T> capability){

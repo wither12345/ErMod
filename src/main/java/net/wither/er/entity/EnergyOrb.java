@@ -16,11 +16,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
-import net.wither.er.item.weapons.AbilityWeapon;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
@@ -174,11 +175,14 @@ public class EnergyOrb extends Entity {
                         }
                     }
                 }
-                if(serverplayer.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof EnergyOrbPickupAbility ability) {
-                    CompoundTag tag = serverplayer.getMainHandItem().getOrCreateTag();
-                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                    ability.onPick(this, serverplayer, refinement);
-                }
+                ItemStack handItem = serverplayer.getMainHandItem();
+                handItem.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+                    if (weaponAbility.ability().get() instanceof EnergyOrbPickupAbility ability) {
+                        CompoundTag tag = handItem.getOrCreateTag();
+                        int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1;
+                        ability.onPick(this, serverplayer, refinement);
+                    }
+                });
 			}
 			this.discard();
 		}

@@ -3,10 +3,11 @@ package net.wither.er.entity.listener;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.minecraft.world.item.ItemStack;
 import net.wither.er.entity.IErEntity;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.HealthFloatingAbility;
-import net.wither.er.item.weapons.AbilityWeapon;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 
 public class onHealthFloating {
     public static void onFloating(LivingEntity entity, float d){
@@ -18,11 +19,13 @@ public class onHealthFloating {
                 }
             }
         }
-
-        if(entity.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof HealthFloatingAbility ability){
-            CompoundTag tag = entity.getMainHandItem().getOrCreateTag();
-            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-            ability.onFloat(entity, d, refinement);
-        }
+        ItemStack handItem = entity.getMainHandItem();
+        handItem.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+            if (weaponAbility.ability().get() instanceof HealthFloatingAbility ability) {
+                CompoundTag tag = handItem.getOrCreateTag();
+                int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1;
+                ability.onFloat(entity, d, refinement);
+            }
+        });
     }
 }

@@ -26,10 +26,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.entity.EnergyOrb;
 import net.wither.er.entity.IErEntity;
+import net.wither.er.entity.outcrop.Blossom;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.KillAbility;
-import net.wither.er.item.weapons.AbilityWeapon;
-import net.wither.er.entity.outcrop.Blossom;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 
 @Mod.EventBusSubscriber
 public class EntityDeathProcedure {
@@ -90,11 +90,13 @@ public class EntityDeathProcedure {
                 }
             }
         }
-        if(hand_item.getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof KillAbility ability) {
-            CompoundTag tag = hand_item.getOrCreateTag();
-            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-            ability.onKill(source, entity, refinement);
-        }
+        hand_item.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+            if(weaponAbility.ability().get() instanceof KillAbility ability) {
+                CompoundTag tag = hand_item.getOrCreateTag();
+                int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                ability.onKill(source, entity, refinement);
+            }
+        });
 	}
 
 	private static void dropArtifact(ServerLevel level, BlockPos pos,  ResourceLocation tableKey){

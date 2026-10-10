@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "er:sumeru_rose"
+    "er:sumeru_rose",
+    {
+      "id": "er:sweet_flower",
+      "required": false
+    }
   ]
 }

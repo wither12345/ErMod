@@ -42,7 +42,7 @@ import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.OnBurstAbility;
-import net.wither.er.item.weapons.AbilityWeapon;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.StellaFortunaData;
 import org.jetbrains.annotations.NotNull;
@@ -108,11 +108,14 @@ public abstract class StellaFortunas extends Item {
                 }
             }
         }
-        if(entity.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof OnBurstAbility ability){
-            CompoundTag tag = entity.getMainHandItem().getOrCreateTag();
-            int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-            ability.onBurst(entity, refinement);
-        }
+        ItemStack itemStack = entity.getMainHandItem();
+        itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+            if(weaponAbility.ability().get() instanceof OnBurstAbility ability) {
+                CompoundTag tag = itemStack.getOrCreateTag();
+                int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                ability.onBurst(entity, refinement);
+            }
+        });
 	}
 
 	@Override

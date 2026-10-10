@@ -3,7 +3,7 @@ package net.mcreator.er.entity;
 
 
 import net.mcreator.er.init.ErModEntities;
-import net.mcreator.er.procedures.HilichurlOnInitialEntitySpawnProcedure;
+import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -33,6 +34,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -96,7 +98,7 @@ public class HilichurlEntity extends Monster implements CrossbowAttackMob, Inven
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
-		this.goalSelector.addGoal(1, new RangedBowAttackGoal(this, 0D, 25, 15.0F) {
+		this.goalSelector.addGoal(1, new RangedBowAttackGoal<HilichurlEntity>(this, 0D, 25, 15.0F) {
 			@Override
 			public boolean canUse() {
 				LivingEntity entity = HilichurlEntity.this;
@@ -109,19 +111,19 @@ public class HilichurlEntity extends Monster implements CrossbowAttackMob, Inven
 				return entity.getMainHandItem().getItem() instanceof BowItem;
 			}
 		});
-		this.goalSelector.addGoal(1, new RangedCrossbowAttackGoal(this, 1.0D, 8.0F) {
-			@Override
-			public boolean canUse() {
-				LivingEntity entity = HilichurlEntity.this;
-				return entity.getMainHandItem().getItem() instanceof CrossbowItem;
-			}
+		this.goalSelector.addGoal(1, new RangedCrossbowAttackGoal<>(this, 1.0D, 8.0F) {
+            @Override
+            public boolean canUse() {
+                LivingEntity entity = HilichurlEntity.this;
+                return entity.getMainHandItem().getItem() instanceof CrossbowItem;
+            }
 
-			@Override
-			public boolean canContinueToUse() {
-				LivingEntity entity = HilichurlEntity.this;
-				return entity.getMainHandItem().getItem() instanceof CrossbowItem;
-			}
-		});
+            @Override
+            public boolean canContinueToUse() {
+                LivingEntity entity = HilichurlEntity.this;
+                return entity.getMainHandItem().getItem() instanceof CrossbowItem;
+            }
+        });
 		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false) {
 			@Override
 			public boolean canUse() {
@@ -147,20 +149,22 @@ public class HilichurlEntity extends Monster implements CrossbowAttackMob, Inven
 	}
 
 	@Override
-	public SoundEvent getHurtSound(DamageSource ds) {
+	public @NotNull SoundEvent getHurtSound(@NotNull DamageSource ds) {
 		return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.generic.hurt"));
 	}
 
 	@Override
-	public SoundEvent getDeathSound() {
+	public @NotNull SoundEvent getDeathSound() {
 		return BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.generic.death"));
 	}
 
 	@Override
 	public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor world, @NotNull DifficultyInstance difficulty, @NotNull MobSpawnType reason, @Nullable SpawnGroupData livingData, CompoundTag tag) {
-		SpawnGroupData retrieval = super.finalizeSpawn(world, difficulty, reason, livingData, tag);
-		HilichurlOnInitialEntitySpawnProcedure.execute(this);
-		return retrieval;
+		if (this.random.nextDouble() <= 0.33)
+            this.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.CROSSBOW));
+        else if (this.random.nextBoolean())
+            this.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ErModItems.WOODEN_CLUB.get()));
+		return super.finalizeSpawn(world, difficulty, reason, livingData, tag);
 	}
 
 	@Override

@@ -34,8 +34,8 @@ public class AdditionalRegistries {
     public static final Supplier<EntityModifier.Builder> HELMET = MODIFIERS.register("helmet", () -> (j -> ItemGiver.read(j, EquipmentSlot.HEAD)));
 
     public static final ResourceKey<Registry<ArtifactEffect>> ARTIFACT_EFFECT = ResourceKey.createRegistryKey(new ResourceLocation(MODID, "artifact_effect"));
-    public static final DeferredRegister<ArtifactEffect> ARTIFACT_EFFECTS = DeferredRegister.create(ARTIFACT_EFFECT, ErMod.MODID);
 
+    public static final DeferredRegister<ArtifactEffect> ARTIFACT_EFFECTS = DeferredRegister.create(ARTIFACT_EFFECT, ErMod.MODID);
 
     public static IForgeRegistry<EntityModifier.Builder> ENTITY_MODIFIERS_REGISTRY;
     public static IForgeRegistry<ArtifactEffect> ARTIFACT_REGISTRY ;
@@ -43,6 +43,7 @@ public class AdditionalRegistries {
 
     public static Supplier<IForgeRegistry<EntityModifier.Builder>> ENTITY_MODIFIERS_SUPP;
     public static Supplier<IForgeRegistry<ArtifactEffect>> ARTIFACT_SUPP ;
+
     static {
         ENTITY_MODIFIERS_SUPP = MODIFIERS.makeRegistry(
                 () -> new RegistryBuilder<EntityModifier.Builder>()
@@ -57,6 +58,7 @@ public class AdditionalRegistries {
     @SubscribeEvent
     public static void onCommonSetup(FMLCommonSetupEvent event) {
         ShieldRegistry.SHIELD_REGISTRY = ShieldRegistry.SHIELD_SUPP.get();
+        WeaponAbilityRegister.ABILITY_REGISTRY = WeaponAbilityRegister.ABILITY_SUPP.get();
         ENTITY_MODIFIERS_REGISTRY = ENTITY_MODIFIERS_SUPP.get();
         ARTIFACT_REGISTRY = ARTIFACT_SUPP.get();
         ELEMENT_REGISTRY = ElementRegistry.ELEMENT_SUPP.get();

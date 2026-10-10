@@ -12,7 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.BowInterface;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 
 import java.util.UUID;
@@ -34,13 +34,13 @@ public class ItemAttrProcedure {
 				if (item.getItem() instanceof TieredItem tieredItem) {
 					Tier tier = tieredItem.getTier();
 					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
-					WeaponAttributeData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
+					WeaponAbilityData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
 				} else if (item.getItem() instanceof BowInterface bowInterface) {
 					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
-					WeaponAttributeData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
+					WeaponAbilityData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
@@ -53,7 +53,7 @@ public class ItemAttrProcedure {
 				if(ascension > 0)
 					event.addModifier(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(getArmorUUID(armor.getEquipmentSlot(), 1), "ascension", ascension * (armor.getToughness() + 1) * 0.1, AttributeModifier.Operation.ADDITION));
 
-				WeaponAttributeData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
+				WeaponAbilityData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 				if(dataAttr != null && dataAttr.attribute() != null){
 					event.addModifier(dataAttr.attribute(),
                             dataAttr.getModifier(getArmorUUID(armor.getEquipmentSlot(), 2), level));

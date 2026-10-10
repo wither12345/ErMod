@@ -11,7 +11,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.item.data.artifactdata.ArtifactData;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.network.ErCombatVariables;
 
@@ -34,13 +34,13 @@ public class PutCapabilities {
         if(hasLevelComponents(item))
             event.addCapability(new ResourceLocation("er", "weapon_level"), new WeaponLevelData.CapabilityProvider());
         if(item == Items.DIAMOND_SWORD)
-            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(ATTACK_DAMAGE, 0.018, true));
+            event.addCapability(WeaponAbilityData.LOCATION, new WeaponAbilityData.CapabilityProvider(ATTACK_DAMAGE, 0.018, true));
         else if (item == Items.DIAMOND_HELMET || item == Items.DIAMOND_CHESTPLATE || item == Items.DIAMOND_LEGGINGS || item == Items.DIAMOND_BOOTS)
-            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(Attributes.MAX_HEALTH,0.009,true));
+            event.addCapability(WeaponAbilityData.LOCATION, new WeaponAbilityData.CapabilityProvider(Attributes.MAX_HEALTH,0.009,true));
         else if(item == Items.NETHERITE_SWORD)
-            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(ATTACK_DAMAGE, 0.036, true));
+            event.addCapability(WeaponAbilityData.LOCATION, new WeaponAbilityData.CapabilityProvider(ATTACK_DAMAGE, 0.036, true));
         else if (item == Items.NETHERITE_HELMET || item == Items.NETHERITE_CHESTPLATE || item == Items.NETHERITE_LEGGINGS || item == Items.NETHERITE_BOOTS)
-            event.addCapability(WeaponAttributeData.LOCATION, new WeaponAttributeData.CapabilityProvider(Attributes.MAX_HEALTH,0.009,true));
+            event.addCapability(WeaponAbilityData.LOCATION, new WeaponAbilityData.CapabilityProvider(Attributes.MAX_HEALTH,0.009,true));
         if(item instanceof Artifact artifact)
             event.addCapability(new ResourceLocation("er", "artifact"), new ArtifactData.CapabilityProvider(artifact.getSlot(), artifact.getEffect()));
     }

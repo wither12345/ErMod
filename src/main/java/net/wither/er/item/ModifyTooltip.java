@@ -5,18 +5,20 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.init.WeaponAbilityRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.ErFoodData;
 import net.wither.er.item.data.ErFoodDataListener;
-import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
-import net.wither.er.item.weapons.AbilityWeapon;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
+import net.wither.er.item.data.weapon.WeaponLevelData;
 
 import java.util.List;
 
@@ -26,11 +28,12 @@ public class ModifyTooltip {
     public static void onItemTooltip(ItemTooltipEvent event) {
         List<Component> list = event.getToolTip();
         ItemStack item = event.getItemStack();
-        ArtifactData artifactData = DataComponentsRegister.ARTIFACT.getData(item);
         WeaponLevelData weaponLevelData = DataComponentsRegister.WEAPON_LEVEL.getData(item);
 
-        if(artifactData != null)
-            addArtifactEffectId(artifactData.addTooltip(list) , list, artifactData.effect().get());
+        item.getCapability(ArtifactData.ARTIFACT_DATA).ifPresent(data ->
+                addArtifactEffectId(data.addTooltip(list) , list, data.effect().get())
+        );
+
 
         if(weaponLevelData != null && !item.is(WeaponLevelData.NOT_ENHANCEABLE)){
             list.add(1, Component.literal("Lv." + weaponLevelData.level() + "/" + WeaponLevelData.getMaxLevel(weaponLevelData.ascension()) + " " + getAscension(weaponLevelData.ascension(), WeaponLevelData.getItemWeaponStar(item))));
@@ -39,10 +42,12 @@ public class ModifyTooltip {
                         "experience : " + weaponLevelData.experience() + "/" + WeaponLevelData.getMaxExp(weaponLevelData.level(), WeaponLevelData.getItemWeaponStar(item))));
             else
                 list.add(2, Component.literal("§6Maxed")) ;
-            if(item.getItem() instanceof AbilityWeapon){
-                CompoundTag tag = item.getOrCreateTag();
-                list.add(1, Component.translatable("lore.er.refinement").append(" " + (tag.contains("refinement") ? tag.getInt("refinement") : 1)));
-            }
+            item.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(data -> {
+                if(data.ability().get() != WeaponAbilityRegister.EMPTY.get() && data.ascension().get() != Items.AIR){
+                    CompoundTag tag = item.getOrCreateTag();
+                    list.add(1, Component.translatable("lore.er.refinement").append(" " + (tag.contains("refinement") ? tag.getInt("refinement") : 1)));
+                }
+            });
         }
 
         ErFoodData data = ErFoodDataListener.getData(item);

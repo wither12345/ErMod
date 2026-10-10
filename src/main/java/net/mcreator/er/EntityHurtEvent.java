@@ -29,7 +29,7 @@ import net.minecraft.world.entity.Targeting;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.scores.PlayerTeam;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -53,7 +53,8 @@ import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
-import net.wither.er.item.weapons.AbilityWeapon;
+import net.wither.er.item.data.weapon.InfusionAbility;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.shield.ShieldStack;
@@ -70,6 +71,7 @@ public class EntityHurtEvent {
     private static final TagKey<DamageType> CATALYZE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction_multiply/catalyze")) ;
     private static final TagKey<DamageType> TRANSFORMATIVE = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:reaction_multiply/transformative")) ;
     private static final TagKey<DamageType> LUNAR = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:lunar")) ;
+    private static final TagKey<DamageType> NORMAL_ATTACK = TagKey.create(Registries.DAMAGE_TYPE, new ResourceLocation("er:normal_attack")) ;
 
 	@SubscribeEvent
 	public static void onEntityAttacked(LivingHurtEvent event) {
@@ -94,10 +96,15 @@ public class EntityHurtEvent {
                     }
                 }
             }
-            if(sourceentity instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof DamageAbility ability) {
-                CompoundTag tag = living.getMainHandItem().getOrCreateTag();
-                int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                ability.onHurt(damagesource, entity, modifier, refinement);
+            if(sourceentity instanceof LivingEntity living) {
+                ItemStack itemStack = living.getMainHandItem();
+                itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+                    if(weaponAbility.ability().get() instanceof DamageAbility damageAbility) {
+                        CompoundTag tag = itemStack.getOrCreateTag();
+                        int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                        damageAbility.onHurt(damagesource, entity, modifier, refinement);
+                    }
+                });
             }
             double elemental_mastery = 0 ;
             if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_MASTERY.get()) != null)
@@ -160,11 +167,15 @@ public class EntityHurtEvent {
                         ability.beAttacked(entity, damagesource, modifier, final_amount, effect.getIntValue());
                     }
                 }
-                if(entity.getMainHandItem().getItem() instanceof AbilityWeapon abilityWeapon && abilityWeapon.getAbility() instanceof BeAttackedAbility ability) {
-                    CompoundTag tag = entity.getMainHandItem().getOrCreateTag();
-                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                    ability.beAttacked(entity, damagesource, modifier, final_amount, refinement);
-                }
+                ItemStack itemStack = entity.getMainHandItem();
+                float final_amount1 = final_amount;
+                itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+                    if(weaponAbility.ability().get() instanceof BeAttackedAbility ability) {
+                        CompoundTag tag = itemStack.getOrCreateTag();
+                        int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                        ability.beAttacked(entity, damagesource, modifier, final_amount1, refinement);
+                    }
+                });
             }
         }
 	}
@@ -212,7 +223,10 @@ public class EntityHurtEvent {
             elementSourceInterface.er$setElement(source1) ;
         }
 
-        if(source.getEntity() != null && elementSourceInterface.er$getSource() == null)
+        if(source.getEntity() != null &&
+                elementSourceInterface.er$getSource() == null &&
+                source.is(NORMAL_ATTACK) &&
+                source.getEntity() == source.getDirectEntity())
             elementSourceInterface.er$setElement(getElementSource(source.getEntity().level(), source.getEntity(), source.getDirectEntity()));
     }
 
@@ -262,9 +276,14 @@ public class EntityHurtEvent {
         if (entity == null) return null;
         Element element = null;
         if (immediatesourceentity == entity) {
-            if (entity instanceof LivingEntity && ((LivingEntity) entity).getMainHandItem().getItem() instanceof MultipleInfusion) {
-                Item item = ((LivingEntity) entity).getMainHandItem().getItem();
-                element = getEle(((MultipleInfusion) item).getInfusion(((LivingEntity) entity).getMainHandItem(), entity));
+            if(entity instanceof LivingEntity living){
+                ItemStack itemStack = living.getMainHandItem();
+                WeaponAbilityData data = itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).resolve().orElse(null);
+                if (data != null && data.ability().get() instanceof InfusionAbility ability) {
+                    CompoundTag tag = itemStack.getOrCreateTag();
+                    int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1;
+                    return ability.getInfusion(itemStack, entity, refinement);
+                }
             }
             if (IsAnemoInfusionProcedure.execute(world, entity)) {
                 element = ElementRegistry.ANEMO.get();
@@ -285,34 +304,6 @@ public class EntityHurtEvent {
         if(element == null) return null;
         return new ElementSource(element, new ResourceLocation("er:default"), 1, element.isApplicable());
     }
-
-    @Deprecated(forRemoval = true)
-	public static int getInfusionType(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
-		if (entity == null)
-			return 0;
-		if (immediatesourceentity == entity) {
-			if (entity instanceof LivingEntity && ((LivingEntity) entity).getMainHandItem().getItem() instanceof MultipleInfusion) {
-				Item item = ((LivingEntity) entity).getMainHandItem().getItem();
-				return ((MultipleInfusion) item).getInfusion(((LivingEntity) entity).getMainHandItem(), entity);
-			}
-			if (IsAnemoInfusionProcedure.execute(world, entity)) {
-				return 1;
-			} else if (IsCryoInfusionProcedure.execute(world, entity)) {
-				return 2;
-			} else if (IsDendroInfusionProcedure.execute(world, entity)) {
-				return 3;
-			} else if (IsElectroInfusionProcedure.execute(world, entity)) {
-				return 4;
-			} else if (IsGeoInfusionProcedure.execute(world, entity)) {
-				return 5;
-			} else if (IsHydroInfusionProcedure.execute(world, entity)) {
-				return 6;
-			} else if (IsPyroInfusionProcedure.execute(world, entity)) {
-				return 7;
-			}
-		}
-		return 0;
-	}
 
 	public static float getElementalMasteryMultiply(int type, double elemental_mastery) {
 		if (type == 0) //Melt Vaporize

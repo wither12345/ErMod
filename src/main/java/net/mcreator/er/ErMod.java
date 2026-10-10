@@ -76,6 +76,7 @@ public class ErMod {
 		ErAttributeRegister.REGISTRY.register(bus);
 		SerializerRegister.SERIALIZERS.register(bus);
 		LootConditionRegister.LOOT_CONDITION_TYPES.register(bus);
+		WeaponAbilityRegister.ABILITIES.register(bus);
 		context.registerConfig(ModConfig.Type.CLIENT, ERClientConfig.SPEC);
 		context.registerConfig(ModConfig.Type.COMMON, ERConfig.SPEC);
 		// End of user code block mod init

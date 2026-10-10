@@ -23,6 +23,5 @@ public class ErModEnchantments {
 	public static final RegistryObject<Enchantment> PYRO_INFUSION_ENCHANTMENT = REGISTRY.register("pyro_infusion_enchantment", PyroInfusionEnchantmentEnchantment::new);
 	public static final RegistryObject<Enchantment> ELEMENTAL_MASTER = REGISTRY.register("elemental_master", ElementalMasterEnchantment::new);
 	public static final RegistryObject<Enchantment> HARD = REGISTRY.register("hard", HardEnchantment::new);
-	public static final RegistryObject<Enchantment> WEALTH = REGISTRY.register("wealth", WealthEnchantment::new);
 	public static final RegistryObject<Enchantment> GREED = REGISTRY.register("greed", GreedEnchantment::new);
 }

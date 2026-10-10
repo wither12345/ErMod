@@ -15,11 +15,10 @@ import java.util.function.Supplier;
 import static net.mcreator.er.ErMod.MODID;
 
 public class ElementRegistry {
-
     public static final ResourceKey<Registry<Element>> ELEMENT = ResourceKey.createRegistryKey(new ResourceLocation(MODID, "elements"));
     public static final DeferredRegister<Element> ELEMENTS = DeferredRegister.create(ELEMENT, ErMod.MODID);
 
-    public static Supplier<IForgeRegistry<Element>> ELEMENT_SUPP = ElementRegistry.ELEMENTS.makeRegistry(
+    public static Supplier<IForgeRegistry<Element>> ELEMENT_SUPP = ELEMENTS.makeRegistry(
             () -> new RegistryBuilder<Element>()
                     .setName(ELEMENT.location()));
 

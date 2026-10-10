@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/fillet_blade"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:ascension": 2
+      },
+      "model": "er:item/fillet_blade_2"
+    }
+  ]
+}

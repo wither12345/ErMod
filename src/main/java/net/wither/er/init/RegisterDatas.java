@@ -10,7 +10,7 @@ import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.network.*;
 
@@ -43,7 +43,7 @@ public class RegisterDatas {
 		event.register(ErItemVariables.PlayerVariables.class);
 
 		event.register(WeaponLevelData.class);
-		event.register(WeaponAttributeData.class);
+		event.register(WeaponAbilityData.class);
 		event.register(ArtifactData.class);
 		event.register(MainAffix.class);
 		event.register(MinorAffix.class);

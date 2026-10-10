@@ -22,7 +22,6 @@ public class ShieldRegistry {
 		ShieldRegistry.SHIELD_SUPP = ShieldRegistry.SHIELDS.makeRegistry(
 				() -> new RegistryBuilder<ErShield>()
 						.setName(ShieldRegistry.SHIELD.location())
-						.setMaxID(256)
 		);
 	}
 
