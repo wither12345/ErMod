@@ -10,6 +10,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -161,7 +162,7 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
             if(weaponRefinement != null){
                 for (int index2 = 2; index2 <= 4; index2++) {
                     ItemStack slotItem = this.getSlot(index2).getItem() ;
-                    if(weaponRefinement.refinementItem().value() == slotItem.getItem()){
+                    if(weaponRefinement.refinementItem().value() != Items.AIR && weaponRefinement.refinementItem().value() == slotItem.getItem()){
                         WeaponRefinement refinement = slotItem.get(DataComponentsRegister.WEAPON_REFINEMENT.get());
                         refine += (refinement == null ? 1 : refinement.refineLevel()) ;
                     }

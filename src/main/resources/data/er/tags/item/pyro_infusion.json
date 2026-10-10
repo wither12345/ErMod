@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:blaze_rod",
-    "er:pyro_sword",
-    "er:pyro_pickaxe"
+    "er:pyro_pickaxe",
+    "er:pyro_sword"
   ]
 }

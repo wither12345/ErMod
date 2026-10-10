@@ -30,17 +30,13 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.api.distmarker.Dist;
 
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.client.renderer.item.ItemProperties;
 
-import net.mcreator.er.procedures.WoodenClubPropertyValueProviderProcedure;
 import net.mcreator.er.procedures.RarityGemstone_CountProcedure;
 import net.mcreator.er.item.*;
 import net.mcreator.er.ErMod;
@@ -57,8 +53,6 @@ public class ErModItems {
 	public static final DeferredItem<Item> CONDENSED_PYRO;
 	public static final DeferredItem<Item> MORA;
 	public static final DeferredItem<Item> CONDENSED_CRYO;
-	public static final DeferredItem<Item> CRYO_SWORD;
-	public static final DeferredItem<Item> PYRO_SWORD;
 	public static final DeferredItem<Item> POLAR_STAR;
 	public static final DeferredItem<Item> TARTAGLIA_SPAWN_EGG;
 	public static final DeferredItem<Item> PYRO_PICKAXE;
@@ -66,20 +60,15 @@ public class ErModItems {
 	public static final DeferredItem<Item> ELECTRO_CRYSTAL;
 	public static final DeferredItem<Item> CONDENSED_ELECTRO;
 	public static final DeferredItem<Item> SUMERU_ROSE;
-	public static final DeferredItem<Item> ELECTRO_SWORD;
-	public static final DeferredItem<Item> DENDRO_SWORD;
 	public static final DeferredItem<Item> COR_LAPIS_ORE;
 	public static final DeferredItem<Item> COR_LAPIS;
 	public static final DeferredItem<Item> CONDENSED_GEO;
-	public static final DeferredItem<Item> GEO_SWORD;
 	public static final DeferredItem<Item> GEO_PICKAXE;
 	public static final DeferredItem<Item> DANDELION_SEED;
 	public static final DeferredItem<Item> CONDENSED_ANEMO;
 	public static final DeferredItem<Item> CONDENSED_DENDRO;
-	public static final DeferredItem<Item> ANEMO_SWORD;
 	public static final DeferredItem<Item> LOTUS_HEAD;
 	public static final DeferredItem<Item> CONDENSED_HYDRO;
-	public static final DeferredItem<Item> HYDRO_SWORD;
 	public static final DeferredItem<Item> MAIN_AFFIX_SHARD;
 	public static final DeferredItem<Item> MINOR_AFFIX_SHARD;
 	public static final DeferredItem<Item> RARITY_GEMSTONE;
@@ -94,7 +83,6 @@ public class ErModItems {
 	public static final DeferredItem<Item> FINE_ENHANCEMENT_ORE;
 	public static final DeferredItem<Item> ENHANCEMENT_ORE;
 	public static final DeferredItem<Item> HILICHURL_SPAWN_EGG;
-	public static final DeferredItem<Item> WOODEN_CLUB;
 	public static final DeferredItem<Item> CRATE;
 	public static final DeferredItem<Item> CUIHUA_LOG;
 	public static final DeferredItem<Item> CUIHUA_LEAVES;
@@ -142,8 +130,6 @@ public class ErModItems {
 		CONDENSED_PYRO = REGISTRY.register("condensed_pyro", CondensedPyroItem::new);
 		MORA = REGISTRY.register("mora", MoraItem::new);
 		CONDENSED_CRYO = REGISTRY.register("condensed_cryo", CondensedCryoItem::new);
-		CRYO_SWORD = REGISTRY.register("cryo_sword", CryoSwordItem::new);
-		PYRO_SWORD = REGISTRY.register("pyro_sword", PyroSwordItem::new);
 		POLAR_STAR = REGISTRY.register("polar_star", PolarStarItem::new);
 		TARTAGLIA_SPAWN_EGG = REGISTRY.register("tartaglia_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.TARTAGLIA, -6724096, -16737793, new Item.Properties()));
 		PYRO_PICKAXE = REGISTRY.register("pyro_pickaxe", PyroPickaxeItem::new);
@@ -151,20 +137,15 @@ public class ErModItems {
 		ELECTRO_CRYSTAL = REGISTRY.register("electro_crystal", ElectroCrystalItem::new);
 		CONDENSED_ELECTRO = REGISTRY.register("condensed_electro", CondensedElectroItem::new);
 		SUMERU_ROSE = block(ErModBlocks.SUMERU_ROSE);
-		ELECTRO_SWORD = REGISTRY.register("electro_sword", ElectroSwordItem::new);
-		DENDRO_SWORD = REGISTRY.register("dendro_sword", DendroSwordItem::new);
 		COR_LAPIS_ORE = block(ErModBlocks.COR_LAPIS_ORE);
 		COR_LAPIS = REGISTRY.register("cor_lapis", CorLapisItem::new);
 		CONDENSED_GEO = REGISTRY.register("condensed_geo", CondensedGeoItem::new);
-		GEO_SWORD = REGISTRY.register("geo_sword", GeoSwordItem::new);
 		GEO_PICKAXE = REGISTRY.register("geo_pickaxe", GeoPickaxeItem::new);
 		DANDELION_SEED = REGISTRY.register("dandelion_seed", DandelionSeedItem::new);
 		CONDENSED_ANEMO = REGISTRY.register("condensed_anemo", CondensedAnemoItem::new);
 		CONDENSED_DENDRO = REGISTRY.register("condensed_dendro", CondensedDendroItem::new);
-		ANEMO_SWORD = REGISTRY.register("anemo_sword", AnemoSwordItem::new);
 		LOTUS_HEAD = block(ErModBlocks.LOTUS_HEAD);
 		CONDENSED_HYDRO = REGISTRY.register("condensed_hydro", CondensedHydroItem::new);
-		HYDRO_SWORD = REGISTRY.register("hydro_sword", HydroSwordItem::new);
 		MAIN_AFFIX_SHARD = REGISTRY.register("main_affix_shard", MainAffixShardItem::new);
 		MINOR_AFFIX_SHARD = REGISTRY.register("minor_affix_shard", MinorAffixShardItem::new);
 		RARITY_GEMSTONE = REGISTRY.register("rarity_gemstone", RarityGemstoneItem::new);
@@ -179,7 +160,6 @@ public class ErModItems {
 		FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", FineEnhancementOreItem::new);
 		ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", EnhancementOreItem::new);
 		HILICHURL_SPAWN_EGG = REGISTRY.register("hilichurl_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.HILICHURL, -13421773, -6780581, new Item.Properties()));
-		WOODEN_CLUB = REGISTRY.register("wooden_club", WoodenClubItem::new);
 		CRATE = block(ErModBlocks.CRATE);
 		CUIHUA_LOG = block(ErModBlocks.CUIHUA_LOG);
 		CUIHUA_LEAVES = block(ErModBlocks.CUIHUA_LEAVES);
@@ -260,6 +240,25 @@ public class ErModItems {
 	public static final DeferredItem<Item> BERSERKERS_TIMEPIECE = REGISTRY.register("berserkers_timepiece", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BERSERKER));
 	public static final DeferredItem<Item> BERSERKERS_BONE_GOBLET = REGISTRY.register("berserkers_bone_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BERSERKER));
 	public static final DeferredItem<Item> BERSERKERS_BATTLE_MASK = REGISTRY.register("berserkers_battle_mask", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BERSERKER));
+	//Swords
+	//-element sword
+	public static final DeferredItem<Item> CRYO_SWORD = REGISTRY.register("cryo_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.CRYO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> PYRO_SWORD = REGISTRY.register("pyro_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.PYRO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> ELECTRO_SWORD = REGISTRY.register("electro_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.ELECTRO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> DENDRO_SWORD = REGISTRY.register("dendro_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DENDRO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> GEO_SWORD = REGISTRY.register("geo_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.GEO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> ANEMO_SWORD = REGISTRY.register("anemo_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.ANEMO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> HYDRO_SWORD = REGISTRY.register("hydro_sword",
+			() -> new SwordItem(Tiers.IRON, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.HYDRO_INFUSION)).attributes(SwordItem.createAttributes(Tiers.IRON, 5f, -2.4f))));
+	public static final DeferredItem<Item> WOODEN_CLUB = REGISTRY.register("wooden_club",
+			() -> new SwordItem(Tiers.WOOD, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.WOODEN_CLUB)).attributes(SwordItem.createAttributes(Tiers.WOOD, 5f, -2.4f))));
+	//-normal sword
 	public static final DeferredItem<Item> COOL_STEEL = REGISTRY.register("cool_steel",
 			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.COOL_STEEL, ErModItems.COOL_STEEL, 1))
 					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ATTACK_DAMAGE, 0.0765, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
@@ -269,9 +268,13 @@ public class ErModItems {
 	public static final DeferredItem<Item> TRAVELERS_HANDY_SWORD = REGISTRY.register("travelers_handy_sword",
 			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.JOURNEY, ErModItems.TRAVELERS_HANDY_SWORD, 1))
 					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ARMOR, 0.0636, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
-    public static final DeferredItem<Item> SKYRIDER_SWORD = REGISTRY.register("skyrider_sword",
-            () -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DETERMINATION, ErModItems.SKYRIDER_SWORD, 1))
-                    .component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(ErModAttributes.ENERGY_RECHARGE, 0.113, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> SKYRIDER_SWORD = REGISTRY.register("skyrider_sword",
+			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.DETERMINATION, ErModItems.SKYRIDER_SWORD, 1))
+					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(ErModAttributes.ENERGY_RECHARGE, 0.113, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	public static final DeferredItem<Item> FILLET_BLADE = REGISTRY.register("fillet_blade",
+			() -> new SwordItem(ErTiers.STAR_3, new Item.Properties().component(DataComponentsRegister.WEAPON_REFINEMENT.get(), new WeaponRefinement(WeaponAbilityRegister.GASH, ErModItems.FILLET_BLADE, 1))
+					.component(DataComponentsRegister.WEAPON_ATTR.get(), new WeaponAttributeData(Attributes.ATTACK_DAMAGE, 0.077, true)).attributes(SwordItem.createAttributes(ErTiers.STAR_3, 3f, -2.4f))));
+	//visions
 	public static final DeferredItem<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", () -> new EmptyVision());
 	public static final DeferredItem<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
 	public static final DeferredItem<Item> CRYO_VISION = REGISTRY.register("cryo_vision", () -> new Vision(Element.Category.CRYO));
@@ -374,7 +377,8 @@ public class ErModItems {
 			registerWeapon(COOL_STEEL.get());
 			registerWeapon(DARK_IRON_SWORD.get());
 			registerWeapon(TRAVELERS_HANDY_SWORD.get());
-            registerWeapon(SKYRIDER_SWORD.get());
+			registerWeapon(SKYRIDER_SWORD.get());
+			registerWeapon(FILLET_BLADE.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());
@@ -393,6 +397,7 @@ public class ErModItems {
 			registerVision(DENDRO_DELUSION.get());
 			registerVision(ELECTRO_DELUSION.get());
 			registerVision(ANEMO_DELUSION.get());
+			ItemProperties.register(WOODEN_CLUB.get(), ResourceLocation.parse("er:wooden_club_pyro"), (item, level, living, itemEntityId) -> item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("Pyro"));
 		}
 
 		private static void registerVision(Item vision) {
@@ -439,7 +444,6 @@ public class ErModItems {
 		public static void clientLoad(FMLClientSetupEvent event) {
 			event.enqueueWork(() -> {
 				ItemProperties.register(RARITY_GEMSTONE.get(), ResourceLocation.parse("er:rarity_gemstone_item_count"), (itemStackToRender, clientWorld, entity, itemEntityId) -> (float) RarityGemstone_CountProcedure.execute(itemStackToRender));
-				ItemProperties.register(WOODEN_CLUB.get(), ResourceLocation.parse("er:wooden_club_pyro"), (itemStackToRender, clientWorld, entity, itemEntityId) -> (float) WoodenClubPropertyValueProviderProcedure.execute(itemStackToRender));
 			});
 		}
 	}

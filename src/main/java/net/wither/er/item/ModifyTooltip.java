@@ -4,6 +4,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -43,7 +44,7 @@ public class ModifyTooltip {
             else
                 list.add(2, Component.literal("§6Maxed")) ;
             WeaponRefinement refinement = item.get(DataComponentsRegister.WEAPON_REFINEMENT);
-            if(refinement != null)
+            if(refinement != null && refinement.refinementItem().value() != Items.AIR)
                 list.add(1, Component.translatable("lore.er.refinement").append(" " + refinement.refineLevel()));
         }
 

@@ -10,6 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.wither.er.init.AdditionalRegistries;
 
 public record WeaponRefinement(Holder<Object> ability, Holder<Item> refinementItem, int refineLevel) {
@@ -26,6 +27,10 @@ public record WeaponRefinement(Holder<Object> ability, Holder<Item> refinementIt
             ByteBufCodecs.INT, WeaponRefinement::refineLevel,
             WeaponRefinement::new
     );
+
+    public WeaponRefinement(Holder<Object> ability){
+        this(ability, Items.AIR.builtInRegistryHolder(), 1);
+    }
 
     public Object getAbility(){
         return ability.value();

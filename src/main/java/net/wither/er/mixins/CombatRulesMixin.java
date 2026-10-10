@@ -21,8 +21,6 @@ public abstract class CombatRulesMixin {
 			ItemStack itemstack = source.getWeaponItem();
 			if (itemstack != null && entity.level() instanceof ServerLevel serverlevel) {
 				armor *= Mth.clamp(EnchantmentHelper.modifyArmorEffectiveness(serverlevel, itemstack, entity, source, 1), 0.0F, 1.0F);
-			} else {
-				armor = armor;
 			}
 			damage *= 100f / (armor + 100);
 			if (damage >= entity.getMaxHealth() * 0.1f) {

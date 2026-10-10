@@ -226,51 +226,6 @@ public abstract class StellaFortunas extends Item {
 		PacketDistributor.sendToAllPlayers(new StellaFortunaData(entity.getId(), message));
 	}
 
-	/*
-		public static void PerformAttack(LivingEntity entity, double RangeMulti, double RectWidth, double RectHeight, float DamageMulti) {
-			Level world = entity.level();
-			double attackRange = (entity instanceof Player ? entity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE) : 3) * RangeMulti;
-			Vec3 lookVec = entity.getLookAngle().normalize();
-			Vec3 eyePos = entity.getEyePosition();
-			Vec3 forward = lookVec.scale(attackRange);
-			Vec3 right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(RectWidth / 2);
-			Vec3 up = new Vec3(0, RectHeight / 2, 0);
-			Vec3[] corners = {eyePos.add(forward).add(right).add(up), eyePos.add(forward).add(right).subtract(up), eyePos.add(forward).subtract(right).add(up), eyePos.add(forward).subtract(right).subtract(up)};
-			AABB roughArea = new AABB(eyePos, eyePos.add(forward)).inflate(RectWidth + 1, RectHeight + 1, RectWidth + 1);
-			for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> e != entity && isInRotatedRect(e.position(), eyePos, lookVec, attackRange, RectWidth, RectHeight))) {
-				float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * DamageMulti;
-				target.hurt(entity.damageSources().mobAttack(entity), damage);
-			}
-			if (world instanceof ServerLevel serverLevel) {
-				Vec3 _forward = lookVec.scale(attackRange);
-				Vec3 _right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(RectWidth / 2);
-				Vec3 _up = new Vec3(0, RectHeight / 2, 0);
-				for (int i = 0; i < 20; i++) {
-					double t = i / 20.0;
-					Vec3 p1 = eyePos.add(_forward.scale(t)).add(_right).add(_up);
-					Vec3 p2 = eyePos.add(_forward.scale(t)).add(_right).subtract(_up);
-					Vec3 p3 = eyePos.add(_forward.scale(t)).subtract(_right).add(_up);
-					Vec3 p4 = eyePos.add(_forward.scale(t)).subtract(_right).subtract(_up);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p1.x, p1.y, p1.z, 1, 0, 0, 0, 0);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p2.x, p2.y, p2.z, 1, 0, 0, 0, 0);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p3.x, p3.y, p3.z, 1, 0, 0, 0, 0);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p4.x, p4.y, p4.z, 1, 0, 0, 0, 0);
-				}
-			}
-		}
-		private static boolean isInRotatedRect(Vec3 point, Vec3 origin, Vec3 direction, double length, double width, double height) {
-			Vec3 localPos = point.subtract(origin);
-			double forwardDist = localPos.dot(direction);
-			if (forwardDist < 0 || forwardDist > length)
-				return false;
-			Vec3 right = new Vec3(-direction.z, 0, direction.x).normalize();
-			double sideDist = Math.abs(localPos.dot(right));
-			if (sideDist > width / 2)
-				return false;
-			double verticalDist = localPos.y;
-			return verticalDist >= -height / 2 && verticalDist <= height / 2;
-		}
-		*/
 	public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, Vec3 basicPos, float DamageMulti) {
 		Level world = entity.level();
 		double attackRange = (entity instanceof Player ? entity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE) : 3) * RangeMulti;

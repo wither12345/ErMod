@@ -61,7 +61,6 @@ public class ErModTabs {
 			() -> CreativeModeTab.builder().title(Component.translatable("item_group.er.er_weapon")).icon(() -> new ItemStack(Items.DIAMOND_SWORD)).displayItems((parameters, tabData) -> {
 				tabData.accept(ErModItems.HUNTERS_BOW.get());
 				tabData.accept(ErModItems.POLAR_STAR.get());
-				tabData.accept(ErModItems.WOODEN_CLUB.get());
 				tabData.accept(ErModItems.ELECTRO_MIST_GRASS_LANTERN.get());
 			}).withTabsBefore(ER_MATERIALS.getId()).build());
 	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> STELLA_FORTUNA = REGISTRY.register("stella_fortuna",
@@ -84,14 +83,6 @@ public class ErModTabs {
 			tabData.accept(ErModItems.BUTTERFLY_SPAWN_EGG.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.INGREDIENTS) {
 			tabData.accept(ErModItems.MORA.get());
-		} else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
-			tabData.accept(ErModItems.CRYO_SWORD.get());
-			tabData.accept(ErModItems.PYRO_SWORD.get());
-			tabData.accept(ErModItems.ELECTRO_SWORD.get());
-			tabData.accept(ErModItems.DENDRO_SWORD.get());
-			tabData.accept(ErModItems.GEO_SWORD.get());
-			tabData.accept(ErModItems.ANEMO_SWORD.get());
-			tabData.accept(ErModItems.HYDRO_SWORD.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
 			tabData.accept(ErModItems.PYRO_PICKAXE.get());
 			tabData.accept(ErModItems.GEO_PICKAXE.get());

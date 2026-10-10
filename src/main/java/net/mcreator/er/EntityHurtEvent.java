@@ -30,7 +30,7 @@ import net.minecraft.world.entity.Targeting;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.scores.PlayerTeam;
@@ -56,6 +56,7 @@ import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
+import net.wither.er.item.data.weapon.InfusionAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
@@ -71,7 +72,9 @@ public class EntityHurtEvent {
     private static final TagKey<DamageType> CATALYZE = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:reaction_multiply/catalyze")) ;
     private static final TagKey<DamageType> TRANSFORMATIVE = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:reaction_multiply/transformative")) ;
     private static final TagKey<DamageType> LUNAR = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:lunar")) ;
-	@SubscribeEvent
+	private static final TagKey<DamageType> NORMAL_ATTACK = TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.parse("er:normal_attack")) ;
+
+    @SubscribeEvent
 	public static void onEntityAttacked(LivingIncomingDamageEvent event) {
 		if (event == null)
 			return;
@@ -204,7 +207,7 @@ public class EntityHurtEvent {
             elementSourceInterface.er$setElement(source1) ;
         }
 
-        if(source.getEntity() != null && elementSourceInterface.er$getSource() == null) {
+        if(source.getEntity() != null && elementSourceInterface.er$getSource() == null && source.getEntity() == source.getDirectEntity() && source.is(NORMAL_ATTACK)) {
             elementSourceInterface.er$setElement(getElementSource(source.getEntity().level(), source.getEntity(), source.getDirectEntity()));
         }
     }
@@ -255,9 +258,12 @@ public class EntityHurtEvent {
         if (entity == null) return null;
         Element element = null;
         if (immediatesourceentity == entity) {
-            if (entity instanceof LivingEntity && ((LivingEntity) entity).getMainHandItem().getItem() instanceof MultipleInfusion) {
-                Item item = ((LivingEntity) entity).getMainHandItem().getItem();
-                element = getEle(((MultipleInfusion) item).getInfusion(((LivingEntity) entity).getMainHandItem(), entity));
+            if(entity instanceof LivingEntity living){
+                ItemStack itemStack = living.getMainHandItem();
+                WeaponRefinement refinement = itemStack.get(DataComponentsRegister.WEAPON_REFINEMENT);
+                if(refinement != null && refinement.getAbility() instanceof InfusionAbility ability){
+                    return ability.getInfusion(itemStack, entity, refinement.refineLevel());
+                }
             }
             if (IsAnemoInfusionProcedure.execute(world, entity)) {
                 element = ElementRegistry.ANEMO.get();
@@ -278,34 +284,6 @@ public class EntityHurtEvent {
         if(element == null) return null;
         return new ElementSource(element, ResourceLocation.parse("er:default"), 1, element.isApplicable());
     }
-
-    @Deprecated(forRemoval = true)
-	public static int getInfusionType(LevelAccessor world, Entity entity, Entity immediatesourceentity) {
-		if (entity == null)
-			return 0;
-		if (immediatesourceentity == entity) {
-			if (entity instanceof LivingEntity && ((LivingEntity) entity).getMainHandItem().getItem() instanceof MultipleInfusion) {
-				Item item = ((LivingEntity) entity).getMainHandItem().getItem();
-				return ((MultipleInfusion) item).getInfusion(((LivingEntity) entity).getMainHandItem(), entity);
-			}
-			if (IsAnemoInfusionProcedure.execute(world, entity)) {
-				return 1;
-			} else if (IsCryoInfusionProcedure.execute(world, entity)) {
-				return 2;
-			} else if (IsDendroInfusionProcedure.execute(world, entity)) {
-				return 3;
-			} else if (IsElectroInfusionProcedure.execute(world, entity)) {
-				return 4;
-			} else if (IsGeoInfusionProcedure.execute(world, entity)) {
-				return 5;
-			} else if (IsHydroInfusionProcedure.execute(world, entity)) {
-				return 6;
-			} else if (IsPyroInfusionProcedure.execute(world, entity)) {
-				return 7;
-			}
-		}
-		return 0;
-	}
 
 	public static float getElementalMasteryMultiply(int type, double elemental_mastery) {
         return switch (type){
