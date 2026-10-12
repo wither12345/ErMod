@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.entity.ArcEntity;
+import net.wither.er.entity.reaction.ArcEntity;
 
 public class ArcRenderer extends EntityRenderer<ArcEntity> {
 	private static final ResourceLocation BEAM_LOCATION = ResourceLocation.parse("er:textures/entities/arc.png");

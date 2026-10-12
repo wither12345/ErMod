@@ -101,6 +101,13 @@ public class ExtraTabs {
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
 		if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
+            tabData.accept(CONDENSED_PYRO);
+            tabData.accept(CONDENSED_HYDRO);
+            tabData.accept(CONDENSED_ANEMO);
+            tabData.accept(CONDENSED_ELECTRO);
+            tabData.accept(CONDENSED_DENDRO);
+            tabData.accept(CONDENSED_CRYO);
+            tabData.accept(CONDENSED_GEO);
             tabData.accept(SWEET_FLOWER);
             tabData.accept(WHOPPERFLOWER_SEED);
             tabData.accept(PRIME_ICE_RESOURCE);
@@ -137,11 +144,11 @@ public class ExtraTabs {
             BRILLIANT_DIAMOND.addToTab(tabData);
             AGNIDUS_AGATE.addToTab(tabData);
             VARUNADA_LAZURITE.addToTab(tabData);
-            VAJRADA_AMETHYST.addToTab(tabData);
             VAYUDA_TURQUOISE.addToTab(tabData);
+            VAJRADA_AMETHYST.addToTab(tabData);
+            NAGADUS_EMERALD.addToTab(tabData);
             SHIVADA_JADE.addToTab(tabData);
             PRITHIVA_TOPAZ.addToTab(tabData);
-            NAGADUS_EMERALD.addToTab(tabData);
 		} else if(tabData.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
 			tabData.accept(ELECTRO_SLIME_SPAWN_EGG);
 			tabData.accept(GEO_SLIME_SPAWN_EGG);
@@ -154,46 +161,48 @@ public class ExtraTabs {
             tabData.accept(CRYO_FLOWER_SPAWN_EGG);
 		}else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
             tabData.accept(WOODEN_CLUB);
-            tabData.accept(ANEMO_SWORD);
-            tabData.accept(HYDRO_SWORD);
-            tabData.accept(CRYO_SWORD);
-            tabData.accept(ELECTRO_SWORD);
             tabData.accept(PYRO_SWORD);
+            tabData.accept(HYDRO_SWORD);
+            tabData.accept(ANEMO_SWORD);
+            tabData.accept(ELECTRO_SWORD);
             tabData.accept(DENDRO_SWORD);
+            tabData.accept(CRYO_SWORD);
             tabData.accept(GEO_SWORD);
-			tabData.accept(DULL_BLADE);
-			tabData.accept(WASTER_GREATSWORD);
-			tabData.accept(SILVER_SWORD);
+            tabData.accept(DULL_BLADE);
+            tabData.accept(WASTER_GREATSWORD);
+            tabData.accept(SILVER_SWORD);
             tabData.accept(COOL_STEEL);
             tabData.accept(DARK_IRON_SWORD);
             tabData.accept(TRAVELERS_HANDY_SWORD);
             tabData.accept(SKYRIDER_SWORD);
             tabData.accept(FILLET_BLADE);
+            tabData.accept(HARBINGER_OF_DAWN);
 		}else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(SWEET_FLOWER);
             tabData.accept(BURNING_DIRT);
             tabData.accept(WHOPPERFLOWER_SEED);
         } else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
             tabData.accept(PYRO_HOE);
+            tabData.accept(PYRO_PICKAXE);
+            tabData.accept(HYDRO_HOE);
+            tabData.accept(ANEMO_HOE);
             tabData.accept(ELECTRO_HOE);
+            tabData.accept(DENDRO_HOE);
             tabData.accept(CRYO_HOE);
             tabData.accept(GEO_HOE);
-            tabData.accept(ANEMO_HOE);
-            tabData.accept(DENDRO_HOE);
-            tabData.accept(HYDRO_HOE);
         } else if (tabData.getTabKey() == CreativeModeTabs.COMBAT) {
-            addArmorGroup(tabData, ANEMO_ARMOR);
-            tabData.accept(ANEMO_SWORD);
-            addArmorGroup(tabData, HYDRO_ARMOR);
-            tabData.accept(HYDRO_SWORD);
-            addArmorGroup(tabData, CRYO_ARMOR);
-            tabData.accept(CRYO_SWORD);
-            addArmorGroup(tabData, ELECTRO_ARMOR);
-            tabData.accept(ELECTRO_SWORD);
             addArmorGroup(tabData, PYRO_ARMOR);
             tabData.accept(PYRO_SWORD);
+            addArmorGroup(tabData, HYDRO_ARMOR);
+            tabData.accept(HYDRO_SWORD);
+            addArmorGroup(tabData, ANEMO_ARMOR);
+            tabData.accept(ANEMO_SWORD);
+            addArmorGroup(tabData, ELECTRO_ARMOR);
+            tabData.accept(ELECTRO_SWORD);
             addArmorGroup(tabData, DENDRO_ARMOR);
             tabData.accept(DENDRO_SWORD);
+            addArmorGroup(tabData, CRYO_ARMOR);
+            tabData.accept(CRYO_SWORD);
             addArmorGroup(tabData, GEO_ARMOR);
             tabData.accept(GEO_SWORD);
         } else if (tabData.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) {

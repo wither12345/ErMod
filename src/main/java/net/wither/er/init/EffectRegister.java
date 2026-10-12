@@ -25,6 +25,7 @@ public class EffectRegister {
     public static final Holder<MobEffect> ENERGETIC = REGISTRY.register("energetic", Energetic::new);
     public static final Holder<MobEffect> DETERMINATION = REGISTRY.register("determination", Determination::new);
     public static final Holder<MobEffect> GASH = REGISTRY.register("gash", EffectHarmful::new);
+    public static final Holder<MobEffect> VIGOROUS = REGISTRY.register("vigorous", Vigorous::new);
 
     static {
         if(ModList.get().isLoaded("teyvatdelight")){

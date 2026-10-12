@@ -1,4 +1,4 @@
-package net.wither.er.entity;
+package net.wither.er.entity.reaction;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.init.ErModEntities;

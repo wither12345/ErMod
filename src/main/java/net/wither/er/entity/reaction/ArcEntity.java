@@ -1,4 +1,4 @@
-package net.wither.er.entity;
+package net.wither.er.entity.reaction;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

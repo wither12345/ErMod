@@ -4,7 +4,7 @@ import net.mcreator.er.init.ErModEntities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.wither.er.entity.BloomEntity;
+import net.wither.er.entity.reaction.BloomEntity;
 import net.wither.er.entity.hypostasiscube.HypostasisCube;
 import net.wither.er.entity.slimes.AnemoSlime;
 import net.wither.er.entity.slimes.ElementalSlime;

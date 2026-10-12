@@ -19,6 +19,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
+import net.wither.er.entity.reaction.BloomEntity;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;

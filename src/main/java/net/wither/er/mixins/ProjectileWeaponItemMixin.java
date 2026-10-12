@@ -1,49 +1,47 @@
 package net.wither.er.mixins;
 
-import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.extensions.IItemExtension;
-import net.wither.er.item.BowInterface;
-import org.jetbrains.annotations.NotNull;
+import net.wither.er.item.IProjectileWeapon;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
-import java.util.List;
-
-import static net.minecraft.world.item.Item.BASE_ATTACK_DAMAGE_ID;
 
 @Mixin(ProjectileWeaponItem.class)
-public abstract class ProjectileWeaponItemMixin implements IItemExtension , BowInterface {
-    @Unique double Damage = 4 ;
+public abstract class ProjectileWeaponItemMixin implements IItemExtension , IProjectileWeapon {
+    @Unique double er$damage = 4;
+    @Unique double er$damageScale = 0.33 ;
 
     @Override
-    public void setDamage(double damage){
-        this.Damage = damage ;
+    public void er$setDamage(double damage){
+        this.er$damage = damage ;
     }
 
     @Override
-    public double getDamage(){return this.Damage ;}
-
-    @Inject(method = "createProjectile" , at = @At("RETURN"),locals = LocalCapture.CAPTURE_FAILSOFT)
-    public void createProjectile(Level level, LivingEntity entity, ItemStack weaponItem, ItemStack arrowItem, boolean critical, CallbackInfoReturnable<Projectile> ci, @Local(ordinal = 0) AbstractArrow abstractArrow){
-        abstractArrow.setBaseDamage(entity.getAttributeValue(Attributes.ATTACK_DAMAGE) / 3);
+    public void er$setDamageScale(double scale){
+        this.er$damageScale = scale ;
     }
 
     @Override
-    public @NotNull ItemAttributeModifiers getDefaultAttributeModifiers(@NotNull ItemStack stack){
-        return new ItemAttributeModifiers(List.of(new ItemAttributeModifiers.Entry(Attributes.ATTACK_DAMAGE , new AttributeModifier(BASE_ATTACK_DAMAGE_ID, Damage, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)),true);
+    public double er$getDamageScale(){
+        return this.er$damageScale;
+    }
+
+    @Override
+    public double er$getDamage(){
+        return this.er$damage;
+    }
+
+    @Inject(method = "customArrow", at = @At("RETURN"))
+    public void customArrow(AbstractArrow arrow, ItemStack projectileStack, ItemStack weaponStack, CallbackInfoReturnable<AbstractArrow> cir){
+        if(this.er$getDamageScale() > 0 && arrow.getOwner() instanceof LivingEntity living && living.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+            arrow.setBaseDamage(living.getAttributeValue(Attributes.ATTACK_DAMAGE) * this.er$getDamageScale());
+        }
     }
 }

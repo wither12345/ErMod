@@ -36,6 +36,11 @@ public record WeaponAttributeData(Holder<Attribute> attributeHolder, double base
             bd = bd.setScale(3, RoundingMode.HALF_UP);
             return bd.doubleValue();
         }
+        if(amount < 1){
+            BigDecimal bd = new BigDecimal(amount);
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        }
         return (int)(amount + 0.5);
     }
 }

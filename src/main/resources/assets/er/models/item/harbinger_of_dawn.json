@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "er:item/harbinger_of_dawn"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "er:ascension": 2
+      },
+      "model": "er:item/harbinger_of_dawn_2"
+    }
+  ]
+}

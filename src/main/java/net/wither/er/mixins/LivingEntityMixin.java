@@ -29,7 +29,7 @@ import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.IErEntity;
-import net.wither.er.entity.listener.onHealthFloating;
+import net.wither.er.entity.OnEvents;
 import net.wither.er.init.AdditionalRegistries;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErAttributeRegister;
@@ -146,7 +146,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
     @Inject(method = "tick", at = @At("TAIL"))
     public void onTick(CallbackInfo ci){
         if(this.getHealth() != this.er$lastHealth){
-            onHealthFloating.onFloating((LivingEntity) (Object)this, this.getHealth() - this.er$lastHealth);
+            OnEvents.onFloating((LivingEntity) (Object)this, this.getHealth() - this.er$lastHealth);
             this.er$lastHealth = getHealth();
         }
     }

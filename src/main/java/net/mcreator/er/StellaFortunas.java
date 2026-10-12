@@ -107,13 +107,13 @@ public abstract class StellaFortunas extends Item {
             Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
             for(Object2IntMap.Entry<Holder<ArtifactEffect>> effect : map.object2IntEntrySet()){
                 if(effect.getKey().value() instanceof OnBurstAbility ability){
-                    ability.onBurst(entity, effect.getIntValue());
+                    ability.onBurst(entity, this, effect.getIntValue());
                 }
             }
         }
         WeaponRefinement refinement = entity.getMainHandItem().get(DataComponentsRegister.WEAPON_REFINEMENT.get());
         if(refinement != null && refinement.getAbility() instanceof OnBurstAbility ability){
-            ability.onBurst(entity, refinement.refineLevel());
+            ability.onBurst(entity, this, refinement.refineLevel());
         }
 	}
 

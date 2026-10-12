@@ -3,13 +3,11 @@ package net.wither.er.entity;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-
-import java.lang.reflect.Field;
+import net.wither.er.mixins.RangedAttributeAccessor;
 
 @EventBusSubscriber()
 public class AttrModify {
@@ -27,17 +25,9 @@ public class AttrModify {
 	}
 
 	private static void modifyAttributeRange(Holder<Attribute> holder, double min, double max) {
-		if (holder.value() instanceof RangedAttribute rangedAttr) {
-			try {
-				Field minValueField = RangedAttribute.class.getDeclaredField("minValue");
-				minValueField.setAccessible(true);
-				minValueField.setDouble(rangedAttr, min);
-				Field maxValueField = RangedAttribute.class.getDeclaredField("maxValue");
-				maxValueField.setAccessible(true);
-				maxValueField.setDouble(rangedAttr, max);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+        if (holder.value() instanceof RangedAttributeAccessor rangedAttr) {
+            rangedAttr.er$setMinValue(min);
+            rangedAttr.er$setMaxValue(max);
+        }
 	}
 }

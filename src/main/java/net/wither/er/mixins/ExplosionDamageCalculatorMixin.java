@@ -13,11 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ExplosionDamageCalculatorMixin {
     @Inject(method = "getEntityDamageAmount(Lnet/minecraft/world/level/Explosion;Lnet/minecraft/world/entity/Entity;)F", at = @At("RETURN"), cancellable = true)
     private void getEntityDamageAmount(Explosion explosion, Entity entity, CallbackInfoReturnable<Float> info) {
-        if(explosion.getIndirectSourceEntity() != null) {
-            if(info == null)
-                return;
-            int level = EntityHurtEvent.getEntityLevel(explosion.getIndirectSourceEntity());
-            info.setReturnValue(info.getReturnValue() * EntityHurtEvent.getLevelMultiply(level));
-        }
+        Entity directSource = explosion.getIndirectSourceEntity();
+        info.setReturnValue(info.getReturnValue() * EntityHurtEvent.getLevelMultiply(directSource));
     }
 }

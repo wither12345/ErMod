@@ -2,6 +2,7 @@ package net.wither.er.item.data.weapon;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
+import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -51,15 +52,6 @@ public class FunctionalAbilities {
         return new ElementSource(ElementRegistry.GEO.get(), ResourceLocation.parse("er:infusion"), 1 + level * 0.2f, false);
     }
 
-    public static ElementSource woodenClub(ItemStack itemstack, Entity entity, int level){
-        int restPyro = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("Pyro");
-        if(restPyro > 0) {
-            CustomData.update(DataComponents.CUSTOM_DATA, itemstack, tag -> tag.putInt("Pyro", restPyro - 1));
-            return new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er:infusion"), 1 + level * 0.2f, true);
-        }
-        return null;
-    }
-
     public static void coolSteel(DamageSource source, LivingEntity entity, EntityHurtEvent.DamageModifier modifier, int level){
         if(entity instanceof AuraContainerInterface auraContainerInterface &&
                 (auraContainerInterface.er$getAuraContainer().hasElementCategory(Element.Category.CRYO) ||
@@ -78,7 +70,7 @@ public class FunctionalAbilities {
         picker.heal((0.0075f + 0.0025f * level) * picker.getMaxHealth());
     }
 
-    public static void skyriderSword(LivingEntity entity, int level){
+    public static void skyriderSword(LivingEntity entity, StellaFortunas stellaFortuna, int level){
         entity.addEffect(new MobEffectInstance(EffectRegister.DETERMINATION, 300, level - 1));
     }
 
@@ -89,6 +81,12 @@ public class FunctionalAbilities {
             if(instance != null)
                 entity.hurt(living.damageSources().source(PHYSICAL, living), (float) instance.getValue() * (2 + 0.4f * level));
         }
+    }
+
+    public static void harbingerOfDawn(LivingEntity entity, int level){
+        MobEffectInstance instance = entity.getEffect(EffectRegister.VIGOROUS);
+        if((instance == null || instance.getDuration() < 5) && entity.getHealth() > 0.9 * entity.getMaxHealth())
+            entity.addEffect(new MobEffectInstance(EffectRegister.VIGOROUS, 40, level - 1, false, false, false));
     }
 
     public static class WoodenClub implements InfusionAbility, BeAttackedAbility{

@@ -16,7 +16,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
-import net.wither.er.entity.ArcEntity;
+import net.wither.er.entity.reaction.ArcEntity;
 import net.wither.er.init.ElementRegistry;
 
 public class ThunderShield extends ElementalShield implements RenderShield {

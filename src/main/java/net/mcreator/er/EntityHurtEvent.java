@@ -23,10 +23,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.OwnableEntity;
-import net.minecraft.world.entity.Targeting;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
@@ -331,6 +328,8 @@ public class EntityHurtEvent {
 			return entity.getPersistentData().getInt("erLevel");
 		else if(entity instanceof OwnableEntity ownable)
 			return getEntityLevel(ownable.getOwner()) ;
+        else if(entity instanceof TraceableEntity traceable)
+            return getEntityLevel(traceable.getOwner()) ;
 		return 0 ;
 	}
 

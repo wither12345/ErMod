@@ -867,18 +867,6 @@
       }
     },
     {
-      "name": "Wealth",
-      "type": "enchantment",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "wealth",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/enchantment/wealth.json"
-        ]
-      }
-    },
-    {
       "name": "IsCryoInfusion",
       "type": "procedure",
       "compiles": true,
@@ -2309,91 +2297,6 @@
           "src/main/java/net/mcreator/er/client/renderer/HilichurlRenderer.java",
           "src/main/resources/assets/er/models/item/hilichurl_spawn_egg.json",
           "src/main/resources/data/er/neoforge/biome_modifier/hilichurl_biome_modifier.json"
-        ]
-      }
-    },
-    {
-      "name": "HilichurlOnInitialEntitySpawn",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "hilichurl_on_initial_entity_spawn",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/HilichurlOnInitialEntitySpawnProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
-    },
-    {
-      "name": "MultipleInfusion",
-      "type": "code",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "multiple_infusion",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/MultipleInfusion.java"
-        ]
-      }
-    },
-    {
-      "name": "WoodenClubEntitySwingsItem",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "wooden_club_entity_swings_item",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/WoodenClubEntitySwingsItemProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "WoodenClub",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "wooden_club",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/WoodenClubItem.java",
-          "src/main/resources/assets/er/models/item/wooden_club.json",
-          "src/main/resources/assets/er/models/item/wooden_club_0.json"
-        ]
-      }
-    },
-    {
-      "name": "WoodenClubPropertyValueProvider",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "wooden_club_property_value_provider",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/WoodenClubPropertyValueProviderProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
         ]
       }
     },
@@ -4220,8 +4123,7 @@
       "#er:reaction"
     ],
     "ENCHANTMENTS:minecraft:non_treasure": [
-      "~CUSTOM:Greed",
-      "~CUSTOM:Wealth"
+      "~CUSTOM:Greed"
     ],
     "ITEMS:er:one_star_weapon": [
       "CUSTOM:HuntersBow",
@@ -4231,13 +4133,8 @@
       "EXTERNAL:er:dull_blade",
       "EXTERNAL:er:waster_greatsword"
     ],
-    "ITEMS:er:pyro_infusion": [
-      "Items.BLAZE_ROD",
-      "CUSTOM:PyroPickaxe"
-    ],
     "ENCHANTMENTS:minecraft:tradeable": [
-      "~CUSTOM:Greed",
-      "~CUSTOM:Wealth"
+      "~CUSTOM:Greed"
     ],
     "BLOCKS:minecraft:mineable/pickaxe": [
       "~CUSTOM:CraftingBench",
@@ -4322,9 +4219,6 @@
     "BLOCKS:minecraft:stairs": [
       "~CUSTOM:CuihuaStairs"
     ],
-    "ITEMS:er:geo_infusion": [
-      "CUSTOM:GeoPickaxe"
-    ],
     "BLOCKS:minecraft:slabs": [
       "~CUSTOM:CuihuaSlab"
     ],
@@ -4344,8 +4238,7 @@
       "CUSTOM:CuihuaFence"
     ],
     "ENCHANTMENTS:minecraft:on_random_loot": [
-      "~CUSTOM:Greed",
-      "~CUSTOM:Wealth"
+      "~CUSTOM:Greed"
     ],
     "ITEMS:er:material": [
       "CUSTOM:MistFlowerCorolla",
@@ -4473,7 +4366,6 @@
       "item_group.er.er_weapon": "Element Reaction Weapon",
       "gui.er.artifact_gui.button_apply": "Apply",
       "death.attack.reaction.item": "%1$s was killed by %2$s using %3$s",
-      "enchantment.er.wealth": "Wealth",
       "entity.er.cryo_crystallize": "Cyro Crystallize",
       "attribute.er.geo_dmg_bonus": "Geo DMG Bonus",
       "entity.er.fatui_electro_cicin_mage": "Fatui Electro Cicin Mage",
@@ -4497,7 +4389,6 @@
       "attribute.er.dendro_dmg_bonus": "Dendro DMG Bonus",
       "effect.er.crystallize_shield": "Crystallize Shield",
       "enchantment.er.greed": "Greed",
-      "item.er.wooden_club": "Wooden Club",
       "item.er.tartaglia_spawn_egg": "Tartaglia Spawn Egg",
       "block.er.deepslate_white_iron_ore": "White Iron Ore",
       "er.configuration.artifacts": "Artifacts",
@@ -5008,7 +4899,10 @@
       "item.er.electro_sword": "Electro Sword",
       "item.er.dendro_sword": "Dendro Sword",
       "item.er.geo_sword": "Geo Sword",
-      "item.er.anemo_sword": "Anemo Sword"
+      "item.er.anemo_sword": "Anemo Sword",
+      "item.er.wooden_club": "Wooden Club",
+      "item.er.harbinger_of_dawn": "Harbinger of Dawn",
+      "effect.er.vigorous": "Vigorous"
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -5044,7 +4938,6 @@
       "item.er.ley_line_map": "地脉地图",
       "item_group.er.er_weapon": "原神起源：武器",
       "gui.er.artifact_gui.button_apply": "Apply",
-      "enchantment.er.wealth": "抢钱",
       "death.attack.reaction.item": "%1$s was killed by %2$s using %3$s",
       "entity.er.cryo_crystallize": "冰结晶",
       "attribute.er.geo_dmg_bonus": "岩元素伤害加成",
@@ -5069,7 +4962,6 @@
       "attribute.er.dendro_dmg_bonus": "草元素伤害加成",
       "effect.er.crystallize_shield": "结晶护盾",
       "enchantment.er.greed": "贪婪",
-      "item.er.wooden_club": "棒槌",
       "item.er.tartaglia_spawn_egg": "达达利亚刷怪蛋",
       "block.er.deepslate_white_iron_ore": "深层白铁矿",
       "er.configuration.artifacts": "圣遗物",
@@ -5562,16 +5454,19 @@
       "item.er.skyrider_sword": "飞天御剑",
       "effect.er.gash": "决",
       "item.er.fillet_blade": "吃虎鱼刀",
-      "death.attack.physical": "%1$s died",
-      "death.attack.physical.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.physical.item": "%1$s was killed by %2$s using %3$s",
+      "death.attack.physical": "%1$s死了",
+      "death.attack.physical.player": "%1$s被%2$s杀死了",
+      "death.attack.physical.item": "%1$s被%2$s使用%3$s杀死了",
       "item.er.pyro_sword": "火元素剑",
       "item.er.hydro_sword": "水元素剑",
       "item.er.cryo_sword": "冰元素剑",
       "item.er.electro_sword": "雷元素剑",
       "item.er.dendro_sword": "草元素剑",
       "item.er.geo_sword": "岩元素剑",
-      "item.er.anemo_sword": "风元素剑"
+      "item.er.anemo_sword": "风元素剑",
+      "item.er.wooden_club": "棒槌",
+      "item.er.harbinger_of_dawn": "黎明神剑",
+      "effect.er.vigorous": "激励"
     }
   },
   "metadata": {
@@ -5618,7 +5513,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

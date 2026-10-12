@@ -17,6 +17,7 @@
     "LocalPlayerMixin",
     "ProjectileMixin",
     "ProjectileWeaponItemMixin",
+    "RangedAttributeAccessor",
     "ServerPlayerMixin",
     "VillagerMixin",
     "WanderingTraderMixin"

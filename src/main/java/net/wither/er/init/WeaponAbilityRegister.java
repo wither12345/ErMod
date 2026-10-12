@@ -22,4 +22,5 @@ public class WeaponAbilityRegister {
     public static final Holder<Object> JOURNEY = WEAPON_ABILITIES.register("journey", () -> (EnergyOrbPickupAbility) (FunctionalAbilities::travelersHandySword));
     public static final Holder<Object> DETERMINATION = WEAPON_ABILITIES.register("determination", () -> (OnBurstAbility) (FunctionalAbilities::skyriderSword));
     public static final Holder<Object> GASH = WEAPON_ABILITIES.register("gash", () -> (DamageAbility) (FunctionalAbilities::filletBlade));
+    public static final Holder<Object> VIGOROUS = WEAPON_ABILITIES.register("vigorous", () -> (TickAbility) (FunctionalAbilities::harbingerOfDawn));
 }

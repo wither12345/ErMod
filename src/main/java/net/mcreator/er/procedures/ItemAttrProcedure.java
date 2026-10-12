@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.resources.ResourceLocation;
 import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.item.BowInterface;
+import net.wither.er.item.IProjectileWeapon;
 import net.wither.er.item.data.weapon.WeaponAttributeData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 
@@ -35,8 +35,8 @@ public class ItemAttrProcedure {
 					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(WEAPON_SECONDARY, level), EquipmentSlotGroup.MAINHAND
 					);
 				}
-			} else if (item.getItem() instanceof BowInterface bowInterface) {
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+			} else if (item.getItem() instanceof IProjectileWeapon bowInterface) {
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, bowInterface.er$getDamage() * (0.1 * level + getAscensionAmount(ascension,star) + 1), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
 					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(WEAPON_SECONDARY, level), EquipmentSlotGroup.MAINHAND
