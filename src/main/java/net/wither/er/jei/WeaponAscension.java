@@ -20,8 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import static mezz.jei.api.recipe.RecipeIngredientRole.INPUT;
 import static mezz.jei.api.recipe.RecipeIngredientRole.OUTPUT;
 import static net.mcreator.er.init.ErModItems.MORA_BAG;
-import static net.wither.er.init.DataComponentsRegister.WEAPON_LEVEL;
-import static net.wither.er.item.data.weapon.WeaponLevelData.create;
 import static net.wither.er.recipe.ascension.AscensionRecipe.Input;
 
 public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.AscensionEntry> {
@@ -69,10 +67,7 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     public void setRecipe(IRecipeLayoutBuilder builder, AscensionRecipeListener.AscensionEntry recipe, @NotNull IFocusGroup focuses) {
         IRecipeSlotBuilder build = builder.addSlot(INPUT, 17, 21);
         ItemStack keyItem = new ItemStack(recipe.key());
-        if (WEAPON_LEVEL.itemHas(keyItem)) {
-            WeaponLevelData data = WEAPON_LEVEL.getData(keyItem);
-            WEAPON_LEVEL.update(keyItem, t -> create(recipe.ascension(), true));
-        }
+        keyItem.getCapability(WeaponLevelData.WEAPON_LEVEL).ifPresent(data -> data.update(recipe.ascension(), true));
         build.addItemStack(keyItem);
 
         build = builder.addSlot(INPUT, 71, 3);
@@ -87,10 +82,7 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
         }
 
         ItemStack resultItem = new ItemStack(recipe.key());
-        if (WEAPON_LEVEL.itemHas(resultItem)) {
-            WeaponLevelData data = WEAPON_LEVEL.getData(resultItem);
-            WEAPON_LEVEL.update(resultItem, t -> create(recipe.ascension() + 1, false));
-        }
+        resultItem.getCapability(WeaponLevelData.WEAPON_LEVEL).ifPresent(data -> data.update(recipe.ascension() + 1, false));
         builder.addSlot(OUTPUT, 125, 21).addItemStack(resultItem);
     }
 

@@ -16,10 +16,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.entity.ArcEntity;
-import net.wither.er.entity.BloomEntity;
-import net.wither.er.entity.Hyperbloom;
-import net.wither.er.entity.LunarChargedCloud;
+import net.wither.er.entity.reaction.ArcEntity;
+import net.wither.er.entity.reaction.BloomEntity;
+import net.wither.er.entity.reaction.Hyperbloom;
+import net.wither.er.entity.reaction.LunarChargedCloud;
 import net.wither.er.init.ElementRegistry;
 
 import javax.annotation.Nullable;

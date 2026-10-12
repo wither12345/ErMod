@@ -4,7 +4,7 @@ import net.mcreator.er.client.model.Modelbloom;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.wither.er.entity.BloomEntity;
+import net.wither.er.entity.reaction.BloomEntity;
 
 public class BloomEntityRenderer extends LivingEntityRenderer<BloomEntity, Modelbloom<BloomEntity>> {
     public BloomEntityRenderer(EntityRendererProvider.Context context) {

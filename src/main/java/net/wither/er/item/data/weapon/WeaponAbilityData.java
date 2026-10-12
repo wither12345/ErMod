@@ -38,9 +38,13 @@ public record WeaponAbilityData(Supplier<Object> ability, Supplier<Item> ascensi
             bd = bd.setScale(3, RoundingMode.HALF_UP);
             return bd.doubleValue();
         }
+        if(amount < 1){
+            BigDecimal bd = new BigDecimal(amount);
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            return bd.doubleValue();
+        }
         return (int)(amount + 0.5);
     }
-
     private static class Builder{
         public Supplier<Object> ability;
         public Supplier<Item> ascension;

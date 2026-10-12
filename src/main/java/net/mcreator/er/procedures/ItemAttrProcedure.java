@@ -3,15 +3,12 @@ package net.mcreator.er.procedures;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.item.BowInterface;
+import net.wither.er.item.IProjectileWeapon;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 
@@ -21,6 +18,7 @@ import java.util.UUID;
 public class ItemAttrProcedure {
 	private static final UUID WEAPON_LEVEL = UUID.fromString("B0FFBAE0-9CC9-7C55-94F7-47C1CC02C402");
 	private static final UUID WEAPON_SECONDARY = UUID.fromString("EC9FB524-0C21-DFA3-64C1-9590293A0473");
+    private static final UUID BASE_DAMAGE_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
 
 	@SubscribeEvent
 	public static void addAttributeModifier(ItemAttributeModifierEvent event) {
@@ -38,8 +36,8 @@ public class ItemAttrProcedure {
 					if (dataAttr != null && dataAttr.attribute() != null) {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
-				} else if (item.getItem() instanceof BowInterface bowInterface) {
-					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", bowInterface.getDamage() * 0.1 * level + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
+				} else if (item.getItem() instanceof IProjectileWeapon projectileWeapon) {
+					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_DAMAGE_UUID, "main", projectileWeapon.er$getDamage() * (0.1 * level + 1) + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
 					WeaponAbilityData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));

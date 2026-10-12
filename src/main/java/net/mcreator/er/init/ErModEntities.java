@@ -5,10 +5,15 @@ package net.mcreator.er.init;
 
 import net.wither.er.entity.whopperflower.*;
 import net.wither.er.entity.slimes.*;
+import net.wither.er.entity.reaction.*;
 import net.wither.er.entity.hypostasiscube.ElectroHypostasisCube;
 import net.wither.er.entity.hypostasiscube.ElectroCubeProjectile;
 import net.wither.er.entity.hypostasiscube.ElectroCubeCrystal;
-import net.wither.er.entity.*;
+import net.wither.er.entity.SpeedOrbEntity;
+import net.wither.er.entity.LinkMechanismTelpher;
+import net.wither.er.entity.HealOrbEntity;
+import net.wither.er.entity.EnergyOrb;
+import net.wither.er.entity.EnergyBuffOrbEntity;
 
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;

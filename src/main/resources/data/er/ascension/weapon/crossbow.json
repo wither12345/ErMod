@@ -1,0 +1,73 @@
+{
+  "item" : "minecraft:crossbow",
+  "ascension" : [
+    {
+      "mora": 0,
+      "ingredient": [
+        {
+          "item": "minecraft:stick",
+          "count": 1
+        },
+        {
+          "item": "minecraft:iron_nugget",
+          "count": 2
+        },
+        {
+          "item": "minecraft:string",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:stick",
+          "count": 3
+        },
+        {
+          "item": "minecraft:iron_nugget",
+          "count": 4
+        },
+        {
+          "item": "minecraft:string",
+          "count": 5
+        }
+      ]
+    },
+    {
+      "mora": 5000,
+      "ingredient": [
+        {
+          "item": "minecraft:stick",
+          "count": 6
+        },
+        {
+          "item": "minecraft:tripwire_hook",
+          "count": 2
+        },
+        {
+          "item": "minecraft:string",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 10000,
+      "ingredient": [
+        {
+          "item": "minecraft:oak_planks",
+          "count": 1
+        },
+        {
+          "item": "minecraft:tripwire_hook",
+          "count": 4
+        },
+        {
+          "item": "minecraft:string",
+          "count": 36
+        }
+      ]
+    }
+  ]
+}

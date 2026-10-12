@@ -43,6 +43,14 @@ public final class WeaponLevelData {
         return this;
     }
 
+    public WeaponLevelData update(int ascension, boolean max){
+        this.level = max ? getMaxLevel(ascension) : getMaxLevel(ascension - 1);
+        this.ascension = ascension;
+        this.experience = 0;
+        this.total_experience = 0;
+        return this;
+    }
+
     public static WeaponLevelData create(int level, int ascension, int experience, int total_experience) {
         return new WeaponLevelData(level, ascension, experience, total_experience);
     }
@@ -54,10 +62,6 @@ public final class WeaponLevelData {
                 return new WeaponLevelData(level, ascension, 0, 0);
         }
         return new WeaponLevelData(level, ascension, 0, 0);
-    }
-
-    public static WeaponLevelData create(int ascension, boolean max) {
-        return new WeaponLevelData(max ? getMaxLevel(ascension) : getMaxLevel(ascension - 1), ascension, 0, 0);
     }
 
     public static int getMaxExp(int level, int star) {

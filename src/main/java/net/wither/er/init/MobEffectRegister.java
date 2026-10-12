@@ -24,6 +24,7 @@ public class MobEffectRegister {
     public static final RegistryObject<MobEffect> ENERGETIC = REGISTRY.register("energetic", Energetic::new);
     public static final RegistryObject<MobEffect> DETERMINATION = REGISTRY.register("determination", Determination::new);
     public static final RegistryObject<MobEffect> GASH = REGISTRY.register("gash", EffectHarmful::new);
+    public static final RegistryObject<MobEffect> VIGOROUS = REGISTRY.register("vigorous", Vigorous::new);
 
     static {
         if(ModList.get().isLoaded("teyvatdelight")){

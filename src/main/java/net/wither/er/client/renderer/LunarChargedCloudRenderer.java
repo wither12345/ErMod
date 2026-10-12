@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.wither.er.entity.LunarChargedCloud;
+import net.wither.er.entity.reaction.LunarChargedCloud;
 import org.jetbrains.annotations.NotNull;
 
 public class LunarChargedCloudRenderer extends EntityRenderer<LunarChargedCloud> {

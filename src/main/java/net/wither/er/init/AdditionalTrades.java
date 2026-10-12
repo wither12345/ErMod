@@ -22,13 +22,19 @@ public class AdditionalTrades {
     @SubscribeEvent
     public static void registerTrades(VillagerTradesEvent event) {
         if (event.getType() == VillagerProfession.CLERIC) {
-            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 2), new ItemStack(ErModItems.MORA.get(), 5), new ItemStack(ErModItems.SANCTIFYING_UNCTION.get()), 10, 3, 0.05f));
-            event.getTrades().get(4).add(new BasicItemListing(new ItemStack(Items.EMERALD, 4), new ItemStack(ErModItems.MORA.get(), 5), new ItemStack(ErModItems.SANCTIFYING_ESSENCE.get()), 5, 25, 0.05f));
+            event.getTrades().get(2).add(new BasicItemListing(new ItemStack(Items.EMERALD, 2), new ItemStack(ErModItems.MORA.get(), 5), new ItemStack(ErModItems.SANCTIFYING_UNCTION.get()), 10, 3, 0.05f));
+            event.getTrades().get(4).add(new BasicItemListing(new ItemStack(Items.EMERALD, 5), new ItemStack(ErModItems.MORA.get(), 5), new ItemStack(ErModItems.SANCTIFYING_ESSENCE.get()), 5, 25, 0.05f));
         }
         else if (event.getType() == VillagerProfession.WEAPONSMITH) {
             event.getTrades().get(1).add(new BasicItemListing(new ItemStack(Items.EMERALD, 3), new ItemStack(ErModItems.MORA.get(), 5), new ItemStack(ErModItems.WASTER_GREATSWORD.get()), 2, 5, 0.05f));
             event.getTrades().get(1).add(new BasicItemListing(new ItemStack(Items.EMERALD, 3), new ItemStack(ErModItems.MORA.get(), 5), new ItemStack(ErModItems.DULL_BLADE.get()), 2, 5, 0.05f));
             event.getTrades().get(2).add(new BasicItemListing(new ItemStack(Items.EMERALD, 12), new ItemStack(ErModItems.MORA.get(), 32), new ItemStack(ErModItems.SILVER_SWORD.get()), 1, 15, 0.05f));
+            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 48), new ItemStack(ErModItems.MORA.get(), 64), new ItemStack(ErModItems.COOL_STEEL.get()), 1, 35, 0.05f));
+            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 48), new ItemStack(ErModItems.MORA.get(), 64), new ItemStack(ErModItems.DARK_IRON_SWORD.get()), 1, 35, 0.05f));
+            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 48), new ItemStack(ErModItems.MORA.get(), 64), new ItemStack(ErModItems.TRAVELERS_HANDY_SWORD.get()), 1, 35, 0.05f));
+            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 48), new ItemStack(ErModItems.MORA.get(), 64), new ItemStack(ErModItems.SKYRIDER_SWORD.get()), 1, 35, 0.05f));
+            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 48), new ItemStack(ErModItems.MORA.get(), 64), new ItemStack(ErModItems.FILLET_BLADE.get()), 1, 35, 0.05f));
+            event.getTrades().get(3).add(new BasicItemListing(new ItemStack(Items.EMERALD, 48), new ItemStack(ErModItems.MORA.get(), 64), new ItemStack(ErModItems.HARBINGER_OF_DAWN.get()), 1, 35, 0.05f));
         }
     }
 }

@@ -2,6 +2,7 @@ package net.wither.er.item.data.weapon;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
+import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -76,7 +77,7 @@ public class FunctionalAbilities {
         picker.heal((0.0075f + 0.0025f * level) * picker.getMaxHealth());
     }
 
-    public static void skyriderSword(LivingEntity entity, int level){
+    public static void skyriderSword(LivingEntity entity, StellaFortunas fortuna, int level){
         entity.addEffect(new MobEffectInstance(MobEffectRegister.DETERMINATION.get(), 300, level - 1));
     }
 
@@ -87,6 +88,12 @@ public class FunctionalAbilities {
             if(instance != null)
                 entity.hurt(new DamageSource(living.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(PHYSICAL), living), (float) instance.getValue() * (2 + 0.4f * level));
         }
+    }
+
+    public static void harbingerOfDawn(LivingEntity entity, int level){
+        MobEffectInstance instance = entity.getEffect(MobEffectRegister.VIGOROUS.get());
+        if((instance == null || instance.getDuration() < 5) && entity.getHealth() > 0.9 * entity.getMaxHealth())
+            entity.addEffect(new MobEffectInstance(MobEffectRegister.VIGOROUS.get(), 40, level - 1, false, false, false));
     }
 
     public static class WoodenClub implements InfusionAbility, BeAttackedAbility{

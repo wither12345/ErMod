@@ -29,6 +29,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
+import net.wither.er.entity.OnEvents;
 import net.wither.er.item.NREItem;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.artifact_effect.AttrArtifactEffect;
@@ -41,7 +42,6 @@ import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.data.NREData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
-import net.wither.er.entity.listener.onHealthFloating;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.shield.ShieldStack;
@@ -155,7 +155,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
     @Inject(method = "tick", at = @At("TAIL"))
     public void onTick(CallbackInfo ci){
         if(this.getHealth() != this.er$lastHealth){
-            onHealthFloating.onFloating((LivingEntity)(Object)this, this.getHealth() - this.er$lastHealth);
+            OnEvents.onFloating((LivingEntity)(Object)this, this.getHealth() - this.er$lastHealth);
             this.er$lastHealth = getHealth();
         }
     }

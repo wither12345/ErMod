@@ -5,6 +5,7 @@ package net.mcreator.er.init;
 
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.item.weapons.ErTiers;
+import net.wither.er.item.weapons.ElementalTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.weapons.AbilitySword;
 import net.wither.er.item.morabag.MoraBagItem;
@@ -48,25 +49,16 @@ public class ErModItems {
 	public static final RegistryObject<Item> HUNTERS_BOW;
 	public static final RegistryObject<Item> CRYSTAL_CORE;
 	public static final RegistryObject<Item> ANEMO_CRYSTALFLY_SPAWN_EGG;
-	public static final RegistryObject<Item> CONDENSED_PYRO;
 	public static final RegistryObject<Item> MORA;
-	public static final RegistryObject<Item> CONDENSED_CRYO;
 	public static final RegistryObject<Item> POLAR_STAR;
 	public static final RegistryObject<Item> TARTAGLIA_SPAWN_EGG;
-	public static final RegistryObject<Item> PYRO_PICKAXE;
 	public static final RegistryObject<Item> ELECTRO_CRYSTAL_ORE;
 	public static final RegistryObject<Item> ELECTRO_CRYSTAL;
-	public static final RegistryObject<Item> CONDENSED_ELECTRO;
 	public static final RegistryObject<Item> SUMERU_ROSE;
 	public static final RegistryObject<Item> COR_LAPIS_ORE;
 	public static final RegistryObject<Item> COR_LAPIS;
-	public static final RegistryObject<Item> CONDENSED_GEO;
-	public static final RegistryObject<Item> GEO_PICKAXE;
 	public static final RegistryObject<Item> DANDELION_SEED;
-	public static final RegistryObject<Item> CONDENSED_ANEMO;
-	public static final RegistryObject<Item> CONDENSED_DENDRO;
 	public static final RegistryObject<Item> LOTUS_HEAD;
-	public static final RegistryObject<Item> CONDENSED_HYDRO;
 	public static final RegistryObject<Item> MAIN_AFFIX_SHARD;
 	public static final RegistryObject<Item> MINOR_AFFIX_SHARD;
 	public static final RegistryObject<Item> RARITY_GEMSTONE;
@@ -125,25 +117,16 @@ public class ErModItems {
 		HUNTERS_BOW = REGISTRY.register("hunters_bow", HuntersBowItem::new);
 		CRYSTAL_CORE = REGISTRY.register("crystal_core", CrystalCoreItem::new);
 		ANEMO_CRYSTALFLY_SPAWN_EGG = REGISTRY.register("anemo_crystalfly_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.ANEMO_CRYSTALFLY, -16718409, -16719617, new Item.Properties()));
-		CONDENSED_PYRO = REGISTRY.register("condensed_pyro", CondensedPyroItem::new);
 		MORA = REGISTRY.register("mora", MoraItem::new);
-		CONDENSED_CRYO = REGISTRY.register("condensed_cryo", CondensedCryoItem::new);
 		POLAR_STAR = REGISTRY.register("polar_star", PolarStarItem::new);
 		TARTAGLIA_SPAWN_EGG = REGISTRY.register("tartaglia_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.TARTAGLIA, -6724096, -16737793, new Item.Properties()));
-		PYRO_PICKAXE = REGISTRY.register("pyro_pickaxe", PyroPickaxeItem::new);
 		ELECTRO_CRYSTAL_ORE = block(ErModBlocks.ELECTRO_CRYSTAL_ORE);
 		ELECTRO_CRYSTAL = REGISTRY.register("electro_crystal", ElectroCrystalItem::new);
-		CONDENSED_ELECTRO = REGISTRY.register("condensed_electro", CondensedElectroItem::new);
 		SUMERU_ROSE = block(ErModBlocks.SUMERU_ROSE);
 		COR_LAPIS_ORE = block(ErModBlocks.COR_LAPIS_ORE);
 		COR_LAPIS = REGISTRY.register("cor_lapis", CorLapisItem::new);
-		CONDENSED_GEO = REGISTRY.register("condensed_geo", CondensedGeoItem::new);
-		GEO_PICKAXE = REGISTRY.register("geo_pickaxe", GeoPickaxeItem::new);
 		DANDELION_SEED = REGISTRY.register("dandelion_seed", DandelionSeedItem::new);
-		CONDENSED_ANEMO = REGISTRY.register("condensed_anemo", CondensedAnemoItem::new);
-		CONDENSED_DENDRO = REGISTRY.register("condensed_dendro", CondensedDendroItem::new);
 		LOTUS_HEAD = block(ErModBlocks.LOTUS_HEAD);
-		CONDENSED_HYDRO = REGISTRY.register("condensed_hydro", CondensedHydroItem::new);
 		MAIN_AFFIX_SHARD = REGISTRY.register("main_affix_shard", MainAffixShardItem::new);
 		MINOR_AFFIX_SHARD = REGISTRY.register("minor_affix_shard", MinorAffixShardItem::new);
 		RARITY_GEMSTONE = REGISTRY.register("rarity_gemstone", RarityGemstoneItem::new);
@@ -235,17 +218,33 @@ public class ErModItems {
 	public static final RegistryObject<Item> BERSERKERS_TIMEPIECE = REGISTRY.register("berserkers_timepiece", () -> new Artifact(ArtifactSlot.SAND_OF_EON, ArtifactEffectRegistry.BERSERKER));
 	public static final RegistryObject<Item> BERSERKERS_BONE_GOBLET = REGISTRY.register("berserkers_bone_goblet", () -> new Artifact(ArtifactSlot.GOBLET_OF_EONOTHEM, ArtifactEffectRegistry.BERSERKER));
 	public static final RegistryObject<Item> BERSERKERS_BATTLE_MASK = REGISTRY.register("berserkers_battle_mask", () -> new Artifact(ArtifactSlot.CIRCLET_OF_LOGOS, ArtifactEffectRegistry.BERSERKER));
+	//Condensed elements
+	public static final RegistryObject<Item> CONDENSED_ANEMO = REGISTRY.register("condensed_anemo", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> CONDENSED_CRYO = REGISTRY.register("condensed_cryo", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> CONDENSED_HYDRO = REGISTRY.register("condensed_hydro", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> CONDENSED_DENDRO = REGISTRY.register("condensed_dendro", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> CONDENSED_GEO = REGISTRY.register("condensed_geo", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> CONDENSED_ELECTRO = REGISTRY.register("condensed_electro", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> CONDENSED_PYRO = REGISTRY.register("condensed_pyro", ErModItems::SimpeItem);
+	//Tools
+	public static final RegistryObject<Item> PYRO_PICKAXE = REGISTRY.register("pyro_pickaxe", () -> new PickaxeItem(ElementalTiers.PYRO, 1, -2.8f, new Item.Properties().fireResistant()));
+	//public static final RegistryObject<Item> GEO_PICKAXE = REGISTRY.register("geo_pickaxe", () -> new PickaxeItem(ElementalTiers.GEO, 1, -2.8f, new Item.Properties().fireResistant()));
 	//Swords
 	//-element swords
-	public static final RegistryObject<Item> CRYO_SWORD = REGISTRY.register("cryo_sword", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.CRYO_INFUSION)));
-	public static final RegistryObject<Item> PYRO_SWORD = REGISTRY.register("pyro_sword", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.PYRO_INFUSION)));
+	public static final RegistryObject<Item> CRYO_SWORD = REGISTRY.register("cryo_sword",
+			() -> new AbilitySword(ElementalTiers.CRYO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.CRYO_INFUSION)));
+	public static final RegistryObject<Item> PYRO_SWORD = REGISTRY.register("pyro_sword",
+			() -> new AbilitySword(ElementalTiers.PYRO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.PYRO_INFUSION)));
 	public static final RegistryObject<Item> ELECTRO_SWORD = REGISTRY.register("electro_sword",
-			() -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.ELECTRO_INFUSION)));
-	public static final RegistryObject<Item> DENDRO_SWORD = REGISTRY.register("dendro_sword", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.DENDRO_INFUSION)));
-	public static final RegistryObject<Item> GEO_SWORD = REGISTRY.register("geo_sword", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.GEO_INFUSION)));
-	public static final RegistryObject<Item> ANEMO_SWORD = REGISTRY.register("anemo_sword", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.ANEMO_INFUSION)));
-	public static final RegistryObject<Item> HYDRO_SWORD = REGISTRY.register("hydro_sword", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.HYDRO_INFUSION)));
-	public static final RegistryObject<Item> WOODEN_CLUB = REGISTRY.register("wooden_club", () -> new AbilitySword(Tiers.IRON, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.WOODEN_CLUB)));
+			() -> new AbilitySword(ElementalTiers.ELECTRO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.ELECTRO_INFUSION)));
+	public static final RegistryObject<Item> DENDRO_SWORD = REGISTRY.register("dendro_sword",
+			() -> new AbilitySword(ElementalTiers.DENDRO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.DENDRO_INFUSION)));
+	public static final RegistryObject<Item> GEO_SWORD = REGISTRY.register("geo_sword", () -> new AbilitySword(ElementalTiers.GEO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.GEO_INFUSION)));
+	public static final RegistryObject<Item> ANEMO_SWORD = REGISTRY.register("anemo_sword",
+			() -> new AbilitySword(ElementalTiers.ANEMO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.ANEMO_INFUSION)));
+	public static final RegistryObject<Item> HYDRO_SWORD = REGISTRY.register("hydro_sword",
+			() -> new AbilitySword(ElementalTiers.HYDRO, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.HYDRO_INFUSION)));
+	public static final RegistryObject<Item> WOODEN_CLUB = REGISTRY.register("wooden_club", () -> new AbilitySword(Tiers.WOOD, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.WOODEN_CLUB)));
 	//-normal swords
 	public static final RegistryObject<Item> DULL_BLADE = REGISTRY.register("dull_blade", () -> new SwordItem(ErTiers.STAR_1, 1, -2.4f, new Item.Properties()));
 	public static final RegistryObject<Item> SILVER_SWORD = REGISTRY.register("silver_sword", () -> new SwordItem(ErTiers.STAR_2, 2, -2.4f, new Item.Properties()));
@@ -260,6 +259,8 @@ public class ErModItems {
 			() -> new AbilitySword(ErTiers.STAR_3, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.DETERMINATION, ErModItems.SKYRIDER_SWORD, ErModAttributes.ENERGY_RECHARGE.get(), 0.113, true)));
 	public static final RegistryObject<Item> FILLET_BLADE = REGISTRY.register("fillet_blade",
 			() -> new AbilitySword(ErTiers.STAR_3, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.GASH, ErModItems.FILLET_BLADE, Attributes.ATTACK_DAMAGE, 0.0765, true)));
+	public static final RegistryObject<Item> HARBINGER_OF_DAWN = REGISTRY.register("harbinger_of_dawn",
+			() -> new AbilitySword(ErTiers.STAR_3, 3, -2.4f, new Item.Properties(), () -> new WeaponAbilityData.CapabilityProvider(WeaponAbilityRegister.VIGOROUS, ErModItems.HARBINGER_OF_DAWN, ErModAttributes.CRIT_DAMAGE.get(), 0.102, false)));
 	//Visions
 	public static final RegistryObject<Item> UNOWNED_VISION = REGISTRY.register("unowned_vision", EmptyVision::new);
 	public static final RegistryObject<Item> PYRO_VISION = REGISTRY.register("pyro_vision", () -> new Vision(Element.Category.PYRO));
@@ -367,6 +368,7 @@ public class ErModItems {
 			registerWeapon(TRAVELERS_HANDY_SWORD.get());
 			registerWeapon(SKYRIDER_SWORD.get());
 			registerWeapon(FILLET_BLADE.get());
+			registerWeapon(HARBINGER_OF_DAWN.get());
 			registerVision(UNOWNED_VISION.get());
 			registerVision(PYRO_VISION.get());
 			registerVision(CRYO_VISION.get());
@@ -412,6 +414,10 @@ public class ErModItems {
 				return 0;
 			return data.ascension();
 		}
+	}
+
+	private static Item SimpeItem() {
+		return new Item(new Item.Properties());
 	}
 
 	// End of user code block custom items

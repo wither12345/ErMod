@@ -15,6 +15,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.wither.er.item.IProjectileWeapon;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -53,7 +54,8 @@ public abstract class AbstractSkeletonMixin extends Monster implements RangedAtt
 	}
 
 	@Inject(method = "performRangedAttack" , at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/AbstractArrow;shoot(DDDFF)V"),locals = LocalCapture.CAPTURE_FAILSOFT)
-	public void performRangedAttack(LivingEntity entity, float velocity , CallbackInfo info ,@Local(ordinal = 0) AbstractArrow abstractarrow){
-		abstractarrow.setBaseDamage(this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 3);
+	public void performRangedAttack(LivingEntity entity, float velocity , CallbackInfo info ,@Local(name = "abstractarrow") AbstractArrow abstractarrow){
+        ItemStack itemstack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, item -> item instanceof BowItem));
+        abstractarrow.setBaseDamage(this.getAttributeValue(Attributes.ATTACK_DAMAGE) * (itemstack.getItem() instanceof IProjectileWeapon weapon ? weapon.er$getDamageScale() : 0.33));
 	}
 }

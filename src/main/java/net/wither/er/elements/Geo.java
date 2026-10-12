@@ -11,7 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.entity.LunarCrystallize;
+import net.wither.er.entity.reaction.LunarCrystallize;
 
 import javax.annotation.Nullable;
 import java.util.List;

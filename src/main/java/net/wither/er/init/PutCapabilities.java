@@ -46,6 +46,6 @@ public class PutCapabilities {
     }
 
     private static boolean hasLevelComponents(Item item){
-        return item instanceof ArmorItem || item instanceof SwordItem || item instanceof BowItem;
+        return item instanceof ArmorItem || item instanceof SwordItem || item instanceof BowItem || item instanceof CrossbowItem;
     }
 }

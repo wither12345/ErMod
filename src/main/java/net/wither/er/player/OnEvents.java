@@ -1,12 +1,14 @@
 package net.wither.er.player;
 
 import net.mcreator.er.ErMod;
+import net.mcreator.er.StellaFortunas;
 import net.mcreator.er.init.ErModMobEffects;
 import net.minecraft.world.Container;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,5 +37,11 @@ public class OnEvents {
         if (entity != null && !entity.getPersistentData().contains("ErOpened")) {
             entity.getPersistentData().putBoolean("ErOpened", true);
         }
+    }
+
+    @SubscribeEvent
+    public static void onPickupXp(PlayerXpEvent.PickupXp event) {
+        Player player = event.getEntity();
+        StellaFortunas.addExptoPlayer(player ,event.getOrb().getValue());
     }
 }

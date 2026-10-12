@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.entity.ArcEntity;
+import net.wither.er.entity.reaction.ArcEntity;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 

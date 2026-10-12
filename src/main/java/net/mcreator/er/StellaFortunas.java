@@ -104,7 +104,7 @@ public abstract class StellaFortunas extends Item {
             Object2IntMap<ArtifactEffect> map = erEntity.er$getEffectMap();
             for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
                 if(effect.getKey() instanceof OnBurstAbility ability){
-                    ability.onBurst(entity, effect.getIntValue());
+                    ability.onBurst(entity, this, effect.getIntValue());
                 }
             }
         }
@@ -113,7 +113,7 @@ public abstract class StellaFortunas extends Item {
             if(weaponAbility.ability().get() instanceof OnBurstAbility ability) {
                 CompoundTag tag = itemStack.getOrCreateTag();
                 int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                ability.onBurst(entity, refinement);
+                ability.onBurst(entity, this, refinement);
             }
         });
 	}

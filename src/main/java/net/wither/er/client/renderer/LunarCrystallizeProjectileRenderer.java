@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.wither.er.entity.LunarCrystallizeProjectile;
+import net.wither.er.entity.reaction.LunarCrystallizeProjectile;
 import org.jetbrains.annotations.NotNull;
 
 public class LunarCrystallizeProjectileRenderer extends EntityRenderer<LunarCrystallizeProjectile> {

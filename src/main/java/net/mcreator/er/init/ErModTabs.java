@@ -26,17 +26,10 @@ public class ErModTabs {
 				tabData.accept(ErModItems.MIST_FLOWER_COROLLA.get());
 				tabData.accept(ErModItems.FLAMING_FLOWER_STAMEN.get());
 				tabData.accept(ErModItems.CRYSTAL_CORE.get());
-				tabData.accept(ErModItems.CONDENSED_PYRO.get());
-				tabData.accept(ErModItems.CONDENSED_CRYO.get());
 				tabData.accept(ErModItems.ELECTRO_CRYSTAL.get());
-				tabData.accept(ErModItems.CONDENSED_ELECTRO.get());
 				tabData.accept(ErModBlocks.SUMERU_ROSE.get().asItem());
 				tabData.accept(ErModItems.COR_LAPIS.get());
-				tabData.accept(ErModItems.CONDENSED_GEO.get());
 				tabData.accept(ErModItems.DANDELION_SEED.get());
-				tabData.accept(ErModItems.CONDENSED_ANEMO.get());
-				tabData.accept(ErModItems.CONDENSED_DENDRO.get());
-				tabData.accept(ErModItems.CONDENSED_HYDRO.get());
 				tabData.accept(ErModBlocks.ELEMENT_ANVIL.get().asItem());
 				tabData.accept(ErModItems.IRON_CHUNK.get());
 				tabData.accept(ErModItems.WHITE_IRON_CHUNK.get());
@@ -83,9 +76,6 @@ public class ErModTabs {
 			tabData.accept(ErModItems.BUTTERFLY_SPAWN_EGG.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.INGREDIENTS) {
 			tabData.accept(ErModItems.MORA.get());
-		} else if (tabData.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-			tabData.accept(ErModItems.PYRO_PICKAXE.get());
-			tabData.accept(ErModItems.GEO_PICKAXE.get());
 		} else if (tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS) {
 			tabData.accept(ErModBlocks.ELECTRO_CRYSTAL_ORE.get().asItem());
 			tabData.accept(ErModBlocks.COR_LAPIS_ORE.get().asItem());

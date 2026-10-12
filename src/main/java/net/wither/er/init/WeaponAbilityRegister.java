@@ -49,4 +49,5 @@ public class WeaponAbilityRegister {
     public static final RegistryObject<Object> JOURNEY = ABILITIES.register("journey", () -> (EnergyOrbPickupAbility) (FunctionalAbilities::travelersHandySword));
     public static final RegistryObject<Object> DETERMINATION = ABILITIES.register("determination", () -> (OnBurstAbility) (FunctionalAbilities::skyriderSword));
     public static final RegistryObject<Object> GASH = ABILITIES.register("gash", () -> (DamageAbility) (FunctionalAbilities::filletBlade));
+    public static final RegistryObject<Object> VIGOROUS = ABILITIES.register("vigorous", () -> (TickAbility) (FunctionalAbilities::harbingerOfDawn));
 }

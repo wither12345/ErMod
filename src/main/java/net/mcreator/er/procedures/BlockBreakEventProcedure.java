@@ -84,7 +84,7 @@ public class BlockBreakEventProcedure {
 				for (int index0 = 0; index0 < 3; index0++) {
 					for (int index1 = 0; index1 < 3; index1++) {
 						for (int index2 = 0; index2 < 3; index2++) {
-							if (0 <= 0 && world.getBlockState(BlockPos.containing(x + index0 - 1, y + index1 - 1, z + index2 - 1)).getDestroySpeed(world, BlockPos.containing(x + index0 - 1, y + index1 - 1, z + index2 - 1)) >= 0) {
+							if (world.getBlockState(BlockPos.containing(x + index0 - 1, y + index1 - 1, z + index2 - 1)).getDestroySpeed(world, BlockPos.containing(x + index0 - 1, y + index1 - 1, z + index2 - 1)) >= 0) {
 								{
 									BlockPos _pos = BlockPos.containing(x + index0 - 1, y + index1 - 1, z + index2 - 1);
 									Block.dropResources(world.getBlockState(_pos), world, BlockPos.containing(x, y, z), null);

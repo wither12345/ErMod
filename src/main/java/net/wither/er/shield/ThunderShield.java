@@ -19,7 +19,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.init.ElementRegistry;
-import net.wither.er.entity.ArcEntity;
+import net.wither.er.entity.reaction.ArcEntity;
 
 import java.util.UUID;
 
