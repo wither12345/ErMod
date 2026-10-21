@@ -10,6 +10,7 @@ public class ERClientConfig {
     public static final ForgeConfigSpec.BooleanValue DAMAGE_DISPLAY;
     public static final ForgeConfigSpec.DoubleValue DAMAGE_SCALE;
     public static final ForgeConfigSpec.DoubleValue CRITICAL_SCALE;
+    public static final ForgeConfigSpec.DoubleValue REACTION_SCALE;
     public static final ForgeConfigSpec.IntValue DAMAGE_CUTTING;
 	static {
 		BUILDER.push("health_bar");
@@ -20,6 +21,7 @@ public class ERClientConfig {
 		DAMAGE_DISPLAY = BUILDER.comment("Enable damage display").define("display damage" , true);
         DAMAGE_SCALE = BUILDER.comment("Control the damage display's size").defineInRange("size" , 1, 0.1, 10);
         CRITICAL_SCALE = BUILDER.comment("Control the critical damage display's size").defineInRange("critical size" , 1, 0.1,  10);
+        REACTION_SCALE = BUILDER.comment("Control the reaction display's size").defineInRange("reaction size" , 1, 0.1,  10);
         DAMAGE_CUTTING = BUILDER.comment("Control the damage display's shade").defineInRange("shade layer" , 8, 1, 1024);
         BUILDER.pop();
 		SPEC = BUILDER.build();

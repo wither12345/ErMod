@@ -4,12 +4,15 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.mcreator.er.ERClientConfig;
 import net.mcreator.er.ErMod;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.wither.er.elements.Reaction;
+import org.joml.Quaternionf;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,70 +20,63 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = ErMod.MODID, value = Dist.CLIENT)
 public class RenderDamageAmount {
-    private static final List<DamageAmount> damageNumbers = new ArrayList<>();
+    private static final List<DisplayMessage> DISPLAY_MESSAGES = new ArrayList<>();
     private static final int MAX_TIME = 20;
 
-    public static void addDamage(int damage, int color, double x, double y, double z , boolean critical, DamageDisplayType type){
+    public static void addDamage(int damage, int color, double x, double y, double z , boolean critical, Display type){
         if (Minecraft.getInstance().level != null) {
-            damageNumbers.add(new DamageAmount(Minecraft.getInstance().level.getGameTime() ,damage, color, x, y, z , critical, type)) ;
+            DISPLAY_MESSAGES.add(new DamageDisplay(Minecraft.getInstance().level.getGameTime() ,damage, x, y, z, color , critical, type)) ;
+        }
+    }
+
+    public static void addReaction(Reaction reaction, double x, double y, double z, int color, Display type){
+        if (Minecraft.getInstance().level != null) {
+            DISPLAY_MESSAGES.add(new ReactionDisplay(reaction, Minecraft.getInstance().level.getGameTime(), x, y, z, color, type)) ;
         }
     }
 
     @SubscribeEvent
     public static void onRenderLevel(RenderLevelStageEvent event) {
         if(!ERClientConfig.DAMAGE_DISPLAY.get()){
-            damageNumbers.clear();
+            DISPLAY_MESSAGES.clear();
             return;
         }
-        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
-            float p_tick = event.getPartialTick();
-            if(Minecraft.getInstance().level == null)return;
+        if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_LEVEL) {
+            if(Minecraft.getInstance().level == null) return;
+            float pTick = event.getPartialTick();
+            long nowTime = Minecraft.getInstance().level.getGameTime();
+
             MultiBufferSource.BufferSource bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-            Iterator<DamageAmount> iterator = damageNumbers.iterator();
-            long now_time = Minecraft.getInstance().level.getGameTime();
+            Iterator<DisplayMessage> iterator = DISPLAY_MESSAGES.iterator();
 
-            while (iterator.hasNext()) {
-                DamageAmount damageAmount = iterator.next();
-                if (damageAmount.check(now_time)) {
-                    iterator.remove();
-                }
-                damageAmount.render(event.getPoseStack(),bufferSource, p_tick, now_time);
-            }
-
-        }
-    }
-
-    public record DamageAmount(
-            long added_tick,
-            int damage,
-            int color,
-            double x,
-            double y,
-            double z,
-            boolean critical,
-            DamageDisplayType type
-    ) {
-        public boolean check(long now_time) {
-            return added_tick + MAX_TIME < now_time;
-        }
-
-        public void render(PoseStack stack, MultiBufferSource.BufferSource bufferSource, float partialTick, long nowTime) {
             RenderSystem.disableDepthTest();
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
-            String s = String.valueOf(damage);
 
-            RenderSpecialDamage.renderLunarText(stack, bufferSource, s, x, y, z, color, calculateSize(partialTick, nowTime), type);
-        }
+            Camera camera = event.getCamera();
 
-        private float calculateSize(float partialTick, long nowTime) {
-            if (this.critical)
-                return Math.max(0.06f, 0.12f - (nowTime + partialTick - added_tick) * 0.04f * ERClientConfig.CRITICAL_SCALE.get().floatValue());
-            return Math.min(0.03f, (nowTime + partialTick - added_tick) * 0.03f * ERClientConfig.DAMAGE_SCALE.get().floatValue());
+            PoseStack pose = new PoseStack();
+            pose.scale(-1, 1, -1);
+
+            double d0 = camera.getPosition().x;
+            double d1 = camera.getPosition().y;
+            double d2 = camera.getPosition().z;
+
+            pose.mulPose(new Quaternionf(camera.rotation()).invert());
+
+            pose.translate(-d0, -d1, -d2);
+
+            while (iterator.hasNext()) {
+                DisplayMessage display = iterator.next();
+                if (display.check(nowTime))
+                    iterator.remove();
+                else
+                    display.render(camera, bufferSource, pose, pTick, nowTime);
+            }
         }
     }
 
-    public enum DamageDisplayType{
+    public enum Display {
         NORMAL,
         LUNAR,
         STELLAR

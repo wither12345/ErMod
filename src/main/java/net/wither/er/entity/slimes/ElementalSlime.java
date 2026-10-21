@@ -27,7 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -95,7 +95,7 @@ public abstract class ElementalSlime extends Monster implements Enemy {
     }
 
     boolean hasElement(){
-        if(this instanceof AuraContainerInterface containerInterface)
+        if(this instanceof IAuraContainerOwner containerInterface)
             return containerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
         return false;
     }
@@ -427,7 +427,7 @@ public abstract class ElementalSlime extends Monster implements Enemy {
 
     static class RechargeElementalGoal extends Goal{
         private final ElementalSlime slime ;
-        private final AuraContainerInterface containerInterface;
+        private final IAuraContainerOwner containerInterface;
         private final int chargeTick ;
         private final double speed;
         private int chargeTime ;
@@ -437,7 +437,7 @@ public abstract class ElementalSlime extends Monster implements Enemy {
 
         RechargeElementalGoal(ElementalSlime slime, int chargeTick, double speed, float gauge, int initCd) {
             this.slime = slime;
-            this.containerInterface = slime instanceof AuraContainerInterface auraContainerInterface ? auraContainerInterface: null;
+            this.containerInterface = slime instanceof IAuraContainerOwner containerOwner ? containerOwner : null;
             this.chargeTick = chargeTick;
             this.speed = speed;
             this.gauge = gauge;

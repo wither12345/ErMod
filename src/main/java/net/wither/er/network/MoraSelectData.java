@@ -3,7 +3,7 @@ package net.wither.er.network;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
-import net.wither.er.player.ErPlayerInterface;
+import net.wither.er.player.IPlayer;
 
 import java.util.function.Supplier;
 
@@ -18,6 +18,6 @@ public record MoraSelectData(int index) {
 
 	public static void handle(final MoraSelectData data, final Supplier<NetworkEvent.Context> contextSupplier) {
         Player player = contextSupplier.get().getSender();
-        ((ErPlayerInterface)player).er$setMoraIndex(data.index());
+        ((IPlayer)player).er$setMoraIndex(data.index());
 	}
 }

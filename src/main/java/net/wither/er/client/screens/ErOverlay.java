@@ -3,7 +3,7 @@ package net.wither.er.client.screens;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.er.ERClientConfig;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -88,7 +88,7 @@ public class ErOverlay {
 	private static void maybeRenderStellaFortunaIcon(@NotNull Player player, GuiGraphics graphics, int w, int h) {
 		player.getCapability(ErItemVariables.PLAYER_VARIABLES).ifPresent(
 			(var) -> {
-				if (var.Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
+				if (var.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna && fortuna.hasSkill()) {
 					ErCombatVariables.PlayerVariables vars = player.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
 					renderElementalSkillIcon(graphics, w, h, vars);
 					renderElementalBurstIcon(player, graphics, w, h, vars, fortuna);
@@ -111,7 +111,7 @@ public class ErOverlay {
 		}
 	}
 
-	private static void renderElementalBurstIcon(Player player, GuiGraphics graphics, int w, int h, ErCombatVariables.PlayerVariables vars, StellaFortunas fortuna) {
+	private static void renderElementalBurstIcon(Player player, GuiGraphics graphics, int w, int h, ErCombatVariables.PlayerVariables vars, StellaFortuna fortuna) {
 		int percent = (int) (48 * vars.energyAmount / fortuna.getEnergyCost(player));
 		RenderSystem.enableBlend();
 		if (fortuna.elementType() == 1)

@@ -8,7 +8,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.SingleElementalContainer;
@@ -23,7 +23,7 @@ public abstract class ElementalLivingEntity extends LivingEntity {
     protected ElementalLivingEntity(EntityType<? extends LivingEntity> entityType, Level level, Element element) {
         super(entityType, level);
         this.element = element;
-        if(this instanceof AuraContainerInterface containerInterface)
+        if(this instanceof IAuraContainerOwner containerInterface)
             containerInterface.er$getAuraContainer().addAura(new ElementSource(element, ELEMENTAL_LOCATION, 3, true, true));
     }
 
@@ -34,8 +34,8 @@ public abstract class ElementalLivingEntity extends LivingEntity {
     protected abstract int getMaxAura();
 
     protected float getAura(){
-        if(this instanceof AuraContainerInterface auraContainerInterface) {
-            SingleElementalContainer container = auraContainerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId());
+        if(this instanceof IAuraContainerOwner containerOwner) {
+            SingleElementalContainer container = containerOwner.er$getAuraContainer().getAura().get(getElement().getCategory().getId());
             return container.getGauge(getElement());
         }
         return 0;

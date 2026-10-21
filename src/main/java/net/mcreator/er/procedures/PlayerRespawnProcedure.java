@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 
 import javax.annotation.Nullable;
 
@@ -29,7 +29,7 @@ public class PlayerRespawnProcedure {
 		if (entity == null)
 			return;
 		ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(null);
-		StellaFortunas.applyAttr((LivingEntity) entity, _vars.Stella_Fortuna);
+		StellaFortuna.applyAttr((LivingEntity) entity, _vars.Stella_Fortuna);
 		if (entity instanceof LivingEntity _entity)
 			_entity.setHealth(entity instanceof LivingEntity _livEnt ? _livEnt.getMaxHealth() : -1);
 	}

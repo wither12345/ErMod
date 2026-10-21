@@ -1,7 +1,7 @@
 package net.mcreator.er.entity;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModEntities;
 import net.mcreator.er.item.MemoryofRovingGalesItem;
 import net.minecraft.core.Holder;
@@ -26,7 +26,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PlayMessages;
 import net.wither.er.combat.VacuumField;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.init.ElementRegistry;
@@ -129,7 +129,7 @@ public class TravelerTornadoEntity extends Monster implements OwnableEntity {
             this.setDeltaMovement(new Vec3(((-1) * (Math.sin((this.getYRot() / 180d) * Math.PI) / 5)), (this.getDeltaMovement().y()), (Math.cos((this.getYRot() / 180d) * Math.PI) / 5)));
             if (aliveTick % 10 == 0) {
                 if (owner instanceof Player player && player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof MemoryofRovingGalesItem item) {
-                    Holder<DamageType> type = this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(StellaFortunas.BURST) ;
+                    Holder<DamageType> type = this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(StellaFortuna.BURST) ;
                     for (LivingEntity entityiterator : this.level().getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(5 / 2d), e -> true).stream().toList()) {
                         if (EntityHurtEvent.shouldHurt(owner, entityiterator) && entityiterator instanceof LivingEntity && !(this == entityiterator)) {
                             entityiterator.hurt(
@@ -140,14 +140,14 @@ public class TravelerTornadoEntity extends Monster implements OwnableEntity {
                     int absorption = this.getEntityData().get(TravelerTornadoEntity.DATA_Absorption);
                     if (absorption == 0) {
                         for (Entity entityiterator : this.level().getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList()) {
-                            if (entityiterator instanceof AuraContainerInterface auraContainerInterface) {
-                                if (!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty())
+                            if (entityiterator instanceof IAuraContainerOwner containerOwner) {
+                                if (!containerOwner.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty())
                                     absorption = Math.max(absorption, 1);
-                                if (!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty())
+                                if (!containerOwner.er$getAuraContainer().getAura().get(Element.Category.HYDRO.getId()).isEmpty())
                                     absorption = Math.max(absorption, 2);
-                                if (!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty())
+                                if (!containerOwner.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty())
                                     absorption = Math.max(absorption, 3);
-                                if (!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.CRYO.getId()).isEmpty())
+                                if (!containerOwner.er$getAuraContainer().getAura().get(Element.Category.CRYO.getId()).isEmpty())
                                     absorption = 4;
                             }
                         }

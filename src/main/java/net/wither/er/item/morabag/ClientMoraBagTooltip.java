@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.wither.er.player.ErPlayerInterface;
+import net.wither.er.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class ClientMoraBagTooltip implements ClientTooltipComponent {
             //this.blit(guiGraphics, x, y, Texture.SLOT);
             guiGraphics.renderItem(itemstack, x + 1, y + 1, index);
             guiGraphics.renderItemDecorations(font, itemstack, x + 1, y + 1);
-            ErPlayerInterface playerInterface = (ErPlayerInterface) Minecraft.getInstance().player;
+            IPlayer playerInterface = (IPlayer) Minecraft.getInstance().player;
             if (playerInterface != null && index == playerInterface.er$getMoraIndex()) {
                 AbstractContainerScreen.renderSlotHighlight(guiGraphics, x + 1, y + 1, 0);
             }

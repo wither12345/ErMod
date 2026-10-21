@@ -1,6 +1,6 @@
 package net.wither.er.network;
 
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -28,7 +28,7 @@ public record StellaFortunaData(int entityID, CompoundTag message) {
 		contextSupplier.get().enqueueWork(() -> {
 			if (entity instanceof Player player) {
 				ErItemVariables.PlayerVariables vars = player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new);
-				if (vars.Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
+				if (vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna) {
 					fortuna.receiveMessage(player, data.message);
 				}
 			}

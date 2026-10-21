@@ -24,7 +24,8 @@ public class RegisterDatas {
 		ErMod.addNetworkMessage(StellaFortunaData.class, StellaFortunaData::buffer, StellaFortunaData::new, StellaFortunaData::handle);
 		ErMod.addNetworkMessage(SyncLevelData.class, SyncLevelData::buffer, SyncLevelData::new, SyncLevelData::handle);
 		ErMod.addNetworkMessage(DamageDisplayMessage.class, DamageDisplayMessage::buffer, DamageDisplayMessage::new, DamageDisplayMessage::handle);
-		ErMod.addNetworkMessage(ArtifactTransmuterMessage.class, ArtifactTransmuterMessage::buffer, ArtifactTransmuterMessage::new, ArtifactTransmuterMessage::handle);
+		ErMod.addNetworkMessage(ReactionDisplayMessage.class, ReactionDisplayMessage::buffer, ReactionDisplayMessage::new, ReactionDisplayMessage::handle);
+        ErMod.addNetworkMessage(ArtifactTransmuterMessage.class, ArtifactTransmuterMessage::buffer, ArtifactTransmuterMessage::new, ArtifactTransmuterMessage::handle);
 		ErMod.addNetworkMessage(AlchemyConvertingSwitchMessage.class, AlchemyConvertingSwitchMessage::buffer, AlchemyConvertingSwitchMessage::new, AlchemyConvertingSwitchMessage::handle);
 		ErMod.addNetworkMessage(AlchemyStageSwitchMessage.class, AlchemyStageSwitchMessage::buffer, AlchemyStageSwitchMessage::new, AlchemyStageSwitchMessage::handle);
 		ErMod.addNetworkMessage(SkillMessage.class, SkillMessage::buffer, SkillMessage::new, SkillMessage::handle);

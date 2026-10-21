@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "minecraft:block/oak_planks",
+    "up": "er:block/fortuna_enhancer_top",
+    "north": "er:block/fortuna_enhancer",
+    "east": "er:block/fortuna_enhancer",
+    "south": "er:block/fortuna_enhancer",
+    "west": "er:block/fortuna_enhancer",
+    "particle": "er:block/fortuna_enhancer"
+  }
+}

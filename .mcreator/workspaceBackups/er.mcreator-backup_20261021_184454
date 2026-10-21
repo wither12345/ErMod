@@ -476,28 +476,8 @@
         "files": [
           "src/main/java/net/mcreator/er/procedures/HydroCrystallizeTickProcedure.java"
         ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
+        "dependencies": [],
+        "return_type": "string"
       }
     },
     {
@@ -1051,18 +1031,6 @@
       "registry_name": "crit_damage",
       "metadata": {
         "files": []
-      }
-    },
-    {
-      "name": "StellaFortunas",
-      "type": "code",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "stella_fortunas",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/StellaFortunas.java"
-        ]
       }
     },
     {
@@ -4650,6 +4618,7 @@
       "effect.er.gash": "Gash",
       "item.er.fillet_blade": "Fillet Blade",
       "item.er.pyro_sword": "Pyro Sword",
+      "item.er.pyro_pickaxe": "Pyro Pickaxe",
       "item.er.hydro_sword": "Hydro Sword",
       "item.er.cryo_sword": "Cryo Sword",
       "item.er.electro_sword": "Electro Sword",
@@ -4661,7 +4630,25 @@
       "death.attack.physical.item": "%1$s was killed by %2$s using %3$s",
       "item.er.wooden_club": "Wooden Club",
       "item.er.harbinger_of_dawn": "Harbinger of Dawn",
-      "effect.er.vigorous": "Vigorous"
+      "effect.er.vigorous": "Vigorous",
+      "item.er.condensed_anemo": "Condensed Anemo",
+      "item.er.condensed_cryo": "Condensed Cryo",
+      "item.er.condensed_electro": "Condensed Electro",
+      "item.er.condensed_dendro": "Condensed Dendro",
+      "item.er.condensed_geo": "Condensed Geo",
+      "item.er.condensed_pyro": "Condensed Pyro",
+      "item.er.condensed_hydro": "Condensed Hydro",
+      "gui.er.fortuna_enhance.button_upgrade": "Upgrade",
+      "gui.er.fortuna_enhance.button_ascend": "Ascend",
+      "gui.er.fortuna_enhance.button_max": "Max",
+      "gui.er.fortuna_enhance.status_upgrade": "EXP +%s  Mora -%s",
+      "gui.er.fortuna_enhance.status_ascend": "Ascend +1  Cap %s",
+      "gui.er.fortuna_enhance.status_missing": "Missing materials or Mora",
+      "gui.er.fortuna_enhance.status_need_exp": "Insert EXP books",
+      "gui.er.fortuna_enhance.status_max": "Maximum level reached",
+      "text.er.fortuna_health": "HP",
+      "text.er.fortuna_attack": "ATK",
+      "text.er.fortuna_armor": "DEF"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -5197,18 +5184,37 @@
       "effect.er.gash": "决",
       "item.er.fillet_blade": "吃虎鱼刀",
       "item.er.pyro_sword": "火元素剑",
+      "item.er.pyro_pickaxe": "火元素镐",
       "item.er.hydro_sword": "水元素剑",
       "item.er.cryo_sword": "冰元素剑",
       "item.er.electro_sword": "雷元素剑",
       "item.er.dendro_sword": "草元素剑",
       "item.er.geo_sword": "岩元素剑",
       "item.er.anemo_sword": "风元素剑",
-      "death.attack.physical": "%1$s died",
-      "death.attack.physical.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.physical.item": "%1$s was killed by %2$s using %3$s",
+      "death.attack.physical": "%1$s死了",
+      "death.attack.physical.player": "%1$s被%2$s杀死了",
+      "death.attack.physical.item": "%1$s被%2$s使用%3$s杀死了",
       "item.er.wooden_club": "棒槌",
       "item.er.harbinger_of_dawn": "黎明神剑",
-      "effect.er.vigorous": "激励"
+      "effect.er.vigorous": "激励",
+      "item.er.condensed_anemo": "浓缩风元素",
+      "item.er.condensed_cryo": "浓缩冰元素",
+      "item.er.condensed_electro": "浓缩雷元素",
+      "item.er.condensed_dendro": "浓缩草元素",
+      "item.er.condensed_geo": "浓缩岩元素",
+      "item.er.condensed_pyro": "浓缩火元素",
+      "item.er.condensed_hydro": "浓缩水元素",
+      "gui.er.fortuna_enhance.button_upgrade": "升级",
+      "gui.er.fortuna_enhance.button_ascend": "突破",
+      "gui.er.fortuna_enhance.button_max": "已满级",
+      "gui.er.fortuna_enhance.status_upgrade": "经验+%s 摩拉-%s",
+      "gui.er.fortuna_enhance.status_ascend": "突破+1 上限%s",
+      "gui.er.fortuna_enhance.status_missing": "材料或摩拉不足",
+      "gui.er.fortuna_enhance.status_need_exp": "放入经验书",
+      "gui.er.fortuna_enhance.status_max": "已达最高等级",
+      "text.er.fortuna_health": "生命",
+      "text.er.fortuna_attack": "攻击",
+      "text.er.fortuna_armor": "护甲"
     }
   },
   "metadata": {
@@ -5254,7 +5260,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

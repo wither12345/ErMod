@@ -16,4 +16,5 @@ public class ErMenus {
     public static final RegistryObject<MenuType<AlchemyGuiMenu>> ALCHEMY_GUI = REGISTRY.register("alchemy", () -> IForgeMenuType.create(AlchemyGuiMenu::new));
     public static final RegistryObject<MenuType<LeyLineMapGuiMenu>> LEY_LINE_MAP = REGISTRY.register("ley_line_map", () -> IForgeMenuType.create(LeyLineMapGuiMenu::new));
     public static final RegistryObject<MenuType<ErEquipmentGUIMenu>> EQUIPMENT = REGISTRY.register("equipment", () -> IForgeMenuType.create(ErEquipmentGUIMenu::new));
+    public static final RegistryObject<MenuType<FortunaEnhanceMenu>> FORTUNA_ENHANCE = REGISTRY.register("fortuna_enhance", () -> IForgeMenuType.create((id, inv, extraData) -> new FortunaEnhanceMenu(id, inv)));
 }

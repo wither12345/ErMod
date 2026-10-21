@@ -11,9 +11,9 @@ import net.wither.er.client.screens.ErOverlay;
 
 import java.util.function.Supplier;
 
-public record DamageDisplayMessage(int damage , int id , int color , boolean critical, RenderDamageAmount.DamageDisplayType type){
+public record DamageDisplayMessage(int damage , int id , int color , boolean critical, RenderDamageAmount.Display type){
     public DamageDisplayMessage(FriendlyByteBuf buffer) {
-        this(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), RenderDamageAmount.DamageDisplayType.values()[buffer.readInt()]);
+        this(buffer.readInt(), buffer.readInt(), buffer.readInt(), buffer.readBoolean(), RenderDamageAmount.Display.values()[buffer.readInt()]);
     }
 
     public static void buffer(DamageDisplayMessage message, FriendlyByteBuf buffer) {
@@ -35,7 +35,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
                 if (entity == minecraft.player) {
                     ErOverlay.updateDamage(data.damage(), data.color(), minecraft);
                 } else if (entity != null && entity.level() instanceof ClientLevel) {
-                    RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5, entity.getY() + 2, entity.getZ() + Math.random() - 0.5, data.critical(), data.type());
+                    RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5, entity.getY() + Math.random() + 1, entity.getZ() + Math.random() - 0.5, data.critical(), data.type());
                 }
             });
         }

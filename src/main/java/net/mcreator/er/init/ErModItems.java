@@ -69,9 +69,6 @@ public class ErModItems {
 	public static final RegistryObject<Item> WHITE_IRON_ORE;
 	public static final RegistryObject<Item> DEEPSLATE_WHITE_IRON_ORE;
 	public static final RegistryObject<Item> CRYSTAL_CHUNK;
-	public static final RegistryObject<Item> MYSTIC_ENHANCEMENT_ORE;
-	public static final RegistryObject<Item> FINE_ENHANCEMENT_ORE;
-	public static final RegistryObject<Item> ENHANCEMENT_ORE;
 	public static final RegistryObject<Item> HILICHURL_SPAWN_EGG;
 	public static final RegistryObject<Item> CRATE;
 	public static final RegistryObject<Item> CUIHUA_LOG;
@@ -137,9 +134,6 @@ public class ErModItems {
 		WHITE_IRON_ORE = block(ErModBlocks.WHITE_IRON_ORE);
 		DEEPSLATE_WHITE_IRON_ORE = block(ErModBlocks.DEEPSLATE_WHITE_IRON_ORE);
 		CRYSTAL_CHUNK = REGISTRY.register("crystal_chunk", CrystalChunkItem::new);
-		MYSTIC_ENHANCEMENT_ORE = REGISTRY.register("mystic_enhancement_ore", MysticEnhancementOreItem::new);
-		FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", FineEnhancementOreItem::new);
-		ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", EnhancementOreItem::new);
 		HILICHURL_SPAWN_EGG = REGISTRY.register("hilichurl_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.HILICHURL, -13421773, -6780581, new Item.Properties()));
 		CRATE = block(ErModBlocks.CRATE);
 		CUIHUA_LOG = block(ErModBlocks.CUIHUA_LOG);
@@ -349,9 +343,13 @@ public class ErModItems {
 	public static final ElementGemstones NAGADUS_EMERALD = new ElementGemstones(REGISTRY, "nagadus_emerald");
 	public static final RegistryObject<Item> ELECTRO_HYPOSTASIS_CUBE_SPAWN_EGG = REGISTRY.register("electro_hypostasis_cube_egg", () -> new ForgeSpawnEggItem(ErModEntities.ELECTRO_HYPOSTASIS_CUBE, 0xff88ff, 0xffddff, new Item.Properties()));
 	public static final RegistryObject<Item> BOSS_SPAWNER = block(ErModBlocks.BOSS_SPAWNER);
+	public static final RegistryObject<Item> FORTUNA_ENHANCER = block(ErModBlocks.FORTUNA_ENHANCER);
 	public static final RegistryObject<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
 	public static final RegistryObject<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
 	public static final RegistryObject<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
+	public static final RegistryObject<Item> MYSTIC_ENHANCEMENT_ORE = REGISTRY.register("mystic_enhancement_ore", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", ErModItems::SimpeItem);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

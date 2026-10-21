@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
@@ -46,6 +46,7 @@ import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.StellaFortuna;
 import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
@@ -83,7 +84,7 @@ public class EntityHurtEvent {
 
         modifyDamageSource(damagesource, entity) ;
         modifyReaction(damagesource);
-        if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
+        if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof IAuraContainerOwner containerOwner) {
             DamageModifier modifier = modifierInterface.er$getModifier();
             if(sourceentity instanceof IErEntity erEntity){
                 Object2IntMap<ArtifactEffect> map = erEntity.er$getEffectMap();
@@ -108,7 +109,7 @@ public class EntityHurtEvent {
                 elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY.get());
             ElementSource source = elementSourceInterface.er$getSource();
             if(source != null && source.getElement() != null) {
-                auraContainerInterface.er$getAuraContainer().addAura(source, modifier, sourceentity);
+                containerOwner.er$getAuraContainer().addAura(source, modifier, sourceentity);
                 ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
                 if(sourceentity instanceof LivingEntity living){
                     Vision.getOptDelusion(living).ifPresent(
@@ -133,7 +134,7 @@ public class EntityHurtEvent {
                 if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.PHYSICAL_DMG_BONUS.get()) != null)
                     modifier.common_multiply += (float) living.getAttributeValue(ErModAttributes.PHYSICAL_DMG_BONUS.get()) - 1;
             }
-            if(damagesource.is(StellaFortunas.SKILL) && sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_SKILL_DMG.get()) != null)
+            if(damagesource.is(StellaFortuna.SKILL) && sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_SKILL_DMG.get()) != null)
                 modifierInterface.er$getModifier().common_multiply += (float) living.getAttributeValue(ErModAttributes.ELEMENTAL_SKILL_DMG.get()) - 1f;
 
             if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE.get()) > Math.random()) {
@@ -235,7 +236,7 @@ public class EntityHurtEvent {
             damageModifierInterface.er$getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
         if(source.is(LUNAR)) {
             damageModifierInterface.er$getModifier().multiply = ReactionMultiply.VARIANT;
-            damageModifierInterface.er$getModifier().type = RenderDamageAmount.DamageDisplayType.LUNAR;
+            damageModifierInterface.er$getModifier().type = RenderDamageAmount.Display.LUNAR;
         }
     }
 
@@ -341,7 +342,7 @@ public class EntityHurtEvent {
 	public static int getEntityLevel(Entity entity) {
 		if (entity instanceof Player) {
 			ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables());
-			if (_vars.Stella_Fortuna.getItem() instanceof StellaFortunas) {
+			if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna) {
 				return _vars.Stella_Fortuna.getOrCreateTag().getInt("level") + 1;
 			}
 			return 1 ;
@@ -372,7 +373,7 @@ public class EntityHurtEvent {
         public float res_multiply = 1;
         public float additional_amount = 0;
         public ReactionMultiply multiply = null;
-        private RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
+        private RenderDamageAmount.Display type = RenderDamageAmount.Display.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
             return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply * (critical ? crit_multiply : 1);

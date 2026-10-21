@@ -42,7 +42,7 @@ public class OnEventsClient {
         List<MoraBagItem.MoraVal> moraVals = MoraBagItem.getVals();
         Screen screen = Minecraft.getInstance().screen;
         if (screen instanceof AbstractContainerScreen<?> containerScreen) {
-            ErPlayerInterface playerInterface = (ErPlayerInterface)Minecraft.getInstance().player;
+            IPlayer playerInterface = (IPlayer)Minecraft.getInstance().player;
             Slot slot = containerScreen.getSlotUnderMouse();
             if (slot != null && slot.isActive() && playerInterface != null) {
                 ItemStack stack = slot.getItem();

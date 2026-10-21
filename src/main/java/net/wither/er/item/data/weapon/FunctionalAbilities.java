@@ -2,7 +2,7 @@ package net.wither.er.item.data.weapon;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -60,9 +60,9 @@ public class FunctionalAbilities {
     }
 
     public static void coolSteel(DamageSource source, LivingEntity entity, EntityHurtEvent.DamageModifier modifier, int level){
-        if(entity instanceof AuraContainerInterface auraContainerInterface &&
-                (auraContainerInterface.er$getAuraContainer().hasElementCategory(Element.Category.CRYO) ||
-                auraContainerInterface.er$getAuraContainer().hasElementCategory(Element.Category.HYDRO))){
+        if(entity instanceof IAuraContainerOwner containerOwner &&
+                (containerOwner.er$getAuraContainer().hasElementCategory(Element.Category.CRYO) ||
+                containerOwner.er$getAuraContainer().hasElementCategory(Element.Category.HYDRO))){
             modifier.common_multiply += 0.09f + 0.03f * level;
         }
     }
@@ -77,7 +77,7 @@ public class FunctionalAbilities {
         picker.heal((0.0075f + 0.0025f * level) * picker.getMaxHealth());
     }
 
-    public static void skyriderSword(LivingEntity entity, StellaFortunas fortuna, int level){
+    public static void skyriderSword(LivingEntity entity, StellaFortuna fortuna, int level){
         entity.addEffect(new MobEffectInstance(MobEffectRegister.DETERMINATION.get(), 300, level - 1));
     }
 

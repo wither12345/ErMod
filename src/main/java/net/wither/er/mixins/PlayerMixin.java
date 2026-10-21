@@ -1,6 +1,6 @@
 package net.wither.er.mixins;
 
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
@@ -9,13 +9,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.entity.AnimationStater;
 import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.MobEffectRegister;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErSyncGameRule;
-import net.wither.er.player.ErPlayerInterface;
+import net.wither.er.player.IPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,11 +23,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
-public abstract class ErPlayerMixin extends LivingEntity implements AnimationStater, ErPlayerInterface {
+public abstract class PlayerMixin extends LivingEntity implements IPlayer {
     @Unique public AnimationState er$animationState0 = new AnimationState();
     @Unique private int er$selectedMora;
 
-	protected ErPlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
+	protected PlayerMixin(EntityType<? extends LivingEntity> p_20966_, Level p_20967_) {
 		super(p_20966_, p_20967_);
 	}
 
@@ -45,11 +44,12 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 
 	@Unique
 	@Override
-	public AnimationState getState() {
+	public AnimationState er$getState() {
 		return er$animationState0;
 	}
 
-	public void stopAnimation() {
+	@Override
+	public void er$stopAnimation() {
 		this.er$animationState0.animateWhen(false, this.tickCount);
 	}
 
@@ -63,15 +63,19 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 	public void ontick(CallbackInfo info) {
 		ItemStack stack = this.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new).Stella_Fortuna;
 		ErCombatVariables.PlayerVariables vars = this.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
-		StellaFortunas SF = null;
+		StellaFortuna SF = null;
 		float speed = 1f;
-		if (stack.getItem() instanceof StellaFortunas item) {
+		if (stack.getItem() instanceof StellaFortuna item) {
 			SF = item;
 			speed = SF.getSpeed(this, vars.animationId);
 		}
+        if (SF != null) {
+            SF.animationTicking(this, vars.animationId, vars.animationTime, speed);
+            SF.onTick(this.level(), this, this.getX(), this.getY(), this.getZ());
+        }
 		if (vars.animationTime >= 0) {
-			vars.animationTime = vars.animationTime - 1;
-			if (SF != null && vars.animationTime > SF.getFinishTick(this, vars.animationId, speed)) {
+			vars.animationTime -= speed;
+			if (SF != null && vars.animationTime > SF.getFinishTick(this, vars.animationId)) {
 				this.setSprinting(false);
 				this.setDeltaMovement(new Vec3(0, 0, 0));
 			} else if (this.isSprinting()) {
@@ -104,17 +108,14 @@ public abstract class ErPlayerMixin extends LivingEntity implements AnimationSta
 		if (this.level().isClientSide()) {
 			if (vars.animationTime > 0) {
 				if (this.getPersistentData().getInt("animation_type") != vars.animationId) {
-					this.er$animationState0.animateWhen(false, this.tickCount);
+                    this.er$stopAnimation();
+					//this.er$animationState0.animateWhen(false, this.tickCount);
 					this.getPersistentData().putInt("animation_type", vars.animationId);
 				}
-				this.er$animationState0.animateWhen(true, this.tickCount);
+                this.er$animationState0.animateWhen(true, this.tickCount);
 			} else {
 				this.er$animationState0.animateWhen(false, this.tickCount);
 			}
-		}
-		if (SF != null) {
-			SF.AnimationTicking(this, vars.animationId, vars.animationTime, speed);
-			SF.onTick(this.level(), this, this.getX(), this.getY(), this.getZ());
 		}
 	}
 }

@@ -22,7 +22,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
-import net.wither.er.player.ErPlayerInterface;
+import net.wither.er.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -62,7 +62,7 @@ public class MoraBagItem extends Item {
         
         ItemStack itemStack = slot.getItem();
         if (itemStack.isEmpty()) {
-            ItemStack itemStack1 = getItemFromBag(bag, ((ErPlayerInterface)player).er$getMoraIndex());
+            ItemStack itemStack1 = getItemFromBag(bag, ((IPlayer)player).er$getMoraIndex());
             this.playRemoveOneSound(player);
             slot.safeInsert(itemStack1);
             return true;
@@ -88,7 +88,7 @@ public class MoraBagItem extends Item {
     public boolean overrideOtherStackedOnMe(@NotNull ItemStack bag, @NotNull ItemStack input_item, @NotNull Slot slot, @NotNull ClickAction action, @NotNull Player player, @NotNull SlotAccess access) {
         if (action == ClickAction.PRIMARY && slot.allowModification(player)) {
             if (input_item.isEmpty()) {
-                ItemStack itemStack = getItemFromBag(bag, ((ErPlayerInterface)player).er$getMoraIndex());
+                ItemStack itemStack = getItemFromBag(bag, ((IPlayer)player).er$getMoraIndex());
                 this.playRemoveOneSound(player);
                 access.set(itemStack);
                 return true;

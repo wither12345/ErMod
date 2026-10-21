@@ -90,7 +90,7 @@ public class ErCombatVariables {
 
 	public static class PlayerVariables implements INBTSerializable<CompoundTag> {
 		public int animationId = 0;
-		public int animationTime = 0;
+		public float animationTime = 0f;
 		public double stamina = 100;
 		public int staminaRecoveryCooldown = 50;
 		public float stackedMaxSkillCooldown = 5f;
@@ -104,7 +104,7 @@ public class ErCombatVariables {
 		public CompoundTag serializeNBT() {
 			CompoundTag nbt = new CompoundTag();
 			nbt.putInt("Animation_Id", animationId);
-			nbt.putInt("Animation_Time", animationTime);
+			nbt.putFloat("Animation_Time", animationTime);
 			nbt.putDouble("Stamina", stamina);
 			nbt.putInt("Stamina_Recovery_Cooldown", staminaRecoveryCooldown);
 			nbt.putFloat("Stacked_Skill_Cooldown", stackedMaxSkillCooldown);
@@ -119,7 +119,7 @@ public class ErCombatVariables {
 		@Override
 		public void deserializeNBT(CompoundTag nbt) {
 			animationId = nbt.getInt("Animation_Id");
-			animationTime = nbt.getInt("Animation_Time");
+			animationTime = nbt.getFloat("Animation_Time");
 			stamina = nbt.getDouble("Stamina");
 			staminaRecoveryCooldown = nbt.getInt("Stamina_Recovery_Cooldown");
 			stackedMaxSkillCooldown = nbt.getFloat("Stacked_Skill_Cooldown");
@@ -133,7 +133,7 @@ public class ErCombatVariables {
         public void putToBuffer(FriendlyByteBuf buf, long syncId){
             int i = 0;
             if(test(syncId, i ++)) buf.writeInt(animationId);//                 0b--_----_---1
-            if(test(syncId, i ++)) buf.writeInt(animationTime);//               0b--_----_--1-
+            if(test(syncId, i ++)) buf.writeFloat(animationTime);//               0b--_----_--1-
             if(test(syncId, i ++)) buf.writeDouble(stamina);//                  0b--_----_-1--
             if(test(syncId, i ++)) buf.writeInt(staminaRecoveryCooldown);//     0b--_----_1---
             if(test(syncId, i ++)) buf.writeFloat(stackedMaxSkillCooldown);//   0b--_---1_----
@@ -147,7 +147,7 @@ public class ErCombatVariables {
         public void readFromBuffer(FriendlyByteBuf buf, long syncId){
             int i = 0;
             if(test(syncId, i ++)) animationId = buf.readInt();
-            if(test(syncId, i ++)) animationTime = buf.readInt();
+            if(test(syncId, i ++)) animationTime = buf.readFloat();
             if(test(syncId, i ++)) stamina = buf.readDouble();
             if(test(syncId, i ++)) staminaRecoveryCooldown = buf.readInt();
             if(test(syncId, i ++)) stackedMaxSkillCooldown = buf.readFloat();

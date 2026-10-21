@@ -11,12 +11,12 @@
     "CropBlockMixin",
     "CrossBowItemMixin",
     "DamageSourceMixin",
-    "ErPlayerMixin",
     "ExplosionMixin",
     "FireworkPocketEntityMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "PlayerMixin",
     "ProjectileMixin",
     "ProjectileWeaponItemMixin",
     "RangedAttributeAccessor",
@@ -25,6 +25,7 @@
     "WanderingTraderMixin"
   ],
   "client": [
+    "AgeableListModelMixin",
     "BakedGlyphMixin",
     "FontMixin",
     "LocalPlayerMixin",

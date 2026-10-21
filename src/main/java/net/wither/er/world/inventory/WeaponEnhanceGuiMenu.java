@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.wither.er.init.DataComponentsRegister.WEAPON_LEVEL;
 import static net.wither.er.item.data.weapon.WeaponLevelData.*;
-import static net.wither.er.recipe.ascension.AscensionRecipeListener.get;
+import static net.wither.er.recipe.ascension.AscensionRecipeListener.getWeapon;
 
 public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
     public final Level world;
@@ -181,8 +181,8 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                 mora_use = 0;
                 ascensionRecipe = null;
 
-                if (get(item_0.getItem()) != null)
-                    while (get(item_0.getItem()).getRecipe(ascension) != null) ascension++;
+                if (getWeapon(item_0.getItem()) != null)
+                    while (getWeapon(item_0.getItem()).getRecipe(ascension) != null) ascension++;
                 output = item_0.copy();
 
                 final int final_level = getMaxLevel(ascension);
@@ -219,8 +219,8 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                 }
             }
             else {
-                if(AscensionRecipeListener.get(item_0.getItem()) != null)
-                    ascensionRecipe = AscensionRecipeListener.get(item_0.getItem()).getRecipe(ascension) ;
+                if(AscensionRecipeListener.getWeapon(item_0.getItem()) != null)
+                    ascensionRecipe = AscensionRecipeListener.getWeapon(item_0.getItem()).getRecipe(ascension) ;
                 else ascensionRecipe = null ;
                 if(test()) {
                     ascension++;

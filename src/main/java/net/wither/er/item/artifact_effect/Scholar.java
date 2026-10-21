@@ -1,6 +1,6 @@
 package net.wither.er.item.artifact_effect;
 
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -26,7 +26,7 @@ public class Scholar extends AttrArtifactEffect implements EnergyOrbPickupAbilit
                 level > 3 &&
                 picker.getMainHandItem().getItem() instanceof ProjectileWeaponItem &&
                 picker instanceof ServerPlayer serverPlayer &&
-                picker.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof StellaFortunas fortuna)
+                picker.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
         {
             ErCombatVariables.PlayerVariables vars = serverPlayer.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
             vars.energyAmount = Math.min(fortuna.getEnergyCost(picker), vars.energyAmount + 3 * (float) picker.getAttributeValue(ErModAttributes.ENERGY_RECHARGE.get()) / 100);

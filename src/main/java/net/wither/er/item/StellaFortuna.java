@@ -1,20 +1,8 @@
-/**
- * The code of this mod element is always locked.
- *
- * You can register new events in this class too.
- *
- * If you want to make a plain independent class, create it using
- * Project Browser -> New... and make sure to make the class
- * outside net.mcreator.er as this package is managed by MCreator.
- *
- * If you change workspace package, modid or prefix, you will need
- * to manually adapt this file to these changes or remake it.
- *
- * This class will be added in the mod root package.
-*/
-package net.mcreator.er;
+package net.wither.er.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.mcreator.er.EntityHurtEvent;
+import net.mcreator.er.ErMod;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -54,7 +42,7 @@ import java.util.UUID;
 
 import static net.minecraft.core.registries.Registries.DAMAGE_TYPE;
 
-public abstract class StellaFortunas extends Item {
+public abstract class StellaFortuna extends Item {
 	public final float health;
 	public final float damage;
 	public final float armor;
@@ -65,7 +53,7 @@ public abstract class StellaFortunas extends Item {
     public static final ResourceKey<DamageType> SKILL = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:elemental_skill"));
     public static final ResourceKey<DamageType> BURST = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:elemental_burst"));
 
-	public StellaFortunas(Properties properties, float health, float damage, float armor, boolean levelType) {
+	public StellaFortuna(Properties properties, float health, float damage, float armor, boolean levelType) {
 		super(properties.stacksTo(1));
 		this.health = health;
 		this.damage = damage;
@@ -73,31 +61,35 @@ public abstract class StellaFortunas extends Item {
 		this.levelType = levelType;
 	}
 
-	public abstract void ElementalSkillStart(LivingEntity entity);
+	public abstract void elementalSkillStart(LivingEntity entity);
 
-	public abstract void ElementalSkillEnd(LivingEntity entity);
+	public abstract void elementalSkillEnd(LivingEntity entity);
 
 	public abstract float getEnergyCost(LivingEntity entity);
 
-	public abstract void ElementalBurstStart(LivingEntity entity);
+	public abstract void elementalBurstStart(LivingEntity entity);
 
-	public abstract void ElementalBurstEnd(LivingEntity entity);
+	public abstract void elementalBurstEnd(LivingEntity entity);
 
 	public abstract void onTick(LevelAccessor world, LivingEntity entity, double x, double y, double z);
 
 	public abstract boolean hasAnimation(LivingEntity entity);
 
-	public abstract int getMaxCombo(LivingEntity entity);
+	public abstract int getNormal(LivingEntity entity);
 
-	public abstract int getAnimationTick(LivingEntity entity, int combo, float speed);
+	public abstract float getAnimationTick(LivingEntity entity, int animationId);
 
-	public abstract void AnimationTicking(LivingEntity entity, int combo, int time, float speed);
+	public abstract void animationTicking(LivingEntity entity, int animationId, float time, float speed);
 
-	public abstract int getFinishTick(LivingEntity entity, int combo, float speed);
+	public abstract float getFinishTick(LivingEntity entity, int animationId);
 
-	public abstract AnimationDefinition getAnimation(int combo);
+	public abstract AnimationDefinition getAnimation(int animationId);
 
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
+
+    public boolean hasSkill(){
+        return true;
+    }
 
 	public void onBurst(LivingEntity entity){
         if(entity instanceof IErEntity erEntity){
@@ -120,7 +112,7 @@ public abstract class StellaFortunas extends Item {
 
 	@Override
 	public void appendHoverText(ItemStack itemstack, @Nullable Level access, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
-		if (itemstack.getItem() instanceof StellaFortunas stella) {
+		if (itemstack.getItem() instanceof StellaFortuna stella) {
 			int level = itemstack.getOrCreateTag().getInt("level") + 1;
 			int experience = itemstack.getOrCreateTag().getInt("experience");
 			int percent = Math.max(Math.min(40 * experience / getExpReq(level), 40), 0);
@@ -136,14 +128,18 @@ public abstract class StellaFortunas extends Item {
 		}
 	}
 
-	public float getSpeed(LivingEntity entity, int combo) {
-		if (combo < this.getMaxCombo(entity)) {
-			return (float) (entity.getAttribute(Attributes.ATTACK_SPEED).getValue());
-		}
-		return 1f;
-	}
+    public float getSpeed(LivingEntity entity, int animationId) {
+        if (animationId < this.getNormal(entity)) {
+            return entity.getAttribute(Attributes.ATTACK_SPEED) == null ? 1f : (float) (entity.getAttributeValue(Attributes.ATTACK_SPEED));
+        }
+        return 1f;
+    }
 
-	public static boolean addExptoItem(ItemStack item, int amount) {
+    public boolean test(float nowTime, float speed, float performTick) {
+        return nowTime >= performTick && performTick > nowTime - speed;
+    }
+
+	public static boolean addExpToItem(ItemStack item, int amount) {
 		int experience = item.getOrCreateTag().getInt("experience") + amount;
 		int level = item.getOrCreateTag().getInt("level") + 1;
 		int ascension = item.getOrCreateTag().getInt("ascension");
@@ -160,10 +156,10 @@ public abstract class StellaFortunas extends Item {
 		return changed;
 	}
 
-	public static void addExptoPlayer(Player entity, int amount) {
+	public static void addExpToPlayer(Player entity, int amount) {
 		ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new);
-		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortunas) {
-			if (addExptoItem(_vars.Stella_Fortuna, amount)) {
+		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna) {
+			if (addExpToItem(_vars.Stella_Fortuna, amount)) {
 				applyAttr(entity, _vars.Stella_Fortuna);
 			}
 		}
@@ -181,15 +177,23 @@ public abstract class StellaFortunas extends Item {
 		return (int) (2300 * Math.exp(0.165 * (level - 80)));
 	}
 
-	public static int getMaxLevel(int ascension) {
-		return 90;
-	}
+    public static int getMaxLevel(int ascension) {
+        return switch (ascension){
+            case 0 -> 20;
+            case 1 -> 40;
+            case 2 -> 50;
+            case 3 -> 60;
+            case 4 -> 70;
+            case 8 -> 80;
+            default -> 90;
+        };
+    }
 
 	public static void applyAttr(LivingEntity entity, ItemStack item) {
 		entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(locationHealth);
 		entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(locationDamage);
 		entity.getAttribute(Attributes.ARMOR).removeModifier(locationArmor);
-		if (item.getItem() instanceof StellaFortunas stella) {
+		if (item.getItem() instanceof StellaFortuna stella) {
 			int level = item.getOrCreateTag().getInt("level") + 1;
 			int ascension = item.getOrCreateTag().getInt("ascension");
 			entity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(locationHealth, "stella_health" ,stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADDITION));
@@ -225,51 +229,6 @@ public abstract class StellaFortunas extends Item {
 		ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new StellaFortunaData(entity.getId(), message));
 	}
 
-	/*
-		public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, float DamageMulti) {
-			Level world = entity.level();
-			double attackRange = (entity instanceof Player ? entity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE) : 3) * RangeMulti;
-			Vec3 lookVec = entity.getLookAngle().normalize();
-			Vec3 eyePos = entity.getEyePosition();
-			Vec3 forward = lookVec.scale(attackRange);
-			Vec3 right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(rectWidth / 2);
-			Vec3 up = new Vec3(0, rectHeight / 2, 0);
-			Vec3[] corners = {eyePos.add(forward).add(right).add(up), eyePos.add(forward).add(right).subtract(up), eyePos.add(forward).subtract(right).add(up), eyePos.add(forward).subtract(right).subtract(up)};
-			AABB roughArea = new AABB(eyePos, eyePos.add(forward)).inflate(rectWidth + 1, rectHeight + 1, rectWidth + 1);
-			for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> e != entity && isInRotatedRect(e.position(), eyePos, lookVec, attackRange, rectWidth, rectHeight))) {
-				float damage = (float) entity.getAttributeValue(Attributes.ATTACK_DAMAGE) * DamageMulti;
-				target.hurt(entity.damageSources().mobAttack(entity), damage);
-			}
-			if (world instanceof ServerLevel serverLevel) {
-				Vec3 _forward = lookVec.scale(attackRange);
-				Vec3 _right = new Vec3(-lookVec.z, 0, lookVec.x).normalize().scale(rectWidth / 2);
-				Vec3 _up = new Vec3(0, rectHeight / 2, 0);
-				for (int i = 0; i < 20; i++) {
-					double t = i / 20.0;
-					Vec3 p1 = eyePos.add(_forward.scale(t)).add(_right).add(_up);
-					Vec3 p2 = eyePos.add(_forward.scale(t)).add(_right).subtract(_up);
-					Vec3 p3 = eyePos.add(_forward.scale(t)).subtract(_right).add(_up);
-					Vec3 p4 = eyePos.add(_forward.scale(t)).subtract(_right).subtract(_up);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p1.x, p1.y, p1.z, 1, 0, 0, 0, 0);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p2.x, p2.y, p2.z, 1, 0, 0, 0, 0);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p3.x, p3.y, p3.z, 1, 0, 0, 0, 0);
-					serverLevel.sendParticles(ParticleTypes.END_ROD, p4.x, p4.y, p4.z, 1, 0, 0, 0, 0);
-				}
-			}
-		}
-		private static boolean isInRotatedRect(Vec3 point, Vec3 origin, Vec3 direction, double length, double width, double height) {
-			Vec3 localPos = point.subtract(origin);
-			double forwardDist = localPos.dot(direction);
-			if (forwardDist < 0 || forwardDist > length)
-				return false;
-			Vec3 right = new Vec3(-direction.z, 0, direction.x).normalize();
-			double sideDist = Math.abs(localPos.dot(right));
-			if (sideDist > width / 2)
-				return false;
-			double verticalDist = localPos.y;
-			return verticalDist >= -height / 2 && verticalDist <= height / 2;
-		}
-		*/
 	public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, Vec3 basicPos, float DamageMulti) {
 		Level world = entity.level();
 		double attackRange = 3 * RangeMulti;

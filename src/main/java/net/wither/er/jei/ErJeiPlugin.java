@@ -44,7 +44,7 @@ public class ErJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        List<AscensionRecipeListener.AscensionEntry> AscensionRecipes = AscensionRecipeListener.getAscensionEntryList() ;
+        List<AscensionRecipeListener.AscensionEntry> AscensionRecipes = AscensionRecipeListener.getWeaponAscensionList() ;
         registration.addRecipes(WeaponAscensionType, AscensionRecipes);
 
         List<AlchemyConvertingRecipe> alchemyConvertingRecipes = AlchemyConvertingRecipeListener.getRecipeList();

@@ -20,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.shield.ErShield;
@@ -44,8 +44,8 @@ public class ErRenderers {
 		int light = event.getPackedLight();
 		renderShield(entity, poseStack, bufferSource, renderer, light);
 		renderLevel(entity, poseStack, bufferSource, renderer, light, event.getPartialTick());
-		if(entity instanceof AuraContainerInterface auraContainerInterface)
-			renderElements(auraContainerInterface.getElements(), entity, poseStack, bufferSource,light);
+		if(entity instanceof IAuraContainerOwner containerOwner)
+			renderElements(containerOwner.er$getElements(), entity, poseStack, bufferSource,light);
 	}
 
 	private static void renderShield(LivingEntity entity, PoseStack poseStack, MultiBufferSource bufferSource, LivingEntityRenderer<?,?> renderer, int light) {
@@ -85,7 +85,6 @@ public class ErRenderers {
 
 	private static void renderLevel(Entity entity, PoseStack posestack, MultiBufferSource bufferSource, LivingEntityRenderer<?,?> renderer, int packedLight, float partialTick) {
 		EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
-		double d0 = dispatcher.distanceToSqr(entity);
         Component level = Component.literal("level." + EntityHurtEvent.getEntityLevel(entity));
         boolean flag = !entity.isDiscrete();
         float f = entity.getNameTagOffsetY();

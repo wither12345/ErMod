@@ -1,12 +1,11 @@
 package net.wither.er.combat;
 
 import net.mcreator.er.ErMod;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -50,7 +49,7 @@ public class CombatAnimation {
     @SubscribeEvent
     public static void onLeftBlock(PlayerInteractEvent.LeftClickBlock event){
         Player player = event.getEntity();
-        if(player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof StellaFortunas fortunas &&
+        if(player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables()).Stella_Fortuna.getItem() instanceof StellaFortuna fortunas &&
             fortunas.hasAnimation(player)
         ){
             event.setCanceled(true);
@@ -85,18 +84,17 @@ public class CombatAnimation {
 			return false;
 		Item item = stellaFortuna.getItem();
 		ErCombatVariables.PlayerVariables vars = entity.getCapability(ErCombatVariables.PLAYER_VARIABLES).orElseGet(ErCombatVariables.PlayerVariables::new);
-		if (item instanceof StellaFortunas SFitem && SFitem.hasAnimation(entity)) {
-			float speed = (float) entity.getAttribute(Attributes.ATTACK_SPEED).getValue();
+		if (item instanceof StellaFortuna SFitem && SFitem.hasAnimation(entity)) {
 			int animationId = vars.animationId;
-			if (vars.animationTime > SFitem.getFinishTick(entity, animationId, speed) || !entity.onGround()) {
+			if (vars.animationTime > SFitem.getFinishTick(entity, animationId) || !entity.onGround()) {
 				return true;
 			}
-			if (vars.animationTime > 0 && vars.animationId < SFitem.getMaxCombo(entity))
+			if (vars.animationTime > 0 && vars.animationId < SFitem.getNormal(entity) - 1)
 				vars.animationId += 1;
 			else
 				vars.animationId = 0;
 			entity.setSprinting(false);
-			vars.animationTime = SFitem.getAnimationTick(entity, animationId, speed);
+			vars.animationTime = SFitem.getAnimationTick(entity, animationId);
             vars.syncWithId(entity, 0b11);
 			return true;
 		}
@@ -132,14 +130,13 @@ public class CombatAnimation {
 
 		public static void buffer(ChargedAttackMessage message, FriendlyByteBuf buffer) {
 		}
+
 		public static void handleData(final ChargedAttackMessage message, final Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
 			ServerPlayer player = context.getSender();
 			if (player == null)
 				return;
-            context.enqueueWork(() -> {
-				player.getPersistentData().putBoolean("WaitingChargeAttack", true);
-            });
+            context.enqueueWork(() -> player.getPersistentData().putBoolean("WaitingChargeAttack", true));
 			context.setPacketHandled(true);
         }
 	}

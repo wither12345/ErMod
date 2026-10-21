@@ -1,7 +1,7 @@
 package net.wither.er.shield;
 
 import net.minecraft.world.entity.Entity;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 
@@ -17,20 +17,20 @@ public abstract class ElementalShield extends ErShield{
     @Override
     public void start(Entity owner) {
         super.start(owner);
-        if(owner instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.er$getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true, this.permanent()));
+        if(owner instanceof IAuraContainerOwner containerOwner){
+            containerOwner.er$getAuraContainer().addAura(new ElementSource(getElement(),null,getGauge(),true, this.permanent()));
         }
     }
 
     @Override
     public void end(Entity owner) {
         super.end(owner);
-        if(owner instanceof AuraContainerInterface auraContainerInterface)
-            auraContainerInterface.er$getAuraContainer().remove(this.getElement());
+        if(owner instanceof IAuraContainerOwner containerOwner)
+            containerOwner.er$getAuraContainer().remove(this.getElement());
     }
 
     @Override
     public boolean tick(ShieldStack stack, Entity owner) {
-        return owner instanceof AuraContainerInterface containerInterface && containerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
+        return owner instanceof IAuraContainerOwner containerInterface && containerInterface.er$getAuraContainer().getAura().get(getElement().getCategory().getId()).hasElement(getElement()) ;
     }
 }

@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.elements.ElementSource;
@@ -51,7 +51,7 @@ public class DendroSlime extends ElementalSlime{
 
     @Override
     public void setTarget(@Nullable LivingEntity target) {
-        if(this.getTarget() != target && this instanceof AuraContainerInterface containerInterface)
+        if(this.getTarget() != target && this instanceof IAuraContainerOwner containerInterface)
             containerInterface.er$getAuraContainer().addAura(new ElementSource(this.getElement(), null, 2, true, true));
         super.setTarget(target);
     }
@@ -114,7 +114,7 @@ public class DendroSlime extends ElementalSlime{
     }
 
     private boolean isBurning(){
-        if(this instanceof AuraContainerInterface containerInterface)
+        if(this instanceof IAuraContainerOwner containerInterface)
             return containerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).hasElement(ElementRegistry.BURNING.get());
         return false;
     }
@@ -248,7 +248,7 @@ public class DendroSlime extends ElementalSlime{
     }
 
     static class DendroSlimePanicGoal extends PanicGoal{
-        AuraContainerInterface containerInterface;
+        IAuraContainerOwner containerInterface;
         ElementalSlimeMoveControl control;
         final DendroSlime slime;
 
@@ -260,8 +260,8 @@ public class DendroSlime extends ElementalSlime{
 
         @Override
         public boolean canUse() {
-            if(this.mob instanceof AuraContainerInterface auraContainerInterface && this.mob.getMoveControl() instanceof ElementalSlimeMoveControl slimeMoveControl) {
-                this.containerInterface = auraContainerInterface;
+            if(this.mob instanceof IAuraContainerOwner containerOwner && this.mob.getMoveControl() instanceof ElementalSlimeMoveControl slimeMoveControl) {
+                this.containerInterface = containerOwner;
                 this.control = slimeMoveControl;
                 return super.canUse();
             }

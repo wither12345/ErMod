@@ -28,13 +28,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.entity.OnEvents;
 import net.wither.er.item.NREItem;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.elements.AuraContainer;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
@@ -45,6 +46,7 @@ import net.wither.er.network.ErShieldData;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.shield.ShieldStack;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -60,7 +62,7 @@ import java.util.List;
 import java.util.Set;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements Attackable, IErEntity, AuraContainerInterface {
+public abstract class LivingEntityMixin extends Entity implements Attackable, IErEntity, IAuraContainerOwner {
 	@Unique private final ArrayList<ShieldStack> er$shields = new ArrayList<>();
 	@Unique private final AuraContainer er$container = new AuraContainer(this);
     @Unique private float er$lastHealth ;
@@ -102,6 +104,16 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
 	public AuraContainer er$getAuraContainer() {
 		return er$container;
 	}
+
+    @Override
+    public Vec3 er$getPosition() {
+        return this.position();
+    }
+
+    @Override
+    public @NotNull Level er$getLevel() {
+        return this.level();
+    }
 
     @WrapOperation(method = "triggerItemUseEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;spawnItemParticles(Lnet/minecraft/world/item/ItemStack;I)V"))
     public void wrapParticle(LivingEntity instance, ItemStack itemStack, int i, Operation<Void> original){
@@ -227,12 +239,12 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
 	}
 
 	@Override
-	public int getElements() {
+	public int er$getElements() {
 		return this.entityData.get(ER$ELEMENT);
 	}
 
 	@Override
-	public void updateElements(int elements) {
+	public void er$updateElements(int elements) {
 		this.entityData.set(ER$ELEMENT, elements);
 	}
 

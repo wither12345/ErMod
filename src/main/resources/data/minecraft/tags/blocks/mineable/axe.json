@@ -3,6 +3,10 @@
   "values": [
     "er:cuihua_fence",
     "er:cuihua_slab",
+    {
+      "id": "er:fortuna_enhancer",
+      "required": false
+    },
     "er:crate",
     "er:cuihua_log",
     "er:cuihua_stairs",

@@ -38,7 +38,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -94,8 +93,8 @@ public abstract class Element {
     }
 
     public void end(AuraContainer container){
-        if(container.getOwner() instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.updateElements(container.toInt());
+        if(container.getOwner() instanceof IAuraContainerOwner containerOwner){
+            containerOwner.er$updateElements(container.toInt());
         }
     }
 
@@ -273,22 +272,22 @@ public abstract class Element {
                                        EntityHurtEvent.DamageModifier modifier,
                                        @Nullable Entity applier){
         if(auraContainer.getOwner() instanceof Entity entity) {
-            final Vec3 _center = entity.position();
+            final Vec3 pos = entity.position();
+            if (entity.level() instanceof ServerLevel serverLevel)
+                serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, (pos.x - 1.5), pos.y + 1, (pos.z - 1.5), 8, 1.5, 0, 1.5, 0);
+
+
             Level level = entity.level();
-            List<LivingEntity> _entfound = level.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(2), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-            for (LivingEntity entity_iterator : _entfound) {
-                if (entity_iterator != applier) {
-                    entity_iterator.hurt(
-                            ElementSource.createDamageSource(
-                                    level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT),
-                                    applier,
-                                    new ElementSource(ElementRegistry.CRYO.get(), new ResourceLocation("er.superconduct.reaction"), 0, true)
-                            ),
-                            2.4f * EntityHurtEvent.getLevelMultiply(applier));
-                    if (!entity_iterator.level().isClientSide())
-                        entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT.get(), 144, 0, false, false));
-                }
-            }
+            level.getEntitiesOfClass(LivingEntity.class, new AABB(pos, pos).inflate(2), living -> !EntityHurtEvent.shouldHurt(living, entity)).forEach(living -> {
+                living.hurt(
+                        ElementSource.createDamageSource(
+                                level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT),
+                                applier,
+                                new ElementSource(ElementRegistry.CRYO.get(), new ResourceLocation("er:superconduct.reaction"), 0, true)
+                        ),
+                        2.4f * EntityHurtEvent.getLevelMultiply(applier));
+                living.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT.get(), 144, 0, false, false));
+            });
         }
         return reacting(source , boundAura) ;
     }

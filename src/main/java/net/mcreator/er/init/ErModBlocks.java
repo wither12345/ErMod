@@ -92,6 +92,7 @@ public class ErModBlocks {
 	public static final RegistryObject<Block> STORAGE_DEVICE_BASE = REGISTRY.register("storage_device", StorageDevice::new);
 	public static final RegistryObject<Block> AMBIENT_BOLLARD = REGISTRY.register("ambient_bollard", AmbientBollard::new);
 	public static final RegistryObject<Block> BOSS_SPAWNER = REGISTRY.register("boss_spawner", BossSpawner::new);
+	public static final RegistryObject<Block> FORTUNA_ENHANCER = REGISTRY.register("fortuna_enhancer", FortunaEnhancer::new);
 
 	public static boolean always(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
 		return true;

@@ -1,6 +1,6 @@
 package net.wither.er.network;
 
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -39,28 +39,28 @@ public record SkillMessage(int eventType, boolean keyType){
 	public static void onDown(Player player, boolean keyType) {
 		ErItemVariables.PlayerVariables vars = player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new);
 		ItemStack stack = vars.Stella_Fortuna;
-		if (stack.getItem() instanceof StellaFortunas SF) {
+		if (stack.getItem() instanceof StellaFortuna SF && SF.hasSkill()) {
 			if (keyType) {
 				player.getPersistentData().putBoolean("burstPressing", true);
-				SF.ElementalBurstStart(player);
+				SF.elementalBurstStart(player);
 				return;
 			}
 			player.getPersistentData().putBoolean("skillPressing", true);
-			SF.ElementalSkillStart(player);
+			SF.elementalSkillStart(player);
 		}
 	}
 
 	public static void release(Player player, boolean keyType) {
 		ErItemVariables.PlayerVariables vars = player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new);
 		ItemStack stack = vars.Stella_Fortuna;
-		if (stack.getItem() instanceof StellaFortunas SF) {
+		if (stack.getItem() instanceof StellaFortuna SF && SF.hasSkill()) {
 			if (keyType) {
 				player.getPersistentData().putBoolean("burstPressing", false);
-				SF.ElementalBurstEnd(player);
+				SF.elementalBurstEnd(player);
 				return;
 			}
 			player.getPersistentData().putBoolean("skillPressing", false);
-			SF.ElementalSkillEnd(player);
+			SF.elementalSkillEnd(player);
 		}
 	}
 }
