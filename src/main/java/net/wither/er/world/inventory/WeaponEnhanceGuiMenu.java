@@ -1,7 +1,6 @@
 package net.wither.er.world.inventory;
 
 import net.mcreator.er.init.ErModItems;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
@@ -34,13 +33,13 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
     private int mora_use ;
     private final int[] shrink = {0, 0, 0};
 
-    public WeaponEnhanceGuiMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
+    public WeaponEnhanceGuiMenu(int id, Inventory inv) {
         super(ErMenus.WEAPON_ENHANCE_GUI.get(), id);
         this.entity = inv.player;
         this.world = inv.player.level();
 
         IItemHandler internal = new ItemStackHandler(1);
-        this.addSlot(new MoraSlot(container, 0, 79, 17));
+        this.addSlot(new MoraSlot(container, 0, 43, 8));
         this.addSlot(new Slot(container, 1, 25, 35));
         this.addSlot(new Slot(container, 2, 61, 53));
         this.addSlot(new Slot(container, 3, 79, 53));
@@ -172,8 +171,8 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                 mora_use = 0 ;
                 ascensionRecipe = null ;
 
-                if(AscensionRecipeListener.get(item_0.getItem()) != null)
-                    while(AscensionRecipeListener.get(item_0.getItem()).getRecipe(ascension) != null) ascension ++;
+                if(AscensionRecipeListener.getWeapon(item_0.getItem()) != null)
+                    while(AscensionRecipeListener.getWeapon(item_0.getItem()).getRecipe(ascension) != null) ascension ++;
                 output = item_0.copy();
 
                 final int final_level = getMaxLevel(ascension);
@@ -210,8 +209,8 @@ public class WeaponEnhanceGuiMenu extends AbstractContainerMenu {
                 }
             }
             else {
-                if(AscensionRecipeListener.get(item_0.getItem()) != null)
-                    ascensionRecipe = AscensionRecipeListener.get(item_0.getItem()).getRecipe(ascension) ;
+                if(AscensionRecipeListener.getWeapon(item_0.getItem()) != null)
+                    ascensionRecipe = AscensionRecipeListener.getWeapon(item_0.getItem()).getRecipe(ascension);
                 else ascensionRecipe = null ;
                 if(test()){
                     ascension ++ ;

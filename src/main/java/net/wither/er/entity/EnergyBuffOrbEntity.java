@@ -1,7 +1,7 @@
 package net.wither.er.entity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,7 +23,7 @@ public class EnergyBuffOrbEntity extends BuffOrbEntity{
     @Override
     protected void onTouch(Entity entity) {
         if (entity instanceof ServerPlayer serverPlayer) {
-            if (serverPlayer.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
+            if (serverPlayer.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortuna fortuna) {
                 ErCombatVariables.PlayerVariables vars = serverPlayer.getData(ErCombatVariables.PLAYER_VARIABLES);
                 vars.energyAmount = Math.min(fortuna.getEnergyCost(serverPlayer), vars.energyAmount + 5 * (float) serverPlayer.getAttributeValue(ErModAttributes.ENERGY_RECHARGE) / 100);
                 vars.syncWithId(serverPlayer, 0b00_0100_0000);

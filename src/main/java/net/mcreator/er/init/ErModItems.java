@@ -71,9 +71,6 @@ public class ErModItems {
 	public static final DeferredItem<Item> WHITE_IRON_ORE;
 	public static final DeferredItem<Item> DEEPSLATE_WHITE_IRON_ORE;
 	public static final DeferredItem<Item> CRYSTAL_CHUNK;
-	public static final DeferredItem<Item> MYSTIC_ENHANCEMENT_ORE;
-	public static final DeferredItem<Item> FINE_ENHANCEMENT_ORE;
-	public static final DeferredItem<Item> ENHANCEMENT_ORE;
 	public static final DeferredItem<Item> HILICHURL_SPAWN_EGG;
 	public static final DeferredItem<Item> CRATE;
 	public static final DeferredItem<Item> CUIHUA_LOG;
@@ -139,9 +136,6 @@ public class ErModItems {
 		WHITE_IRON_ORE = block(ErModBlocks.WHITE_IRON_ORE);
 		DEEPSLATE_WHITE_IRON_ORE = block(ErModBlocks.DEEPSLATE_WHITE_IRON_ORE);
 		CRYSTAL_CHUNK = REGISTRY.register("crystal_chunk", CrystalChunkItem::new);
-		MYSTIC_ENHANCEMENT_ORE = REGISTRY.register("mystic_enhancement_ore", MysticEnhancementOreItem::new);
-		FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", FineEnhancementOreItem::new);
-		ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", EnhancementOreItem::new);
 		HILICHURL_SPAWN_EGG = REGISTRY.register("hilichurl_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.HILICHURL, -13421773, -6780581, new Item.Properties()));
 		CRATE = block(ErModBlocks.CRATE);
 		CUIHUA_LOG = block(ErModBlocks.CUIHUA_LOG);
@@ -359,6 +353,10 @@ public class ErModItems {
 	public static final DeferredItem<Item> SEAL_OF_LIFE = REGISTRY.register("seal_of_life", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> LANTERN_OF_LIFE = REGISTRY.register("lantern_of_life", () -> new Item(new Item.Properties().stacksTo(1).durability(32)));
 	public static final DeferredItem<Item> NRE = REGISTRY.register("nre_menu_30", NREItem::new);
+	public static final DeferredItem<Item> FORTUNA_ENHANCER = block(ErModBlocks.FORTUNA_ENHANCER);
+	public static final DeferredItem<Item> MYSTIC_ENHANCEMENT_ORE = REGISTRY.register("mystic_enhancement_ore", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", ErModItems::SimpeItem);
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

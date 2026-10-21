@@ -27,7 +27,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +56,7 @@ public class OnEntityRender {
 
 		@Override
 		public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int light, @NotNull LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-			if (entity instanceof AuraContainerInterface containerInterface && (containerInterface.er$getElements() & (3 << (Element.RenderId.FROZEN.getId() << 1))) > 0) {
+			if (entity instanceof IAuraContainerOwner containerInterface && (containerInterface.er$getElements() & (3 << (Element.RenderId.FROZEN.getId() << 1))) > 0) {
 				VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE));
 				this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0));
 			}

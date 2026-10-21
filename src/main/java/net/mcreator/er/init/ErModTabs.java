@@ -34,9 +34,6 @@ public class ErModTabs {
 				tabData.accept(ErModItems.IRON_CHUNK.get());
 				tabData.accept(ErModItems.WHITE_IRON_CHUNK.get());
 				tabData.accept(ErModItems.CRYSTAL_CHUNK.get());
-				tabData.accept(ErModItems.MYSTIC_ENHANCEMENT_ORE.get());
-				tabData.accept(ErModItems.FINE_ENHANCEMENT_ORE.get());
-				tabData.accept(ErModItems.ENHANCEMENT_ORE.get());
 				tabData.accept(ErModItems.DAMAGED_MASK.get());
 				tabData.accept(ErModItems.STAINED_MASK.get());
 				tabData.accept(ErModItems.OMINOUS_MASK.get());

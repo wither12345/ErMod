@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 
 import net.mcreator.er.init.ErModAttributes;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 
 import javax.annotation.Nullable;
 
@@ -30,7 +30,7 @@ public class PlayerRespawnProcedure {
 		if (entity == null)
 			return;
 		ErItemVariables.PlayerVariables _vars = entity.getData(ErItemVariables.PLAYER_VARIABLES);
-		StellaFortunas.applyAttr((LivingEntity) entity, _vars.Stella_Fortuna);
+		StellaFortuna.applyAttr((LivingEntity) entity, _vars.Stella_Fortuna);
 		_vars.syncPlayerVariables(entity);
 		if (entity instanceof LivingEntity _livingEntity0 && _livingEntity0.getAttributes().hasAttribute(ErModAttributes.CRIT_DAMAGE))
 			_livingEntity0.getAttribute(ErModAttributes.CRIT_DAMAGE).setBaseValue(0.5);

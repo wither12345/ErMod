@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -21,8 +22,8 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLivingEvent;
-import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.elements.Element;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.RenderShield;
@@ -34,23 +35,20 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(value = {Dist.CLIENT})
 public class ErRenderers {
-
-	private static final ResourceLocation pyro = ResourceLocation.parse("er:textures/mob_effect/pyro.png") ;
-
-	@SubscribeEvent
-	public static void onEntityRender(RenderLivingEvent.Pre event) {
+    @SubscribeEvent
+	public static void onEntityRender(RenderLivingEvent.Pre<? extends LivingEntity, ? extends EntityModel<?>> event) {
 		LivingEntity entity = event.getEntity();
 		PoseStack poseStack = event.getPoseStack();
 		MultiBufferSource bufferSource = event.getMultiBufferSource();
-		LivingEntityRenderer renderer = event.getRenderer();
+		LivingEntityRenderer<? extends LivingEntity, ? extends EntityModel<?>> renderer = event.getRenderer();
 		int light = event.getPackedLight();
-		renderShield(entity, poseStack, bufferSource, renderer, light);
+		renderShield(entity, poseStack, bufferSource, light);
 		renderLevel(entity, poseStack, bufferSource, renderer, light, event.getPartialTick());
-		if(entity instanceof AuraContainerInterface auraContainerInterface)
-			renderElements(auraContainerInterface.er$getElements(), entity,poseStack,bufferSource,light);
+		if(entity instanceof IAuraContainerOwner auraOwner)
+			renderElements(auraOwner.er$getElements(), entity,poseStack,bufferSource,light);
 	}
 
-	private static void renderShield(LivingEntity entity, PoseStack poseStack, MultiBufferSource bufferSource, LivingEntityRenderer renderer, int light) {
+	private static void renderShield(LivingEntity entity, PoseStack poseStack, MultiBufferSource bufferSource, int light) {
 		if (entity instanceof IErEntity enti) {
 			List<ErShield> shields = enti.er$getShields();
 			for (ErShield shield : shields) {
@@ -78,7 +76,7 @@ public class ErRenderers {
 		consumer.addVertex(p_324420_, p_253995_ - 0.5F, (float) p_254031_ - 0.25F, 0.0F).setColor(-1).setUv((float) p_253641_, (float) p_254243_).setOverlay(OverlayTexture.NO_OVERLAY).setLight(p_253829_).setNormal(p_324420_, 0.0F, 1.0F, 0.0F);
 	}
 
-	private static void renderLevel(Entity entity, PoseStack posestack, MultiBufferSource bufferSource, LivingEntityRenderer renderer, int packedLight, float partialTick) {
+	private static void renderLevel(Entity entity, PoseStack posestack, MultiBufferSource bufferSource, LivingEntityRenderer<? extends LivingEntity, ? extends EntityModel<?>> renderer, int packedLight, float partialTick) {
 		Vec3 vec3 = entity.getAttachments().getNullable(EntityAttachment.NAME_TAG, 0, entity.getViewYRot(partialTick));
 		if (vec3 != null) {
 			boolean flag = !entity.isDiscrete();
@@ -121,7 +119,7 @@ public class ErRenderers {
 		for(Element.RenderId renderId : Element.RenderId.values()){
 			int value = (elements & (3 << (index << 1))) >> (index << 1);
 			if(value == 1 || value == 2){
-				renderElement(renderId.getLocation(),value == 1 ,entity ,poseStack ,bufferSource ,packedLight ,id ,count);
+				renderElement(renderId.getLocation(),value == 1 , poseStack ,bufferSource ,packedLight ,id ,count);
 				id ++ ;
 			}
 			index ++ ;
@@ -129,7 +127,7 @@ public class ErRenderers {
 		poseStack.popPose();
 	}
 
-	private static void renderElement(ResourceLocation texture , boolean gauge ,Entity entity, PoseStack poseStack, MultiBufferSource bufferSource , int packedLight , int id , int total){
+	private static void renderElement(ResourceLocation texture , boolean gauge , PoseStack poseStack, MultiBufferSource bufferSource , int packedLight , int id , int total){
 		Minecraft.getInstance().getTextureManager().bindForSetup(texture);
 		VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(texture));
 

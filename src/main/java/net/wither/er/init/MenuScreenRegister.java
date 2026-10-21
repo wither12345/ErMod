@@ -16,5 +16,6 @@ public class MenuScreenRegister{
         event.register(ErMenus.ALCHEMY_GUI.get(), AlchemyGuiScreen::new);
         event.register(ErMenus.LEY_LINE_MAP.get(), LeyLineMapGuiScreen::new);
         event.register(ErMenus.EQUIPMENT.get(), ErEquipmentGUIScreen::new);
+        event.register(ErMenus.FORTUNA_ENHANCE.get(), FortunaEnhanceGuiScreen::new);
     }
 }

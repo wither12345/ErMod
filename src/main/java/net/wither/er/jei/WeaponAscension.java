@@ -34,7 +34,7 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
 
     @Override
     public mezz.jei.api.recipe.@NotNull RecipeType<AscensionRecipeListener.AscensionEntry> getRecipeType() {
-        return ErJeiPlugin.WeaponAscensionType;
+        return ErJeiPlugin.WEAPON_ASCENSION_TYPE;
     }
 
     @Override
@@ -66,10 +66,8 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
     public void setRecipe(IRecipeLayoutBuilder builder, AscensionRecipeListener.AscensionEntry recipe, @NotNull IFocusGroup focuses) {
         IRecipeSlotBuilder build = builder.addSlot(RecipeIngredientRole.INPUT, 17, 21);
         ItemStack keyItem = new ItemStack(recipe.key()) ;
-        if(keyItem.getComponents().has(DataComponentsRegister.WEAPON_LEVEL.get())) {
-            WeaponLevelData data = keyItem.get(DataComponentsRegister.WEAPON_LEVEL.get());
-            keyItem.update(DataComponentsRegister.WEAPON_LEVEL.get(), data, t -> WeaponLevelData.create(recipe.ascension(), true)) ;
-        }
+        if(keyItem.getComponents().has(DataComponentsRegister.WEAPON_LEVEL.get()))
+            keyItem.set(DataComponentsRegister.WEAPON_LEVEL.get(), WeaponLevelData.create(recipe.ascension(), true)) ;
         build.addItemStack(keyItem) ;
 
         build = builder.addSlot(RecipeIngredientRole.INPUT, 71, 3);
@@ -84,12 +82,8 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
         }
 
         ItemStack resultItem = new ItemStack(recipe.key()) ;
-        if(resultItem.getComponents().has(DataComponentsRegister.WEAPON_LEVEL.get())) {
-            WeaponLevelData data = resultItem.get(DataComponentsRegister.WEAPON_LEVEL.get());
-            resultItem.update(DataComponentsRegister.WEAPON_LEVEL.get(), data, t -> WeaponLevelData.create(recipe.ascension() + 1, false)) ;
-        }
+        if(resultItem.getComponents().has(DataComponentsRegister.WEAPON_LEVEL.get()))
+            resultItem.set(DataComponentsRegister.WEAPON_LEVEL.get(), WeaponLevelData.create(recipe.ascension() + 1, false)) ;
         builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 21).addItemStack(resultItem);
-
-
     }
 }

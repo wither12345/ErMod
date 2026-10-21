@@ -1,6 +1,6 @@
 package net.wither.er.item.artifact_effect;
 
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,7 +14,7 @@ public class TravelingDoctor extends AttrArtifactEffect implements OnBurstAbilit
 
 
     @Override
-    public void onBurst(LivingEntity entity, StellaFortunas stellaFortuna, int level) {
+    public void onBurst(LivingEntity entity, StellaFortuna stellaFortuna, int level) {
         if(level > 3)
             entity.heal(entity.getMaxHealth() * 0.2f);
     }

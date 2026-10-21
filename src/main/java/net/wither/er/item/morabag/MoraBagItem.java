@@ -24,7 +24,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.player.ErPlayerInterface;
+import net.wither.er.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class MoraBagItem extends Item {
         tryReadFromOld(bag);
         ItemStack itemStack = slot.getItem();
         if (itemStack.isEmpty()) {
-            ItemStack itemStack1 = getItemFromBag(bag, ((ErPlayerInterface)player).er$getMoraIndex());
+            ItemStack itemStack1 = getItemFromBag(bag, ((IPlayer)player).er$getMoraIndex());
             this.playRemoveOneSound(player);
             slot.safeInsert(itemStack1);
             return true;
@@ -90,7 +90,7 @@ public class MoraBagItem extends Item {
 		if (action == ClickAction.PRIMARY && slot.allowModification(player)) {
             tryReadFromOld(bag);
             if (input_item.isEmpty()) {
-                ItemStack itemStack = getItemFromBag(bag, ((ErPlayerInterface)player).er$getMoraIndex());
+                ItemStack itemStack = getItemFromBag(bag, ((IPlayer)player).er$getMoraIndex());
 				this.playRemoveOneSound(player);
 				access.set(itemStack);
                 return true;

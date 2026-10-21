@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class LeyLineMapGuiScreen extends AbstractContainerScreen<LeyLineMapGuiMenu> {
-	private final static HashMap<String, Object> guistate = LeyLineMapGuiMenu.guistate;
+	private final static HashMap<String, Object> guistate = LeyLineMapGuiMenu.guiState;
 	private final Level world;
 	private final Player entity;
 	private final ItemStack mapItem;

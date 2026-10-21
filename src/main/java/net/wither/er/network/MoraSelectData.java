@@ -7,7 +7,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.wither.er.player.ErPlayerInterface;
+import net.wither.er.player.IPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public record MoraSelectData(int index) implements CustomPacketPayload{
@@ -23,6 +23,6 @@ public record MoraSelectData(int index) implements CustomPacketPayload{
 
     public static void handle(final MoraSelectData data, final IPayloadContext context) {
         Player player = context.player();
-        ((ErPlayerInterface)player).er$setMoraIndex(data.index());
+        ((IPlayer)player).er$setMoraIndex(data.index());
     }
 }

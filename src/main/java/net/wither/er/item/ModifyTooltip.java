@@ -73,7 +73,7 @@ public class ModifyTooltip {
         }
     }
 
-    private static String getAscension(int ascension, int star){
+    public static String getAscension(int ascension, int star){
         return "✦".repeat(ascension) + "✧".repeat(Math.max((star < 3 ? 4 : 6) - ascension,0)) ;
     }
 }

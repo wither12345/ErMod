@@ -20,7 +20,7 @@ public class BakedGlyphMixin implements IShadeGlyph {
     @Shadow @Final private float down;
 
     @Override
-    public void er$render(int index, int total, boolean p_95227_, float x, float y, Matrix4f matrix4f, VertexConsumer p_95231_, float r, float g, float b, float a, int l) {
+    public void er$render(int index, int total, boolean p_95227_, float x, float y, Matrix4f matrix4f, VertexConsumer consumer, float r, float g, float b, float a, int l) {
         // 1. 计算显示比例：每份占完整纹理的 1/total
         float ratio = 1.0f / total;
 
@@ -50,19 +50,19 @@ public class BakedGlyphMixin implements IShadeGlyph {
         float f5 = p_95227_ ? 1.0F - 0.25F * newDown : 0.0F;
 
         // 5. 使用新的纹理坐标和顶点位置绘制
-        p_95231_.addVertex(matrix4f, f + f4, f2, 0.0F)
+        consumer.addVertex(matrix4f, f + f4, f2, 0.0F)
                 .setColor(r, g, b, a)
                 .setUv(this.u0, currentV0)   // 左下角
                 .setLight(l);
-        p_95231_.addVertex(matrix4f, f + f5, f3, 0.0F)
+        consumer.addVertex(matrix4f, f + f5, f3, 0.0F)
                 .setColor(r, g, b, a)
                 .setUv(this.u0, currentV1)   // 左上角
                 .setLight(l);
-        p_95231_.addVertex(matrix4f, f1 + f5, f3, 0.0F)
+        consumer.addVertex(matrix4f, f1 + f5, f3, 0.0F)
                 .setColor(r, g, b, a)
                 .setUv(this.u1, currentV1)   // 右上角
                 .setLight(l);
-        p_95231_.addVertex(matrix4f, f1 + f4, f2, 0.0F)
+        consumer.addVertex(matrix4f, f1 + f4, f2, 0.0F)
                 .setColor(r, g, b, a)
                 .setUv(this.u1, currentV0)   // 右下角
                 .setLight(l);

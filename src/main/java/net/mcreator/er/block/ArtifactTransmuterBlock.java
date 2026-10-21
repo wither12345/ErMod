@@ -30,6 +30,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
 import io.netty.buffer.Unpooled;
+import org.jetbrains.annotations.NotNull;
 
 public class ArtifactTransmuterBlock extends Block {
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -74,12 +75,12 @@ public class ArtifactTransmuterBlock extends Block {
 	}
 
 	@Override
-	public InteractionResult useWithoutItem(BlockState blockstate, Level world, BlockPos pos, Player entity, BlockHitResult hit) {
+	public @NotNull InteractionResult useWithoutItem(@NotNull BlockState blockstate, @NotNull Level world, @NotNull BlockPos pos, @NotNull Player entity, BlockHitResult hit) {
 		super.useWithoutItem(blockstate, world, pos, entity, hit);
 		if (entity instanceof ServerPlayer _ent) {
 			_ent.openMenu(new MenuProvider() {
 				@Override
-				public Component getDisplayName() {
+				public @NotNull Component getDisplayName() {
 					return Component.literal("ArtifactTransmuterGUI");
 				}
 

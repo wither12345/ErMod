@@ -1,17 +1,15 @@
 package net.mcreator.er.procedures;
 
-import io.netty.buffer.Unpooled;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.chat.Component;
-
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.LevelAccessor;
 import net.wither.er.world.inventory.WeaponEnhanceGuiMenu;
+import org.jetbrains.annotations.NotNull;
 
 public class ElementAnvil_ClickProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z, Entity entity) {
@@ -20,7 +18,7 @@ public class ElementAnvil_ClickProcedure {
 		if (entity instanceof ServerPlayer _ent) {
 			_ent.openMenu(new MenuProvider() {
 				@Override
-				public Component getDisplayName() {
+				public @NotNull Component getDisplayName() {
 					return Component.literal("ElementAnvilGUI");
 				}
 
@@ -30,8 +28,8 @@ public class ElementAnvil_ClickProcedure {
 				}
 
 				@Override
-				public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-					return new WeaponEnhanceGuiMenu(id, inventory, new FriendlyByteBuf(Unpooled.buffer()));
+				public AbstractContainerMenu createMenu(int id, @NotNull Inventory inventory, @NotNull Player player) {
+					return new WeaponEnhanceGuiMenu(id, inventory);
 				}
 			});
 		}

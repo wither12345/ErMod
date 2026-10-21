@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.entity.slimes.PyroSlime;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,7 @@ public class PyroSlimeRenderer extends MobRenderer<PyroSlime, ModelSlime<PyroSli
 
             @Override
             public void render(@NotNull PoseStack poseStack, @NotNull MultiBufferSource bufferSource, int light, @NotNull PyroSlime entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                if (entity instanceof AuraContainerInterface auraContainerInterface && (auraContainerInterface.er$getElements() & (3 << (Element.RenderId.PYRO.getId() << 1))) != 0) {
+                if (entity instanceof IAuraContainerOwner auraOwner && (auraOwner.er$getElements() & (3 << (Element.RenderId.PYRO.getId() << 1))) != 0) {
                     VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.eyes(LAYER_TEXTURE));
                     this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0));
                 }

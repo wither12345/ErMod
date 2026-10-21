@@ -132,7 +132,7 @@ public class Electro extends Element{
             List<LivingEntity> newfound = world.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(6 / 2d), e -> true).stream().toList();
             for (LivingEntity living : newfound) {
                 if (EntityHurtEvent.shouldHurt(attacker, living) && living.getPersistentData().getInt("Electro_Charged_Cd") <= 0 &&
-                        living instanceof AuraContainerInterface containerInterface &&
+                        living instanceof IAuraContainerOwner containerInterface &&
                         containerInterface.er$getAuraContainer().getAura().get(Category.HYDRO.getId()).getGauge() > 0
                 ) {
                     living.getPersistentData().putInt("Electro_Charged_Cd", 10);

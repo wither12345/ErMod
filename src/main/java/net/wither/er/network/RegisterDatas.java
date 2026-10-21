@@ -17,7 +17,8 @@ public class RegisterDatas {
 		registrar.playBidirectional(SyncLevelData.TYPE, SyncLevelData.STREAM_CODEC, new DirectionalPayloadHandler<>(SyncLevelData::handle, SyncLevelData::handle));
 		registrar.playBidirectional(StellaFortunaData.TYPE, StellaFortunaData.STREAM_CODEC, new DirectionalPayloadHandler<>(StellaFortunaData::handle, StellaFortunaData::handle));
 		registrar.playBidirectional(DamageDisplayMessage.TYPE, DamageDisplayMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(DamageDisplayMessage::handle, DamageDisplayMessage::handle));
-		registrar.playBidirectional(ArtifactTransmuterMessage.TYPE, ArtifactTransmuterMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(ArtifactTransmuterMessage::handle, ArtifactTransmuterMessage::handle));
+		registrar.playBidirectional(ReactionDisplayMessage.TYPE, ReactionDisplayMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(ReactionDisplayMessage::handle, ReactionDisplayMessage::handle));
+        registrar.playBidirectional(ArtifactTransmuterMessage.TYPE, ArtifactTransmuterMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(ArtifactTransmuterMessage::handle, ArtifactTransmuterMessage::handle));
 		registrar.playBidirectional(AlchemyConvertingSwitchMessage.TYPE, AlchemyConvertingSwitchMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(AlchemyConvertingSwitchMessage::handle, AlchemyConvertingSwitchMessage::handle));
 		registrar.playBidirectional(AlchemyStageSwitchMessage.TYPE, AlchemyStageSwitchMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(AlchemyStageSwitchMessage::handle, AlchemyStageSwitchMessage::handle));
         registrar.playBidirectional(MoraSelectData.TYPE, MoraSelectData.STREAM_CODEC, new DirectionalPayloadHandler<>(MoraSelectData::handle, MoraSelectData::handle));

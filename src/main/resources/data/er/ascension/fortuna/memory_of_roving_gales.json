@@ -1,0 +1,84 @@
+{
+  "item" : "er:memoryof_roving_gales",
+  "type": "fortuna",
+  "ascension" : [
+    {
+      "mora": 20000,
+      "ingredient": [
+        {
+          "item": "er:brilliant_diamond_sliver",
+          "count": 1
+        },
+        {
+          "item": "er:damaged_mask",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "mora": 40000,
+      "ingredient": [
+        {
+          "item": "er:brilliant_diamond_fragment",
+          "count": 3
+        },
+        {
+          "item": "er:damaged_mask",
+          "count": 15
+        }
+      ]
+    },
+    {
+      "mora": 60000,
+      "ingredient": [
+        {
+          "item": "er:brilliant_diamond_fragment",
+          "count": 6
+        },
+        {
+          "item": "er:stained_mask",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 80000,
+      "ingredient": [
+        {
+          "item": "er:brilliant_diamond_chunk",
+          "count": 3
+        },
+        {
+          "item": "er:stained_mask",
+          "count": 18
+        }
+      ]
+    },
+    {
+      "mora": 100000,
+      "ingredient": [
+        {
+          "item": "er:brilliant_diamond_chunk",
+          "count": 6
+        },
+        {
+          "item": "er:ominous_mask",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 120000,
+      "ingredient": [
+        {
+          "item": "er:brilliant_diamond_gemstone",
+          "count": 3
+        },
+        {
+          "item": "er:ominous_mask",
+          "count": 24
+        }
+      ]
+    }
+  ]
+}

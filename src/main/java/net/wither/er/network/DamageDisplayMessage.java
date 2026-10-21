@@ -13,7 +13,7 @@ import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.client.screens.ErOverlay;
 import org.jetbrains.annotations.NotNull;
 
-public record DamageDisplayMessage(int damage , int id , int color , boolean critical, RenderDamageAmount.DamageDisplayType damageDisplayType)  implements CustomPacketPayload {
+public record DamageDisplayMessage(int damage, int id, int color, boolean critical, RenderDamageAmount.Display display)  implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<DamageDisplayMessage> TYPE = new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath("er", "damage_display"));
     public static final StreamCodec<ByteBuf, DamageDisplayMessage> STREAM_CODEC = StreamCodec.composite(
             // damage
@@ -27,7 +27,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
             DamageDisplayMessage::new);
 
     public DamageDisplayMessage(int damage , int id , int color , boolean critical, int type){
-        this(damage, id, color, critical, RenderDamageAmount.DamageDisplayType.values()[type]);
+        this(damage, id, color, critical, RenderDamageAmount.Display.values()[type]);
     }
 
     @Override
@@ -36,7 +36,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
     }
 
     private int getType(){
-        return damageDisplayType.ordinal();
+        return display.ordinal();
     }
 
     public static void handle(final DamageDisplayMessage data, final IPayloadContext context) {
@@ -45,9 +45,7 @@ public record DamageDisplayMessage(int damage , int id , int color , boolean cri
             ErOverlay.updateDamage(data.damage(), data.color());
         }
         else if(entity != null && entity.level() instanceof ClientLevel) {
-            context.enqueueWork(() -> {
-                RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5 , entity.getY() + 2, entity.getZ() + Math.random() - 0.5 , data.critical(), data.damageDisplayType());
-            });
+            context.enqueueWork(() -> RenderDamageAmount.addDamage(data.damage(), data.color(), entity.getX() + Math.random() - 0.5 , entity.getY() + Math.random() + 1, entity.getZ() + Math.random() - 0.5 , data.critical(), data.display()));
         }
     }
 }

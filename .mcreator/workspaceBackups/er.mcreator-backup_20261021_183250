@@ -720,23 +720,10 @@
       }
     },
     {
-      "name": "CondensedPyro",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_pyro",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/condensed_pyro.json",
-          "src/main/java/net/mcreator/er/item/CondensedPyroItem.java"
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedPyro",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_pyro",
       "metadata": {
         "files": [
@@ -841,40 +828,15 @@
       }
     },
     {
-      "name": "CondensedCryo",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_cryo",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/CondensedCryoItem.java",
-          "src/main/resources/assets/er/models/item/condensed_cryo.json"
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedCryo",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_cryo",
       "metadata": {
         "files": [
           "src/main/resources/data/er/recipe/craft_condensed_cryo.json",
           "src/main/resources/data/er/advancement/recipes/craft_condensed_cryo.json"
-        ]
-      }
-    },
-    {
-      "name": "Wealth",
-      "type": "enchantment",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "wealth",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/er/enchantment/wealth.json"
         ]
       }
     },
@@ -1323,19 +1285,6 @@
       }
     },
     {
-      "name": "PyroPickaxe",
-      "type": "tool",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "pyro_pickaxe",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/pyro_pickaxe.json",
-          "src/main/java/net/mcreator/er/item/PyroPickaxeItem.java"
-        ]
-      }
-    },
-    {
       "name": "ElectroCrystalOre",
       "type": "block",
       "compiles": true,
@@ -1370,7 +1319,7 @@
       "name": "CraftPyroPickaxe",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_pyro_pickaxe",
       "metadata": {
         "files": [
@@ -1393,23 +1342,10 @@
       }
     },
     {
-      "name": "CondensedElectro",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_electro",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/CondensedElectroItem.java",
-          "src/main/resources/assets/er/models/item/condensed_electro.json"
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedElectro",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_electro",
       "metadata": {
         "files": [
@@ -1451,7 +1387,7 @@
       "name": "CraftCondensedDendro",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_dendro",
       "metadata": {
         "files": [
@@ -1531,23 +1467,10 @@
       }
     },
     {
-      "name": "CondensedGeo",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_geo",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/CondensedGeoItem.java",
-          "src/main/resources/assets/er/models/item/condensed_geo.json"
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedGeo",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_geo",
       "metadata": {
         "files": [
@@ -1566,19 +1489,6 @@
         "files": [
           "src/main/resources/data/er/advancement/recipes/craft_geo_sword.json",
           "src/main/resources/data/er/recipe/craft_geo_sword.json"
-        ]
-      }
-    },
-    {
-      "name": "GeoPickaxe",
-      "type": "tool",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "geo_pickaxe",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/GeoPickaxeItem.java",
-          "src/main/resources/assets/er/models/item/geo_pickaxe.json"
         ]
       }
     },
@@ -1609,36 +1519,10 @@
       }
     },
     {
-      "name": "CondensedAnemo",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_anemo",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/CondensedAnemoItem.java",
-          "src/main/resources/assets/er/models/item/condensed_anemo.json"
-        ]
-      }
-    },
-    {
-      "name": "CondensedDendro",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_dendro",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/condensed_dendro.json",
-          "src/main/java/net/mcreator/er/item/CondensedDendroItem.java"
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedAnemo",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_anemo",
       "metadata": {
         "files": [
@@ -1711,23 +1595,10 @@
       }
     },
     {
-      "name": "CondensedHydro",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "condensed_hydro",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/condensed_hydro.json",
-          "src/main/java/net/mcreator/er/item/CondensedHydroItem.java"
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedHydro",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_condensed_hydro",
       "metadata": {
         "files": [
@@ -2300,7 +2171,7 @@
     {
       "name": "Hilichurl",
       "type": "livingentity",
-      "compiles": false,
+      "compiles": true,
       "locked_code": true,
       "registry_name": "hilichurl",
       "metadata": {
@@ -2309,73 +2180,6 @@
           "src/main/java/net/mcreator/er/client/renderer/HilichurlRenderer.java",
           "src/main/resources/assets/er/models/item/hilichurl_spawn_egg.json",
           "src/main/resources/data/er/neoforge/biome_modifier/hilichurl_biome_modifier.json"
-        ]
-      }
-    },
-    {
-      "name": "MultipleInfusion",
-      "type": "code",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "multiple_infusion",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/MultipleInfusion.java"
-        ]
-      }
-    },
-    {
-      "name": "WoodenClubEntitySwingsItem",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "wooden_club_entity_swings_item",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/WoodenClubEntitySwingsItemProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
-      "name": "WoodenClub",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "wooden_club",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/WoodenClubItem.java",
-          "src/main/resources/assets/er/models/item/wooden_club.json",
-          "src/main/resources/assets/er/models/item/wooden_club_0.json"
-        ]
-      }
-    },
-    {
-      "name": "WoodenClubPropertyValueProvider",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "wooden_club_property_value_provider",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/WoodenClubPropertyValueProviderProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
         ]
       }
     },
@@ -4202,8 +4006,7 @@
       "#er:reaction"
     ],
     "ENCHANTMENTS:minecraft:non_treasure": [
-      "~CUSTOM:Greed",
-      "~CUSTOM:Wealth"
+      "~CUSTOM:Greed"
     ],
     "ITEMS:er:one_star_weapon": [
       "CUSTOM:HuntersBow",
@@ -4214,8 +4017,7 @@
       "EXTERNAL:er:waster_greatsword"
     ],
     "ENCHANTMENTS:minecraft:tradeable": [
-      "~CUSTOM:Greed",
-      "~CUSTOM:Wealth"
+      "~CUSTOM:Greed"
     ],
     "BLOCKS:minecraft:mineable/pickaxe": [
       "~CUSTOM:CraftingBench",
@@ -4289,10 +4091,6 @@
       "CUSTOM:Reaction",
       "#er:reaction"
     ],
-    "ITEMS:minecraft:pickaxes": [
-      "~CUSTOM:GeoPickaxe",
-      "~CUSTOM:PyroPickaxe"
-    ],
     "ITEMS:forge:tools/bows": [
       "CUSTOM:HuntersBow",
       "CUSTOM:PolarStar"
@@ -4319,8 +4117,7 @@
       "CUSTOM:CuihuaFence"
     ],
     "ENCHANTMENTS:minecraft:on_random_loot": [
-      "~CUSTOM:Greed",
-      "~CUSTOM:Wealth"
+      "~CUSTOM:Greed"
     ],
     "ITEMS:er:material": [
       "CUSTOM:MistFlowerCorolla",
@@ -4439,7 +4236,6 @@
       "item.er.geo_moon_wheel": "Geo Moon Wheel",
       "item.er.anemo_moon_wheel": "Anemo Moon Wheel",
       "item.er.crystal_chunk": "Crystal Chunk",
-      "item.er.pyro_pickaxe": "Pyro Pickaxe",
       "death.attack.reaction": "%1$s died",
       "attribute.er.hydro_dmg_bonus": "Hydro DMG Bonus",
       "block.er.teleport_waypoint_base": "Teleport Waypoint Base",
@@ -4448,11 +4244,9 @@
       "item_group.er.er_weapon": "Element Reaction Weapon",
       "gui.er.artifact_gui.button_apply": "Apply",
       "death.attack.reaction.item": "%1$s was killed by %2$s using %3$s",
-      "enchantment.er.wealth": "Wealth",
       "entity.er.cryo_crystallize": "Cyro Crystallize",
       "attribute.er.geo_dmg_bonus": "Geo DMG Bonus",
       "entity.er.fatui_electro_cicin_mage": "Fatui Electro Cicin Mage",
-      "item.er.condensed_anemo": "Condensed Anemo",
       "item.er.mora": "Mora",
       "enchantment.er.geo_infusion_enchantment": "Geo Infusion",
       "entity.er.tartaglia": "Tartaglia",
@@ -4468,17 +4262,14 @@
       "enchantment.er.electro_infusion_enchantment": "Electro Infusion",
       "block.er.cuihua_stairs": "Cuihua Planks",
       "item_group.er.er_materials": "Er Materials",
-      "item.er.condensed_dendro": "Condensed Dendro",
       "attribute.er.dendro_dmg_bonus": "Dendro DMG Bonus",
       "effect.er.crystallize_shield": "Crystallize Shield",
       "enchantment.er.greed": "Greed",
-      "item.er.wooden_club": "Wooden Club",
       "item.er.tartaglia_spawn_egg": "Tartaglia Spawn Egg",
       "block.er.deepslate_white_iron_ore": "White Iron Ore",
       "er.configuration.artifacts": "Artifacts",
       "attribute.er.physical_dmg_bonus": "Physical DMG Bonus",
       "block.er.element_anvil": "Element Anvil",
-      "item.er.geo_pickaxe": "Geo Pickaxe",
       "block.er.statueof_the_seven": "Statue of The Seven",
       "entity.er.anemo_crystalfly": "Anemo Crystalfly",
       "item.er.mist_grass_wick": "Mist Grass Wick",
@@ -4499,7 +4290,6 @@
       "death.attack.reaction.player": "%1$s died whilst trying to escape %2$s",
       "block.er.cuihua_planks": "Cuihua Planks",
       "text.er.minor_affix_upgrade": "§6Randomly upgrades or add ## minor affix(es)",
-      "item.er.condensed_hydro": "Condensed Hydro",
       "block.er.cor_lapis_ore": "Cor Lapis Ore",
       "entity.er.hilichurl": "Hilichurl",
       "block.er.cuihua_slab": "Cuihua Planks",
@@ -4545,20 +4335,16 @@
       "block.er.crafting_bench": "Crafting Bench",
       "enchantment.er.hydro_infusion_enchantment": "Hydro Infusion",
       "entity.er.flaming_flower": "Flaming Flower",
-      "item.er.condensed_pyro": "Condensed Pyro",
       "item.er.electro_crystal": "Electro Crystal",
       "item.er.main_affix_shard": "Main Affix Shard",
-      "item.er.condensed_geo": "Condensed Geo",
       "key.er.key_m": "Open Er Equipment GUI",
       "block.er.cuihua_sapling": "Cuihua Sapling",
-      "item.er.condensed_electro": "Condensed Electro",
       "attribute.er.max_stamina": "Max Stamina",
       "effect.er.superconduct": "Superconduct",
       "entity.er.electro_crystallize": "Electro Crystallize",
       "attribute.er.cryo_dmg_bonus": "Cryo DMG Bonus",
       "item.er.enhancement_ore": "Enhancement Ore",
       "item.er.hunters_bow": "Hunter\u0027s Bow",
-      "item.er.condensed_cryo": "Condensed Cryo",
       "item.er.electro_cicin_spawn_egg": "Electro Cicin Spawn Egg",
       "enchantment.er.cryo_infusion_enchantment": "Cryo Infusion",
       "item.er.hilichurl_spawn_egg": "Hilichurl Spawn Egg",
@@ -4978,12 +4764,34 @@
       "death.attack.physical.player": "%1$s died whilst trying to escape %2$s",
       "death.attack.physical.item": "%1$s was killed by %2$s using %3$s",
       "item.er.pyro_sword": "Pyro Sword",
+      "item.er.pyro_pickaxe": "Pyro Pickaxe",
       "item.er.hydro_sword": "Hydro Sword",
       "item.er.cryo_sword": "Cryo Sword",
       "item.er.electro_sword": "Electro Sword",
       "item.er.dendro_sword": "Dendro Sword",
       "item.er.geo_sword": "Geo Sword",
-      "item.er.anemo_sword": "Anemo Sword"
+      "item.er.anemo_sword": "Anemo Sword",
+      "item.er.wooden_club": "Wooden Club",
+      "item.er.harbinger_of_dawn": "Harbinger of Dawn",
+      "effect.er.vigorous": "Vigorous",
+      "item.er.condensed_anemo": "Condensed Anemo",
+      "item.er.condensed_cryo": "Condensed Cryo",
+      "item.er.condensed_electro": "Condensed Electro",
+      "item.er.condensed_dendro": "Condensed Dendro",
+      "item.er.condensed_geo": "Condensed Geo",
+      "item.er.condensed_pyro": "Condensed Pyro",
+      "item.er.condensed_hydro": "Condensed Hydro",
+      "gui.er.fortuna_enhance.button_upgrade": "Upgrade",
+      "gui.er.fortuna_enhance.button_ascend": "Ascend",
+      "gui.er.fortuna_enhance.button_max": "Max",
+      "gui.er.fortuna_enhance.status_upgrade": "EXP +%s  Mora -%s",
+      "gui.er.fortuna_enhance.status_ascend": "Ascend +1  Cap %s",
+      "gui.er.fortuna_enhance.status_missing": "Missing materials or Mora",
+      "gui.er.fortuna_enhance.status_need_exp": "Insert EXP books",
+      "gui.er.fortuna_enhance.status_max": "Maximum level reached",
+      "text.er.fortuna_health": "HP",
+      "text.er.fortuna_attack": "ATK",
+      "text.er.fortuna_armor": "DEF"
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -5011,7 +4819,6 @@
       "item.er.geo_moon_wheel": "岩月之轮",
       "item.er.anemo_moon_wheel": "风月之轮",
       "item.er.crystal_chunk": "水晶块",
-      "item.er.pyro_pickaxe": "火元素镐子",
       "death.attack.reaction": "%1$s died",
       "attribute.er.hydro_dmg_bonus": "水元素伤害加成",
       "block.er.teleport_waypoint_base": "传送锚点",
@@ -5019,13 +4826,11 @@
       "item.er.ley_line_map": "地脉地图",
       "item_group.er.er_weapon": "原神起源：武器",
       "gui.er.artifact_gui.button_apply": "Apply",
-      "enchantment.er.wealth": "抢钱",
       "death.attack.reaction.item": "%1$s was killed by %2$s using %3$s",
       "entity.er.cryo_crystallize": "冰结晶",
       "attribute.er.geo_dmg_bonus": "岩元素伤害加成",
       "entity.er.fatui_electro_cicin_mage": "雷萤术士",
       "item.er.mora": "摩拉",
-      "item.er.condensed_anemo": "浓缩风元素",
       "enchantment.er.geo_infusion_enchantment": "岩附魔",
       "entity.er.tartaglia": "达达利亚",
       "block.er.statueof_the_seven_2": "七天神像",
@@ -5040,17 +4845,14 @@
       "enchantment.er.electro_infusion_enchantment": "雷附魔",
       "block.er.cuihua_stairs": "萃华楼梯",
       "item_group.er.er_materials": "原神起源：材料",
-      "item.er.condensed_dendro": "浓缩草元素",
       "attribute.er.dendro_dmg_bonus": "草元素伤害加成",
       "effect.er.crystallize_shield": "结晶护盾",
       "enchantment.er.greed": "贪婪",
-      "item.er.wooden_club": "棒槌",
       "item.er.tartaglia_spawn_egg": "达达利亚刷怪蛋",
       "block.er.deepslate_white_iron_ore": "深层白铁矿",
       "er.configuration.artifacts": "圣遗物",
       "attribute.er.physical_dmg_bonus": "物理伤害加成",
       "block.er.element_anvil": "元素铁砧",
-      "item.er.geo_pickaxe": "岩元素镐",
       "block.er.statueof_the_seven": "七天神像",
       "entity.er.anemo_crystalfly": "风晶蝶",
       "item.er.mist_grass_wick": "雾虚灯芯",
@@ -5072,7 +4874,6 @@
       "death.attack.reaction.player": "%1$s died whilst trying to escape %2$s",
       "block.er.cuihua_planks": "萃华木板",
       "text.er.minor_affix_upgrade": "§6随机提升 ## 条副属性",
-      "item.er.condensed_hydro": "浓缩水元素",
       "block.er.cor_lapis_ore": "石珀矿石",
       "entity.er.hilichurl": "丘丘人",
       "block.er.cuihua_slab": "萃华台阶",
@@ -5118,20 +4919,16 @@
       "block.er.crafting_bench": "炼金台",
       "enchantment.er.hydro_infusion_enchantment": "水附魔",
       "entity.er.flaming_flower": "烈焰花",
-      "item.er.condensed_pyro": "浓缩火元素",
       "item.er.electro_crystal": "电气水晶",
       "item.er.main_affix_shard": "主属性碎片",
-      "item.er.condensed_geo": "浓缩岩元素",
       "key.er.key_m": "Open Er Equipment GUI",
       "block.er.cuihua_sapling": "萃华树苗",
-      "item.er.condensed_electro": "浓缩雷元素",
       "attribute.er.max_stamina": "最大体力",
       "effect.er.superconduct": "超导",
       "entity.er.electro_crystallize": "雷结晶",
       "attribute.er.cryo_dmg_bonus": "冰元素伤害加成",
       "item.er.enhancement_ore": "精锻用杂矿",
       "item.er.hunters_bow": "猎弓",
-      "item.er.condensed_cryo": "浓缩冰元素",
       "item.er.electro_cicin_spawn_egg": "雷萤刷怪蛋",
       "enchantment.er.cryo_infusion_enchantment": "冰附魔",
       "item.er.hilichurl_spawn_egg": "丘丘人刷怪蛋",
@@ -5537,16 +5334,38 @@
       "item.er.skyrider_sword": "飞天御剑",
       "effect.er.gash": "决",
       "item.er.fillet_blade": "吃虎鱼刀",
-      "death.attack.physical": "%1$s died",
-      "death.attack.physical.player": "%1$s died whilst trying to escape %2$s",
-      "death.attack.physical.item": "%1$s was killed by %2$s using %3$s",
+      "death.attack.physical": "%1$s死了",
+      "death.attack.physical.player": "%1$s被%2$s杀死了",
+      "death.attack.physical.item": "%1$s被%2$s使用%3$s杀死了",
       "item.er.pyro_sword": "火元素剑",
+      "item.er.pyro_pickaxe": "火元素镐",
       "item.er.hydro_sword": "水元素剑",
       "item.er.cryo_sword": "冰元素剑",
       "item.er.electro_sword": "雷元素剑",
       "item.er.dendro_sword": "草元素剑",
       "item.er.geo_sword": "岩元素剑",
-      "item.er.anemo_sword": "风元素剑"
+      "item.er.anemo_sword": "风元素剑",
+      "item.er.wooden_club": "棒槌",
+      "item.er.harbinger_of_dawn": "黎明神剑",
+      "effect.er.vigorous": "激励",
+      "item.er.condensed_anemo": "浓缩风元素",
+      "item.er.condensed_cryo": "浓缩冰元素",
+      "item.er.condensed_electro": "浓缩雷元素",
+      "item.er.condensed_dendro": "浓缩草元素",
+      "item.er.condensed_geo": "浓缩岩元素",
+      "item.er.condensed_pyro": "浓缩火元素",
+      "item.er.condensed_hydro": "浓缩水元素",
+      "gui.er.fortuna_enhance.button_upgrade": "升级",
+      "gui.er.fortuna_enhance.button_ascend": "突破",
+      "gui.er.fortuna_enhance.button_max": "已满级",
+      "gui.er.fortuna_enhance.status_upgrade": "经验+%s 摩拉-%s",
+      "gui.er.fortuna_enhance.status_ascend": "突破+1 上限%s",
+      "gui.er.fortuna_enhance.status_missing": "材料或摩拉不足",
+      "gui.er.fortuna_enhance.status_need_exp": "放入经验书",
+      "gui.er.fortuna_enhance.status_max": "已达最高等级",
+      "text.er.fortuna_health": "生命",
+      "text.er.fortuna_attack": "攻击",
+      "text.er.fortuna_armor": "护甲"
     }
   },
   "metadata": {
@@ -5593,7 +5412,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.1",
+    "version": "1.2.3",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class LeyLineMapGuiMenu extends AbstractContainerMenu implements Supplier<Map<Integer, Slot>> {
-	public final static HashMap<String, Object> guistate = new HashMap<>();
+	public final static HashMap<String, Object> guiState = new HashMap<>();
 	public final Level world;
 	public final Player entity;
 	public final ItemStack mapItem;

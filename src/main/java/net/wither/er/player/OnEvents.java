@@ -1,7 +1,7 @@
 package net.wither.er.player;
 
 import net.mcreator.er.ErMod;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModMobEffects;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -44,7 +44,7 @@ public class OnEvents {
     @SubscribeEvent
     public static void onPickupXp(PlayerXpEvent.PickupXp event) {
         Player player = event.getEntity();
-        StellaFortunas.addExptoPlayer(player ,event.getOrb().getValue());
+        StellaFortuna.addExpToPlayer(player ,event.getOrb().getValue());
     }
 
     @SubscribeEvent

@@ -29,12 +29,7 @@ public class ArtifactTransmuterGuiMenu extends AbstractContainerMenu {
         super(ErMenus.ARTIFACT_TRANSMUTER_GUI.get(), id);
         container = new TransientCraftingContainer(this,6,1) ;
 
-        this.addSlot(new Slot(container, 0, 43, 8) {
-            @Override
-            public boolean mayPlace(@NotNull ItemStack stack) {
-                return ErModItems.MORA_BAG.get() == stack.getItem();
-            }
-        });
+        this.addSlot(new MoraSlot(container, 0, 43, 8));
         this.addSlot(new Slot(container, 1, 43, 44));
         this.addSlot(new Slot(container, 2, 7, 44));
         this.addSlot(new Slot(container, 3, 16, 17));

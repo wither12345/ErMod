@@ -8,13 +8,13 @@
     "CombatRulesMixin",
     "CropBlockMixin",
     "DamageSourceMixin",
-    "ErPlayerMixin",
     "ExplosionDamageCalculatorMixin",
     "FireworkPocketEntityMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "LocalPlayerMixin",
+    "PlayerMixin",
     "ProjectileMixin",
     "ProjectileWeaponItemMixin",
     "RangedAttributeAccessor",
@@ -23,6 +23,7 @@
     "WanderingTraderMixin"
   ],
   "client": [
+    "AgeableListModelMixin",
     "BakedGlyphMixin",
     "PlayerModelMixin"
   ],

@@ -2,8 +2,7 @@ package net.wither.er.world.inventory;
 
 import com.mojang.datafixers.util.Pair;
 import net.mcreator.er.ErMod;
-import net.mcreator.er.StellaFortunas;
-import net.minecraft.network.FriendlyByteBuf;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -31,7 +30,7 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
 	public final Player entity;
 	public int x, y, z;
 
-	public ErEquipmentGUIMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
+	public ErEquipmentGUIMenu(int id, Inventory inv) {
 		super(ErMenus.EQUIPMENT.get(), id);
 		this.entity = inv.player;
 		this.world = inv.player.level();
@@ -125,7 +124,7 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
             super.setChanged();
             ErItemVariables.PlayerVariables _vars = player.getData(ErItemVariables.PLAYER_VARIABLES);
             _vars.Stella_Fortuna = this.getItem().copy();
-            StellaFortunas.applyAttr(player, _vars.Stella_Fortuna);
+            StellaFortuna.applyAttr(player, _vars.Stella_Fortuna);
             _vars.syncPlayerVariables(player);
         }
     }

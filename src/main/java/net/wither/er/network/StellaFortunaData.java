@@ -1,7 +1,7 @@
 package net.wither.er.network;
 
 import io.netty.buffer.ByteBuf;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -33,7 +33,7 @@ public record StellaFortunaData(int entityID, CompoundTag message) implements Cu
 		context.enqueueWork(() -> {
 			if (entity instanceof Player player) {
 				ErItemVariables.PlayerVariables vars = player.getData(ErItemVariables.PLAYER_VARIABLES);
-				if (vars.Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
+				if (vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna) {
 					fortuna.receiveMessage(player, data.message);
 				}
 			}

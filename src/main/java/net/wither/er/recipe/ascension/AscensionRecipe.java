@@ -28,15 +28,15 @@ public class AscensionRecipe {
     }
 
     public static class Single{
-        final int mora;
-        final Input[] inputs = new Input[3] ;
+        private final int mora;
+        private final Input[] inputs = new Input[4] ;
 
         private Single(JsonElement element){
             this.mora = element.getAsJsonObject().get("mora").getAsInt() ;
             JsonArray ingredients = element.getAsJsonObject().getAsJsonArray("ingredient") ;
             int i = 0 ;
             for(JsonElement ingredient : ingredients){
-                if(i >= 3)
+                if(i >= 4)
                     break ;
                 inputs[i ++] = new Input(ingredient);
             }
@@ -53,8 +53,8 @@ public class AscensionRecipe {
     }
 
     public static class Input{
-        final Item item ;
-        final int count ;
+        private final Item item ;
+        private final int count ;
 
         private Input(JsonElement element){
             String itemId = element.getAsJsonObject().get("item").getAsString() ;

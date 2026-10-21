@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -128,13 +128,13 @@ public class BloomEntity extends LivingEntity implements TraceableEntity{
 		super.baseTick();
 		if (!this.level().isClientSide())
 			this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 60, 114, false, false));
-		if (this instanceof AuraContainerInterface auraContainerInterface) {
-			if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty()) {
+		if (this instanceof IAuraContainerOwner auraOwner) {
+			if(!auraOwner.er$getAuraContainer().getAura().get(Element.Category.PYRO.getId()).isEmpty()) {
 				if (this.level() instanceof ServerLevel _level)
 					_level.sendParticles(ErModParticleTypes.P_DENDRO_EXPLOSION.get(), this.getX(), (this.getY() + 0.2), this.getZ(), 1, 0, 0, 0, 0);
 				this.explode(12, this.getOwner());
 			}
-			else if(!auraContainerInterface.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty()){
+			else if(!auraOwner.er$getAuraContainer().getAura().get(Element.Category.ELECTRO.getId()).isEmpty()){
 				if (this.level() instanceof ServerLevel _level) {
 					Hyperbloom hyperbloom = ErModEntities.HYPERBLOOM.get().spawn(_level, this.getOnPos().above(2), MobSpawnType.MOB_SUMMONED);
 					if (hyperbloom != null) {

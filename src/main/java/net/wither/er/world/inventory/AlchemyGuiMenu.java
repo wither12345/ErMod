@@ -3,7 +3,6 @@ package net.wither.er.world.inventory;
 import io.netty.buffer.ByteBuf;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
@@ -39,7 +38,7 @@ public class AlchemyGuiMenu extends AbstractContainerMenu {
     private int convertingItemIndex ;
     private Stage stage ;
 
-    public AlchemyGuiMenu(int id, Inventory inv, FriendlyByteBuf extraData) {
+    public AlchemyGuiMenu(int id, Inventory inv) {
         super(ErMenus.ALCHEMY_GUI.get(), id);
         this.entity = inv.player;
         stage = Stage.CRAFTING ;

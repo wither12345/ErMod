@@ -24,9 +24,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.elements.AuraContainer;
-import net.wither.er.elements.AuraContainerInterface;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.OnEvents;
@@ -35,11 +35,12 @@ import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.artifact_effect.AttrArtifactEffect;
-import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.NREData;
+import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldStack;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -53,10 +54,11 @@ import java.util.List;
 import java.util.Set;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements Attackable, IErEntity, AuraContainerInterface {
+public abstract class LivingEntityMixin extends Entity implements Attackable, IErEntity {
     @Unique private final ArrayList<ShieldStack> er$shields = new ArrayList<>();
 	@Unique private final AuraContainer er$auraContainer = new AuraContainer(this);
     @Unique private float er$lastHealth ;
+    @Unique private float er$lastMaxHealth ;
     @Unique private static final EntityDataAccessor<Integer> ER$ELEMENT = SynchedEntityData.defineId(LivingEntity.class, EntityDataSerializers.INT);
 	@Unique private final NonNullList<ItemStack> er$artifactItem = NonNullList.withSize(5, ItemStack.EMPTY);
 	@Unique private Object2IntMap<Holder<ArtifactEffect>> er$effectMap = new Object2IntArrayMap<>();
@@ -69,6 +71,12 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
 
     @Shadow
     public abstract float getHealth();
+
+    @Shadow
+    public abstract float getMaxHealth();
+
+    @Shadow
+    public abstract void setHealth(float p_21154_);
 
     public LivingEntityMixin(EntityType<?> p_19870_, Level p_19871_) {
 		super(p_19870_, p_19871_);
@@ -96,6 +104,16 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
 	public AuraContainer er$getAuraContainer() {
 		return er$auraContainer;
 	}
+
+    @Override
+    public Vec3 er$getPosition() {
+        return this.position();
+    }
+
+    @Override
+    public @NotNull Level er$getLevel() {
+        return this.level();
+    }
 
     @WrapOperation(method = "triggerItemUseEffects", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;spawnItemParticles(Lnet/minecraft/world/item/ItemStack;I)V"))
     public void wrapParticle(LivingEntity instance, ItemStack itemStack, int i, Operation<Void> original){

@@ -14,7 +14,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.procedures.*;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,7 +27,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.scores.PlayerTeam;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -38,7 +36,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
-import net.wither.er.elements.AuraContainerInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
@@ -48,9 +46,11 @@ import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.StellaFortuna;
 import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.DelusionData;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.data.weapon.InfusionAbility;
@@ -82,7 +82,7 @@ public class EntityHurtEvent {
 		modifyDamageSource(damagesource, entity) ;
         modifyReaction(damagesource);
 
-		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof AuraContainerInterface auraContainerInterface) {
+		if(damagesource instanceof DamageModifierInterface modifierInterface && damagesource instanceof ElementSourceInterface elementSourceInterface && entity instanceof IAuraContainerOwner auraOwner) {
             DamageModifier modifier = modifierInterface.er$getModifier();
             if(sourceentity instanceof IErEntity erEntity){
                 Object2IntMap<Holder<ArtifactEffect>> map = erEntity.er$getEffectMap();
@@ -103,7 +103,7 @@ public class EntityHurtEvent {
 				elemental_mastery = living.getAttributeValue(ErModAttributes.ELEMENTAL_MASTERY);
             ElementSource source = elementSourceInterface.er$getSource();
 			if(source != null) {
-                auraContainerInterface.er$getAuraContainer().addAura(source, modifier, sourceentity);
+                auraOwner.er$getAuraContainer().addAura(source, modifier, sourceentity);
                 ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
                 DelusionData data = Vision.getDelusion(sourceentity);
                 if(data != null && sourceentity instanceof LivingEntity living){
@@ -124,7 +124,7 @@ public class EntityHurtEvent {
                 if (sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.PHYSICAL_DMG_BONUS) != null)
                     modifier.common_multiply += (float) living.getAttributeValue(ErModAttributes.PHYSICAL_DMG_BONUS) - 1;
             }
-            if(damagesource.is(StellaFortunas.SKILL) && sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_SKILL_DMG) != null)
+            if(damagesource.is(StellaFortuna.SKILL) && sourceentity instanceof LivingEntity living && living.getAttribute(ErModAttributes.ELEMENTAL_SKILL_DMG) != null)
                 modifierInterface.er$getModifier().common_multiply += (float) living.getAttributeValue(ErModAttributes.ELEMENTAL_SKILL_DMG) - 1f;
 
 			if (!damagesource.is(NO_CRITICAL) && sourceentity instanceof LivingEntity living && living.getAttributeValue(ErModAttributes.CRIT_RATE) > Math.random()) {
@@ -217,7 +217,7 @@ public class EntityHurtEvent {
             damageModifierInterface.er$getModifier().multiply = ReactionMultiply.TRANSFORMATIVE;
         if(source.is(LUNAR)) {
             damageModifierInterface.er$getModifier().multiply = ReactionMultiply.VARIANT;
-            damageModifierInterface.er$getModifier().type = RenderDamageAmount.DamageDisplayType.LUNAR;
+            damageModifierInterface.er$getModifier().type = RenderDamageAmount.Display.LUNAR;
         }
     }
 
@@ -318,9 +318,9 @@ public class EntityHurtEvent {
 
 	public static int getEntityLevel(Entity entity) {
 		if (entity instanceof Player) {
-			ErItemVariables.PlayerVariables _vars = entity.getData(ErItemVariables.PLAYER_VARIABLES);
-			if (_vars.Stella_Fortuna.getItem() instanceof StellaFortunas) {
-				return _vars.Stella_Fortuna.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1;
+            FortunaData data = entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.get(DataComponentsRegister.FORTUNA);
+			if (data != null) {
+				return data.level() + 1;
 			}
 			return 1 ;
 		}
@@ -350,7 +350,7 @@ public class EntityHurtEvent {
         public float res_multiply = 1;
         public float additional_amount = 0;
         public ReactionMultiply multiply = null;
-        public RenderDamageAmount.DamageDisplayType type = RenderDamageAmount.DamageDisplayType.NORMAL;
+        public RenderDamageAmount.Display type = RenderDamageAmount.Display.NORMAL;
 
         public float calculate(float dmg, double elementalMastery){
             return (dmg + additional_amount) * basic * (reaction_multiply + (multiply == null ? common_multiply : multiply.getMulti(elementalMastery)) - 1) * res_multiply * (critical ? crit_multiply : 1);

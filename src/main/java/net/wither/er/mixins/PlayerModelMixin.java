@@ -1,7 +1,7 @@
 package net.wither.er.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
@@ -13,9 +13,9 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
-import net.wither.er.entity.AnimationStater;
+import net.wither.er.client.model.IPlayerModel;
+import net.wither.er.entity.IAnimation;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +30,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerModel.class)
-public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> {
+public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidModel<T> implements IPlayerModel {
     @Unique
     private ModelPart er$root;
     @Unique private ModelPart er$leftItem;
@@ -40,6 +40,10 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
     @Final @Shadow public ModelPart leftPants;
     @Final @Shadow public ModelPart rightPants;
     @Final @Shadow public ModelPart jacket;
+
+    @Shadow
+    @Final
+    private boolean slim;
 
     public PlayerModelMixin(ModelPart p_170677_) {super(p_170677_);}
 
@@ -63,11 +67,15 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
             this.root().getAllParts().forEach(ModelPart::resetPose);
             Item stellaFortuna = entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem();
             int animationId = entity.getData(ErCombatVariables.PLAYER_VARIABLES).animationId;
-            float speed = (float) entity.getAttributeValue(Attributes.ATTACK_SPEED);
-            if (stellaFortuna instanceof StellaFortunas SF)
-                this.animate(((AnimationStater) entity).getState(), SF.getAnimation(animationId), ageInTicks, speed);
+            if (stellaFortuna instanceof StellaFortuna SF)
+                this.animate(((IAnimation) entity).er$getState(), SF.getAnimation(animationId), ageInTicks, SF.getFinishTick(entity, animationId));
         }
     };
+
+    @Override
+    public ModelPart er$getRoot() {
+        return this.er$root;
+    }
 
     @Inject(method = "createMesh", at = @At("RETURN"), cancellable = true)
     private static void createMesh(CubeDeformation cubeDeformation, boolean slim, CallbackInfoReturnable<MeshDefinition> cir) {
@@ -75,19 +83,27 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
         PartDefinition partdefinition = meshDefinition.getRoot();
         PartDefinition leftArm = partdefinition.getChild("left_arm");
         PartDefinition rightArm = partdefinition.getChild("right_arm");
-        PartDefinition right_item = leftArm.addOrReplaceChild("left_item", CubeListBuilder.create(), PartPose.offset(1.0F, 7.0F, 0.0F));
-        PartDefinition left_item = rightArm.addOrReplaceChild("right_item", CubeListBuilder.create(), PartPose.offset(-1.0F, 7.0F, 0.0F));
+        PartDefinition right_item = leftArm.addOrReplaceChild("left_item", CubeListBuilder.create(), PartPose.offset(0F, 7.0F, 0.0F));
+        PartDefinition left_item = rightArm.addOrReplaceChild("right_item", CubeListBuilder.create(), PartPose.offset(0F, 7.0F, 0.0F));
         cir.setReturnValue(meshDefinition);
     }
 
+
     @Inject(method = "translateToHand", at = @At("HEAD"), cancellable = true)
     public void translateToHand(HumanoidArm arm, PoseStack poseStack, CallbackInfo ci) {
-        ModelPart handPart = this.getArm(arm);
-        handPart.translateAndRotate(poseStack);
+        this.er$root.translateAndRotate(poseStack);
+        ModelPart modelpart = this.getArm(arm);
+        if (this.slim) {
+            float f = 0.5f * (arm == HumanoidArm.RIGHT ? 1 : -1);
+            modelpart.x += f;
+            modelpart.translateAndRotate(poseStack);
+            modelpart.x -= f;
+        }
+        else
+            modelpart.translateAndRotate(poseStack);
         ModelPart itemPart = this.er$getArmItem(arm);
         poseStack.rotateAround(new Quaternionf().rotationZYX(itemPart.zRot, itemPart.yRot, itemPart.xRot), (itemPart.x) / 16f, (itemPart.y) / 16f, (itemPart.z) / 16f);
         ci.cancel();
-
     }
 
     @Unique

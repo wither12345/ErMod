@@ -113,6 +113,9 @@ public class ExtraTabs {
             tabData.accept(PRIME_ICE_RESOURCE);
             tabData.accept(FRAGILE_RESIN);
             tabData.accept(ORIGINAL_RESIN);
+            tabData.accept(ENHANCEMENT_ORE);
+            tabData.accept(FINE_ENHANCEMENT_ORE);
+            tabData.accept(MYSTIC_ENHANCEMENT_ORE);
 			tabData.accept(WANDERERS_ADVICE);
 			tabData.accept(ADVENTURES_EXPERIENCE);
 			tabData.accept(HEROS_WIT);

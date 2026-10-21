@@ -1,7 +1,7 @@
 package net.wither.er.combat;
 
 import net.mcreator.er.ErMod;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -10,7 +10,6 @@ import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +25,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber
 public class CombatAnimation {
@@ -51,7 +51,7 @@ public class CombatAnimation {
     @SubscribeEvent
     public static void onLeftBlock(PlayerInteractEvent.LeftClickBlock event){
         Player player = event.getEntity();
-        if(player.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortunas fortunas && fortunas.hasAnimation(player)){
+        if(player.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortuna fortunas && fortunas.hasAnimation(player)){
             event.setCanceled(true);
             PacketDistributor.sendToServer(new AnimationMessage());
         }
@@ -82,18 +82,17 @@ public class CombatAnimation {
 			return false;
 		Item item = stellaFortuna.getItem();
 		ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
-		if (item instanceof StellaFortunas SFItem && SFItem.hasAnimation(entity)) {
-			float speed = (float) entity.getAttribute(Attributes.ATTACK_SPEED).getValue();
+		if (item instanceof StellaFortuna SFItem && SFItem.hasAnimation(entity)) {
 			int combo = vars.animationId;
-			if (vars.animationTime > SFItem.getFinishTick(entity, combo, speed) || !entity.onGround()) {
+			if (vars.animationTime > SFItem.getFinishTick(entity, combo) || !entity.onGround()) {
 				return true;
 			}
-			if (vars.animationTime > 0 && vars.animationId < SFItem.getMaxNormalAttack(entity))
+			if (vars.animationTime > 0 && vars.animationId < SFItem.getNormal(entity) - 1)
 				vars.animationId += 1;
 			else
 				vars.animationId = 0;
 			entity.setSprinting(false);
-			vars.animationTime = SFItem.getAnimationTick(entity, combo, speed);
+			vars.animationTime = SFItem.getAnimationTick(entity, combo);
             vars.syncWithId(entity, 0b00_0000_0011);
 			return true;
 		}
@@ -107,15 +106,13 @@ public class CombatAnimation {
 		}, (RegistryFriendlyByteBuf buffer) -> new AnimationMessage());
 
 		@Override
-		public Type<AnimationMessage> type() {
+		public @NotNull Type<AnimationMessage> type() {
 			return TYPE;
 		}
 
 		public static void handleData(final AnimationMessage message, final IPayloadContext context) {
 			if (context.flow() == PacketFlow.SERVERBOUND) {
 				context.enqueueWork(() -> {
-					if (!context.player().level().hasChunkAt(context.player().blockPosition()))
-						return;
 					SwingAnimation(context.player());
 				}).exceptionally(e -> {
 					context.connection().disconnect(Component.literal(e.getMessage()));
@@ -137,17 +134,13 @@ public class CombatAnimation {
 		}, (RegistryFriendlyByteBuf buffer) -> new ChargedAttackMessage());
 
 		@Override
-		public Type<ChargedAttackMessage> type() {
+		public @NotNull Type<ChargedAttackMessage> type() {
 			return TYPE;
 		}
 
 		public static void handleData(final ChargedAttackMessage message, final IPayloadContext context) {
 			if (context.flow() == PacketFlow.SERVERBOUND) {
-				context.enqueueWork(() -> {
-					if (!context.player().level().hasChunkAt(context.player().blockPosition()))
-						return;
-					context.player().getPersistentData().putBoolean("WaitingChargeAttack", true);
-				}).exceptionally(e -> {
+				context.enqueueWork(() -> context.player().getPersistentData().putBoolean("WaitingChargeAttack", true)).exceptionally(e -> {
 					context.connection().disconnect(Component.literal(e.getMessage()));
 					return null;
 				});

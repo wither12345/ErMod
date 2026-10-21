@@ -1,0 +1,10 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "top": "er:block/fortuna_enhancer_top",
+    "bottom": "minecraft:block/oak_planks",
+    "side": "er:block/fortuna_enhancer",
+    "particle": "er:block/fortuna_enhancer"
+  },
+  "render_type": "solid"
+}

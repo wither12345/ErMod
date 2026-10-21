@@ -3,6 +3,7 @@ package net.mcreator.er.item;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.network.ErItemVariables;
 
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
@@ -20,7 +21,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.core.component.DataComponents;
 
 import net.mcreator.er.init.ErModItems;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
+import org.jetbrains.annotations.NotNull;
 
 public class ExperienceBook extends Item {
 	int value;
@@ -30,11 +32,15 @@ public class ExperienceBook extends Item {
 		this.value = value;
 	}
 
+	public int getValue() {
+		return this.value;
+	}
+
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
+	public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level world, @NotNull Player entity, @NotNull InteractionHand hand) {
 		InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
 		ItemStack stack = entity.getItemInHand(hand) ;
-		if (world instanceof ServerLevel level) {
+		if (world instanceof ServerLevel) {
 			while (applyExp(stack, entity) && entity.isShiftKeyDown());
 		}
 		return ar;
@@ -42,8 +48,9 @@ public class ExperienceBook extends Item {
 
 	private boolean applyExp(ItemStack stack, Player player){
 		ErItemVariables.PlayerVariables _vars = player.getData(ErItemVariables.PLAYER_VARIABLES);
-		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortunas && stack.getCount() > 0) {
-			if(_vars.Stella_Fortuna.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1 >= StellaFortunas.getMaxLevel(_vars.Stella_Fortuna.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("ascension"))){
+        FortunaData data = FortunaData.get(_vars.Stella_Fortuna);
+		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna && stack.getCount() > 0) {
+			if(data.level() >= FortunaData.getMaxLevel(data.ascension())){
 				return false ;
 			}
 			if(player instanceof ServerPlayer serverPlayer && !(serverPlayer.gameMode.getGameModeForPlayer() == GameType.CREATIVE)) {
@@ -97,7 +104,7 @@ public class ExperienceBook extends Item {
 				}
 				stack.shrink(1);
 			}
-			StellaFortunas.addExptoPlayer(player, this.value);
+			StellaFortuna.addExpToPlayer(player, this.value);
 			return true ;
 		}
 		return false ;

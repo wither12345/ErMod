@@ -2,17 +2,20 @@ package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import net.wither.er.api.EventListener;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class AuraContainer {
     private final ArrayList<SingleElementalContainer> containersList ;
-    private final Object owner ;
+    private final IAuraContainerOwner owner ;
 
-    public AuraContainer(Object owner){
+    public AuraContainer(IAuraContainerOwner owner){
         this.owner = owner;
         containersList = new ArrayList<>(Element.Category.values().length) ;
         for(Element.Category category : Element.Category.values()){
@@ -50,8 +53,8 @@ public class AuraContainer {
     }
 
     public void update(){
-        if(owner instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.er$updateElements(this.toInt());
+        if(owner instanceof IAuraContainerOwner auraOwner){
+            auraOwner.er$updateElements(this.toInt());
         }
     }
 
@@ -65,8 +68,16 @@ public class AuraContainer {
         }
     }
 
-    public Object getOwner() {
+    public @NotNull IAuraContainerOwner getOwner() {
         return owner;
+    }
+
+    public Level getLevel(){
+        return owner.er$getLevel();
+    }
+
+    public Vec3 getPosition(){
+        return owner.er$getPosition();
     }
 
     public int toInt(){
@@ -85,11 +96,6 @@ public class AuraContainer {
     public static class AuraCooldown{
         public int time ;
         public int count ;
-
-        public AuraCooldown(){
-            this.time = 50 ;
-            this.count = 2 ;
-        }
 
         public AuraCooldown(int count , int time){
             this.count = count ;

@@ -16,7 +16,7 @@ import net.wither.er.init.DataComponentsRegister;
 public record WeaponLevelData(int level, int ascension, int experience, int total_experience) {
     public static final TagKey<Item> not_enhanceable =  ItemTags.create(ResourceLocation.parse("er:not_enhanceable")) ;
 
-    public static final Codec<WeaponLevelData> BASIC_CODEC = RecordCodecBuilder.create(instance ->
+    public static final Codec<WeaponLevelData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.INT.fieldOf("level").forGetter(WeaponLevelData::level),
                     Codec.INT.fieldOf("ascension").forGetter(WeaponLevelData::ascension),
@@ -24,7 +24,7 @@ public record WeaponLevelData(int level, int ascension, int experience, int tota
                     Codec.INT.fieldOf("total_experience").forGetter(WeaponLevelData::total_experience)
             ).apply(instance, WeaponLevelData::new)
     );
-    public static final StreamCodec<RegistryFriendlyByteBuf, WeaponLevelData> BASIC_STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, WeaponLevelData> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, WeaponLevelData::level,
             ByteBufCodecs.INT, WeaponLevelData::ascension,
             ByteBufCodecs.INT, WeaponLevelData::experience,
@@ -58,19 +58,19 @@ public record WeaponLevelData(int level, int ascension, int experience, int tota
             default -> 1;
         };
         if (level >= 80) {
-            return (int) (Math.ceil((Math.pow(level, 2) * 100 - level * 15128.9 + 575654.6) * multi) * 25);
+            return (int) Math.ceil((level * level * 100 - level * 15128.9 + 575654.6) * multi) * 25;
         } else if (level >= 70) {
-            return (int) (Math.ceil((Math.pow(level, 2) * 0.95 + level * 24.8 + 81) * multi) * 25);
+            return (int) Math.ceil((level * level * 0.95 + level * 24.8 + 81) * multi) * 25;
         } else if (level >= 60) {
-            return (int) (Math.ceil(((Math.pow(level, 2) * 0.8 + level * 36.42) - 370) * multi) * 25);
+            return (int) Math.ceil(((level * level * 0.8 + level * 36.42) - 370) * multi) * 25;
         } else if (level >= 50) {
-            return (int) (Math.ceil(((Math.pow(level, 2) * 0.8 + level * 27) - 109.8) * multi) * 25);
+            return (int) Math.ceil(((level * level * 0.8 + level * 27) - 109.8) * multi) * 25;
         } else if (level >= 40) {
-            return (int) (Math.ceil(((Math.pow(level, 2) * 0.8 + level * 25.3) - 89.7) * multi) * 25);
+            return (int) Math.ceil(((level * level * 0.8 + level * 25.3) - 89.7) * multi) * 25;
         } else if (level >= 20) {
-            return (int) (Math.ceil(((Math.pow(level, 2) * 0.8 + level * 20.6) - 21) * multi) * 25);
+            return (int) Math.ceil(((level * level * 0.8 + level * 20.6) - 21) * multi) * 25;
         }
-        return (int) (Math.ceil((Math.pow(level, 2) * 0.9 + level * 14.8 + 21.2) * multi) * 25);
+        return (int) Math.ceil((level * level * 0.9 + level * 14.8 + 21.2) * multi) * 25;
     }
 
     public static int getItemWeaponStar(ItemStack stack){

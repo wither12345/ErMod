@@ -20,21 +20,12 @@ import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Matrix4f;
 
 public class RenderSpecialDamage {
-    public static void renderLunarText(MultiBufferSource source, Camera camera, String string, double x, double y, double z, int color, float scaling, RenderDamageAmount.DamageDisplayType type) {
+    public static void renderText(MultiBufferSource source, Camera camera, PoseStack pose, String string, int color, RenderDamageAmount.Display type) {
         Minecraft minecraft = Minecraft.getInstance();
         if (camera.isInitialized()) {
-            PoseStack pose = new PoseStack();
             Font font = minecraft.font;
-            double d0 = camera.getPosition().x;
-            double d1 = camera.getPosition().y;
-            double d2 = camera.getPosition().z;
-            pose.pushPose();
-            pose.translate((float) (x - d0), (float) (y - d1) + 0.07F, (float) (z - d2));
-            pose.mulPose(camera.rotation());
-            pose.scale(scaling, -scaling, scaling);
             float f = (float) (-font.width(string)) / 2.0F;
             drawInternal(font, string, f, color, pose.last().pose(), source, font.isBidirectional(), type);
-            pose.popPose();
         }
     }
 
@@ -42,7 +33,7 @@ public class RenderSpecialDamage {
         return (p_92720_ & -67108864) == 0 ? p_92720_ | -16777216 : p_92720_;
     }
 
-    private static void drawInternal(Font font, String string, float f, int color, Matrix4f matrix4f1, MultiBufferSource multiBufferSource, boolean flag, RenderDamageAmount.DamageDisplayType type) {
+    private static void drawInternal(Font font, String string, float f, int color, Matrix4f matrix4f1, MultiBufferSource multiBufferSource, boolean flag, RenderDamageAmount.Display type) {
         if (flag) {
             string = font.bidirectionalShaping(string);
         }
@@ -53,12 +44,12 @@ public class RenderSpecialDamage {
         renderText(font, string, f, color, matrix4f, multiBufferSource, type);
     }
 
-    private static void renderText(Font font, String p_273765_, float f, int color, Matrix4f matrix4f, MultiBufferSource multiBufferSource, RenderDamageAmount.DamageDisplayType type) {
+    private static void renderText(Font font, String p_273765_, float f, int color, Matrix4f matrix4f, MultiBufferSource multiBufferSource, RenderDamageAmount.Display type) {
         StringRenderOutput font$stringrenderoutput = new StringRenderOutput(multiBufferSource, font, f, (float) 0.0, color, false, matrix4f, 15728880, type);
         StringDecomposer.iterateFormatted(p_273765_, Style.EMPTY, font$stringrenderoutput);
     }
 
-    private static void renderChar(IShadeGlyph bakedGlyph, boolean italic, float x, float y, Matrix4f matrix4f, VertexConsumer vertexConsumer, float r, float g, float b, float a, int packedLightCoords, RenderDamageAmount.DamageDisplayType type, boolean shadow) {
+    private static void renderChar(IShadeGlyph bakedGlyph, boolean italic, float x, float y, Matrix4f matrix4f, VertexConsumer vertexConsumer, float r, float g, float b, float a, int packedLightCoords, RenderDamageAmount.Display type, boolean shadow) {
         int count = ERClientConfig.DAMAGE_CUTTING.get();
         if(shadow){
             bakedGlyph.er$render(0, 1, italic, x, y, matrix4f, vertexConsumer,
@@ -108,11 +99,11 @@ public class RenderSpecialDamage {
         private final Matrix4f pose;
         private final int packedLightCoords;
         private final Font.DisplayMode mode = Font.DisplayMode.NORMAL;
-        private final RenderDamageAmount.DamageDisplayType type;
+        private final RenderDamageAmount.Display type;
         float x;
         float y;
 
-        public StringRenderOutput(MultiBufferSource bufferSource, Font font, float x, float y, int argb, boolean dropShadow, Matrix4f matrix4f, int packedLightCoords, RenderDamageAmount.DamageDisplayType type) {
+        public StringRenderOutput(MultiBufferSource bufferSource, Font font, float x, float y, int argb, boolean dropShadow, Matrix4f matrix4f, int packedLightCoords, RenderDamageAmount.Display type) {
             this.bufferSource = bufferSource;
             this.font = font;
             this.x = x;
@@ -129,10 +120,11 @@ public class RenderSpecialDamage {
         }
 
         @Override
-        public boolean accept(int p_92967_, Style style, int p_92969_) {
+        public boolean accept(int p_92967_, Style style, int chr) {
             FontSet fontset = font.getFontSet(style.getFont());
-            GlyphInfo glyphinfo = fontset.getGlyphInfo(p_92969_, font.filterFishyGlyphs);
-            BakedGlyph bakedglyph = style.isObfuscated() && p_92969_ != 32 ? fontset.getRandomGlyph(glyphinfo) : fontset.getGlyph(p_92969_);
+            GlyphInfo glyphinfo = fontset.getGlyphInfo(chr, font.filterFishyGlyphs);
+
+            BakedGlyph bakedglyph = style.isObfuscated() && chr != 32 ? fontset.getRandomGlyph(glyphinfo) : fontset.getGlyph(chr);
             boolean flag = style.isBold();
             TextColor textcolor = style.getColor();
             float r;
@@ -148,13 +140,12 @@ public class RenderSpecialDamage {
                 g = this.g;
                 b = this.b;
             }
-
             if (!(bakedglyph instanceof EmptyGlyph) && bakedglyph instanceof IShadeGlyph shadeGlyph) {
                 float f4 = this.dropShadow ? glyphinfo.getShadowOffset() : 0.0F;
                 VertexConsumer vertexconsumer = this.bufferSource.getBuffer(bakedglyph.renderType(this.mode));
                 Matrix4f bg = new Matrix4f(this.pose).translate(0, 0, -0.01f);
                 renderChar(shadeGlyph, style.isItalic(), this.x + f4, this.y + f4, this.pose, vertexconsumer, r, g, b, this.a, this.packedLightCoords, this.type, false);
-                renderChar(shadeGlyph, style.isItalic(), this.x + f4 + 1, this.y + f4 + 1, bg, vertexconsumer, r, g, b, this.a, this.packedLightCoords, this.type, true);
+                renderChar(shadeGlyph, style.isItalic(), this.x + f4 + glyphinfo.getShadowOffset(), this.y + f4 + glyphinfo.getShadowOffset(), bg, vertexconsumer, r, g, b, this.a, this.packedLightCoords, this.type, true);
             }
 
             float f6 = glyphinfo.getAdvance(flag);

@@ -2,6 +2,7 @@ package net.wither.er.elements;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.init.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,6 +30,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.wither.er.client.renderer.damge.ReactionDisplay;
+import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.entity.reaction.BloomEntity;
 import net.wither.er.entity.reaction.LunarChargedCloud;
 import net.wither.er.init.*;
@@ -38,7 +41,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -95,8 +97,8 @@ public abstract class Element {
     }
 
     public void end(AuraContainer container){
-        if(container.getOwner() instanceof AuraContainerInterface auraContainerInterface){
-            auraContainerInterface.er$updateElements(container.toInt());
+        if(container.getOwner() instanceof IAuraContainerOwner auraOwner){
+            auraOwner.er$updateElements(container.toInt());
         }
     }
 
@@ -180,6 +182,7 @@ public abstract class Element {
                                           @Nullable Entity applier){
         if(auraContainer.getOwner() instanceof LivingEntity entity && entity.level() instanceof ServerLevel level){
             if(isLunar(applier)){
+                ReactionDisplay.trigger(Reaction.LUNAR_CHARGED, auraContainer.getOwner(), Category.ELECTRO, RenderDamageAmount.Display.LUNAR);
                 final Vec3 _center = entity.position();
                 List<LunarChargedCloud> clouds = level.getEntitiesOfClass(LunarChargedCloud.class, new AABB(_center, _center).inflate(20 / 2d), e -> true);
                 if(clouds.isEmpty())
@@ -200,8 +203,10 @@ public abstract class Element {
                                   EntityHurtEvent.DamageModifier modifier,
                                   @Nullable Entity applier){
         float gauge_reduction = reacting(source , boundAura) ;
-        if(source.getElement() != ElementRegistry.FROZEN.get())
-            auraContainer.addAura(new ElementSource(ElementRegistry.FROZEN.get(), null , gauge_reduction * 2, true) , null,applier);
+        if(source.getElement() != ElementRegistry.FROZEN.get()) {
+            ReactionDisplay.trigger(Reaction.FROZEN, auraContainer.getOwner(), Category.ELECTRO, RenderDamageAmount.Display.NORMAL);
+            auraContainer.addAura(new ElementSource(ElementRegistry.FROZEN.get(), null, gauge_reduction * 2, true), null, applier);
+        }
         return gauge_reduction;
     }
 
@@ -211,8 +216,10 @@ public abstract class Element {
                                    ElementSource source,
                                    EntityHurtEvent.DamageModifier modifier,
                                    @Nullable Entity applier){
-        if(source.getElement() != ElementRegistry.BURNING.get())
-            auraContainer.addAura(new ElementSource(ElementRegistry.BURNING.get(), null , 1.6f, true) , null,applier);
+        if(source.getElement() != ElementRegistry.BURNING.get()) {
+            ReactionDisplay.trigger(Reaction.BURNING, auraContainer.getOwner(), Category.PYRO, RenderDamageAmount.Display.NORMAL);
+            auraContainer.addAura(new ElementSource(ElementRegistry.BURNING.get(), null, 1.6f, true), null, applier);
+        }
         return 0;
     }
 
@@ -223,6 +230,7 @@ public abstract class Element {
                                    EntityHurtEvent.DamageModifier modifier,
                                    @Nullable Entity applier){
         float gauge_reduction = reacting(source, boundAura) ;
+        ReactionDisplay.trigger(Reaction.QUICKEN, auraContainer.getOwner(), Category.DENDRO, RenderDamageAmount.Display.NORMAL);
         auraContainer.addAura(new ElementSource(ElementRegistry.QUICKEN.get(), null , gauge_reduction, true) , null,applier);
         return gauge_reduction;
     }
@@ -233,14 +241,15 @@ public abstract class Element {
                                     ElementSource source,
                                     EntityHurtEvent.DamageModifier modifier,
                                     @Nullable Entity applier){
-        if (modifier != null && !modifier.locked && auraContainer.getOwner() instanceof Entity entity) {
-            Level level = entity.level();
-            Vec3 pos = entity.position();
+        if (modifier != null && !modifier.locked) {
+            Level level = auraContainer.getLevel();
+            Vec3 pos = auraContainer.getPosition();
+            ReactionDisplay.trigger(Reaction.OVERLOADED, auraContainer.getOwner(), Category.PYRO, RenderDamageAmount.Display.NORMAL);
 
             if (level instanceof ServerLevel _level) {
                 _level.sendParticles(ParticleTypes.EXPLOSION, pos.x, pos.y, pos.z, 1, 0, 0,
                         0, 0);
-                _level.playSound(null, entity.getOnPos(), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.explode")), SoundSource.NEUTRAL, 1, 1);
+                _level.playSound(null, BlockPos.containing(pos), BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse("entity.generic.explode")), SoundSource.NEUTRAL, 1, 1);
             }
             level.getEntitiesOfClass(LivingEntity.class, new AABB(pos, pos).inflate(3), e -> true).stream()
                     .filter(e -> EntityHurtEvent.shouldHurt(e, applier))
@@ -248,7 +257,7 @@ public abstract class Element {
                             ElementSource.createDamageSource(
                                     level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(OVERLOAD),
                                     applier,
-                                    new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er.overloaded.reaction"), 0, true)
+                                    new ElementSource(ElementRegistry.PYRO.get(), ResourceLocation.parse("er:overloaded.reaction"), 0, true)
                             ), 11 * EntityHurtEvent.getLevelMultiply(applier)));
             modifier.locked = true;
         }
@@ -261,11 +270,13 @@ public abstract class Element {
                                  ElementSource source,
                                  EntityHurtEvent.DamageModifier modifier,
                                  @Nullable Entity applier){
-        if (auraContainer.getOwner() instanceof Entity entity && entity.level() instanceof ServerLevel serverLevel) {
-            BloomEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, entity.getOnPos(), MobSpawnType.MOB_SUMMONED);
+        if (auraContainer.getLevel() instanceof ServerLevel serverLevel) {
+            BlockPos pos = BlockPos.containing(auraContainer.getPosition());
+            ReactionDisplay.trigger(Reaction.BLOOM, auraContainer.getOwner(), Category.DENDRO, RenderDamageAmount.Display.NORMAL);
+            BloomEntity entityToSpawn = ErModEntities.BLOOM_ENTITY.get().spawn(serverLevel, pos, MobSpawnType.MOB_SUMMONED);
             if(entityToSpawn != null) {
                 entityToSpawn.setOwner(applier);
-                entityToSpawn.moveTo(entity.position().offsetRandom(RandomSource.create(), 1));
+                entityToSpawn.moveTo(auraContainer.getPosition().offsetRandom(RandomSource.create(), 1));
             }
         }
         return reacting(source , boundAura , 0.5f) ;
@@ -277,24 +288,23 @@ public abstract class Element {
                                         ElementSource source,
                                         EntityHurtEvent.DamageModifier modifier,
                                         @Nullable Entity applier){
-        if(auraContainer.getOwner() instanceof Entity entity) {
-            final Vec3 _center = entity.position();
-            Level level = entity.level();
-            List<LivingEntity> _entfound = level.getEntitiesOfClass(LivingEntity.class, new AABB(_center, _center).inflate(2), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center))).toList();
-            for (LivingEntity entity_iterator : _entfound) {
-                if (entity_iterator != applier) {
-                    entity_iterator.hurt(
-                            ElementSource.createDamageSource(
-                                    level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT),
-                                    applier,
-                                    new ElementSource(ElementRegistry.CRYO.get(), ResourceLocation.parse("er.superconduct.reaction"), 0, true)
-                            ),
-                            2.4f * EntityHurtEvent.getLevelMultiply(applier));
-                    if (!entity_iterator.level().isClientSide())
-                        entity_iterator.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT, 144, 0, false, false));
-                }
-            }
-        }
+        final Vec3 pos = auraContainer.getPosition();
+        Level level = auraContainer.getLevel();
+        if (level instanceof ServerLevel serverLevel)
+            serverLevel.sendParticles(ParticleTypes.SNOWFLAKE, (pos.x - 1.5), pos.y + 1, (pos.z - 1.5), 8, 1.5, 0, 1.5, 0);
+
+        ReactionDisplay.trigger(Reaction.SUPERCONDUCT, auraContainer.getOwner(), Category.CRYO, RenderDamageAmount.Display.NORMAL);
+
+        level.getEntitiesOfClass(LivingEntity.class, new AABB(pos, pos).inflate(2), living -> !EntityHurtEvent.shouldHurt(living, applier)).forEach(living -> {
+            living.hurt(
+                    ElementSource.createDamageSource(
+                            level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(SUPERCONDUCT),
+                            applier,
+                            new ElementSource(ElementRegistry.CRYO.get(), ResourceLocation.parse("er:superconduct.reaction"), 0, true)
+                    ),
+                    2.4f * EntityHurtEvent.getLevelMultiply(applier));
+            living.addEffect(new MobEffectInstance(ErModMobEffects.SUPERCONDUCT, 144, 0, false, false));
+        });
         return reacting(source , boundAura) ;
     }
 

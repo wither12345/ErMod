@@ -10,13 +10,14 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.wither.er.item.Vision;
 import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.data.ErFoodData;
+import net.wither.er.item.data.FortunaData;
+import net.wither.er.item.data.NREData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;
 import net.wither.er.item.data.artifactdata.MinorAffix;
 import net.wither.er.item.data.weapon.WeaponAttributeData;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponRefinement;
-import net.wither.er.item.data.NREData;
 
 
 public class DataComponentsRegister {
@@ -25,8 +26,8 @@ public class DataComponentsRegister {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<WeaponLevelData>> WEAPON_LEVEL = REGISTRAR.registerComponentType(
             "weapon_level",
             builder -> builder
-                    .persistent(WeaponLevelData.BASIC_CODEC)
-                    .networkSynchronized(WeaponLevelData.BASIC_STREAM_CODEC)
+                    .persistent(WeaponLevelData.CODEC)
+                    .networkSynchronized(WeaponLevelData.STREAM_CODEC)
     );
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<WeaponAttributeData>> WEAPON_ATTR = REGISTRAR.registerComponentType(
             "weapon_attr",
@@ -86,5 +87,11 @@ public class DataComponentsRegister {
             builder -> builder
                     .persistent(NREData.CODEC)
                     .networkSynchronized(NREData.STREAM_CODEC)
+    );
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FortunaData>> FORTUNA = REGISTRAR.registerComponentType(
+            "fortuna",
+            builder -> builder
+                    .persistent(FortunaData.CODEC)
+                    .networkSynchronized(FortunaData.STREAM_CODEC)
     );
 }

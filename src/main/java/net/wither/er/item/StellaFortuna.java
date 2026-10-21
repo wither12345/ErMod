@@ -12,13 +12,13 @@
  *
  * This class will be added in the mod root package.
 */
-package net.mcreator.er;
+package net.wither.er.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -33,7 +33,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
@@ -47,6 +46,7 @@ import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.data.weapon.OnBurstAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.ErItemVariables;
@@ -57,7 +57,7 @@ import java.util.List;
 
 import static net.minecraft.core.registries.Registries.DAMAGE_TYPE;
 
-public abstract class StellaFortunas extends Item {
+public abstract class StellaFortuna extends Item {
 	public final float health;
 	public final float damage;
 	public final float armor;
@@ -68,7 +68,7 @@ public abstract class StellaFortunas extends Item {
 	private static final ResourceLocation locationDamage = ResourceLocation.parse("er:entity_level.damage");
 	private static final ResourceLocation locationArmor = ResourceLocation.parse("er:entity_level.armor");
 
-	public StellaFortunas(Properties properties, float health, float damage, float armor, boolean levelType) {
+	public StellaFortuna(Properties properties, float health, float damage, float armor, boolean levelType) {
 		super(properties.stacksTo(1));
 		this.health = health;
 		this.damage = damage;
@@ -76,31 +76,35 @@ public abstract class StellaFortunas extends Item {
 		this.levelType = levelType;
 	}
 
-	public abstract void ElementalSkillStart(LivingEntity entity);
+	public abstract void elementalSkillStart(LivingEntity entity);
 
-	public abstract void ElementalSkillEnd(LivingEntity entity);
+	public abstract void elementalSkillEnd(LivingEntity entity);
 
 	public abstract float getEnergyCost(LivingEntity entity);
 
-	public abstract void ElementalBurstStart(LivingEntity entity);
+	public abstract void elementalBurstStart(LivingEntity entity);
 
-	public abstract void ElementalBurstEnd(LivingEntity entity);
+	public abstract void elementalBurstEnd(LivingEntity entity);
 
 	public abstract void onTick(LevelAccessor world, LivingEntity entity, double x, double y, double z);
 
 	public abstract boolean hasAnimation(LivingEntity entity);
 
-	public abstract int getMaxNormalAttack(LivingEntity entity);
+	public abstract int getNormal(LivingEntity entity);
 
-	public abstract int getAnimationTick(LivingEntity entity, int combo, float speed);
+	public abstract float getAnimationTick(LivingEntity entity, int animationId);
 
-	public abstract void AnimationTicking(LivingEntity entity, int combo, int time, float speed);
+	public abstract void animationTicking(LivingEntity entity, int animationId, float time, float speed);
 
-	public abstract int getFinishTick(LivingEntity entity, int combo, float speed);
+	public abstract float getFinishTick(LivingEntity entity, int animationId);
 
-	public abstract AnimationDefinition getAnimation(int combo);
+	public abstract AnimationDefinition getAnimation(int animationId);
 
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
+
+    public boolean hasSkill(){
+        return true;
+    }
 
 	public void onBurst(LivingEntity entity){
         if(entity instanceof IErEntity erEntity){
@@ -120,13 +124,15 @@ public abstract class StellaFortunas extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void appendHoverText(ItemStack itemstack, Item.@NotNull TooltipContext context, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
-		if (itemstack.getItem() instanceof StellaFortunas stella) {
-			int level = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1;
-			int experience = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("experience");
-			int percent = Math.max(Math.min(40 * experience / getExpReq(level), 40), 0);
-			int ascension = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("ascension");
+		if (itemstack.getItem() instanceof StellaFortuna stella) {
+			FortunaData data = FortunaData.get(itemstack);
+			int level = data.level();
+			int experience = data.experience();
+			int percent = Math.max(Math.min(40 * experience / FortunaData.getExpReq(level), 40), 0);
+			int ascension = data.ascension();
+            list.add(Component.literal(ModifyTooltip.getAscension(ascension, 5)));
             list.add(Component.literal("+" + new java.text.DecimalFormat("##").format(level)));
-            list.add(Component.literal(experience + "/" + getExpReq(level)));
+            list.add(Component.literal(experience + "/" + FortunaData.getExpReq(level)));
 			String greenBars = "|".repeat(percent);
 			String whiteBars = "|".repeat(40 - percent);
 			list.add(Component.literal("§a" + greenBars + "§f" + whiteBars));
@@ -136,59 +142,46 @@ public abstract class StellaFortunas extends Item {
 		}
 	}
 
-	public float getSpeed(LivingEntity entity, int combo) {
-		if (combo < this.getMaxNormalAttack(entity)) {
-			return (float) (entity.getAttribute(Attributes.ATTACK_SPEED).getValue());
-		}
-		return 1f;
-	}
+    public float getSpeed(LivingEntity entity, int animationId) {
+        if (animationId < this.getNormal(entity)) {
+            return entity.getAttribute(Attributes.ATTACK_SPEED) == null ? 1f : (float) (entity.getAttributeValue(Attributes.ATTACK_SPEED));
+        }
+        return 1f;
+    }
 
-	public static boolean addExptoItem(ItemStack item, int amount) {
-		int experience = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("experience") + amount;
-		int level = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1;
-		int ascension = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("ascension");
+    public boolean test(float nowTime, float speed, float performTick) {
+        return nowTime >= performTick && performTick > nowTime - speed;
+    }
+
+	public static boolean addExpToItem(ItemStack item, int amount) {
+		FortunaData data = FortunaData.get(item);
+		int experience = data.experience() + amount;
+		int level = data.level();
+		int ascension = data.ascension();
 		boolean changed = false;
-		while (experience >= getExpReq(level) && level < getMaxLevel(ascension)) {
-			experience -= getExpReq(level);
+		while (experience >= FortunaData.getExpReq(level) && level < FortunaData.getMaxLevel(ascension)) {
+			experience -= FortunaData.getExpReq(level);
 			level += 1;
 			changed = true;
 		}
-		final int exp = experience;
-		final int lv = level - 1;
-		CustomData.update(DataComponents.CUSTOM_DATA, item, tag -> tag.putInt("experience", exp));
-		CustomData.update(DataComponents.CUSTOM_DATA, item, tag -> tag.putInt("level", lv));
+		item.set(DataComponentsRegister.FORTUNA.get(), data.withEnhance(level, ascension, experience));
 		return changed;
 	}
 
-	public static void addExptoPlayer(Player entity, int amount) {
+	public static void addExpToPlayer(Player entity, int amount) {
 		ErItemVariables.PlayerVariables _vars = entity.getData(ErItemVariables.PLAYER_VARIABLES);
-		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortunas) {
-			if (addExptoItem(_vars.Stella_Fortuna, amount)) {
+		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna) {
+			if (addExpToItem(_vars.Stella_Fortuna, amount)) {
 				applyAttr(entity, _vars.Stella_Fortuna);
 			}
 		}
 	}
 
-	public static int getExpReq(int level) {
-		if (level <= 20)
-			return (int) (0.402 * level * level + 12.31 * level + 27.49);
-		if (level <= 40)
-			return (int) (0.555 * level * level + 17.56 * level - 46.63);
-		if (level <= 60)
-			return (int) (1.014 * level * level + 29.00 * level - 421.2);
-		if (level <= 80)
-			return (int) (1.815 * level * level + 43.60 * level - 1012);
-		return (int) (2300 * Math.exp(0.165 * (level - 80)));
-	}
-
-	public static int getMaxLevel(int ascension) {
-		return 90;
-	}
-
-	public static void applyAttr(LivingEntity entity, ItemStack item) {
-		if (item.getItem() instanceof StellaFortunas stella) {
-			int level = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("level") + 1;
-			int ascension = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getInt("ascension");
+    public static void applyAttr(LivingEntity entity, ItemStack item) {
+		if (item.getItem() instanceof StellaFortuna stella) {
+			FortunaData data = FortunaData.get(item);
+			int level = data.level();
+			int ascension = data.ascension();
 			entity.getAttribute(Attributes.MAX_HEALTH).addOrReplacePermanentModifier(new AttributeModifier(locationHealth, stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADD_VALUE));
 			entity.getAttribute(Attributes.ATTACK_DAMAGE).addOrReplacePermanentModifier(new AttributeModifier(locationDamage, stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADD_VALUE));
 			entity.getAttribute(Attributes.ARMOR).addOrReplacePermanentModifier(new AttributeModifier(locationArmor, stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADD_VALUE));

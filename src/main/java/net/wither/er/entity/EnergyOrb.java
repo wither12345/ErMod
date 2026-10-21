@@ -1,7 +1,7 @@
 package net.wither.er.entity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.mcreator.er.StellaFortunas;
+import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -171,7 +171,7 @@ public class EnergyOrb extends Entity {
 		if (this.age <= 15)
 			return;
 		if (player instanceof ServerPlayer serverplayer) {
-			if (player.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortunas fortuna) {
+			if (player.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortuna fortuna) {
 				ErCombatVariables.PlayerVariables vars = serverplayer.getData(ErCombatVariables.PLAYER_VARIABLES);
 				vars.energyAmount = Math.min(fortuna.getEnergyCost(player), vars.energyAmount + this.getAmount() * (float) player.getAttributeValue(ErModAttributes.ENERGY_RECHARGE) / 100);
 				vars.syncWithId(player, 0b00_0100_0000);

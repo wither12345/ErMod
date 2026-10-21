@@ -5,13 +5,14 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldStack;
 
 import java.util.List;
 
-public interface IErEntity {
+public interface IErEntity extends IAuraContainerOwner {
     List<ShieldStack> er$getShieldStacks();
     List<ErShield> er$getShields();
     void er$setShields(CompoundTag tag);
