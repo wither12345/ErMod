@@ -47,9 +47,9 @@ public abstract class StellaFortuna extends Item {
 	public final float damage;
 	public final float armor;
 	public final boolean levelType;
-	private static final UUID locationHealth = UUID.fromString("247D9294-24BF-E2C2-8991-6F7B17B51674") ;
-	private static final UUID locationDamage = UUID.fromString("7367D0DC-A141-2726-38D6-5174E16252FB") ;
-	private static final UUID locationArmor = UUID.fromString("BA6074B7-A319-664A-BDF0-9FF25C2F844D") ;
+	private static final UUID UUID_HEALTH = UUID.fromString("247D9294-24BF-E2C2-8991-6F7B17B51674") ;
+	private static final UUID UUID_DAMAGE = UUID.fromString("7367D0DC-A141-2726-38D6-5174E16252FB") ;
+	private static final UUID UUID_ARMOR = UUID.fromString("BA6074B7-A319-664A-BDF0-9FF25C2F844D") ;
     public static final ResourceKey<DamageType> SKILL = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:elemental_skill"));
     public static final ResourceKey<DamageType> BURST = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:elemental_burst"));
 
@@ -190,15 +190,15 @@ public abstract class StellaFortuna extends Item {
     }
 
 	public static void applyAttr(LivingEntity entity, ItemStack item) {
-		entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(locationHealth);
-		entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(locationDamage);
-		entity.getAttribute(Attributes.ARMOR).removeModifier(locationArmor);
+		entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(UUID_HEALTH);
+		entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(UUID_DAMAGE);
+		entity.getAttribute(Attributes.ARMOR).removeModifier(UUID_ARMOR);
 		if (item.getItem() instanceof StellaFortuna stella) {
 			int level = item.getOrCreateTag().getInt("level") + 1;
 			int ascension = item.getOrCreateTag().getInt("ascension");
-			entity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(locationHealth, "stella_health" ,stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADDITION));
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier(locationDamage, "stella_damage", stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADDITION));
-			entity.getAttribute(Attributes.ARMOR).addPermanentModifier(new AttributeModifier(locationArmor, "stella_armor", stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADDITION));
+			entity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(UUID_HEALTH, "stella_health" ,stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADDITION));
+			entity.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier(UUID_DAMAGE, "stella_damage", stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADDITION));
+			entity.getAttribute(Attributes.ARMOR).addPermanentModifier(new AttributeModifier(UUID_ARMOR, "stella_armor", stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADDITION));
 		}
 	}
 

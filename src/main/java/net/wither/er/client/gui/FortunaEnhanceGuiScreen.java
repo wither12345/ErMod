@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import net.wither.er.item.ModifyTooltip;
 import net.wither.er.item.data.FortunaData;
 import net.wither.er.world.inventory.FortunaEnhanceMenu;
@@ -38,6 +39,13 @@ public class FortunaEnhanceGuiScreen extends AbstractContainerScreen<FortunaEnha
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         this.updateButton();
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
+        // 1 号槽位为空但使用了玩家装备的命星时，补上物品提示。
+        if (this.menu.getSlot(1).getItem().isEmpty() && this.hoveredSlot == this.menu.getSlot(1) && this.menu.hasFortuna()) {
+            ItemStack equipped = this.menu.getFortunaStack();
+            if (!equipped.isEmpty()) {
+                guiGraphics.renderTooltip(this.font, equipped, mouseX, mouseY);
+            }
+        }
         this.renderTooltip(guiGraphics, mouseX, mouseY);
     }
 
@@ -66,6 +74,18 @@ public class FortunaEnhanceGuiScreen extends AbstractContainerScreen<FortunaEnha
             RenderSystem.setShaderColor(1, 1, 1, 1);
         }
 
+        // 槽位为空时，把玩家当前装备的命星作为“虚拟物品”绘制在槽位里。
+        if (this.menu.getSlot(1).getItem().isEmpty()) {
+            ItemStack equipped = this.menu.getFortunaStack();
+            if (equipped.getItem() instanceof StellaFortuna) {
+                int x = this.leftPos + this.menu.getSlot(1).x;
+                int y = this.topPos + this.menu.getSlot(1).y;
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.5F);
+                guiGraphics.renderItem(equipped, x, y);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1);
+            }
+        }
+
         RenderSystem.disableBlend();
     }
 
@@ -92,7 +112,7 @@ public class FortunaEnhanceGuiScreen extends AbstractContainerScreen<FortunaEnha
         else
             guiGraphics.drawString(this.font, this.menu.getExperience() + "/" + FortunaData.getExpReq(level), TEXT_X, 12, 0xFFFFFF, false);
 
-        StellaFortuna fortuna = (StellaFortuna) this.menu.getSlot(1).getItem().getItem();
+        StellaFortuna fortuna = (StellaFortuna) this.menu.getFortunaStack().getItem();
         float oldScale = StellaFortuna.levelScaling(level, fortuna.levelType, this.menu.getAscension());
         float newScale = StellaFortuna.levelScaling(this.menu.getNewLevel(), fortuna.levelType, this.menu.getNewAscension());
         guiGraphics.drawString(this.font, ModifyTooltip.getAscension(this.menu.getNewAscension(), 5), TEXT_X, 21, 0xFFFFFF);
@@ -181,6 +201,13 @@ public class FortunaEnhanceGuiScreen extends AbstractContainerScreen<FortunaEnha
         if (value >= 10_000)
             return String.format(Locale.ROOT, "%.1fk", value / 1_000.0);
         return String.valueOf(value);
+    }
+
+    @Override
+    protected void containerTick() {
+        super.containerTick();
+        // 玩家装备数据同步到客户端后立即刷新预览。
+        this.menu.refreshPreview();
     }
 
     @Override

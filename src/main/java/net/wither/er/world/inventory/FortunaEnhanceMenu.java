@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.wither.er.init.ErMenus;
 import net.wither.er.item.data.FortunaData;
+import net.wither.er.network.ErItemVariables;
 import net.wither.er.recipe.ascension.AscensionRecipe;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 import org.jetbrains.annotations.NotNull;
@@ -176,7 +177,7 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         for (int i = 0; i < 4; i++)
             this.shrink[i] = 0;
 
-        ItemStack stack = this.getSlot(1).getItem();
+        ItemStack stack = this.getFortunaStack();
         if (!(stack.getItem() instanceof StellaFortuna)) {
             this.level = 0;
             this.experience = 0;
@@ -330,14 +331,18 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     }
 
     /**
-     * 执行一次升级或突破，并把结果直接写回 1 号槽位的命星。
+     * 执行一次升级或突破。1 号槽位为空时，直接强化玩家当前装备的命星，并把结果同步回玩家数据。
      */
     public void enhance() {
         this.predict();
         if (!this.canEnhance)
             return;
 
-        ItemStack stack = this.getSlot(1).getItem();
+        // 1 号槽位为空时，强化玩家当前装备的命星。
+        boolean equipped = this.getSlot(1).getItem().isEmpty();
+        ItemStack stack = equipped
+                ? this.entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new).Stella_Fortuna
+                : this.getSlot(1).getItem();
         if (!(stack.getItem() instanceof StellaFortuna))
             return;
 
@@ -361,7 +366,16 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
                 ? current.withEnhance(current.level(), finalAscension, current.experience())
                 : current.withEnhance(finalLevel, current.ascension(), finalExperience);
         updated.writeTo(stack);
-        this.getSlot(1).setChanged();
+        if (equipped) {
+            // 同步回玩家数据并立即刷新命星提供的属性。
+            ErItemVariables.PlayerVariables vars = this.entity
+                    .getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new);
+            vars.Stella_Fortuna = stack;
+            vars.syncToClient(this.entity);
+            StellaFortuna.applyAttr(this.entity, stack);
+        } else {
+            this.getSlot(1).setChanged();
+        }
 
         this.predict();
         this.broadcastChanges();
@@ -381,7 +395,23 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     }
 
     public boolean hasFortuna() {
-        return this.getSlot(1).getItem().getItem() instanceof StellaFortuna;
+        return this.getFortunaStack().getItem() instanceof StellaFortuna;
+    }
+
+    /**
+     * 1 号槽位为空时，回退到玩家当前装备的命星。
+     * 这样打开强化界面时无需先把装备中的命星取下来再放进去。
+     */
+    public ItemStack getFortunaStack() {
+        ItemStack stack = this.getSlot(1).getItem();
+        if (!stack.isEmpty())
+            return stack;
+        return this.entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new).Stella_Fortuna;
+    }
+
+    /** 供客户端每次 tick 刷新预览，保证玩家数据同步后界面立即更新。 */
+    public void refreshPreview() {
+        this.predict();
     }
 
     public boolean hasExpMaterial() {
