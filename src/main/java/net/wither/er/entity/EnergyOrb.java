@@ -1,7 +1,7 @@
 package net.wither.er.entity;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

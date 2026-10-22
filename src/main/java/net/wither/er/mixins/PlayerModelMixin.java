@@ -1,7 +1,7 @@
 package net.wither.er.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
@@ -68,7 +68,7 @@ public abstract class PlayerModelMixin<T extends LivingEntity> extends HumanoidM
             Item stellaFortuna = entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem();
             int animationId = entity.getData(ErCombatVariables.PLAYER_VARIABLES).animationId;
             if (stellaFortuna instanceof StellaFortuna SF)
-                this.animate(((IAnimation) entity).er$getState(), SF.getAnimation(animationId), ageInTicks, SF.getFinishTick(entity, animationId));
+                this.animate(((IAnimation) entity).er$getState(), SF.getAnimation(animationId), ageInTicks, SF.getSpeed(entity, animationId));
         }
     };
 

@@ -1,7 +1,7 @@
 package net.mcreator.er.entity;
 
 import net.mcreator.er.EntityHurtEvent;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.item.MemoryofRovingGalesItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;

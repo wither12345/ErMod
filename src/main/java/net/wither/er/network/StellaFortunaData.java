@@ -1,7 +1,7 @@
 package net.wither.er.network;
 
 import io.netty.buffer.ByteBuf;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.codec.ByteBufCodecs;

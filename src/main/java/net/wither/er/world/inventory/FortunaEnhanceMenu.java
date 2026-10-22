@@ -1,6 +1,6 @@
 package net.wither.er.world.inventory;
 
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.item.ExperienceBook;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;

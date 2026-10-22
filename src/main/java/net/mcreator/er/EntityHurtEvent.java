@@ -36,17 +36,16 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.wither.er.client.renderer.damge.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
-import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
-import net.wither.er.item.StellaFortuna;
 import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.DelusionData;
@@ -55,8 +54,10 @@ import net.wither.er.item.data.weapon.BeAttackedAbility;
 import net.wither.er.item.data.weapon.DamageAbility;
 import net.wither.er.item.data.weapon.InfusionAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
+import net.wither.er.network.MuteShakeData;
 import net.wither.er.shield.ShieldStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -110,8 +111,10 @@ public class EntityHurtEvent {
                     modifier.crit_multiply += data.critMulti();
                     modifier.common_multiply += data.dmgMulti();
                     float dmg = amount * data.healthConsume();
-                    if(living instanceof ServerPlayer player)
+                    if(living instanceof ServerPlayer player) {
+                        PacketDistributor.sendToPlayer(player, new MuteShakeData());
                         AdvancementTriggerRegister.DELUSION.get().trigger(player, dmg);
+                    }
                     if(living.getHealth() >= dmg)
                         living.setHealth(living.getHealth() - dmg);
                     else

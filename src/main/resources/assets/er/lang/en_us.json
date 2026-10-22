@@ -264,7 +264,6 @@
   "item.er.lucky_dogs_goblet": "Lucky Dog\u0027s Goblet",
   "item.er.lucky_dogs_clover": "Lucky Dog\u0027s Clover",
   "block.er.artifact_transmuter": "Artifact Transmuter",
-  "block.er.fortuna_enhancer": "Fortuna Enhancer",
   "item.er.sanctifying_unction": "Sanctifying Unction",
   "item.er.sanctifying_essence": "Sanctifying Essence",
   "gui.er.artifact_transmuter_gui.button_enhance": "Enhance",
@@ -577,5 +576,10 @@
   "gui.er.fortuna_enhance.status_max": "Maximum level reached",
   "text.er.fortuna_health": "HP",
   "text.er.fortuna_attack": "ATK",
-  "text.er.fortuna_armor": "DEF"
+  "text.er.fortuna_armor": "DEF",
+  "block.er.fortuna_enhancer": "Fortuna Enhancer",
+  "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
+  "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
+  "item.er.enhancement_ore": "Enhancement Ore",
+  "item.er.empty_fortuna": "Empty Fortuna"
 }

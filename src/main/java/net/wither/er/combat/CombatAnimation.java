@@ -1,7 +1,7 @@
 package net.wither.er.combat;
 
 import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -83,16 +83,14 @@ public class CombatAnimation {
 		Item item = stellaFortuna.getItem();
 		ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
 		if (item instanceof StellaFortuna SFItem && SFItem.hasAnimation(entity)) {
-			int combo = vars.animationId;
-			if (vars.animationTime > SFItem.getFinishTick(entity, combo) || !entity.onGround()) {
+			if (vars.animationTime > SFItem.getFinishTick(entity, vars.animationId) || !entity.onGround())
 				return true;
-			}
 			if (vars.animationTime > 0 && vars.animationId < SFItem.getNormal(entity) - 1)
 				vars.animationId += 1;
 			else
 				vars.animationId = 0;
 			entity.setSprinting(false);
-			vars.animationTime = SFItem.getAnimationTick(entity, combo);
+			vars.animationTime = SFItem.getAnimationTick(entity, vars.animationId);
             vars.syncWithId(entity, 0b00_0000_0011);
 			return true;
 		}

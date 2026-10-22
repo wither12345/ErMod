@@ -3,7 +3,8 @@ package net.wither.er.client.screens;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.er.ERClientConfig;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.elements.Element;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -23,6 +24,7 @@ import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
+import org.jetbrains.annotations.Nullable;
 
 @EventBusSubscriber({Dist.CLIENT})
 public class ErOverlay {
@@ -42,7 +44,6 @@ public class ErOverlay {
 	private static int lastDamage = 0 ;
 	private static int damageColor = 0 ;
 	private static long lastDamageTick = 0 ;
-
 	private static float lastHealth = 0 ;
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
@@ -50,7 +51,7 @@ public class ErOverlay {
 		int w = event.getGuiGraphics().guiWidth();
 		int h = event.getGuiGraphics().guiHeight();
 		Player player = Minecraft.getInstance().player;
-		mayberenderPlayerStamina(player, event.getGuiGraphics());
+		maybeRenderPlayerStamina(player, event.getGuiGraphics());
 		maybeRenderStellaFortunaIcon(player, event.getGuiGraphics(), w, h);
 	}
 
@@ -104,16 +105,10 @@ public class ErOverlay {
 	private static void renderElementalBurstIcon(Player player, GuiGraphics graphics, int w, int h, ErCombatVariables.PlayerVariables vars, StellaFortuna fortuna) {
 		int percent = (int) (48 * vars.energyAmount / fortuna.getEnergyCost(player));
 		RenderSystem.enableBlend();
-		if (fortuna.elementType() == 1)
-			RenderSystem.setShaderColor(0, 1, 0.6f, 0.3f);
-		else
-			RenderSystem.setShaderColor(1, 1, 1, 0.3f);
+		renderSystemSet(fortuna.elementType(), 0.3f);
 		graphics.blit(energy, w - 75, h - 20 - percent, 0, 48 - percent, 48, percent, 48, 48);
 
-		if (fortuna.elementType() == 1)
-			RenderSystem.setShaderColor(0, 0.7f, 0.42f, 1);
-		else
-			RenderSystem.setShaderColor(0.7f, 0.7f, 0.7f, 1);
+        renderSystemSet(fortuna.elementType(), 1f);
 		float chargingPercent = vars.burstCooldown / vars.stackedMaxBurstCooldown;
 		if (chargingPercent > 0.5) {
 			graphics.blit(burstL, w - 75, h - 68, 0, 0, 48, (int) (48 * Math.sin(chargingPercent * Math.PI)), 48, 48);
@@ -128,13 +123,26 @@ public class ErOverlay {
 		RenderSystem.disableBlend();
 	}
 
-	private static void mayberenderPlayerStamina(Player player, GuiGraphics graphics) {
+    private static void renderSystemSet(@Nullable Element.Category category, float alpha){
+        if(category == null) {
+            RenderSystem.setShaderColor(1, 1, 1, alpha);
+            return;
+        }
+        int color = category.getColor();
+        RenderSystem.setShaderColor(
+                ((color >> 16) & 0xFF) / 255.0f,
+                ((color >> 8) & 0xFF) / 255.0f,
+                (color & 0xFF) / 255.0f,
+                alpha);
+    }
+
+	private static void maybeRenderPlayerStamina(Player player, GuiGraphics graphics) {
 		Minecraft minecraft = Minecraft.getInstance();
 		Gui gui = minecraft.gui;
         if (minecraft.gameMode != null && minecraft.gameMode.canHurtPlayer() && player != null) {
             int i1 = graphics.guiWidth() / 2 + 91;
             minecraft.getProfiler().push("stamina");
-            double maxStamina = player.getAttribute(ErModAttributes.MAX_STAMINA).getValue();
+            double maxStamina = player.getAttributeValue(ErModAttributes.MAX_STAMINA);
             ErCombatVariables.PlayerVariables vars = player.getData(ErCombatVariables.PLAYER_VARIABLES);
             int i3 = 20;
             int j3 = (int) (vars.stamina / maxStamina * 20);
@@ -172,7 +180,6 @@ public class ErOverlay {
             minecraft.getProfiler().push("er_health");
             float health = player.getHealth();
             float max_health = player.getMaxHealth();
-            ErCombatVariables.PlayerVariables vars = player.getData(ErCombatVariables.PLAYER_VARIABLES);
             int leftHeight = gui.leftHeight;
             int j2 = graphics.guiHeight() - leftHeight;
             RenderSystem.enableBlend();

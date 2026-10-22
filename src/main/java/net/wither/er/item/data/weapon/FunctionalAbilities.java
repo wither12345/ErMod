@@ -2,7 +2,7 @@ package net.wither.er.item.data.weapon;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;

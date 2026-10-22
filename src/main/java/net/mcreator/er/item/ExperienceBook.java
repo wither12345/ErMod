@@ -21,7 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.core.component.DataComponents;
 
 import net.mcreator.er.init.ErModItems;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import org.jetbrains.annotations.NotNull;
 
 public class ExperienceBook extends Item {

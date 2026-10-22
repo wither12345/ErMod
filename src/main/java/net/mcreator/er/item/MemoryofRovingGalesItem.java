@@ -2,7 +2,6 @@ package net.mcreator.er.item;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.client.model.animations.travelerAnimation;
 import net.mcreator.er.entity.TravelerTornadoEntity;
 import net.mcreator.er.init.ErModEntities;
@@ -25,7 +24,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.client.animations.TravelerAnimation;
@@ -35,7 +33,9 @@ import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.entity.EnergyOrb;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.network.ErCombatVariables;
+import org.jetbrains.annotations.Nullable;
 
 public class MemoryofRovingGalesItem extends StellaFortuna {
     private static final ResourceLocation TRAVELER_SKILL = ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "traveler_skill");
@@ -43,10 +43,6 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
 
 	public MemoryofRovingGalesItem() {
 		super(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 20, 2.5f, 57.23f, true);
-	}
-
-	public void onTick(LevelAccessor world, LivingEntity entity, double x, double y, double z) {
-		ErCombatVariables.PlayerVariables vars = entity.getData(ErCombatVariables.PLAYER_VARIABLES);
 	}
 
 	public void elementalSkillStart(LivingEntity entity) {
@@ -152,10 +148,11 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
         return switch (animationId){
             case 20 -> 0;
             case 21 -> 6;
+            case 4 -> 34;
             case 3 -> 27;
             case 2 -> 28;
             case 1 -> 31;
-            case 0, 4 -> 29;
+            case 0 -> 29;
             default -> 20;
         };
     }
@@ -307,25 +304,18 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
     }
 
 	public float DamageMulti(int animationId, int index) {
-		if (animationId == 0)
-			return 0.445f;
-		else if (animationId == 1)
-			return 0.434f;
-		else if (animationId == 2)
-			return 0.53f;
-		else if (animationId == 3)
-			return 0.583f;
-		else if (animationId == 4)
-			return 0.708f;
-		else if (animationId == 10)
-			return index == 0 ? 0.559f : 0.772f;
-		else if (animationId == 20)
-			return index == 0 ? 0.12f : 0.168f;
-		else if (animationId == 21)
-			return index == 0 ? 1.76f : 1.92f;
-		else if (animationId == 30)
-			return index == 0 ? 0.808f : 0.248f;
-		return 1;
+        return switch (animationId){
+            case 0 -> 0.445f;
+            case 1 -> 0.434f;
+            case 2 -> 0.53f;
+            case 3 -> 0.583f;
+            case 4 -> 0.708f;
+            case 10 -> 0.559f;
+            case 20 -> index == 0 ? 0.12f : 0.168f;
+            case 21 -> index == 0 ? 1.76f : 1.92f;
+            case 30 -> index == 0 ? 0.808f : 0.248f;
+            default -> 1f;
+        };
 	}
 
     private static SimpleParticleType getParticle(int i) {
@@ -358,7 +348,8 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
 		return 2;
 	}
 
-	public int elementType() {
-		return 1;
+    @Nullable
+	public Element.Category elementType() {
+		return Element.Category.ANEMO;
 	}
 }

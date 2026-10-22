@@ -23,5 +23,6 @@ public class RegisterDatas {
 		registrar.playBidirectional(AlchemyStageSwitchMessage.TYPE, AlchemyStageSwitchMessage.STREAM_CODEC, new DirectionalPayloadHandler<>(AlchemyStageSwitchMessage::handle, AlchemyStageSwitchMessage::handle));
         registrar.playBidirectional(MoraSelectData.TYPE, MoraSelectData.STREAM_CODEC, new DirectionalPayloadHandler<>(MoraSelectData::handle, MoraSelectData::handle));
 	    registrar.commonToServer(LineMechanismMessage.TYPE, LineMechanismMessage.STREAM_CODEC, LineMechanismMessage::handle);
+	    registrar.commonToClient(MuteShakeData.TYPE, MuteShakeData.STREAM_CODEC, MuteShakeData::handle);
     }
 }

@@ -12,7 +12,7 @@
  *
  * This class will be added in the mod root package.
 */
-package net.wither.er.item;
+package net.wither.er.item.fortuna;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.EntityHurtEvent;
@@ -34,7 +34,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -45,6 +44,7 @@ import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.ModifyTooltip;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.data.weapon.OnBurstAbility;
@@ -52,6 +52,7 @@ import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.StellaFortunaData;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -85,8 +86,6 @@ public abstract class StellaFortuna extends Item {
 	public abstract void elementalBurstStart(LivingEntity entity);
 
 	public abstract void elementalBurstEnd(LivingEntity entity);
-
-	public abstract void onTick(LevelAccessor world, LivingEntity entity, double x, double y, double z);
 
 	public abstract boolean hasAnimation(LivingEntity entity);
 
@@ -213,7 +212,8 @@ public abstract class StellaFortuna extends Item {
 		return true;
 	}
 
-	public abstract int elementType();
+    @Nullable
+	public abstract Element.Category elementType();
 
 	public static void sendMessage(LivingEntity entity, CompoundTag message) {
 		PacketDistributor.sendToAllPlayers(new StellaFortunaData(entity.getId(), message));

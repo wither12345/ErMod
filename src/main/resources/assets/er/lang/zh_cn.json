@@ -264,7 +264,6 @@
   "item.er.lucky_dogs_goblet": "幸运儿之杯",
   "item.er.lucky_dogs_clover": "幸运儿绿花",
   "block.er.artifact_transmuter": "圣言自明机",
-  "block.er.fortuna_enhancer": "Fortuna 强化台",
   "item.er.sanctifying_unction": "祝圣油膏",
   "item.er.sanctifying_essence": "祝圣精华",
   "gui.er.artifact_transmuter_gui.button_enhance": "强化",
@@ -568,5 +567,10 @@
   "gui.er.fortuna_enhance.status_max": "已达最高等级",
   "text.er.fortuna_health": "生命",
   "text.er.fortuna_attack": "攻击",
-  "text.er.fortuna_armor": "护甲"
+  "text.er.fortuna_armor": "护甲",
+  "block.er.fortuna_enhancer": "命星强化台",
+  "item.er.mystic_enhancement_ore": "精锻用魔矿",
+  "item.er.fine_enhancement_ore": "精锻用良矿",
+  "item.er.enhancement_ore": "精锻用杂矿",
+  "item.er.empty_fortuna": "空命星"
 }

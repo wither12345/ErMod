@@ -1,5 +1,8 @@
 {
-  "item" : "er:memoryof_roving_gales",
+  "items" : [
+    "er:memoryof_roving_gales",
+    "er:empty_fortuna"
+  ],
   "type": "fortuna",
   "ascension" : [
     {

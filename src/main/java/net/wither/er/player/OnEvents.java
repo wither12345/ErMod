@@ -1,13 +1,9 @@
 package net.wither.er.player;
 
-import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModMobEffects;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -20,14 +16,13 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.item.fortuna.StellaFortuna;
 
 import java.util.Map;
 import java.util.Set;
 
 @EventBusSubscriber
 public class OnEvents {
-    private static final AttributeModifier RANGE_MODIFIER = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "range_reduce"), -100, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-
     @SubscribeEvent
     public static void onArmorHurt(ArmorHurtEvent event) {
         Map<EquipmentSlot, ArmorHurtEvent.ArmorEntry> armorMap = event.getArmorMap();
@@ -36,7 +31,7 @@ public class OnEvents {
             ItemStack stack = event.getArmorItemStack(slot);
             if (stack.getComponents().has(DataComponentsRegister.WEAPON_LEVEL.get())) {
                 int level = stack.getComponents().get(DataComponentsRegister.WEAPON_LEVEL.get()).level();
-                event.setNewDamage(slot, event.getOriginalDamage(slot) / (1 + level / 10f));
+                event.setNewDamage(slot, event.getNewDamage(slot) / (1 + level / 10f));
             }
         }
     }

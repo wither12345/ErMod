@@ -180,7 +180,9 @@ public class ExtraTabs {
             tabData.accept(SKYRIDER_SWORD);
             tabData.accept(FILLET_BLADE);
             tabData.accept(HARBINGER_OF_DAWN);
-		}else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+		} else if (tabData.getTabKey() == ErModTabs.STELLA_FORTUNA.getKey()) {
+            tabData.accept(EMPTY_FORTUNA);
+        } else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(SWEET_FLOWER);
             tabData.accept(BURNING_DIRT);
             tabData.accept(WHOPPERFLOWER_SEED);

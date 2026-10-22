@@ -1,7 +1,7 @@
 package net.wither.er.mixins;
 
-import net.wither.er.item.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.init.EffectRegister;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.ErSyncGameRule;
@@ -56,6 +57,17 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
         cir.setReturnValue(cir.getReturnValue() || this.hasEffect(EffectRegister.APPETIZER));
     }
 
+    @Inject(method = "getAttackStrengthScale", at = @At("HEAD"), cancellable = true)
+    public void modifyScale(float ticker, CallbackInfoReturnable<Float> cir){
+        if(this.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.getItem() instanceof StellaFortuna item && item.hasAnimation(this)){
+            ErCombatVariables.PlayerVariables vars = this.getData(ErCombatVariables.PLAYER_VARIABLES);
+            float t = vars.animationTime;
+            float total = item.getAnimationTick(this, vars.animationId);
+            float stop = item.getFinishTick(this, vars.animationId);
+            cir.setReturnValue(Mth.clamp((total - t) / (total - stop), 0f, 1f));
+        }
+    }
+
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;moveCloak()V"))
 	public void onTick(CallbackInfo info) {
 		ItemStack stack = this.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna;
@@ -65,9 +77,10 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
 		if (stack.getItem() instanceof StellaFortuna item) {
 			SF = item;
 			speed = SF.getSpeed(this, vars.animationId);
+            SF.animationTicking(this, vars.animationId, vars.animationTime, speed);
 		}
 		if (vars.animationTime >= 0) {
-			vars.animationTime = vars.animationTime - 1;
+            vars.animationTime -= speed;
 			if (SF != null && vars.animationTime > SF.getFinishTick(this, vars.animationId)) {
 				this.setSprinting(false);
 				this.setDeltaMovement(new Vec3(0, 0, 0));
@@ -106,10 +119,6 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
 			} else {
 				this.er$animationState0.animateWhen(false, this.tickCount);
 			}
-		}
-		if (SF != null) {
-			SF.animationTicking(this, vars.animationId, vars.animationTime, speed);
-			SF.onTick(this.level(), this, this.getX(), this.getY(), this.getZ());
 		}
 	}
 }
