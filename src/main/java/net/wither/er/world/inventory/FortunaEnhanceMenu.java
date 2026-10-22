@@ -15,9 +15,12 @@ import net.minecraft.world.level.Level;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
 import net.wither.er.item.data.FortunaData;
+import net.wither.er.network.ErItemVariables;
 import net.wither.er.recipe.ascension.AscensionRecipe;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * 命星（Fortuna）强化/突破菜单。
@@ -50,7 +53,7 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     private final Container container = new TransientCraftingContainer(this, 7, 1);
     /** 0 = 突破状态，1 = 突破后的阶数。突破配方只在服务端加载，因此需要同步给客户端。 */
     private final SimpleContainerData ascensionPreview = new SimpleContainerData(2);
-    private final int[] shrink = new int[4];
+    private final int[] shrink = new int[5];
 
     private int level;
     private int experience;
@@ -96,16 +99,16 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         if (slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
-            if (index < 6) {
-                if (!this.moveItemStackTo(itemstack1, 6, this.slots.size(), true))
+            if (index < 7) {
+                if (!this.moveItemStackTo(itemstack1, 7, this.slots.size(), true))
                     return ItemStack.EMPTY;
                 slot.onQuickCraft(itemstack1, itemstack);
-            } else if (!this.moveItemStackTo(itemstack1, 0, 6, false)) {
-                if (index < 6 + 27) {
-                    if (!this.moveItemStackTo(itemstack1, 6 + 27, this.slots.size(), true))
+            } else if (!this.moveItemStackTo(itemstack1, 0, 7, false)) {
+                if (index < 7 + 27) {
+                    if (!this.moveItemStackTo(itemstack1, 7 + 27, this.slots.size(), true))
                         return ItemStack.EMPTY;
                 } else {
-                    if (!this.moveItemStackTo(itemstack1, 6, 6 + 27, false))
+                    if (!this.moveItemStackTo(itemstack1, 7, 7 + 27, false))
                         return ItemStack.EMPTY;
                 }
                 return ItemStack.EMPTY;
@@ -128,11 +131,11 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         super.removed(playerIn);
         if (playerIn instanceof ServerPlayer serverPlayer) {
             if (!serverPlayer.isAlive() || serverPlayer.hasDisconnected()) {
-                for (int j = 0; j < 6; ++j) {
+                for (int j = 0; j < 7; ++j) {
                     playerIn.drop(container.getItem(j), false);
                 }
             } else {
-                for (int i = 0; i < 6; ++i) {
+                for (int i = 0; i < 7; ++i) {
                     playerIn.getInventory().placeItemBackInInventory(container.getItem(i));
                 }
             }
@@ -173,10 +176,9 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         this.expGain = 0;
         this.moraUse = 0;
         this.hasExpMaterial = false;
-        for (int i = 0; i < 4; i++)
-            this.shrink[i] = 0;
+        Arrays.fill(this.shrink, 0);
 
-        ItemStack stack = this.getSlot(1).getItem();
+        ItemStack stack = this.getFortunaStack();
         if (!(stack.getItem() instanceof StellaFortuna)) {
             this.level = 0;
             this.experience = 0;
@@ -212,7 +214,7 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         int exp = this.experience;
         int spent = 0;
 
-        for (int i = 0; i < 4 && lv < maxLevel; i++) {
+        for (int i = 0; i < this.shrink.length && lv < maxLevel; i++) {
             ItemStack material = this.getSlot(2 + i).getItem();
             if (!(material.getItem() instanceof ExperienceBook book))
                 continue;
@@ -295,9 +297,8 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     }
 
     private boolean matchIngredients(AscensionRecipe.Single recipe) {
-        //boolean[] used = new boolean[4];
         int used = 0;
-        int[] counts = new int[4];
+        int[] counts = new int[this.shrink.length];
 
         for (int i = 0; i < 4; i++) {
             AscensionRecipe.Input input = recipe.getInput(i);
@@ -305,7 +306,7 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
                 continue;
 
             int slot = -1;
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < this.shrink.length; j++) {
                 if ((used & (1 << j)) != 0)
                     continue;
                 if (input.match(this.getSlot(2 + j).getItem())) {
@@ -337,7 +338,11 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         if (!this.canEnhance)
             return;
 
-        ItemStack stack = this.getSlot(1).getItem();
+        // 1 号槽位为空时，强化玩家当前装备的命星。
+        boolean equipped = this.getSlot(1).getItem().isEmpty();
+        ItemStack stack = equipped
+                ? this.entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna
+                : this.getSlot(1).getItem();
         if (!(stack.getItem() instanceof StellaFortuna))
             return;
 
@@ -346,7 +351,7 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         int finalExperience = this.newExperience;
         int finalAscension = this.newAscension;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < this.shrink.length; i++) {
             if (this.shrink[i] > 0)
                 this.getSlot(2 + i).getItem().shrink(this.shrink[i]);
         }
@@ -360,7 +365,15 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
                 ? current.withEnhance(current.level(), finalAscension, current.experience())
                 : current.withEnhance(finalLevel, current.ascension(), finalExperience);
         stack.set(DataComponentsRegister.FORTUNA.get(), updated);
-        this.getSlot(1).setChanged();
+        if (equipped) {
+            // 同步回玩家数据，并立即刷新命星提供的属性。
+            ErItemVariables.PlayerVariables vars = this.entity.getData(ErItemVariables.PLAYER_VARIABLES);
+            vars.Stella_Fortuna = stack;
+            vars.syncPlayerVariables(this.entity);
+            StellaFortuna.applyAttr(this.entity, stack);
+        } else {
+            this.getSlot(1).setChanged();
+        }
 
         this.predict();
         this.broadcastChanges();
@@ -380,7 +393,23 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     }
 
     public boolean hasFortuna() {
-        return this.getSlot(1).getItem().getItem() instanceof StellaFortuna;
+        return this.getFortunaStack().getItem() instanceof StellaFortuna;
+    }
+
+    /**
+     * 1 号槽位为空时，回退到玩家当前装备的命星。
+     * 这样打开强化界面时不需要先把装备中的命星取下来再放进去。
+     */
+    public ItemStack getFortunaStack() {
+        ItemStack stack = this.getSlot(1).getItem();
+        if (!stack.isEmpty())
+            return stack;
+        return this.entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna;
+    }
+
+    /** 供客户端每 tick 刷新预览，保证玩家数据同步后界面立即更新。 */
+    public void refreshPreview() {
+        this.predict();
     }
 
     public boolean hasExpMaterial() {

@@ -64,9 +64,9 @@ public abstract class StellaFortuna extends Item {
 	public final boolean levelType;
     public static final ResourceKey<DamageType> SKILL = ResourceKey.create(DAMAGE_TYPE, ResourceLocation.parse("er:elemental_skill"));
     public static final ResourceKey<DamageType> BURST = ResourceKey.create(DAMAGE_TYPE, ResourceLocation.parse("er:elemental_burst"));
-	private static final ResourceLocation locationHealth = ResourceLocation.parse("er:entity_level.health");
-	private static final ResourceLocation locationDamage = ResourceLocation.parse("er:entity_level.damage");
-	private static final ResourceLocation locationArmor = ResourceLocation.parse("er:entity_level.armor");
+	private static final ResourceLocation LOCATION_HEALTH = ResourceLocation.parse("er:entity_level.health");
+	private static final ResourceLocation LOCATION_DAMAGE = ResourceLocation.parse("er:entity_level.damage");
+	private static final ResourceLocation LOCATION_ARMOR = ResourceLocation.parse("er:entity_level.armor");
 
 	public StellaFortuna(Properties properties, float health, float damage, float armor, boolean levelType) {
 		super(properties.stacksTo(1));
@@ -182,13 +182,13 @@ public abstract class StellaFortuna extends Item {
 			FortunaData data = FortunaData.get(item);
 			int level = data.level();
 			int ascension = data.ascension();
-			entity.getAttribute(Attributes.MAX_HEALTH).addOrReplacePermanentModifier(new AttributeModifier(locationHealth, stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADD_VALUE));
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).addOrReplacePermanentModifier(new AttributeModifier(locationDamage, stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADD_VALUE));
-			entity.getAttribute(Attributes.ARMOR).addOrReplacePermanentModifier(new AttributeModifier(locationArmor, stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADD_VALUE));
+			entity.getAttribute(Attributes.MAX_HEALTH).addOrReplacePermanentModifier(new AttributeModifier(LOCATION_HEALTH, stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADD_VALUE));
+			entity.getAttribute(Attributes.ATTACK_DAMAGE).addOrReplacePermanentModifier(new AttributeModifier(LOCATION_DAMAGE, stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADD_VALUE));
+			entity.getAttribute(Attributes.ARMOR).addOrReplacePermanentModifier(new AttributeModifier(LOCATION_ARMOR, stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADD_VALUE));
 		} else {
-			entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(locationHealth);
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(locationDamage);
-			entity.getAttribute(Attributes.ARMOR).removeModifier(locationArmor);
+			entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(LOCATION_HEALTH);
+			entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(LOCATION_DAMAGE);
+			entity.getAttribute(Attributes.ARMOR).removeModifier(LOCATION_ARMOR);
 		}
 	}
 

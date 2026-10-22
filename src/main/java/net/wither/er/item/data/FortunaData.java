@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.wither.er.item.StellaFortuna;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -32,22 +33,53 @@ public record FortunaData(int level, int ascension, int experience, int normal_l
             FortunaData::new
     );
 
-    /** 从物品上读取 FortunaData，缺失时返回全 0 的默认值。 */
+    /** 从物品上读取 FortunaData，并把旧版 CustomData 数据迁移到新组件。 */
     public static FortunaData get(ItemStack stack) {
-        CustomData data = stack.get(DataComponents.CUSTOM_DATA);
-        if(data != null && data.copyTag().contains("level") && stack.getItem() instanceof StellaFortuna){
-            FortunaData ret = new FortunaData(
-                    data.copyTag().getInt("level") + 1,
-                    data.copyTag().getInt("ascension"),
-                    data.copyTag().getInt("experience"),
-                    0,0,0
-            );
-            data.copyTag().remove("level");
-            data.copyTag().remove("ascension");
-            data.copyTag().remove("experience");
-            return ret;
+        FortunaData component = stack.get(DataComponentsRegister.FORTUNA.get());
+        if (component != null) {
+            // 新组件已经存在时，顺手清掉旧字段，避免两套数据同时存在。
+            if (stack.getItem() instanceof StellaFortuna)
+                clearLegacyData(stack);
+            return component;
         }
-        return stack.getOrDefault(DataComponentsRegister.FORTUNA.get(), new FortunaData(1, 0, 0, 0, 0, 0));
+
+        CustomData data = stack.get(DataComponents.CUSTOM_DATA);
+        if (data != null && stack.getItem() instanceof StellaFortuna) {
+            CompoundTag tag = data.copyTag();
+            if (tag.contains("level")) {
+                // 旧版 level 从 0 开始，新组件统一使用从 1 开始的等级。
+                FortunaData migrated = new FortunaData(
+                        tag.getInt("level") + 1,
+                        tag.getInt("ascension"),
+                        tag.getInt("experience"),
+                        0, 0, 0
+                );
+                stack.set(DataComponentsRegister.FORTUNA.get(), migrated);
+                clearLegacyData(stack);
+                return migrated;
+            }
+        }
+
+        return new FortunaData(1, 0, 0, 0, 0, 0);
+    }
+
+    /** 删除旧版写在 CustomData 里的强化字段，其他自定义数据保持不变。 */
+    private static void clearLegacyData(ItemStack stack) {
+        CustomData data = stack.get(DataComponents.CUSTOM_DATA);
+        if (data == null)
+            return;
+
+        CompoundTag tag = data.copyTag();
+        if (!tag.contains("level") && !tag.contains("ascension") && !tag.contains("experience"))
+            return;
+
+        tag.remove("level");
+        tag.remove("ascension");
+        tag.remove("experience");
+        if (tag.isEmpty())
+            stack.remove(DataComponents.CUSTOM_DATA);
+        else
+            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 
     /** 只更新强化相关的 level/ascension/experience，保留 normal/skill/burst 等级。 */
