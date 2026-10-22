@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " a ",
+    "aba",
+    " a "
+  ],
+  "key": {
+    "a": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "b": {
+      "tag": "er:material"
+    }
+  },
+  "result": {
+    "item": "er:empty_fortuna"
+  }
+}

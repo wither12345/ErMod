@@ -1,7 +1,7 @@
 package net.wither.er.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

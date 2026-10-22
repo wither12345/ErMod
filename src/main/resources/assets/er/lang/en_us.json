@@ -6,6 +6,14 @@
   "item.er.dendro_vision": "Dendro Vision",
   "item.er.geo_vision": "Geo Vision",
   "item.er.anemo_vision": "Anemo Vision",
+  "item.er.unowned_delusion": "Empty Delusion",
+  "item.er.pyro_delusion": "Pyro Delusion",
+  "item.er.hydro_delusion": "Hydro Delusion",
+  "item.er.cryo_delusion": "Cryo Delusion",
+  "item.er.electro_delusion": "Electro Delusion",
+  "item.er.dendro_delusion": "Dendro Delusion",
+  "item.er.geo_delusion": "Geo Delusion",
+  "item.er.anemo_delusion": "Anemo Delusion",
   "item.er.pyro_moon_wheel": "Pyro Moon Wheel",
   "item.er.hydro_moon_wheel": "Hydro Moon Wheel",
   "item.er.cryo_moon_wheel": "Cryo Moon Wheel",
@@ -568,5 +576,10 @@
   "gui.er.fortuna_enhance.status_max": "Maximum level reached",
   "text.er.fortuna_health": "HP",
   "text.er.fortuna_attack": "ATK",
-  "text.er.fortuna_armor": "DEF"
+  "text.er.fortuna_armor": "DEF",
+  "block.er.fortuna_enhancer": "Fortuna Enhancer",
+  "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
+  "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
+  "item.er.enhancement_ore": "Enhancement Ore",
+  "item.er.empty_fortuna": "Empty Fortuna"
 }

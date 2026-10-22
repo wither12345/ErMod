@@ -9,6 +9,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.resources.ResourceLocation;
 
 import net.mcreator.er.init.ErModEnchantments;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AnemoInfusionEnchantmentEnchantment extends Enchantment {
 	}
 
 	@Override
-	protected boolean checkCompatibility(Enchantment enchantment) {
+	protected boolean checkCompatibility(@NotNull Enchantment enchantment) {
 		return super.checkCompatibility(enchantment) && !List.of(ErModEnchantments.ELECTRO_INFUSION_ENCHANTMENT.get(), ErModEnchantments.CRYO_INFUSION_ENCHANTMENT.get(), ErModEnchantments.DENDRO_INFUSION_ENCHANTMENT.get(),
 				ErModEnchantments.GEO_INFUSION_ENCHANTMENT.get(), ErModEnchantments.HYDRO_INFUSION_ENCHANTMENT.get(), ErModEnchantments.PYRO_INFUSION_ENCHANTMENT.get()).contains(enchantment);
 	}

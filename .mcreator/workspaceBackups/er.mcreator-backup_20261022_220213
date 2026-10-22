@@ -476,28 +476,8 @@
         "files": [
           "src/main/java/net/mcreator/er/procedures/HydroCrystallizeTickProcedure.java"
         ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
+        "dependencies": [],
+        "return_type": "string"
       }
     },
     {
@@ -1051,18 +1031,6 @@
       "registry_name": "crit_damage",
       "metadata": {
         "files": []
-      }
-    },
-    {
-      "name": "StellaFortunas",
-      "type": "code",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "stella_fortunas",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/StellaFortunas.java"
-        ]
       }
     },
     {
@@ -1977,45 +1945,6 @@
       }
     },
     {
-      "name": "MysticEnhancementOre",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mystic_enhancement_ore",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/MysticEnhancementOreItem.java",
-          "src/main/resources/assets/er/models/item/mystic_enhancement_ore.json"
-        ]
-      }
-    },
-    {
-      "name": "FineEnhancementOre",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "fine_enhancement_ore",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/FineEnhancementOreItem.java",
-          "src/main/resources/assets/er/models/item/fine_enhancement_ore.json"
-        ]
-      }
-    },
-    {
-      "name": "EnhancementOre",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "enhancement_ore",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/enhancement_ore.json",
-          "src/main/java/net/mcreator/er/item/EnhancementOreItem.java"
-        ]
-      }
-    },
-    {
       "name": "Reaction",
       "type": "damagetype",
       "compiles": true,
@@ -2061,7 +1990,7 @@
       "name": "CraftEnhancementOre",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_enhancement_ore",
       "metadata": {
         "files": [
@@ -2074,7 +2003,7 @@
       "name": "CraftFineEnhancementOre",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_fine_enhancement_ore",
       "metadata": {
         "files": [
@@ -2087,7 +2016,7 @@
       "name": "CraftMysticEnhancementOre",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_mystic_enhancement_ore",
       "metadata": {
         "files": [
@@ -3916,7 +3845,8 @@
       "~CUSTOM:CuihuaStairs",
       "~CUSTOM:CuihuaPlanks",
       "~CUSTOM:CuihuaLog",
-      "~CUSTOM:Crate"
+      "~CUSTOM:Crate",
+      "EXTERNAL:er:fortuna_enhancer"
     ],
     "ITEMS:er:flower_of_life": [
       "CUSTOM:LuckyDogsClover"
@@ -4115,6 +4045,14 @@
       "item.er.dendro_vision": "Dendro Vision",
       "item.er.geo_vision": "Geo Vision",
       "item.er.anemo_vision": "Anemo Vision",
+      "item.er.unowned_delusion": "Empty Delusion",
+      "item.er.pyro_delusion": "Pyro Delusion",
+      "item.er.hydro_delusion": "Hydro Delusion",
+      "item.er.cryo_delusion": "Cryo Delusion",
+      "item.er.electro_delusion": "Electro Delusion",
+      "item.er.dendro_delusion": "Dendro Delusion",
+      "item.er.geo_delusion": "Geo Delusion",
+      "item.er.anemo_delusion": "Anemo Delusion",
       "item.er.pyro_moon_wheel": "Pyro Moon Wheel",
       "item.er.hydro_moon_wheel": "Hydro Moon Wheel",
       "item.er.cryo_moon_wheel": "Cryo Moon Wheel",
@@ -4143,7 +4081,6 @@
       "gamerule.runningStaminaConsumable": "Running Stamina Consumable",
       "entity.er.mist_flower": "Mist Flower",
       "item.er.minor_affix_shard": "Minor Affix Shard",
-      "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
       "item.er.damaged_mask": "Damaged Mask",
       "attribute.er.anemo_dmg_bonus": "Anemo DMG Bonus",
       "enchantment.er.electro_infusion_enchantment": "Electro Infusion",
@@ -4210,7 +4147,6 @@
       "er.rarity.4": "§6",
       "er.rarity.3": "§5",
       "er.rarity.2": "§9",
-      "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
       "entity.er.pyro_crystallize": "Pyro Crystallize",
       "item.er.flaming_flower_spawn_egg": "Flaming Flower Spawn Egg",
       "block.er.teleport_waypoint": "Teleport Waypoint",
@@ -4230,7 +4166,6 @@
       "entity.er.electro_crystallize": "Electro Crystallize",
       "attribute.er.cryo_dmg_bonus": "Cryo DMG Bonus",
       "effect.er.quicken": "Quicken",
-      "item.er.enhancement_ore": "Enhancement Ore",
       "item.er.hunters_bow": "Hunter\u0027s Bow",
       "item.er.electro_cicin_spawn_egg": "Electro Cicin Spawn Egg",
       "enchantment.er.cryo_infusion_enchantment": "Cryo Infusion",
@@ -4669,7 +4604,23 @@
       "item.er.condensed_dendro": "Condensed Dendro",
       "item.er.condensed_geo": "Condensed Geo",
       "item.er.condensed_pyro": "Condensed Pyro",
-      "item.er.condensed_hydro": "Condensed Hydro"
+      "item.er.condensed_hydro": "Condensed Hydro",
+      "gui.er.fortuna_enhance.button_upgrade": "Upgrade",
+      "gui.er.fortuna_enhance.button_ascend": "Ascend",
+      "gui.er.fortuna_enhance.button_max": "Max",
+      "gui.er.fortuna_enhance.status_upgrade": "EXP +%s  Mora -%s",
+      "gui.er.fortuna_enhance.status_ascend": "Ascend +1  Cap %s",
+      "gui.er.fortuna_enhance.status_missing": "Missing materials or Mora",
+      "gui.er.fortuna_enhance.status_need_exp": "Insert EXP books",
+      "gui.er.fortuna_enhance.status_max": "Maximum level reached",
+      "text.er.fortuna_health": "HP",
+      "text.er.fortuna_attack": "ATK",
+      "text.er.fortuna_armor": "DEF",
+      "block.er.fortuna_enhancer": "Fortuna Enhancer",
+      "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
+      "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
+      "item.er.enhancement_ore": "Enhancement Ore",
+      "item.er.empty_fortuna": "Empty Fortuna"
     },
     "zh_cn": {
       "item.er.pyro_vision": "火神之眼",
@@ -4679,6 +4630,14 @@
       "item.er.dendro_vision": "草神之眼",
       "item.er.geo_vision": "岩神之眼",
       "item.er.anemo_vision": "风神之眼",
+      "item.er.unowned_delusion": "空邪眼",
+      "item.er.pyro_delusion": "火邪眼",
+      "item.er.hydro_delusion": "水邪眼",
+      "item.er.cryo_delusion": "冰邪眼",
+      "item.er.electro_delusion": "雷邪眼",
+      "item.er.dendro_delusion": "草邪眼",
+      "item.er.geo_delusion": "岩邪眼",
+      "item.er.anemo_delusion": "风邪眼",
       "item.er.pyro_moon_wheel": "火月之轮",
       "item.er.hydro_moon_wheel": "水月之轮",
       "item.er.cryo_moon_wheel": "冰月之轮",
@@ -4707,7 +4666,6 @@
       "gamerule.runningStaminaConsumable": "跑步消耗体力",
       "entity.er.mist_flower": "冰雾花",
       "item.er.minor_affix_shard": "副属性碎片",
-      "item.er.mystic_enhancement_ore": "精锻用魔矿",
       "attribute.er.anemo_dmg_bonus": "风元素伤害加成",
       "item.er.damaged_mask": "破损的面具",
       "enchantment.er.electro_infusion_enchantment": "雷附魔",
@@ -4775,7 +4733,6 @@
       "er.rarity.4": "§6",
       "er.rarity.3": "§5",
       "er.rarity.2": "§9",
-      "item.er.fine_enhancement_ore": "精锻用良矿",
       "entity.er.pyro_crystallize": "火结晶",
       "item.er.flaming_flower_spawn_egg": "烈焰花刷怪蛋",
       "block.er.teleport_waypoint": "传送锚点",
@@ -4795,7 +4752,6 @@
       "entity.er.electro_crystallize": "雷结晶",
       "attribute.er.cryo_dmg_bonus": "冰元素伤害加成",
       "effect.er.quicken": "原激化",
-      "item.er.enhancement_ore": "精锻用杂矿",
       "item.er.hunters_bow": "猎弓",
       "item.er.electro_cicin_spawn_egg": "雷萤刷怪蛋",
       "enchantment.er.cryo_infusion_enchantment": "冰附魔",
@@ -5224,7 +5180,23 @@
       "item.er.condensed_dendro": "浓缩草元素",
       "item.er.condensed_geo": "浓缩岩元素",
       "item.er.condensed_pyro": "浓缩火元素",
-      "item.er.condensed_hydro": "浓缩水元素"
+      "item.er.condensed_hydro": "浓缩水元素",
+      "gui.er.fortuna_enhance.button_upgrade": "升级",
+      "gui.er.fortuna_enhance.button_ascend": "突破",
+      "gui.er.fortuna_enhance.button_max": "已满级",
+      "gui.er.fortuna_enhance.status_upgrade": "经验+%s 摩拉-%s",
+      "gui.er.fortuna_enhance.status_ascend": "突破+1 上限%s",
+      "gui.er.fortuna_enhance.status_missing": "材料或摩拉不足",
+      "gui.er.fortuna_enhance.status_need_exp": "放入经验书",
+      "gui.er.fortuna_enhance.status_max": "已达最高等级",
+      "text.er.fortuna_health": "生命",
+      "text.er.fortuna_attack": "攻击",
+      "text.er.fortuna_armor": "护甲",
+      "block.er.fortuna_enhancer": "命星强化台",
+      "item.er.mystic_enhancement_ore": "精锻用魔矿",
+      "item.er.fine_enhancement_ore": "精锻用良矿",
+      "item.er.enhancement_ore": "精锻用杂矿",
+      "item.er.empty_fortuna": "空命星"
     }
   },
   "metadata": {

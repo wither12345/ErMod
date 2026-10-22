@@ -3,7 +3,8 @@ package net.wither.er.client.screens;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.mcreator.er.ERClientConfig;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.elements.Element;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @Mod.EventBusSubscriber({Dist.CLIENT})
 public class ErOverlay {
@@ -114,16 +116,12 @@ public class ErOverlay {
 	private static void renderElementalBurstIcon(Player player, GuiGraphics graphics, int w, int h, ErCombatVariables.PlayerVariables vars, StellaFortuna fortuna) {
 		int percent = (int) (48 * vars.energyAmount / fortuna.getEnergyCost(player));
 		RenderSystem.enableBlend();
-		if (fortuna.elementType() == 1)
-			RenderSystem.setShaderColor(0, 1, 0.6f, 0.3f);
-		else
-			RenderSystem.setShaderColor(1, 1, 1, 0.3f);
+
+        renderSystemSet(fortuna.elementType(), 0.3f);
 		graphics.blit(energy, w - 75, h - 20 - percent, 0, 48 - percent, 48, percent, 48, 48);
 
-		if (fortuna.elementType() == 1)
-			RenderSystem.setShaderColor(0, 0.7f, 0.42f, 1);
-		else
-			RenderSystem.setShaderColor(0.7f, 0.7f, 0.7f, 1);
+
+        renderSystemSet(fortuna.elementType(), 1f);
 		float chargingPercent = vars.burstCooldown / vars.stackedMaxBurstCooldown;
 		if (chargingPercent > 0.5) {
 			graphics.blit(burstL, w - 75, h - 68, 0, 0, 48, (int) (48 * Math.sin(chargingPercent * Math.PI)), 48, 48);
@@ -137,6 +135,19 @@ public class ErOverlay {
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		RenderSystem.disableBlend();
 	}
+
+    private static void renderSystemSet(@Nullable Element.Category category, float alpha){
+        if(category == null) {
+            RenderSystem.setShaderColor(1, 1, 1, alpha);
+            return;
+        }
+        int color = category.getColor();
+        RenderSystem.setShaderColor(
+                ((color >> 16) & 0xFF) / 255.0f,
+                ((color >> 8) & 0xFF) / 255.0f,
+                (color & 0xFF) / 255.0f,
+                alpha);
+    }
 
 	private static void maybeRenderPlayerStamina(Player player, GuiGraphics graphics) {
 		Minecraft minecraft = Minecraft.getInstance();

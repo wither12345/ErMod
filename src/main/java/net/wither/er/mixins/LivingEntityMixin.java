@@ -30,16 +30,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
-import net.wither.er.entity.OnEvents;
-import net.wither.er.item.NREItem;
-import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.IErEntity;
+import net.wither.er.entity.OnEvents;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.NREItem;
+import net.wither.er.item.artifact_effect.ArtifactEffect;
+import net.wither.er.item.artifact_effect.AttrArtifactEffect;
 import net.wither.er.item.data.NREData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.network.ErShieldData;
@@ -47,7 +47,6 @@ import net.wither.er.shield.ErShield;
 import net.wither.er.shield.ShieldRegistry;
 import net.wither.er.shield.ShieldStack;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -74,10 +73,6 @@ public abstract class LivingEntityMixin extends Entity implements Attackable, IE
     @Shadow public abstract ItemStack getMainHandItem();
     @Shadow public abstract float getHealth();
     @Unique private long er$lastBurn;
-
-    @Shadow
-    @Final
-    public int invulnerableDuration;
 
     public LivingEntityMixin(EntityType<?> p_19870_, Level p_19871_) {
 		super(p_19870_, p_19871_);

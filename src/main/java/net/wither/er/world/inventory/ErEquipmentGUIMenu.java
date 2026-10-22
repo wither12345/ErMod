@@ -2,7 +2,7 @@ package net.wither.er.world.inventory;
 
 import com.mojang.datafixers.util.Pair;
 import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;

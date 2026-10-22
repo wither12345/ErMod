@@ -34,19 +34,20 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.client.renderer.damage.RenderDamageAmount;
 import net.wither.er.combat.DamageModifierInterface;
-import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
+import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.slimes.DendroSlime;
 import net.wither.er.init.AdvancementTriggerRegister;
 import net.wither.er.init.ElementRegistry;
 import net.wither.er.init.ErAttributeRegister;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.BeAttackedAbility;
@@ -55,6 +56,7 @@ import net.wither.er.item.data.weapon.InfusionAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.network.DamageDisplayMessage;
 import net.wither.er.network.ErItemVariables;
+import net.wither.er.network.MuteShakeData;
 import net.wither.er.shield.ShieldStack;
 
 import javax.annotation.Nullable;
@@ -117,8 +119,10 @@ public class EntityHurtEvent {
                                 modifier.crit_multiply += data.critMulti;
                                 modifier.common_multiply += data.dmgMulti;
                                 float dmg = amount * data.healthConsume;
-                                if(living instanceof ServerPlayer player)
+                                if(living instanceof ServerPlayer player) {
                                     AdvancementTriggerRegister.DELUSION.trigger(player, dmg);
+                                    ErMod.PACKET_HANDLER.sendTo(new MuteShakeData(), player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+                                }
                                 if(living.getHealth() >= dmg)
                                     living.setHealth(living.getHealth() - dmg);
                                 else

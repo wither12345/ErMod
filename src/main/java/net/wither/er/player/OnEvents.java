@@ -1,7 +1,7 @@
 package net.wither.er.player;
 
 import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModMobEffects;
 import net.minecraft.world.Container;
 import net.minecraft.world.effect.MobEffectInstance;

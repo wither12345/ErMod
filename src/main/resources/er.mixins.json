@@ -13,6 +13,7 @@
     "DamageSourceMixin",
     "ExplosionMixin",
     "FireworkPocketEntityMixin",
+    "InventoryMixin",
     "ItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",

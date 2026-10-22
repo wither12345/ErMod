@@ -1,6 +1,6 @@
 package net.mcreator.er.item;
 
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;

@@ -1,7 +1,7 @@
 package net.wither.er.mixins;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;

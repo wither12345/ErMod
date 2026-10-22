@@ -1,6 +1,6 @@
 package net.wither.er.item.artifact_effect;
 
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;

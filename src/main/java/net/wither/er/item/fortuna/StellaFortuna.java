@@ -1,4 +1,4 @@
-package net.wither.er.item;
+package net.wither.er.item.fortuna;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.mcreator.er.EntityHurtEvent;
@@ -20,7 +20,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.PacketDistributor;
@@ -28,6 +27,7 @@ import net.wither.er.block.IBlockBehavior;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.IErEntity;
+import net.wither.er.item.ModifyTooltip;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.weapon.OnBurstAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
@@ -70,8 +70,6 @@ public abstract class StellaFortuna extends Item {
 	public abstract void elementalBurstStart(LivingEntity entity);
 
 	public abstract void elementalBurstEnd(LivingEntity entity);
-
-	public abstract void onTick(LevelAccessor world, LivingEntity entity, double x, double y, double z);
 
 	public abstract boolean hasAnimation(LivingEntity entity);
 
@@ -117,6 +115,7 @@ public abstract class StellaFortuna extends Item {
 			int experience = itemstack.getOrCreateTag().getInt("experience");
 			int percent = Math.max(Math.min(40 * experience / getExpReq(level), 40), 0);
 			int ascension = itemstack.getOrCreateTag().getInt("ascension");
+            list.add(Component.literal(ModifyTooltip.getAscension(ascension, 5)));
             list.add(Component.literal("+" + new DecimalFormat("##").format(level)));
 			list.add(Component.literal(experience + "/" + getExpReq(level)));
 			String greenBars = "|".repeat(percent);
@@ -223,7 +222,7 @@ public abstract class StellaFortuna extends Item {
 		return true;
 	}
 
-	public abstract int elementType();
+	public abstract Element.Category elementType();
 
 	public static void sendMessage(LivingEntity entity, CompoundTag message) {
 		ErMod.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new StellaFortunaData(entity.getId(), message));

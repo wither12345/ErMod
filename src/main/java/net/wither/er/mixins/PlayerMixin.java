@@ -1,6 +1,7 @@
 package net.wither.er.mixins;
 
-import net.wither.er.item.StellaFortuna;
+import net.minecraft.util.Mth;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
@@ -58,6 +59,20 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
         cir.setReturnValue(cir.getReturnValue() || this.hasEffect(MobEffectRegister.APPETIZER.get()));
     }
 
+    @Inject(method = "getAttackStrengthScale", at = @At("HEAD"), cancellable = true)
+    public void modifyScale(float ticker, CallbackInfoReturnable<Float> cir){
+        this.getCapability(ErItemVariables.PLAYER_VARIABLES).ifPresent(vars ->{
+            if(vars.Stella_Fortuna.getItem() instanceof StellaFortuna item && item.hasAnimation(this)){
+                this.getCapability(ErCombatVariables.PLAYER_VARIABLES).ifPresent(combat -> {
+                    float t = combat.animationTime;
+                    float total = item.getAnimationTick(this, combat.animationId);
+                    float stop = item.getFinishTick(this, combat.animationId);
+                    cir.setReturnValue(Mth.clamp((total - t) / (total - stop), 0f, 1f));
+                });
+            }
+        });
+    }
+
 	@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;moveCloak()V"))
 	//@Inject(method = "tick", at = @At("HEAD"))
 	public void ontick(CallbackInfo info) {
@@ -68,11 +83,8 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
 		if (stack.getItem() instanceof StellaFortuna item) {
 			SF = item;
 			speed = SF.getSpeed(this, vars.animationId);
-		}
-        if (SF != null) {
             SF.animationTicking(this, vars.animationId, vars.animationTime, speed);
-            SF.onTick(this.level(), this, this.getX(), this.getY(), this.getZ());
-        }
+		}
 		if (vars.animationTime >= 0) {
 			vars.animationTime -= speed;
 			if (SF != null && vars.animationTime > SF.getFinishTick(this, vars.animationId)) {

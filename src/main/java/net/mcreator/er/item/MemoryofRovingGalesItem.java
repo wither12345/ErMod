@@ -2,7 +2,7 @@ package net.mcreator.er.item;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.mcreator.er.ErMod;
-import net.wither.er.item.StellaFortuna;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.client.model.animations.travelerAnimation;
 import net.mcreator.er.entity.TravelerTornadoEntity;
 import net.mcreator.er.init.ErModEntities;
@@ -24,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.client.animations.TravelerAnimation;
@@ -43,10 +42,6 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
 	public MemoryofRovingGalesItem() {
 		super(new Properties().stacksTo(1).rarity(Rarity.RARE), 20, 2.5f, 57.23f, true);
 	}
-
-    @Override
-	public void onTick(LevelAccessor world, LivingEntity entity, double x, double y, double z) {
-    }
 
     @Override
 	public void elementalSkillStart(LivingEntity entity) {
@@ -156,10 +151,11 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
         return switch (animationId){
             case 20 -> 0;
             case 21 -> 6;
+            case 4 -> 34;
             case 3 -> 27;
             case 2 -> 28;
             case 1 -> 31;
-            case 0, 4 -> 29;
+            case 0 -> 29;
             default -> 20;
         };
 	}
@@ -362,7 +358,7 @@ public class MemoryofRovingGalesItem extends StellaFortuna {
 		return 2;
 	}
 
-	public int elementType() {
-		return 1;
+	public Element.Category elementType() {
+		return Element.Category.ANEMO;
 	}
 }

@@ -9,6 +9,7 @@ import net.wither.er.item.weapons.ElementalTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.weapons.AbilitySword;
 import net.wither.er.item.morabag.MoraBagItem;
+import net.wither.er.item.fortuna.EmptyFortuna;
 import net.wither.er.item.data.weapon.WeaponLevelData;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.data.DelusionData;
@@ -350,6 +351,7 @@ public class ErModItems {
 	public static final RegistryObject<Item> MYSTIC_ENHANCEMENT_ORE = REGISTRY.register("mystic_enhancement_ore", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> EMPTY_FORTUNA = REGISTRY.register("empty_fortuna", EmptyFortuna::new);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

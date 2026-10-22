@@ -1,9 +1,14 @@
 package net.mcreator.er.procedures;
 
+import net.mcreator.er.init.ErModAttributes;
+import net.mcreator.er.init.ErModEnchantments;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.TieredItem;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +24,7 @@ public class ItemAttrProcedure {
 	private static final UUID WEAPON_LEVEL = UUID.fromString("B0FFBAE0-9CC9-7C55-94F7-47C1CC02C402");
 	private static final UUID WEAPON_SECONDARY = UUID.fromString("EC9FB524-0C21-DFA3-64C1-9590293A0473");
     private static final UUID BASE_DAMAGE_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+    private static final UUID ENCHANT_UUID = UUID.fromString("B0FFBAE0-9DD9-7C55-93F1-47C1CC02C402");
 
 	@SubscribeEvent
 	public static void addAttributeModifier(ItemAttributeModifierEvent event) {
@@ -43,6 +49,8 @@ public class ItemAttrProcedure {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
 				}
+                applyInfusionEnchantment(item, event);
+
 			}
 			if (item.getItem() instanceof ArmorItem armor) {
 				if(armor.getEquipmentSlot() != event.getSlotType())
@@ -56,6 +64,10 @@ public class ItemAttrProcedure {
 					event.addModifier(dataAttr.attribute(),
                             dataAttr.getModifier(getArmorUUID(armor.getEquipmentSlot(), 2), level));
 				}
+
+                int hardLevel = item.getEnchantmentLevel(ErModEnchantments.HARD.get());
+                if(hardLevel > 0)
+                    event.addModifier(ErModAttributes.SHIELD_STRENGTH.get(), new AttributeModifier(getArmorUUID(armor.getEquipmentSlot(), 3), "hard", hardLevel * 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
 			}
 		}
 	}
@@ -75,4 +87,32 @@ public class ItemAttrProcedure {
 			return  ascension ;
 		return star * 0.5 * ascension ;
 	}
+
+
+    private static void applyInfusionEnchantment(ItemStack itemStack, ItemAttributeModifierEvent event){
+        int enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.PYRO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.PYRO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.ELECTRO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.ELECTRO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.ANEMO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.ANEMO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.CRYO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.CRYO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.DENDRO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.DENDRO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.HYDRO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.HYDRO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.GEO_INFUSION_ENCHANTMENT.get()) - 1;
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.GEO_DMG_BONUS.get(), new AttributeModifier(ENCHANT_UUID, "infusion", enchantLevel * 0.2, AttributeModifier.Operation.MULTIPLY_BASE));
+        enchantLevel = itemStack.getEnchantmentLevel(ErModEnchantments.ELEMENTAL_MASTER.get());
+        if(enchantLevel > 0)
+            event.addModifier(ErModAttributes.ELEMENTAL_MASTERY.get(), new AttributeModifier(ENCHANT_UUID, "elemental_master", enchantLevel * 25, AttributeModifier.Operation.ADDITION));
+    }
 }
