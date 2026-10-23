@@ -79,16 +79,10 @@ public class ErModItems {
 	public static final RegistryObject<Item> CUIHUA_SLAB;
 	public static final RegistryObject<Item> CUIHUA_FENCE;
 	public static final RegistryObject<Item> CUIHUA_FENCE_GATE;
-	public static final RegistryObject<Item> DAMAGED_MASK;
-	public static final RegistryObject<Item> STAINED_MASK;
-	public static final RegistryObject<Item> OMINOUS_MASK;
 	public static final RegistryObject<Item> SUNSETTIA;
 	public static final RegistryObject<Item> ELECTRO_CICIN_SPAWN_EGG;
 	public static final RegistryObject<Item> FATUI_ELECTRO_CICIN_MAGE_SPAWN_EGG;
 	public static final RegistryObject<Item> ELECTRO_MIST_GRASS_LANTERN;
-	public static final RegistryObject<Item> MIST_GRASS_POLLEN;
-	public static final RegistryObject<Item> MIST_GRASS;
-	public static final RegistryObject<Item> MIST_GRASS_WICK;
 	public static final RegistryObject<Item> CRAFTING_BENCH;
 	public static final RegistryObject<Item> CUIHUA_SAPLING;
 	public static final RegistryObject<Item> LEY_LINE_MAP;
@@ -144,16 +138,10 @@ public class ErModItems {
 		CUIHUA_SLAB = block(ErModBlocks.CUIHUA_SLAB);
 		CUIHUA_FENCE = block(ErModBlocks.CUIHUA_FENCE);
 		CUIHUA_FENCE_GATE = block(ErModBlocks.CUIHUA_FENCE_GATE);
-		DAMAGED_MASK = REGISTRY.register("damaged_mask", DamagedMaskItem::new);
-		STAINED_MASK = REGISTRY.register("stained_mask", StainedMaskItem::new);
-		OMINOUS_MASK = REGISTRY.register("ominous_mask", OminousMaskItem::new);
 		SUNSETTIA = REGISTRY.register("sunsettia", SunsettiaItem::new);
 		ELECTRO_CICIN_SPAWN_EGG = REGISTRY.register("electro_cicin_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.ELECTRO_CICIN, -10092340, -13434778, new Item.Properties()));
 		FATUI_ELECTRO_CICIN_MAGE_SPAWN_EGG = REGISTRY.register("fatui_electro_cicin_mage_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.FATUI_ELECTRO_CICIN_MAGE, -13434778, -6736897, new Item.Properties()));
 		ELECTRO_MIST_GRASS_LANTERN = REGISTRY.register("electro_mist_grass_lantern", ElectroMistGrassLanternItem::new);
-		MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", MistGrassPollenItem::new);
-		MIST_GRASS = REGISTRY.register("mist_grass", MistGrassItem::new);
-		MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", MistGrassWickItem::new);
 		CRAFTING_BENCH = block(ErModBlocks.CRAFTING_BENCH);
 		CUIHUA_SAPLING = block(ErModBlocks.CUIHUA_SAPLING);
 		LEY_LINE_MAP = REGISTRY.register("ley_line_map", LeyLineMapItem::new);
@@ -352,6 +340,12 @@ public class ErModItems {
 	public static final RegistryObject<Item> FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> EMPTY_FORTUNA = REGISTRY.register("empty_fortuna", EmptyFortuna::new);
+	public static final RegistryObject<Item> DAMAGED_MASK = REGISTRY.register("damaged_mask", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> STAINED_MASK = REGISTRY.register("stained_mask", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> OMINOUS_MASK = REGISTRY.register("ominous_mask", ErModItems::SimpeItem);
+    public static final RegistryObject<Item> MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", ErModItems::SimpeItem);
+    public static final RegistryObject<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
+    public static final RegistryObject<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

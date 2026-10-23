@@ -57,7 +57,7 @@ public class MoraBagItem extends Item {
 
     @Override
     public boolean overrideStackedOnOther(ItemStack bag, @NotNull Slot slot, @NotNull ClickAction action, @NotNull Player player) {
-        if (bag.getCount() != 1 || action != ClickAction.PRIMARY)
+        if (bag.getCount() != 1 || action != ClickAction.SECONDARY)
             return false;
         
         ItemStack itemStack = slot.getItem();
@@ -86,7 +86,7 @@ public class MoraBagItem extends Item {
 
     @Override
     public boolean overrideOtherStackedOnMe(@NotNull ItemStack bag, @NotNull ItemStack input_item, @NotNull Slot slot, @NotNull ClickAction action, @NotNull Player player, @NotNull SlotAccess access) {
-        if (action == ClickAction.PRIMARY && slot.allowModification(player)) {
+        if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
             if (input_item.isEmpty()) {
                 ItemStack itemStack = getItemFromBag(bag, ((IPlayer)player).er$getMoraIndex());
                 this.playRemoveOneSound(player);

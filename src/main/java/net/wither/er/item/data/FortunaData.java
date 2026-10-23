@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
 public record FortunaData(int level, int ascension, int experience, int normal_level, int skill_level, int burst_level) {
-
     /** 从物品 NBT 读取命星（Fortuna）数据，缺失时返回默认值。物品中保存的 level 从 0 开始，这里转为从 1 开始的展示等级。 */
     public static FortunaData get(ItemStack stack) {
         CompoundTag tag = stack.getTag();

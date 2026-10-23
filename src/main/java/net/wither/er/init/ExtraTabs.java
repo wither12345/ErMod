@@ -105,6 +105,7 @@ public class ExtraTabs {
                 tabData.accept(TINY_MIRACLES_HOURGLASS.get());
                 tabData.accept(TINY_MIRACLES_GOBLET.get());
                 tabData.accept(TINY_MIRACLES_EARRINGS.get());
+                tabData.accept(ARTIFACT_TRANSMUTER.get());
                 List<String> attrs = new ArrayList<>();
                 addMainToTab(ERConfig.FLOWER_OF_LIFE_MAIN_ATTR.get(), tabData, attrs);
                 addMainToTab(ERConfig.PLUME_OF_DEATH_ATTR.get(), tabData, attrs);
@@ -117,6 +118,7 @@ public class ExtraTabs {
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {
 		if (tabData.getTabKey() == ErModTabs.ER_MATERIALS.getKey()) {
+            tabData.accept(FORTUNA_ENHANCER);
             tabData.accept(CONDENSED_PYRO);
             tabData.accept(CONDENSED_HYDRO);
             tabData.accept(CONDENSED_ANEMO);
@@ -141,6 +143,9 @@ public class ExtraTabs {
             tabData.accept(FROG);
             tabData.accept(LIZARD_TAIL);
             tabData.accept(DUST_OF_AZOTH);
+            tabData.accept(DAMAGED_MASK);
+            tabData.accept(STAINED_MASK);
+            tabData.accept(OMINOUS_MASK);
             tabData.accept(SLIME_CONDENSATE);
             tabData.accept(SLIME_SECRETIONS);
             tabData.accept(SLIME_CONCENTRATE);
@@ -150,6 +155,9 @@ public class ExtraTabs {
             tabData.accept(WHOPPERFLOWER_NECTAR);
             tabData.accept(SHIMMERING_NECTAR);
             tabData.accept(ENERGY_NECTAR);
+            tabData.accept(MIST_GRASS_POLLEN);
+            tabData.accept(MIST_GRASS);
+            tabData.accept(MIST_GRASS_WICK);
             tabData.accept(ENCHANTED_MYSTIC_ENHANCEMENT_ORE);
             tabData.accept(PYRO_WHOPPERFLOWER_FRUIT);
             tabData.accept(CRYO_WHOPPERFLOWER_FRUIT);
@@ -197,7 +205,10 @@ public class ExtraTabs {
             tabData.accept(SKYRIDER_SWORD);
             tabData.accept(FILLET_BLADE);
             tabData.accept(HARBINGER_OF_DAWN);
-		} else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
+		} else if (tabData.getTabKey() == ErModTabs.STELLA_FORTUNA.getKey()) {
+            tabData.accept(EMPTY_FORTUNA);
+            tabData.accept(FORTUNA_ENHANCER);
+        } else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(BURNING_DIRT);
             tabData.accept(SWEET_FLOWER);
             tabData.accept(WHOPPERFLOWER_SEED);

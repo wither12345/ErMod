@@ -13,7 +13,7 @@ import net.wither.er.advancements.trigger.ReactionTrigger;
 
 @Mod.EventBusSubscriber(modid = ErMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AdvancementTriggerRegister {
-    public static final CriticalDamageTrigger CRIT_DAMAGE = new CriticalDamageTrigger();
+    public static final CriticalDamageTrigger CRITICAL_DAMAGE = new CriticalDamageTrigger();
     public static final ReactionTrigger REACTION = new ReactionTrigger();
     public static final DelusionTrigger DELUSION = new DelusionTrigger();
     public static final PlayerTrigger WHOPPERFLOWER = new PlayerTrigger(new ResourceLocation(ErMod.MODID, "whopperflower"));
@@ -21,7 +21,7 @@ public class AdvancementTriggerRegister {
 
     @SubscribeEvent
     public static void RegisterTrigger(FMLCommonSetupEvent event){
-        CriteriaTriggers.register(CRIT_DAMAGE);
+        CriteriaTriggers.register(CRITICAL_DAMAGE);
         CriteriaTriggers.register(REACTION);
         CriteriaTriggers.register(DELUSION);
         CriteriaTriggers.register(WHOPPERFLOWER);
