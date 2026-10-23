@@ -343,9 +343,9 @@ public class ErModItems {
 	public static final RegistryObject<Item> DAMAGED_MASK = REGISTRY.register("damaged_mask", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> STAINED_MASK = REGISTRY.register("stained_mask", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> OMINOUS_MASK = REGISTRY.register("ominous_mask", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
