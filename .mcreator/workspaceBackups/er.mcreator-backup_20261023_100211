@@ -1058,18 +1058,6 @@
       }
     },
     {
-      "name": "StellaFortunas",
-      "type": "code",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "stella_fortunas",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/StellaFortunas.java"
-        ]
-      }
-    },
-    {
       "name": "PyroParticle",
       "type": "particle",
       "compiles": true,
@@ -2019,45 +2007,6 @@
       }
     },
     {
-      "name": "MysticEnhancementOre",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mystic_enhancement_ore",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/mystic_enhancement_ore.json",
-          "src/main/java/net/mcreator/er/item/MysticEnhancementOreItem.java"
-        ]
-      }
-    },
-    {
-      "name": "FineEnhancementOre",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "fine_enhancement_ore",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/FineEnhancementOreItem.java",
-          "src/main/resources/assets/er/models/item/fine_enhancement_ore.json"
-        ]
-      }
-    },
-    {
-      "name": "EnhancementOre",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "enhancement_ore",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/EnhancementOreItem.java",
-          "src/main/resources/assets/er/models/item/enhancement_ore.json"
-        ]
-      }
-    },
-    {
       "name": "Reaction",
       "type": "damagetype",
       "compiles": true,
@@ -2103,7 +2052,7 @@
       "name": "CraftEnhancementOre",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_enhancement_ore",
       "metadata": {
         "files": [
@@ -2116,7 +2065,7 @@
       "name": "CraftFineEnhancementOre",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_fine_enhancement_ore",
       "metadata": {
         "files": [
@@ -2129,7 +2078,7 @@
       "name": "CraftMysticEnhancementOre",
       "type": "recipe",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "craft_mystic_enhancement_ore",
       "metadata": {
         "files": [
@@ -2553,45 +2502,6 @@
       }
     },
     {
-      "name": "DamagedMask",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "damaged_mask",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/damaged_mask.json",
-          "src/main/java/net/mcreator/er/item/DamagedMaskItem.java"
-        ]
-      }
-    },
-    {
-      "name": "StainedMask",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "stained_mask",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/stained_mask.json",
-          "src/main/java/net/mcreator/er/item/StainedMaskItem.java"
-        ]
-      }
-    },
-    {
-      "name": "OminousMask",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "ominous_mask",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/ominous_mask.json",
-          "src/main/java/net/mcreator/er/item/OminousMaskItem.java"
-        ]
-      }
-    },
-    {
       "name": "PlayerPickupItem",
       "type": "procedure",
       "compiles": true,
@@ -2784,45 +2694,6 @@
       }
     },
     {
-      "name": "MistGrassPollen",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mist_grass_pollen",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/MistGrassPollenItem.java",
-          "src/main/resources/assets/er/models/item/mist_grass_pollen.json"
-        ]
-      }
-    },
-    {
-      "name": "MistGrass",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mist_grass",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/MistGrassItem.java",
-          "src/main/resources/assets/er/models/item/mist_grass.json"
-        ]
-      }
-    },
-    {
-      "name": "MistGrassWick",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mist_grass_wick",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/mist_grass_wick.json",
-          "src/main/java/net/mcreator/er/item/MistGrassWickItem.java"
-        ]
-      }
-    },
-    {
       "name": "AlchemyCrafting",
       "type": "jeirecipetype",
       "compiles": true,
@@ -2981,7 +2852,7 @@
       "name": "StatueofTheSevenCore",
       "type": "block",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "statueof_the_seven_core",
       "metadata": {
         "files": [
@@ -3108,40 +2979,6 @@
       "metadata": {
         "files": [
           "src/main/java/net/mcreator/er/ErBlockEntityRenderers.java"
-        ]
-      }
-    },
-    {
-      "name": "StatueofTheSevenCoreClick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "statueof_the_seven_core_click",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ],
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/StatueofTheSevenCoreClickProcedure.java"
         ]
       }
     },
@@ -3684,7 +3521,7 @@
       "name": "FatuiElectroCicinMageLoot",
       "type": "loottable",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "fatui_electro_cicin_mage_loot",
       "metadata": {
         "files": [
@@ -4135,10 +3972,6 @@
     "ITEMS:minecraft:planks": [
       "CUSTOM:CuihuaPlanks"
     ],
-    "ITEMS:er:stella_fortuna": [
-      "CUSTOM:MemoryofRovingGales",
-      "CUSTOM:TestStellaFortuna"
-    ],
     "ITEMS:minecraft:enchantable/bow": [
       "CUSTOM:PolarStar",
       "CUSTOM:HuntersBow"
@@ -4256,8 +4089,6 @@
       "gamerule.runningStaminaConsumable": "Running Stamina Consumable",
       "entity.er.mist_flower": "Mist Flower",
       "item.er.minor_affix_shard": "Minor Affix Shard",
-      "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
-      "item.er.damaged_mask": "Damaged Mask",
       "attribute.er.anemo_dmg_bonus": "Anemo DMG Bonus",
       "enchantment.er.electro_infusion_enchantment": "Electro Infusion",
       "block.er.cuihua_stairs": "Cuihua Planks",
@@ -4272,12 +4103,9 @@
       "block.er.element_anvil": "Element Anvil",
       "block.er.statueof_the_seven": "Statue of The Seven",
       "entity.er.anemo_crystalfly": "Anemo Crystalfly",
-      "item.er.mist_grass_wick": "Mist Grass Wick",
       "item.er.mist_flower_corolla": "Mist Flower Corolla",
       "message.er.get_vision": "You feel an presence watching you...",
-      "item.er.stained_mask": "Stained Mask",
       "attribute.er.pyro_dmg_bonus": "Pyro DMG Bonus",
-      "item.er.ominous_mask": "Ominous Mask",
       "item.er.rarity_gemstone": "Rarity Gemstone",
       "block.er.cuihua_fence_gate": "Cuihua Planks",
       "enchantment.er.elemental_master": "Elemental Master",
@@ -4307,14 +4135,12 @@
       "block.er.cuihua_fence": "Cuihua Planks",
       "enchantment.er.anemo_infusion_enchantment": "Anemo Infusion",
       "block.er.lotus_head": "Lotus Head",
-      "item.er.mist_grass": "Mist Grass",
       "enchantment.er.hard": "Hard",
       "item.er.polar_star": "Polar Star",
       "item.er.flaming_flower_stamen": "Flaming Flower Stamen",
       "item.er.electro_mist_grass_lantern": "Electro Mist Grass Lantern",
       "entity.er.electro_cicin": "Electro Cicin",
       "enchantment.er.dendro_infusion_enchantment": "Dendro Infusion",
-      "item.er.mist_grass_pollen": "Mist Grass Pollen",
       "enchantment.er.pyro_infusion_enchantment": "Hydro Infusion",
       "gamerule.runningStaminaConsumable.description": "Cost stamina when running.",
       "block.er.cuihua_leaves": "Cuihua Leaves",
@@ -4324,7 +4150,6 @@
       "er.rarity.4": "§6",
       "er.rarity.3": "§5",
       "er.rarity.2": "§9",
-      "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
       "entity.er.pyro_crystallize": "Pyro Crystallize",
       "item.er.flaming_flower_spawn_egg": "Flaming Flower Spawn Egg",
       "block.er.teleport_waypoint": "Teleport Waypoint",
@@ -4343,7 +4168,6 @@
       "effect.er.superconduct": "Superconduct",
       "entity.er.electro_crystallize": "Electro Crystallize",
       "attribute.er.cryo_dmg_bonus": "Cryo DMG Bonus",
-      "item.er.enhancement_ore": "Enhancement Ore",
       "item.er.hunters_bow": "Hunter\u0027s Bow",
       "item.er.electro_cicin_spawn_egg": "Electro Cicin Spawn Egg",
       "enchantment.er.cryo_infusion_enchantment": "Cryo Infusion",
@@ -4505,6 +4329,9 @@
       "item.er.slime_concentrate": "Slime Concentrate",
       "item.er.slime_secretions": "Slime Secretions",
       "item.er.slime_condensate": "Slime Condensate",
+      "item.er.damaged_mask": "Damaged Mask",
+      "item.er.stained_mask": "Stained Mask",
+      "item.er.ominous_mask": "Ominous Mask",
       "artifact_effect.er.lucky_dog": "Lucky Dog",
       "artifact_effect.er.lucky_dog.1": "  2-Piece Set: Armor increased by 100.",
       "artifact_effect.er.lucky_dog.2": "  4-Piece Set: Picking up Mora restores 6 HP.",
@@ -4780,7 +4607,23 @@
       "item.er.condensed_dendro": "Condensed Dendro",
       "item.er.condensed_geo": "Condensed Geo",
       "item.er.condensed_pyro": "Condensed Pyro",
-      "item.er.condensed_hydro": "Condensed Hydro"
+      "item.er.condensed_hydro": "Condensed Hydro",
+      "gui.er.fortuna_enhance.button_upgrade": "Upgrade",
+      "gui.er.fortuna_enhance.button_ascend": "Ascend",
+      "gui.er.fortuna_enhance.button_max": "Max",
+      "gui.er.fortuna_enhance.status_upgrade": "EXP +%s  Mora -%s",
+      "gui.er.fortuna_enhance.status_ascend": "Ascend +1  Cap %s",
+      "gui.er.fortuna_enhance.status_missing": "Missing materials or Mora",
+      "gui.er.fortuna_enhance.status_need_exp": "Insert EXP books",
+      "gui.er.fortuna_enhance.status_max": "Maximum level reached",
+      "text.er.fortuna_health": "HP",
+      "text.er.fortuna_attack": "ATK",
+      "text.er.fortuna_armor": "DEF",
+      "block.er.fortuna_enhancer": "Fortuna Enhancer",
+      "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
+      "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
+      "item.er.enhancement_ore": "Enhancement Ore",
+      "item.er.empty_fortuna": "Empty Fortuna"
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -4828,9 +4671,7 @@
       "gamerule.runningStaminaConsumable": "跑步消耗体力",
       "entity.er.mist_flower": "冰雾花",
       "item.er.minor_affix_shard": "副属性碎片",
-      "item.er.mystic_enhancement_ore": "精锻用魔矿",
       "attribute.er.anemo_dmg_bonus": "风元素伤害加成",
-      "item.er.damaged_mask": "破损的面具",
       "enchantment.er.electro_infusion_enchantment": "雷附魔",
       "block.er.cuihua_stairs": "萃华楼梯",
       "item_group.er.er_materials": "原神起源：材料",
@@ -4844,13 +4685,10 @@
       "block.er.element_anvil": "元素铁砧",
       "block.er.statueof_the_seven": "七天神像",
       "entity.er.anemo_crystalfly": "风晶蝶",
-      "item.er.mist_grass_wick": "雾虚灯芯",
       "item.er.mist_flower_corolla": "冰雾花花朵",
       "message.er.get_vision": "你感受到有个东西在看着你……",
-      "item.er.stained_mask": "污秽的面具",
       "attribute.er.pyro_dmg_bonus": "火元素伤害加成",
       "item.er.rarity_gemstone": "稀有度宝石",
-      "item.er.ominous_mask": "不祥的面具",
       "attribute.er.crit_damage": "暴击伤害",
       "block.er.cuihua_fence_gate": "萃华木栅栏门",
       "enchantment.er.elemental_master": "元素精通",
@@ -4880,14 +4718,12 @@
       "block.er.cuihua_fence": "萃华木栅栏",
       "enchantment.er.anemo_infusion_enchantment": "风附魔",
       "block.er.lotus_head": "莲蓬",
-      "item.er.mist_grass": "雾虚草囊",
       "enchantment.er.hard": "硬化",
       "item.er.polar_star": "冬极白星",
       "item.er.flaming_flower_stamen": "烈焰花花蕊",
       "item.er.electro_mist_grass_lantern": "雾虚灯笼",
       "entity.er.electro_cicin": "雷萤",
       "enchantment.er.dendro_infusion_enchantment": "草附魔",
-      "item.er.mist_grass_pollen": "雾虚花粉",
       "enchantment.er.pyro_infusion_enchantment": "火附魔",
       "gamerule.runningStaminaConsumable.description": "跑步时候会消耗体力",
       "block.er.cuihua_leaves": "萃华叶",
@@ -4897,7 +4733,6 @@
       "er.rarity.4": "§6",
       "er.rarity.3": "§5",
       "er.rarity.2": "§9",
-      "item.er.fine_enhancement_ore": "精锻用良矿",
       "entity.er.pyro_crystallize": "火结晶",
       "item.er.flaming_flower_spawn_egg": "烈焰花刷怪蛋",
       "block.er.teleport_waypoint": "传送锚点",
@@ -4916,7 +4751,6 @@
       "effect.er.superconduct": "超导",
       "entity.er.electro_crystallize": "雷结晶",
       "attribute.er.cryo_dmg_bonus": "冰元素伤害加成",
-      "item.er.enhancement_ore": "精锻用杂矿",
       "item.er.hunters_bow": "猎弓",
       "item.er.electro_cicin_spawn_egg": "雷萤刷怪蛋",
       "enchantment.er.cryo_infusion_enchantment": "冰附魔",
@@ -5077,6 +4911,9 @@
       "item.er.slime_concentrate": "史莱姆原浆",
       "item.er.slime_secretions": "史莱姆清",
       "item.er.slime_condensate": "史莱姆凝液",
+      "item.er.damaged_mask": "破损的面具",
+      "item.er.stained_mask": "污秽的面具",
+      "item.er.ominous_mask": "不祥的面具",
       "artifact_effect.er.lucky_dog": "幸运儿",
       "artifact_effect.er.lucky_dog.1": "  2件套：护甲值提高100点。",
       "artifact_effect.er.lucky_dog.2": "  4件套：拾取摩拉时，恢复6点生命值。",
@@ -5343,7 +5180,23 @@
       "item.er.condensed_dendro": "浓缩草元素",
       "item.er.condensed_geo": "浓缩岩元素",
       "item.er.condensed_pyro": "浓缩火元素",
-      "item.er.condensed_hydro": "浓缩水元素"
+      "item.er.condensed_hydro": "浓缩水元素",
+      "gui.er.fortuna_enhance.button_upgrade": "升级",
+      "gui.er.fortuna_enhance.button_ascend": "突破",
+      "gui.er.fortuna_enhance.button_max": "已满级",
+      "gui.er.fortuna_enhance.status_upgrade": "经验+%s 摩拉-%s",
+      "gui.er.fortuna_enhance.status_ascend": "突破+1 上限%s",
+      "gui.er.fortuna_enhance.status_missing": "材料或摩拉不足",
+      "gui.er.fortuna_enhance.status_need_exp": "放入经验书",
+      "gui.er.fortuna_enhance.status_max": "已达最高等级",
+      "text.er.fortuna_health": "生命",
+      "text.er.fortuna_attack": "攻击",
+      "text.er.fortuna_armor": "护甲",
+      "block.er.fortuna_enhancer": "命星强化台",
+      "item.er.mystic_enhancement_ore": "精锻用魔矿",
+      "item.er.fine_enhancement_ore": "精锻用良矿",
+      "item.er.enhancement_ore": "精锻用杂矿",
+      "item.er.empty_fortuna": "空命星"
     }
   },
   "metadata": {
@@ -5390,7 +5243,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

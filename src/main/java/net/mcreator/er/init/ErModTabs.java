@@ -34,13 +34,7 @@ public class ErModTabs {
 				tabData.accept(ErModItems.IRON_CHUNK.get());
 				tabData.accept(ErModItems.WHITE_IRON_CHUNK.get());
 				tabData.accept(ErModItems.CRYSTAL_CHUNK.get());
-				tabData.accept(ErModItems.DAMAGED_MASK.get());
-				tabData.accept(ErModItems.STAINED_MASK.get());
-				tabData.accept(ErModItems.OMINOUS_MASK.get());
 				tabData.accept(ErModItems.SUNSETTIA.get());
-				tabData.accept(ErModItems.MIST_GRASS_POLLEN.get());
-				tabData.accept(ErModItems.MIST_GRASS.get());
-				tabData.accept(ErModItems.MIST_GRASS_WICK.get());
 				tabData.accept(ErModBlocks.CRAFTING_BENCH.get().asItem());
 				tabData.accept(ErModItems.EMPTY_LEY_LINE_MAP.get());
 				tabData.accept(ErModItems.PRIMOGEM.get());

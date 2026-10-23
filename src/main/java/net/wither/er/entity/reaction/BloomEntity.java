@@ -15,16 +15,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.wither.er.elements.IAuraContainerOwner;
 import net.wither.er.elements.Element;
+import net.wither.er.elements.IAuraContainerOwner;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.UUID;
 
 public class BloomEntity extends LivingEntity implements TraceableEntity{
@@ -151,18 +148,12 @@ public class BloomEntity extends LivingEntity implements TraceableEntity{
 	}
 
 	public void explode(float basicDamage, Entity damager){
-		if(damager == null)
-			damager = this.getOwner() ;
-		List<LivingEntity> ent_found = this.level().getEntitiesOfClass(LivingEntity.class, new AABB(this.getPosition(0),this.getPosition(0)).inflate(2.5), e -> true).stream()
-				.sorted(Comparator.comparingDouble(e -> e.distanceToSqr(this.getPosition(0)))).toList();
-		for (LivingEntity entity_iterator : ent_found) {
-			entity_iterator.hurt(
-					new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) , this),
-                    basicDamage
-							* EntityHurtEvent.getLevelMultiply(damager == null ? this : damager)
-							* (EntityHurtEvent.shouldHurt(damager,entity_iterator) ? 1 : 0.05f)
-			);
-		}
+        this.level().getEntitiesOfClass(LivingEntity.class, this.getHitbox().inflate(2.5), e -> !(e instanceof BloomEntity)).forEach(living -> living.hurt(
+                new DamageSource(this.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(Element.BLOOM) , this, damager),
+                basicDamage
+                        * EntityHurtEvent.getLevelMultiply(damager == null ? this : damager)
+                        * (EntityHurtEvent.shouldHurt(damager,living) ? 1 : 0.05f)
+        ));
 		this.discard();
 	}
 }

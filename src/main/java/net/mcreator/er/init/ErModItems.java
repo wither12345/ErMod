@@ -3,42 +3,45 @@
 */
 package net.mcreator.er.init;
 
-import net.mcreator.er.ErMod;
-import net.mcreator.er.item.*;
-import net.mcreator.er.procedures.RarityGemstone_CountProcedure;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.level.block.Block;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.wither.er.elements.Element;
-import net.wither.er.entity.ArtifactSlot;
-import net.wither.er.init.ArmorMaterialsRegister;
-import net.wither.er.init.DataComponentsRegister;
-import net.wither.er.init.ShieldRegistry;
-import net.wither.er.init.WeaponAbilityRegister;
-import net.wither.er.item.*;
-import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
-import net.wither.er.item.data.DelusionData;
-import net.wither.er.item.data.weapon.WeaponAttributeData;
-import net.wither.er.item.data.weapon.WeaponLevelData;
-import net.wither.er.item.data.weapon.WeaponRefinement;
-import net.wither.er.item.fortuna.EmptyFortuna;
-import net.wither.er.item.morabag.MoraBagItem;
-import net.wither.er.item.weapons.Claymore;
-import net.wither.er.item.weapons.ElementalTiers;
 import net.wither.er.item.weapons.ErTiers;
+import net.wither.er.item.weapons.ElementalTiers;
+import net.wither.er.item.weapons.Claymore;
+import net.wither.er.item.morabag.MoraBagItem;
+import net.wither.er.item.fortuna.EmptyFortuna;
+import net.wither.er.item.data.weapon.WeaponRefinement;
+import net.wither.er.item.data.weapon.WeaponLevelData;
+import net.wither.er.item.data.weapon.WeaponAttributeData;
+import net.wither.er.item.data.DelusionData;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.item.*;
+import net.wither.er.init.WeaponAbilityRegister;
+import net.wither.er.init.ShieldRegistry;
+import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.init.ArmorMaterialsRegister;
+import net.wither.er.entity.ArtifactSlot;
+import net.wither.er.elements.Element;
+
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.client.renderer.item.ItemProperties;
+
+import net.mcreator.er.procedures.RarityGemstone_CountProcedure;
+import net.mcreator.er.item.*;
+import net.mcreator.er.ErMod;
 
 public class ErModItems {
 	public static final DeferredRegister.Items REGISTRY = DeferredRegister.createItems(ErMod.MODID);
@@ -78,16 +81,10 @@ public class ErModItems {
 	public static final DeferredItem<Item> CUIHUA_SLAB;
 	public static final DeferredItem<Item> CUIHUA_FENCE;
 	public static final DeferredItem<Item> CUIHUA_FENCE_GATE;
-	public static final DeferredItem<Item> DAMAGED_MASK;
-	public static final DeferredItem<Item> STAINED_MASK;
-	public static final DeferredItem<Item> OMINOUS_MASK;
 	public static final DeferredItem<Item> SUNSETTIA;
 	public static final DeferredItem<Item> ELECTRO_CICIN_SPAWN_EGG;
 	public static final DeferredItem<Item> FATUI_ELECTRO_CICIN_MAGE_SPAWN_EGG;
 	public static final DeferredItem<Item> ELECTRO_MIST_GRASS_LANTERN;
-	public static final DeferredItem<Item> MIST_GRASS_POLLEN;
-	public static final DeferredItem<Item> MIST_GRASS;
-	public static final DeferredItem<Item> MIST_GRASS_WICK;
 	public static final DeferredItem<Item> CRAFTING_BENCH;
 	public static final DeferredItem<Item> CUIHUA_SAPLING;
 	public static final DeferredItem<Item> LEY_LINE_MAP;
@@ -143,16 +140,10 @@ public class ErModItems {
 		CUIHUA_SLAB = block(ErModBlocks.CUIHUA_SLAB);
 		CUIHUA_FENCE = block(ErModBlocks.CUIHUA_FENCE);
 		CUIHUA_FENCE_GATE = block(ErModBlocks.CUIHUA_FENCE_GATE);
-		DAMAGED_MASK = REGISTRY.register("damaged_mask", DamagedMaskItem::new);
-		STAINED_MASK = REGISTRY.register("stained_mask", StainedMaskItem::new);
-		OMINOUS_MASK = REGISTRY.register("ominous_mask", OminousMaskItem::new);
 		SUNSETTIA = REGISTRY.register("sunsettia", SunsettiaItem::new);
 		ELECTRO_CICIN_SPAWN_EGG = REGISTRY.register("electro_cicin_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.ELECTRO_CICIN, -10092340, -13434778, new Item.Properties()));
 		FATUI_ELECTRO_CICIN_MAGE_SPAWN_EGG = REGISTRY.register("fatui_electro_cicin_mage_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.FATUI_ELECTRO_CICIN_MAGE, -13434778, -6736897, new Item.Properties()));
 		ELECTRO_MIST_GRASS_LANTERN = REGISTRY.register("electro_mist_grass_lantern", ElectroMistGrassLanternItem::new);
-		MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", MistGrassPollenItem::new);
-		MIST_GRASS = REGISTRY.register("mist_grass", MistGrassItem::new);
-		MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", MistGrassWickItem::new);
 		CRAFTING_BENCH = block(ErModBlocks.CRAFTING_BENCH);
 		CUIHUA_SAPLING = block(ErModBlocks.CUIHUA_SAPLING);
 		LEY_LINE_MAP = REGISTRY.register("ley_line_map", LeyLineMapItem::new);
@@ -356,6 +347,12 @@ public class ErModItems {
 	public static final DeferredItem<Item> FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> EMPTY_FORTUNA = REGISTRY.register("empty_fortuna", EmptyFortuna::new);
+	public static final DeferredItem<Item> DAMAGED_MASK = REGISTRY.register("damaged_mask", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> STAINED_MASK = REGISTRY.register("stained_mask", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> OMINOUS_MASK = REGISTRY.register("ominous_mask", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
+	public static final DeferredItem<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
