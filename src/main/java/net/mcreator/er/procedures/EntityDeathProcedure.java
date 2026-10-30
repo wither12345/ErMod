@@ -28,7 +28,7 @@ import net.wither.er.entity.EnergyOrb;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.entity.outcrop.Blossom;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.data.weapon.KillAbility;
+import net.wither.er.item.data.ability.KillAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 
 @Mod.EventBusSubscriber

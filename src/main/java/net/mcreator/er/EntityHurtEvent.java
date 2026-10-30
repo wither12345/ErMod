@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 import net.wither.er.client.renderer.damage.RenderDamageAmount;
-import net.wither.er.combat.DamageModifierInterface;
+import net.wither.er.player.combat.DamageModifierInterface;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
@@ -50,9 +50,9 @@ import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.item.Vision;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.FortunaData;
-import net.wither.er.item.data.weapon.BeAttackedAbility;
-import net.wither.er.item.data.weapon.DamageAbility;
-import net.wither.er.item.data.weapon.InfusionAbility;
+import net.wither.er.item.data.ability.BeAttackedAbility;
+import net.wither.er.item.data.ability.DamageAbility;
+import net.wither.er.item.data.ability.InfusionAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.network.DamageDisplayMessage;
@@ -100,8 +100,8 @@ public class EntityHurtEvent {
      *       圣遗物与武器精炼提供的 {@link DamageAbility}、元素精通、附着元素、
      *       元素增伤与角色邪眼（Delusion）加成、暴击判定；</li>
      *   <li>通过 {@link DamageModifier#calculate} 汇总各乘区计算最终伤害；</li>
-     *   <li>若目标实现了 {@link IErEntity}，先扣除护盾吸收量，再触发目标的
-     *       {@link BeAttackedAbility} 受到攻击效果，并回写最终伤害。</li>
+     *   <li>若目标实现了 {@link IErEntity}，先触发目标的{@link BeAttackedAbility} 受到攻击效果，
+     *       再扣除护盾吸收量，并回写最终伤害。</li>
      * </ol>
      *
      * @param event Forge 的受击事件对象
@@ -148,22 +148,19 @@ public class EntityHurtEvent {
                 containerOwner.er$getAuraContainer().addAura(source, modifier, sourceentity);
                 ApplyElementMultiply(source.getElement(), entity, sourceentity, modifier);
                 if(sourceentity instanceof LivingEntity living){
-                    Vision.getOptDelusion(living).ifPresent(
-                            data -> {
-                                modifier.crit_multiply += data.critMulti;
-                                modifier.common_multiply += data.dmgMulti;
-                                float dmg = amount * data.healthConsume;
-                                if(living instanceof ServerPlayer player) {
-                                    AdvancementTriggerRegister.DELUSION.trigger(player, dmg);
-                                    ErMod.PACKET_HANDLER.sendTo(new MuteShakeData(), player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
-                                }
-                                if(living.getHealth() >= dmg)
-                                    living.setHealth(living.getHealth() - dmg);
-                                else
-                                    living.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.WITHER)), living.getMaxHealth() * 20);
-
-                            }
-                    );
+                    Vision.getOptDelusion(living).ifPresent(data -> {
+                        modifier.crit_multiply += data.critMulti;
+                        modifier.common_multiply += data.dmgMulti;
+                        float dmg = amount * data.healthConsume;
+                        if(living instanceof ServerPlayer player) {
+                            AdvancementTriggerRegister.DELUSION.trigger(player, dmg);
+                            ErMod.PACKET_HANDLER.sendTo(new MuteShakeData(), player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
+                        }
+                        if(living.getHealth() >= dmg)
+                            living.setHealth(living.getHealth() - dmg);
+                        else
+                            living.hurt(new DamageSource(entity.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.WITHER)), living.getMaxHealth() * 20);
+                    });
                 }
             }
             else {
@@ -184,8 +181,28 @@ public class EntityHurtEvent {
                 modifier.reaction_multiply = 0 ;
 
 
-            float final_amount = modifier.calculate(amount, elemental_mastery);
             if (entity instanceof IErEntity anInterface) {
+                entity.getCapability(ErItemVariables.PLAYER_VARIABLES).ifPresent(data -> {
+                    if(data.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                        fortuna.beAttacked(entity, damagesource, modifier, amount, FortunaData.get(data.Stella_Fortuna));
+                });
+                Object2IntMap<ArtifactEffect> map = anInterface.er$getEffectMap();
+                for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
+                    if(effect.getKey() instanceof BeAttackedAbility ability){
+                        ability.beAttacked(entity, damagesource, modifier, amount, effect.getIntValue());
+                    }
+                }
+                ItemStack itemStack = entity.getMainHandItem();
+                itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
+                    if(weaponAbility.ability().get() instanceof BeAttackedAbility ability) {
+                        CompoundTag tag = itemStack.getOrCreateTag();
+                        int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
+                        ability.beAttacked(entity, damagesource, modifier, amount, refinement);
+                    }
+                });
+
+
+                float final_amount = modifier.calculate(amount, elemental_mastery);
                 List<ShieldStack> shields = anInterface.er$getShieldStacks();
                 float shield_absorb = 0f;
                 for (ShieldStack shield : shields) {
@@ -194,24 +211,7 @@ public class EntityHurtEvent {
                     else
                         shield_absorb = Math.max(shield_absorb, shield.getShield().onHurt(shield, entity, damagesource, final_amount, 0));
                 }
-                final_amount -= shield_absorb;
-                event.setAmount(final_amount);
-
-                Object2IntMap<ArtifactEffect> map = anInterface.er$getEffectMap();
-                for(Object2IntMap.Entry<ArtifactEffect> effect : map.object2IntEntrySet()){
-                    if(effect.getKey() instanceof BeAttackedAbility ability){
-                        ability.beAttacked(entity, damagesource, modifier, final_amount, effect.getIntValue());
-                    }
-                }
-                ItemStack itemStack = entity.getMainHandItem();
-                float final_amount1 = final_amount;
-                itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).ifPresent(weaponAbility -> {
-                    if(weaponAbility.ability().get() instanceof BeAttackedAbility ability) {
-                        CompoundTag tag = itemStack.getOrCreateTag();
-                        int refinement = tag.contains("refinement") ? tag.getInt("refinement") : 1 ;
-                        ability.beAttacked(entity, damagesource, modifier, final_amount1, refinement);
-                    }
-                });
+                event.setAmount(final_amount - shield_absorb);
             }
         }
 	}
@@ -351,15 +351,15 @@ public class EntityHurtEvent {
      *
      * @param element      命中的元素
      * @param entity       受击实体
-     * @param sourceentity 伤害来源（用于读取攻击者的元素增伤属性）
+     * @param sourceEntity 伤害来源（用于读取攻击者的元素增伤属性）
      * @param modifier     目标伤害修饰器
      * @see Element#getDamageAttr()
      * @see Element#getResAttr()
      * @see Element#getImmuneTag()
      */
-    private static void ApplyElementMultiply(Element element, LivingEntity entity, Entity sourceentity , DamageModifier modifier){
+    private static void ApplyElementMultiply(Element element, LivingEntity entity, Entity sourceEntity , DamageModifier modifier){
 		element.getDamageAttr();
-		if(sourceentity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null)
+		if(sourceEntity instanceof LivingEntity living && element.getDamageAttr() != null && living.getAttribute(element.getDamageAttr()) != null)
 			modifier.common_multiply += (float) living.getAttributeValue(element.getDamageAttr()) - 1;
 		if(element.getImmuneTag() != null && entity.getType().is(element.getImmuneTag()))
 			modifier.reaction_multiply = 0;
@@ -380,16 +380,16 @@ public class EntityHurtEvent {
      *
      * @param world                所在世界
      * @param entity               攻击实体
-     * @param immediatesourceentity 直接攻击来源实体
+     * @param immediateSourceEntity 直接攻击来源实体
      * @return 解析出的元素来源，无元素时返回 {@code null}
      * @see WeaponAbilityData
      * @see InfusionAbility
      */
     @Nullable
-    public static ElementSource getElementSource(LevelAccessor world, Entity entity, Entity immediatesourceentity){
+    public static ElementSource getElementSource(LevelAccessor world, Entity entity, Entity immediateSourceEntity){
         if (entity == null) return null;
         Element element = null;
-        if (immediatesourceentity == entity) {
+        if (immediateSourceEntity == entity) {
             if(entity instanceof LivingEntity living){
                 ItemStack itemStack = living.getMainHandItem();
                 WeaponAbilityData data = itemStack.getCapability(WeaponAbilityData.WEAPON_ABILITY).resolve().orElse(null);
@@ -419,43 +419,12 @@ public class EntityHurtEvent {
         return new ElementSource(element, new ResourceLocation("er:default"), 1, element.isApplicable());
     }
 
-	/**
-     * 根据元素精通数值计算各类反应的增幅倍率。
-     * <p>
-     * 按反应类型分类（{@code type}）：
-     * <ul>
-     *   <li>0 —— 增幅反应（融化/蒸发）；</li>
-     *   <li>1 —— 剧变反应（超载、感电等）；</li>
-     *   <li>2 —— 激化反应（蔓激化/超激化）；</li>
-     *   <li>3 —— 结晶反应；</li>
-     *   <li>其它 —— 返回 1（无加成）。</li>
-     * </ul>
-     * <p>
-     * 注意：本方法按 {@code type} 直接给定拟合系数，与
-     * {@link ReactionMultiply#getMulti(double)} 的作用类似，两者属于不同的调用入口。
-     *
-     * @param type              反应类型代号
-     * @param elemental_mastery 元素精通数值
-     * @return 对应反应的伤害倍率
-     */
-	public static float getElementalMasteryMultiply(int type, double elemental_mastery) {
-		if (type == 0) //Melt Vaporize
-			return 2.78f * (float) (elemental_mastery / (elemental_mastery + 1400));
-		if (type == 1) //Overloaded, Superconduct, Electro-Charged, Burning, Shattered, Swirl, Bloom, Hyperbloom,Burgeon
-			return 16f * (float) (elemental_mastery / (elemental_mastery + 2000)) + 1f;
-		if (type == 2) //Spread Aggravate
-			return 5f * (float) (elemental_mastery / (elemental_mastery + 1200));
-		if (type == 3) //Crystallize
-			return 4.44f * (float) (elemental_mastery / (elemental_mastery + 1400)) + 1;
-		return 1f;
-	}
-
     /**
      * 判断两个实体之间是否应当发生互相伤害。
      * <p>
      * 规则依次为：
      * <ol>
-     *   <li>任一实体为空时默认允许伤害；</li>
+     *   <li>任意实体为空时默认允许伤害；</li>
      *   <li>先追溯各自的主人（{@link OwnableEntity}）；</li>
      *   <li>若双方在计分板上存在队伍，则仅在不同队伍间允许伤害；</li>
      *   <li>同一实体之间不允许伤害；</li>

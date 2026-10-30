@@ -20,7 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
+import net.wither.er.item.data.ability.EnergyOrbPickupAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;

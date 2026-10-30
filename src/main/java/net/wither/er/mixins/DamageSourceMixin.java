@@ -3,7 +3,7 @@ package net.wither.er.mixins;
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.wither.er.combat.DamageModifierInterface;
+import net.wither.er.player.combat.DamageModifierInterface;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
 import org.spongepowered.asm.mixin.Mixin;

@@ -14,8 +14,8 @@ import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.data.weapon.HealthFloatingAbility;
-import net.wither.er.item.data.weapon.TickAbility;
+import net.wither.er.item.data.ability.HealthFloatingAbility;
+import net.wither.er.item.data.ability.TickAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 
 @Mod.EventBusSubscriber

@@ -33,7 +33,7 @@ public class AlchemyCraftingRecipeCategory implements IRecipeCategory<AlchemyCra
 
 	@Override
 	public mezz.jei.api.recipe.RecipeType<AlchemyCraftingRecipe> getRecipeType() {
-		return ErJeiPlugin.AlchemyCrafting_Type;
+		return ErJeiPlugin.ALCHEMY_CRAFTING_TYPE;
 	}
 
 	@Override

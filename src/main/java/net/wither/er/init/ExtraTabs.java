@@ -2,6 +2,7 @@ package net.wither.er.init;
 
 import net.mcreator.er.ERConfig;
 import net.mcreator.er.ErMod;
+import net.mcreator.er.init.ErModItems;
 import net.mcreator.er.init.ErModTabs;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -35,7 +36,12 @@ public class ExtraTabs {
                 addDelusions(tabData, 1);
                 addDelusions(tabData, 3);
             }).build());
-
+    public static final RegistryObject<CreativeModeTab> STELLA_FORTUNA = REGISTRY.register("stella_fortuna",
+            () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.stella_fortuna")).icon(() -> new ItemStack(ErModItems.MEMORY_OF_ROVING_GALES.get())).displayItems((parameters, tabData) -> {
+                tabData.accept(ErModItems.MEMORY_OF_ROVING_GALES.get());
+                tabData.accept(EMPTY_FORTUNA.get());
+                tabData.accept(FORTUNA_ENHANCER.get());
+            }).withSearchBar().withTabsBefore(ErModTabs.ER_WEAPON.getId()).build());
     public static final RegistryObject<CreativeModeTab> ARTIFACTS = REGISTRY.register("artifacts",
             () -> CreativeModeTab.builder().title(Component.translatable("item_group.er.artifacts")).icon(() -> new ItemStack(LUCKY_DOGS_CLOVER.get())).displayItems((parameters, tabData) -> {
                 tabData.accept(RARITY_GEMSTONE.get());
@@ -205,9 +211,6 @@ public class ExtraTabs {
             tabData.accept(SKYRIDER_SWORD);
             tabData.accept(FILLET_BLADE);
             tabData.accept(HARBINGER_OF_DAWN);
-		} else if (tabData.getTabKey() == ErModTabs.STELLA_FORTUNA.getKey()) {
-            tabData.accept(EMPTY_FORTUNA);
-            tabData.accept(FORTUNA_ENHANCER);
         } else if(tabData.getTabKey() == CreativeModeTabs.NATURAL_BLOCKS){
             tabData.accept(BURNING_DIRT);
             tabData.accept(SWEET_FLOWER);

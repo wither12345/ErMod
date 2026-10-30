@@ -1,6 +1,7 @@
 package net.wither.er.mixins;
 
 import net.minecraft.util.Mth;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.world.entity.AnimationState;
@@ -83,7 +84,7 @@ public abstract class PlayerMixin extends LivingEntity implements IPlayer {
 		if (stack.getItem() instanceof StellaFortuna item) {
 			SF = item;
 			speed = SF.getSpeed(this, vars.animationId);
-            SF.animationTicking(this, vars.animationId, vars.animationTime, speed);
+            SF.animationTicking(this, vars.animationId, vars.animationTime, speed, FortunaData.get(stack));
 		}
 		if (vars.animationTime >= 0) {
 			vars.animationTime -= speed;

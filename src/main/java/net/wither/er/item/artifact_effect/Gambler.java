@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.wither.er.init.MobEffectRegister;
-import net.wither.er.item.data.weapon.KillAbility;
+import net.wither.er.item.data.ability.KillAbility;
 import net.wither.er.network.ErCombatVariables;
 
 import java.util.UUID;

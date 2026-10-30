@@ -12,7 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
-import net.wither.er.item.data.weapon.*;
+import net.wither.er.item.data.ability.*;
 
 import java.util.function.Supplier;
 

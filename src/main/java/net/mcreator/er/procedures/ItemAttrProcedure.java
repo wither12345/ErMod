@@ -37,13 +37,13 @@ public class ItemAttrProcedure {
 			if (event.getSlotType() == EquipmentSlot.MAINHAND) {
 				if (item.getItem() instanceof TieredItem tieredItem) {
 					Tier tier = tieredItem.getTier();
-					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
+					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, "main", (tier.getAttackDamageBonus() + 3) * (0.1 * level + getAscensionAmount(ascension,star)), AttributeModifier.Operation.ADDITION));
 					WeaponAbilityData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));
 					}
 				} else if (item.getItem() instanceof IProjectileWeapon projectileWeapon) {
-					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_DAMAGE_UUID, "main", projectileWeapon.er$getDamage() * (0.1 * level + 1) + getAscensionAmount(ascension, star), AttributeModifier.Operation.ADDITION));
+					event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_DAMAGE_UUID, "main", projectileWeapon.er$getDamage() * (0.1 * level + getAscensionAmount(ascension,star) + 1), AttributeModifier.Operation.ADDITION));
 					WeaponAbilityData dataAttr = DataComponentsRegister.WEAPON_ATTR.getData(item);
 					if (dataAttr != null && dataAttr.attribute() != null) {
 						event.addModifier(dataAttr.attribute(), dataAttr.getModifier(WEAPON_SECONDARY, level));

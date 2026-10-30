@@ -20,6 +20,7 @@ public class AscensionRecipe {
     }
 
     public Single getRecipe(int i){
+        if(i < 0) return singles[0];
         if(i < 6)
             return singles[i] ;
         return null ;
@@ -27,7 +28,7 @@ public class AscensionRecipe {
 
     public static class Single{
         private final int mora;
-        private final Input[] inputs = new Input[4] ;
+        private final Input[] inputs = new Input[5] ;
 
         private Single(JsonElement element){
             this.mora = element.getAsJsonObject().get("mora").getAsInt() ;

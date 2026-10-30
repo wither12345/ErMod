@@ -5,7 +5,7 @@ import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.wither.er.combat.CombatAnimation;
+import net.wither.er.player.combat.CombatAnimation;
 import net.wither.er.item.data.DelusionData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 import net.wither.er.item.data.artifactdata.MainAffix;

@@ -2,6 +2,7 @@ package net.wither.er.world.inventory;
 
 import com.mojang.datafixers.util.Pair;
 import net.mcreator.er.ErMod;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -140,11 +141,16 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
         @Override
         public void setChanged() {
             super.setChanged();
-            if(player.level() instanceof ServerLevel) {
-                ErItemVariables.PlayerVariables _vars = player.getCapability(ErItemVariables.PLAYER_VARIABLES).resolve().get();
+            if(this.player.level() instanceof ServerLevel) {
+                ErItemVariables.PlayerVariables _vars = this.player.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables());
+
+                if(_vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                    fortuna.removeAttr(this.player);
+
                 _vars.Stella_Fortuna = this.getItem().copy();
-                StellaFortuna.applyAttr(player, _vars.Stella_Fortuna);
-                _vars.syncToClient(player);
+                if(_vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                    fortuna.applyAttr(this.player, FortunaData.get(_vars.Stella_Fortuna));
+                _vars.syncToClient(this.player);
             }
         }
     }

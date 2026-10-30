@@ -20,6 +20,7 @@ import static net.wither.er.init.DataComponentsRegister.ARTIFACT;
 public class PlayerPickupItemProcedure {
 	@SubscribeEvent
 	public static void onPickup(EntityItemPickupEvent event) {
+
 		ItemStack itemStack = event.getItem().getItem();
 		Player entity = event.getEntity();
         ItemStack item;

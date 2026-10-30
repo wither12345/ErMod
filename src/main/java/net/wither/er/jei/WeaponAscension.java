@@ -35,7 +35,7 @@ public class WeaponAscension implements IRecipeCategory<AscensionRecipeListener.
 
     @Override
     public mezz.jei.api.recipe.@NotNull RecipeType<AscensionRecipeListener.AscensionEntry> getRecipeType() {
-        return ErJeiPlugin.WeaponAscensionType;
+        return ErJeiPlugin.WEAPON_ASCENSION_TYPE;
     }
 
     @Override

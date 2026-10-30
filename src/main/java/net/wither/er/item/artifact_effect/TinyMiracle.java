@@ -9,7 +9,7 @@ import net.wither.er.elements.ElementSource;
 import net.wither.er.elements.ElementSourceInterface;
 import net.wither.er.init.ErAttributeRegister;
 import net.wither.er.init.MobEffectRegister;
-import net.wither.er.item.data.weapon.BeAttackedAbility;
+import net.wither.er.item.data.ability.BeAttackedAbility;
 
 import java.util.List;
 import java.util.UUID;

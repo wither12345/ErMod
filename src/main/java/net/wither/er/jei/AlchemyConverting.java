@@ -32,7 +32,7 @@ public class AlchemyConverting implements IRecipeCategory<AlchemyConvertingRecip
 
     @Override
     public mezz.jei.api.recipe.@NotNull RecipeType<AlchemyConvertingRecipe> getRecipeType() {
-        return ErJeiPlugin.AlchemyConvertingType;
+        return ErJeiPlugin.ALCHEMY_CONVERTING_TYPE;
     }
 
     @Override

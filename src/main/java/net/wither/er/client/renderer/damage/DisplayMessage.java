@@ -39,13 +39,6 @@ public abstract class DisplayMessage {
         float scaling = -this.getSize(partialTick, nowTime);
         pose.mulPose(new Quaternionf(camera.rotation()));
 
-        /*
-        pose.mulPose(Axis.YP.rotation((partialTick + nowTime) * 10));
-        pose.mulPose(Axis.XP.rotation((partialTick + nowTime) * 20));
-        pose.mulPose(Axis.ZP.rotation((partialTick + nowTime) * 30));
--
-         */
-
         pose.scale(scaling, scaling, scaling);
 
         RenderSpecialDamage.renderText(bufferSource, camera, pose, s, color, type);

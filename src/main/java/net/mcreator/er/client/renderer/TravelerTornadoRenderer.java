@@ -32,16 +32,16 @@ public class TravelerTornadoRenderer extends MobRenderer<TravelerTornadoEntity, 
 				double y = entity.getY();
 				double z = entity.getZ();
 				light = 255;
-				if (entity.getEntityData().get(TravelerTornadoEntity.DATA_Absorption) == 1) {
+				if (entity.getEntityData().get(TravelerTornadoEntity.DATA_ABSORPTION) == 1) {
 					VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(ELECTRO));
 					this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), 1, 1, 1,1);
-				} else if (entity.getEntityData().get(TravelerTornadoEntity.DATA_Absorption) == 2) {
+				} else if (entity.getEntityData().get(TravelerTornadoEntity.DATA_ABSORPTION) == 2) {
 					VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(HYDRO));
 					this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), 1, 1, 1,1);
-				} else if (entity.getEntityData().get(TravelerTornadoEntity.DATA_Absorption) == 3) {
+				} else if (entity.getEntityData().get(TravelerTornadoEntity.DATA_ABSORPTION) == 3) {
 					VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(PYRO));
 					this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), 1, 1, 1,1);
-				} else if (entity.getEntityData().get(TravelerTornadoEntity.DATA_Absorption) == 4) {
+				} else if (entity.getEntityData().get(TravelerTornadoEntity.DATA_ABSORPTION) == 4) {
 					VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(CRYO));
 					this.getParentModel().renderToBuffer(poseStack, vertexConsumer, light, LivingEntityRenderer.getOverlayCoords(entity, 0), 1, 1, 1,1);
 				} else {

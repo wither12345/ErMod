@@ -10,7 +10,7 @@ import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.init.MobEffectRegister;
-import net.wither.er.item.data.weapon.ReactionAbility;
+import net.wither.er.item.data.ability.ReactionAbility;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;

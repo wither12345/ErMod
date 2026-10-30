@@ -5,7 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.wither.er.item.data.weapon.HealthFloatingAbility;
+import net.wither.er.item.data.ability.HealthFloatingAbility;
 
 import java.util.UUID;
 

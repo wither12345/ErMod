@@ -13,11 +13,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -29,7 +31,8 @@ import net.wither.er.elements.ElementSource;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.item.ModifyTooltip;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.data.weapon.OnBurstAbility;
+import net.wither.er.item.data.FortunaData;
+import net.wither.er.item.data.ability.OnBurstAbility;
 import net.wither.er.item.data.weapon.WeaponAbilityData;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.StellaFortunaData;
@@ -52,9 +55,10 @@ public abstract class StellaFortuna extends Item {
 	private static final UUID UUID_ARMOR = UUID.fromString("BA6074B7-A319-664A-BDF0-9FF25C2F844D") ;
     public static final ResourceKey<DamageType> SKILL = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:elemental_skill"));
     public static final ResourceKey<DamageType> BURST = ResourceKey.create(DAMAGE_TYPE, new ResourceLocation("er:elemental_burst"));
+    protected static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("##.#");
 
-	public StellaFortuna(Properties properties, float health, float damage, float armor, boolean levelType) {
-		super(properties.stacksTo(1));
+	public StellaFortuna(float health, float damage, float armor, boolean levelType) {
+		super(new Properties().stacksTo(1).rarity(Rarity.RARE));
 		this.health = health;
 		this.damage = damage;
 		this.armor = armor;
@@ -77,13 +81,16 @@ public abstract class StellaFortuna extends Item {
 
 	public abstract float getAnimationTick(LivingEntity entity, int animationId);
 
-	public abstract void animationTicking(LivingEntity entity, int animationId, float time, float speed);
+	public abstract void animationTicking(LivingEntity entity, int animationId, float time, float speed, FortunaData data);
 
 	public abstract float getFinishTick(LivingEntity entity, int animationId);
 
 	public abstract AnimationDefinition getAnimation(int animationId);
 
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
+
+    public void beAttacked(LivingEntity self, DamageSource source, EntityHurtEvent.DamageModifier modifier, float dmgAmount, FortunaData data){
+    }
 
     public boolean hasSkill(){
         return true;
@@ -108,24 +115,36 @@ public abstract class StellaFortuna extends Item {
         });
 	}
 
+    @Override
+    public @NotNull Component getName(@NotNull ItemStack itemStack) {
+        FortunaData data = FortunaData.get(itemStack);
+        return Component.translatable(this.getDescriptionId(itemStack)).append(Component.literal("(" + data.constellation() + ")"));
+    }
+
 	@Override
 	public void appendHoverText(ItemStack itemstack, @Nullable Level access, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
 		if (itemstack.getItem() instanceof StellaFortuna stella) {
-			int level = itemstack.getOrCreateTag().getInt("level") + 1;
-			int experience = itemstack.getOrCreateTag().getInt("experience");
+            FortunaData data = FortunaData.get(itemstack);
+			int level = data.level();
+			int experience = data.experience();
 			int percent = Math.max(Math.min(40 * experience / getExpReq(level), 40), 0);
-			int ascension = itemstack.getOrCreateTag().getInt("ascension");
+			int ascension = data.ascension();
+
             list.add(Component.literal(ModifyTooltip.getAscension(ascension, 5)));
             list.add(Component.literal("+" + new DecimalFormat("##").format(level)));
 			list.add(Component.literal(experience + "/" + getExpReq(level)));
 			String greenBars = "|".repeat(percent);
 			String whiteBars = "|".repeat(40 - percent);
 			list.add(Component.literal("§a" + greenBars + "§f" + whiteBars));
-			list.add(Component.literal(Component.translatable("attribute.name.generic.max_health").getString() + ":" + new java.text.DecimalFormat("##.#").format(stella.health * levelScaling(level, stella.levelType, ascension))));
-			list.add(Component.literal(Component.translatable("attribute.name.generic.attack_damage").getString() + ":" + new java.text.DecimalFormat("##.#").format(stella.damage * levelScaling(level, stella.levelType, ascension))));
-			list.add(Component.literal(Component.translatable("attribute.name.generic.armor").getString() + ":" + new java.text.DecimalFormat("##.#").format(stella.armor * levelScaling(level, stella.levelType, ascension))));
+            stella.addAttributeDescr(list, level, ascension);
 		}
 	}
+
+    protected void addAttributeDescr(List<Component> list, int level, int ascension){
+        list.add(Component.literal(Component.translatable("attribute.name.generic.max_health").getString() + ": " + DECIMAL_FORMAT.format(this.health * levelScaling(level, this.levelType, ascension))));
+        list.add(Component.literal(Component.translatable("attribute.name.generic.attack_damage").getString() + ": " + DECIMAL_FORMAT.format(this.damage * levelScaling(level, this.levelType, ascension))));
+        list.add(Component.literal(Component.translatable("attribute.name.generic.armor").getString() + ": " + DECIMAL_FORMAT.format(this.armor * levelScaling(level, this.levelType, ascension))));
+    }
 
     public float getSpeed(LivingEntity entity, int animationId) {
         if (animationId < this.getNormal(entity)) {
@@ -156,10 +175,10 @@ public abstract class StellaFortuna extends Item {
 	}
 
 	public static void addExpToPlayer(Player entity, int amount) {
-		ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElseGet(ErItemVariables.PlayerVariables::new);
-		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna) {
-			if (addExpToItem(_vars.Stella_Fortuna, amount)) {
-				applyAttr(entity, _vars.Stella_Fortuna);
+		ItemStack fortunaItem = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).map(var -> var.Stella_Fortuna).orElse(ItemStack.EMPTY);
+		if (fortunaItem.getItem() instanceof StellaFortuna fortuna) {
+			if (addExpToItem(fortunaItem, amount)) {
+                fortuna.applyAttr(entity, FortunaData.get(fortunaItem));
 			}
 		}
 	}
@@ -188,34 +207,58 @@ public abstract class StellaFortuna extends Item {
         };
     }
 
-	public static void applyAttr(LivingEntity entity, ItemStack item) {
-		entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(UUID_HEALTH);
-		entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(UUID_DAMAGE);
-		entity.getAttribute(Attributes.ARMOR).removeModifier(UUID_ARMOR);
-		if (item.getItem() instanceof StellaFortuna stella) {
-			int level = item.getOrCreateTag().getInt("level") + 1;
-			int ascension = item.getOrCreateTag().getInt("ascension");
-			entity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(new AttributeModifier(UUID_HEALTH, "stella_health" ,stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADDITION));
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(new AttributeModifier(UUID_DAMAGE, "stella_damage", stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADDITION));
-			entity.getAttribute(Attributes.ARMOR).addPermanentModifier(new AttributeModifier(UUID_ARMOR, "stella_armor", stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADDITION));
-		}
-	}
+    public void applyAttr(LivingEntity entity, FortunaData data) {
+        int level = data.level();
+        int ascension = data.ascension();
+
+        AttributeInstance maxHealth = entity.getAttribute(Attributes.MAX_HEALTH);
+        if(maxHealth != null) {
+            maxHealth.removeModifier(UUID_HEALTH);
+            maxHealth.addPermanentModifier(new AttributeModifier(UUID_HEALTH, "stella_health", this.health * levelScaling(level, this.levelType, ascension) - 20, AttributeModifier.Operation.ADDITION));
+        }
+
+        AttributeInstance attackDamage = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+        if(attackDamage != null) {
+            attackDamage.removeModifier(UUID_DAMAGE);
+            attackDamage.addPermanentModifier(new AttributeModifier(UUID_DAMAGE, "stella_damage", this.damage * levelScaling(level, this.levelType, ascension) - 1, AttributeModifier.Operation.ADDITION));
+        }
+
+        AttributeInstance armor = entity.getAttribute(Attributes.ARMOR);
+        if(armor != null) {
+            armor.removeModifier(UUID_ARMOR);
+            armor.addPermanentModifier(new AttributeModifier(UUID_ARMOR, "stella_armor", this.armor * levelScaling(level, this.levelType, ascension), AttributeModifier.Operation.ADDITION));
+        }
+    }
+
+    public void removeAttr(LivingEntity entity){
+        AttributeInstance maxHealth = entity.getAttribute(Attributes.MAX_HEALTH);
+        if(maxHealth != null)
+            maxHealth.removeModifier(UUID_HEALTH);
+
+        AttributeInstance attackDamage = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+        if(attackDamage != null)
+            attackDamage.removeModifier(UUID_DAMAGE);
+
+        AttributeInstance armor = entity.getAttribute(Attributes.ARMOR);
+        if(armor != null)
+            armor.removeModifier(UUID_ARMOR);
+    }
 
 	public static float levelScaling(int level, boolean type, int ascension) {
 		float level_multiplier = (100f + 9 * level) / 109;
-		float ascension_mulyiplier = 0;
+		float ascension_multiplier = 0;
 		if (ascension == 1)
-			ascension_mulyiplier = 38f / 182;
+			ascension_multiplier = 38f / 182;
 		else if (ascension == 2)
-			ascension_mulyiplier = 65f / 182;
+			ascension_multiplier = 65f / 182;
 		else if (ascension == 3)
-			ascension_mulyiplier = 101f / 182;
+			ascension_multiplier = 101f / 182;
 		else if (ascension >= 4)
-			ascension_mulyiplier = (27f * ascension + 20) / 182;
+			ascension_multiplier = (27f * ascension + 20) / 182;
 		if (type) {
 			level_multiplier *= (1900f + level) / 1901;
 		}
-		return level_multiplier + ascension_mulyiplier;
+		return level_multiplier + ascension_multiplier;
 	}
 
 	public boolean vision(ItemStack item) {

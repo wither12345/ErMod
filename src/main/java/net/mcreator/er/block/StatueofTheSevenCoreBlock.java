@@ -104,15 +104,15 @@ public class StatueofTheSevenCoreBlock extends Block implements SimpleWaterlogge
             }
             entity.getCapability(ErItemVariables.PLAYER_VARIABLES).ifPresent(vars -> {
                 if(vars.Stella_Fortuna.is(ErModItems.EMPTY_FORTUNA.get())){
-                    vars.Stella_Fortuna = transmuteCopy(vars.Stella_Fortuna, ErModItems.MEMORYOF_ROVING_GALES.get());
+                    vars.Stella_Fortuna = transmuteCopy(vars.Stella_Fortuna, ErModItems.MEMORY_OF_ROVING_GALES.get());
                     vars.syncToClient(entity);
                 }
                 else if(entity.getMainHandItem().is(ErModItems.EMPTY_FORTUNA.get()))
-                    entity.setItemInHand(InteractionHand.MAIN_HAND, transmuteCopy(entity.getMainHandItem(), ErModItems.MEMORYOF_ROVING_GALES.get()));
+                    entity.setItemInHand(InteractionHand.MAIN_HAND, transmuteCopy(entity.getMainHandItem(), ErModItems.MEMORY_OF_ROVING_GALES.get()));
                 else if(entity.getOffhandItem().is(ErModItems.EMPTY_FORTUNA.get()))
-                    entity.setItemInHand(InteractionHand.OFF_HAND, transmuteCopy(entity.getOffhandItem(), ErModItems.MEMORYOF_ROVING_GALES.get()));
+                    entity.setItemInHand(InteractionHand.OFF_HAND, transmuteCopy(entity.getOffhandItem(), ErModItems.MEMORY_OF_ROVING_GALES.get()));
                 else
-                    ItemHandlerHelper.giveItemToPlayer(entity, new ItemStack(ErModItems.MEMORYOF_ROVING_GALES.get()));
+                    ItemHandlerHelper.giveItemToPlayer(entity, new ItemStack(ErModItems.MEMORY_OF_ROVING_GALES.get()));
             });
         }
         if (entity.getMainHandItem().is(ErModItems.LEY_LINE_MAP.get()))

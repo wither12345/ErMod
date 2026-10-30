@@ -4,7 +4,7 @@ import net.wither.er.item.fortuna.StellaFortuna;
 import net.mcreator.er.init.ErModAttributes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.wither.er.item.data.weapon.OnBurstAbility;
+import net.wither.er.item.data.ability.OnBurstAbility;
 
 import java.util.UUID;
 

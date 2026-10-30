@@ -27,6 +27,6 @@ public enum Reaction {
     }
 
     public String getTranslated(){
-        return Component.translatable(key).toString();
+        return Component.translatable(key).getString();
     }
 }
