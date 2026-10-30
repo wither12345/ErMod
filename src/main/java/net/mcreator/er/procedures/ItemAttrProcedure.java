@@ -29,7 +29,7 @@ public class ItemAttrProcedure {
 			int star = WeaponLevelData.getItemWeaponStar(item) ;
 			if (item.getItem() instanceof TieredItem tieredItem) {
 				Tier tier = tieredItem.getTier();
-				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, level * (tier.getAttackDamageBonus() + 3) * 0.1 + getAscensionAmount(ascension,star), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
+				event.addModifier(Attributes.ATTACK_DAMAGE, new AttributeModifier(WEAPON_LEVEL, (tier.getAttackDamageBonus() + 3) * (0.1 * level + getAscensionAmount(ascension,star)), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND);
 				WeaponAttributeData dataAttr = item.getComponents().get(DataComponentsRegister.WEAPON_ATTR.get()) ;
 				if(dataAttr != null &&  dataAttr.attributeHolder() != null){
 					event.addModifier(dataAttr.attributeHolder(), dataAttr.getModifier(WEAPON_SECONDARY, level), EquipmentSlotGroup.MAINHAND
@@ -61,8 +61,8 @@ public class ItemAttrProcedure {
 
 	private static double getAscensionAmount(int ascension, int star){
 		if(star == 0)
-			return  ascension ;
-		return star * 0.5 * ascension ;
+			return 0.1 * ascension ;
+		return star * 0.05 * ascension ;
 	}
 	/*
 	ResourceLocation resourcelocation = ResourceLocation.withDefaultNamespace("enchantment.infusion");

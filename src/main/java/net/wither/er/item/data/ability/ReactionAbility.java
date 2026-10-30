@@ -1,4 +1,4 @@
-package net.wither.er.item.data.weapon;
+package net.wither.er.item.data.ability;
 
 import net.mcreator.er.EntityHurtEvent;
 import net.minecraft.world.entity.Entity;

@@ -19,6 +19,7 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = (new GsonBuilder()).create();
     private static final HashMap<Item, AscensionRecipe> WEAPON_ASCENSION_MAP = new HashMap<>();
     private static final HashMap<Item, AscensionRecipe> FORTUNA_ASCENSION_MAP = new HashMap<>();
+    private static final HashMap<Item, AscensionRecipe> FORTUNA_SKILL_MAP = new HashMap<>();
 
     public AscensionRecipeListener() {
         super(GSON, "ascension");
@@ -27,6 +28,7 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager manager, @NotNull ProfilerFiller filler) {
         WEAPON_ASCENSION_MAP.clear();
         FORTUNA_ASCENSION_MAP.clear();
+        FORTUNA_SKILL_MAP.clear();
         map.forEach((location, element) -> {
             try {
                 read(element.getAsJsonObject());
@@ -51,6 +53,8 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
         HashMap<Item, AscensionRecipe> map = WEAPON_ASCENSION_MAP;
         if(object.has("type") && object.get("type").getAsString().equals("fortuna"))
             map = FORTUNA_ASCENSION_MAP;
+        else if(object.has("type") && object.get("type").getAsString().equals("skill"))
+            map = FORTUNA_SKILL_MAP;
         for(Item item : items)
             map.put(item, recipe) ;
     }
@@ -61,6 +65,10 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
 
     public static AscensionRecipe getFortuna(Item item){
         return FORTUNA_ASCENSION_MAP.get(item) ;
+    }
+
+    public static AscensionRecipe getFortunaSkill(Item item){
+        return FORTUNA_SKILL_MAP.get(item) ;
     }
 
     public static List<AscensionEntry> getWeaponAscensionList() {
@@ -78,6 +86,17 @@ public class AscensionRecipeListener extends SimpleJsonResourceReloadListener {
         List<AscensionEntry> ret = new ArrayList<>() ;
         for(Map.Entry<Item, AscensionRecipe> entry : FORTUNA_ASCENSION_MAP.entrySet()){
             for(int i = 0 ; i < 6 ; i ++) {
+                if(entry.getValue().getRecipe(i) != null)
+                    ret.add(new AscensionEntry(i, entry.getKey(), entry.getValue().getRecipe(i)));
+            }
+        }
+        return ret ;
+    }
+
+    public static List<AscensionEntry> getFortunaSkillList() {
+        List<AscensionEntry> ret = new ArrayList<>() ;
+        for(Map.Entry<Item, AscensionRecipe> entry : FORTUNA_SKILL_MAP.entrySet()){
+            for(int i = 0 ; i < 10 ; i ++) {
                 if(entry.getValue().getRecipe(i) != null)
                     ret.add(new AscensionEntry(i, entry.getKey(), entry.getValue().getRecipe(i)));
             }

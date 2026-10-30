@@ -1,8 +1,11 @@
 package net.wither.er.world.inventory;
 
-import net.wither.er.item.fortuna.StellaFortuna;
+import net.mcreator.er.init.ErModItems;
 import net.mcreator.er.item.ExperienceBook;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -10,11 +13,14 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.TransientCraftingContainer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
 import net.wither.er.item.data.FortunaData;
+import net.wither.er.item.data.SkillData;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.recipe.ascension.AscensionRecipe;
 import net.wither.er.recipe.ascension.AscensionRecipeListener;
@@ -47,6 +53,14 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     /** 服务端突破判定：没有下一阶突破配方。 */
     private static final int ASCEND_STATE_MAX = 3;
 
+    /** 命座上限。 */
+    public static final int MAX_CONSTELLATION = 6;
+    /** 普攻/战技/爆发的等级上限。 */
+    public static final int MAX_SKILL_LEVEL = 10;
+
+    /** 可作为“牺牲命座”的旅行者命星。 */
+    public static final TagKey<Item> TRAVELER_FORTUNA_TAG = ItemTags.create(ResourceLocation.parse("er:traveler_fortuna"));
+
     public final Level world;
     public final Player entity;
 
@@ -66,6 +80,15 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
     private boolean hasExpMaterial;
     private boolean canEnhance;
     private Mode mode = Mode.NONE;
+
+    private int constellation;
+    private int normalLevel;
+    private int skillLevel;
+    private int burstLevel;
+    private boolean canUpgradeConstellation;
+    private boolean canUpgradeNormal;
+    private boolean canUpgradeSkill;
+    private boolean canUpgradeBurst;
 
     public FortunaEnhanceMenu(int id, Inventory inv) {
         super(ErMenus.FORTUNA_ENHANCE.get(), id);
@@ -97,31 +120,36 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
         if (slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
+            ItemStack slotItem = slot.getItem();
+            int startSlot = 2;
+            if(slotItem.getItem() != this.getFortunaStack().getItem() && !this.getFortunaStack().is(ErModItems.EMPTY_FORTUNA))
+                startSlot = 1;
+            if(slotItem.is(ErModItems.MORA_BAG))
+                startSlot = 0;
+            itemstack = slotItem.copy();
             if (index < 7) {
-                if (!this.moveItemStackTo(itemstack1, 7, this.slots.size(), true))
+                if (!this.moveItemStackTo(slotItem, 7, this.slots.size(), true))
                     return ItemStack.EMPTY;
-                slot.onQuickCraft(itemstack1, itemstack);
-            } else if (!this.moveItemStackTo(itemstack1, 0, 7, false)) {
+                slot.onQuickCraft(slotItem, itemstack);
+            } else if (!this.moveItemStackTo(slotItem, startSlot, 7, false)) {
                 if (index < 7 + 27) {
-                    if (!this.moveItemStackTo(itemstack1, 7 + 27, this.slots.size(), true))
+                    if (!this.moveItemStackTo(slotItem, 7 + 27, this.slots.size(), true))
                         return ItemStack.EMPTY;
                 } else {
-                    if (!this.moveItemStackTo(itemstack1, 7, 7 + 27, false))
+                    if (!this.moveItemStackTo(slotItem, 7, 7 + 27, false))
                         return ItemStack.EMPTY;
                 }
                 return ItemStack.EMPTY;
             }
-            if (itemstack1.isEmpty()) {
+            if (slotItem.isEmpty()) {
                 slot.setByPlayer(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
-            if (itemstack1.getCount() == itemstack.getCount()) {
+            if (slotItem.getCount() == itemstack.getCount()) {
                 return ItemStack.EMPTY;
             }
-            slot.onTake(playerIn, itemstack1);
+            slot.onTake(playerIn, slotItem);
         }
         return itemstack;
     }
@@ -163,11 +191,20 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
 
     @Override
     public boolean clickMenuButton(@NotNull Player player, int id) {
-        if (id == 0 && player instanceof ServerPlayer) {
-            this.enhance();
-            return true;
+        if (!(player instanceof ServerPlayer))
+            return false;
+
+        switch (id) {
+            case 0 -> this.enhance();
+            case 1 -> this.upgradeConstellation();
+            case 2 -> this.upgradeSkill(0);
+            case 3 -> this.upgradeSkill(1);
+            case 4 -> this.upgradeSkill(2);
+            default -> {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     private void predict() {
@@ -186,6 +223,14 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
             this.newLevel = 0;
             this.newExperience = 0;
             this.newAscension = 0;
+            this.constellation = 0;
+            this.normalLevel = 0;
+            this.skillLevel = 0;
+            this.burstLevel = 0;
+            this.canUpgradeConstellation = false;
+            this.canUpgradeNormal = false;
+            this.canUpgradeSkill = false;
+            this.canUpgradeBurst = false;
             return;
         }
 
@@ -198,12 +243,43 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         this.newExperience = this.experience;
         this.newAscension = this.ascension;
 
+        this.constellation = data.constellation();
+        this.normalLevel = data.skills().normal();
+        this.skillLevel = data.skills().skill();
+        this.burstLevel = data.skills().burst();
+        // 命座需要消耗一个同种命星；技能升级读取 getFortunaSkill 对应的配方。
+        this.canUpgradeConstellation = this.constellation < MAX_CONSTELLATION && this.findConstellationMaterial() >= 0;
+        this.canUpgradeNormal = this.normalLevel < data.getMaxTalentLevel() && this.canUseSkillRecipe(stack, this.normalLevel);
+        this.canUpgradeSkill = this.skillLevel < data.getMaxTalentLevel() && this.canUseSkillRecipe(stack, this.skillLevel);
+        this.canUpgradeBurst = this.burstLevel < data.getMaxTalentLevel() && this.canUseSkillRecipe(stack, this.burstLevel);
+
         int maxLevel = FortunaData.getMaxLevel(this.ascension);
         if (this.level < maxLevel) {
             this.predictUpgrade(maxLevel);
         } else {
             this.predictAscension(stack);
         }
+    }
+
+    /** 返回 2~6 号槽中第一个与目标命星同种的槽位下标，没有则返回 -1。 */
+    private int findConstellationMaterial() {
+        ItemStack target = this.getFortunaStack();
+        if (!(target.getItem() instanceof StellaFortuna))
+            return -1;
+
+        boolean empty = target.is(ErModItems.EMPTY_FORTUNA.get());
+
+        for (int i = 0; i < this.shrink.length; i++) {
+            ItemStack material = this.getSlot(2 + i).getItem();
+            if (material.isEmpty())
+                continue;
+            // 空命星需要旅行者命星作为“牺牲命座”来转化；普通命星消耗同种命星。
+            if (empty
+                    ? material.is(TRAVELER_FORTUNA_TAG) && material.getItem() instanceof StellaFortuna
+                    : material.is(target.getItem()))
+                return i;
+        }
+        return -1;
     }
 
     private void predictUpgrade(int maxLevel) {
@@ -330,6 +406,46 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         return recipe == null ? null : recipe.getRecipe(ascension);
     }
 
+    /** 取技能升级配方：等级 1 升 2 使用第 0 条，依此类推。 */
+    private static AscensionRecipe.Single getSkillRecipe(ItemStack stack, int level) {
+        AscensionRecipe recipe = AscensionRecipeListener.getFortunaSkill(stack.getItem());
+        return recipe == null ? null : recipe.getRecipe(level - 1);
+    }
+
+    /** 判断当前技能等级的配方是否满足（没有配方时视为无法升级）。 */
+    private boolean canUseSkillRecipe(ItemStack stack, int level) {
+        AscensionRecipe.Single recipe = getSkillRecipe(stack, level);
+        if (recipe == null)
+            return false;
+
+        int mora = this.getSlot(0).getItem().getOrDefault(DataComponentsRegister.MORA_BAG.get(), 0);
+        return recipe.getMora() <= mora && this.hasIngredients(recipe);
+    }
+
+    /** 只检查材料是否齐全，不修改 shrink。 */
+    private boolean hasIngredients(AscensionRecipe.Single recipe) {
+        int used = 0;
+        for (int i = 0; i < 4; i++) {
+            AscensionRecipe.Input input = recipe.getInput(i);
+            if (input == null)
+                continue;
+
+            int slot = -1;
+            for (int j = 0; j < this.shrink.length; j++) {
+                if ((used & (1 << j)) != 0)
+                    continue;
+                if (input.match(this.getSlot(2 + j).getItem())) {
+                    slot = j;
+                    break;
+                }
+            }
+            if (slot < 0)
+                return false;
+            used |= 1 << slot;
+        }
+        return true;
+    }
+
     /**
      * 执行一次升级或突破，并把结果直接写回 1 号槽位的命星。
      */
@@ -364,13 +480,160 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
         FortunaData updated = ascending
                 ? current.withEnhance(current.level(), finalAscension, current.experience())
                 : current.withEnhance(finalLevel, current.ascension(), finalExperience);
+        this.applyFortunaData(stack, updated);
+    }
+
+    /**
+     * 提升一级命座（消耗 2~6 号槽中的一个同种命星）。
+     * 若目标是 empty_fortuna，则改为消耗一个带 er:traveler_fortuna 标签的牺牲命星，
+     * 把空命星转化为该牺牲命星的物品类型，命座等级保持不变。
+     */
+    public void upgradeConstellation() {
+        this.predict();
+        if (!this.canUpgradeConstellation)
+            return;
+
+        ItemStack stack = this.getFortunaStack();
+        if (!(stack.getItem() instanceof StellaFortuna))
+            return;
+
+        int materialSlot = this.findConstellationMaterial();
+        if (materialSlot < 0)
+            return;
+
+        // 空命星：消耗一个旅行者命星，转化为该命星的类型，命座等级保持不变。
+        if (stack.is(ErModItems.EMPTY_FORTUNA.get())) {
+            ItemStack sacrifice = this.getSlot(2 + materialSlot).getItem();
+            if (!sacrifice.is(TRAVELER_FORTUNA_TAG) || !(sacrifice.getItem() instanceof StellaFortuna))
+                return;
+
+            ItemStack transformed = new ItemStack(sacrifice.getItem());
+            // 只保留原空命星的强化/命座/技能数据，其他组件使用新物品类型的默认值。
+            transformed.set(DataComponentsRegister.FORTUNA.get(), FortunaData.get(stack));
+            sacrifice.shrink(1);
+            this.replaceFortuna(transformed);
+            return;
+        }
+
+        FortunaData current = FortunaData.get(stack);
+        if (current.constellation() >= MAX_CONSTELLATION)
+            return;
+
+        this.getSlot(2 + materialSlot).getItem().shrink(1);
+
+        FortunaData updated = new FortunaData(
+                current.level(),
+                current.ascension(),
+                current.experience(),
+                Math.min(MAX_CONSTELLATION, current.constellation() + 1),
+                current.skills()
+        );
+        this.applyFortunaData(stack, updated);
+    }
+
+    /** 把目标命星替换成另一个物品类型（保留原物品上的数据组件）。 */
+    private void replaceFortuna(ItemStack transformed) {
+        boolean equipped = this.getSlot(1).getItem().isEmpty();
+        if (equipped) {
+            ErItemVariables.PlayerVariables vars = this.entity.getData(ErItemVariables.PLAYER_VARIABLES);
+            if(vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                fortuna.removeAttr(this.entity);
+
+            vars.Stella_Fortuna = transformed;
+            vars.syncPlayerVariables(this.entity);
+            if(transformed.getItem() instanceof StellaFortuna fortuna)
+                fortuna.applyAttr(this.entity, FortunaData.get(transformed));
+        } else {
+            this.getSlot(1).set(transformed);
+        }
+
+        this.predict();
+        this.broadcastChanges();
+    }
+
+    /**
+     * 提升普攻/战技/爆发的等级。
+     *
+     * @param index 0 = 普攻，1 = 战技，2 = 爆发
+     */
+    public void upgradeSkill(int index) {
+        this.predict();
+
+        ItemStack stack = this.getFortunaStack();
+        if (!(stack.getItem() instanceof StellaFortuna))
+            return;
+
+        FortunaData current = FortunaData.get(stack);
+        SkillData skills = current.skills();
+        int normal = skills.normal();
+        int skill = skills.skill();
+        int burst = skills.burst();
+
+        int level;
+        switch (index) {
+            case 0 -> level = normal;
+            case 1 -> level = skill;
+            case 2 -> level = burst;
+            default -> {
+                return;
+            }
+        }
+        if (level >= current.getMaxTalentLevel())
+            return;
+
+        // predict() 同时计算了强化页的经验/摩拉消耗，这里要先清空，避免误扣。
+        Arrays.fill(this.shrink, 0);
+        this.moraUse = 0;
+
+        AscensionRecipe.Single recipe = getSkillRecipe(stack, level);
+        if (recipe != null) {
+            int mora = this.getSlot(0).getItem().getOrDefault(DataComponentsRegister.MORA_BAG.get(), 0);
+            if (recipe.getMora() > mora)
+                return;
+            if (!this.matchIngredients(recipe))
+                return;
+            this.moraUse = recipe.getMora();
+        }
+
+        switch (index) {
+            case 0 -> normal++;
+            case 1 -> skill++;
+            case 2 -> burst++;
+        }
+
+        for (int i = 0; i < this.shrink.length; i++) {
+            if (this.shrink[i] > 0)
+                this.getSlot(2 + i).getItem().shrink(this.shrink[i]);
+        }
+        if (this.moraUse > 0) {
+            this.getSlot(0).getItem().update(DataComponentsRegister.MORA_BAG.get(), 0,
+                    mora -> Math.max(0, mora - this.moraUse));
+        }
+
+        FortunaData updated = new FortunaData(
+                current.level(),
+                current.ascension(),
+                current.experience(),
+                current.constellation(),
+                new SkillData(normal, skill, burst)
+        );
+        this.applyFortunaData(stack, updated);
+    }
+
+    /** 把新的 FortunaData 写回槽位物品或玩家装备，并同步到客户端。 */
+    private void applyFortunaData(ItemStack stack, FortunaData updated) {
+        boolean equipped = this.getSlot(1).getItem().isEmpty();
         stack.set(DataComponentsRegister.FORTUNA.get(), updated);
+
         if (equipped) {
             // 同步回玩家数据，并立即刷新命星提供的属性。
             ErItemVariables.PlayerVariables vars = this.entity.getData(ErItemVariables.PLAYER_VARIABLES);
+            if(vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                fortuna.removeAttr(this.entity);
             vars.Stella_Fortuna = stack;
             vars.syncPlayerVariables(this.entity);
-            StellaFortuna.applyAttr(this.entity, stack);
+            if(stack.getItem() instanceof StellaFortuna fortuna)
+                fortuna.applyAttr(this.entity, updated);
         } else {
             this.getSlot(1).setChanged();
         }
@@ -394,6 +657,11 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
 
     public boolean hasFortuna() {
         return this.getFortunaStack().getItem() instanceof StellaFortuna;
+    }
+
+    /** 目标是否为可被转化为旅行者命星的空命星。 */
+    public boolean isEmptyFortuna() {
+        return this.getFortunaStack().is(ErModItems.EMPTY_FORTUNA.get());
     }
 
     /**
@@ -446,5 +714,37 @@ public class FortunaEnhanceMenu extends AbstractContainerMenu {
 
     public int getMoraUse() {
         return this.moraUse;
+    }
+
+    public int getConstellation() {
+        return this.constellation;
+    }
+
+    public int getNormalLevel() {
+        return this.normalLevel;
+    }
+
+    public int getSkillLevel() {
+        return this.skillLevel;
+    }
+
+    public int getBurstLevel() {
+        return this.burstLevel;
+    }
+
+    public boolean canUpgradeConstellation() {
+        return this.canUpgradeConstellation;
+    }
+
+    public boolean canUpgradeNormal() {
+        return this.canUpgradeNormal;
+    }
+
+    public boolean canUpgradeSkill() {
+        return this.canUpgradeSkill;
+    }
+
+    public boolean canUpgradeBurst() {
+        return this.canUpgradeBurst;
     }
 }

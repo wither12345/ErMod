@@ -7,6 +7,7 @@ import net.wither.er.item.weapons.ErTiers;
 import net.wither.er.item.weapons.ElementalTiers;
 import net.wither.er.item.weapons.Claymore;
 import net.wither.er.item.morabag.MoraBagItem;
+import net.wither.er.item.fortuna.MemoryOfRovingGalesItem;
 import net.wither.er.item.fortuna.EmptyFortuna;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.item.data.weapon.WeaponLevelData;
@@ -95,7 +96,6 @@ public class ErModItems {
 	public static final DeferredItem<Item> STATUEOF_THE_SEVEN_3;
 	public static final DeferredItem<Item> TELEPORT_WAYPOINT_BASE;
 	public static final DeferredItem<Item> TELEPORT_WAYPOINT;
-	public static final DeferredItem<Item> MEMORYOF_ROVING_GALES;
 	public static final DeferredItem<Item> PRIMOGEM;
 	public static final DeferredItem<Item> A_BAG_OF_MORA;
 	public static final DeferredItem<Item> BLOSSOM_OF_WEALTH_SPAWN_EGG;
@@ -154,7 +154,6 @@ public class ErModItems {
 		STATUEOF_THE_SEVEN_3 = block(ErModBlocks.STATUEOF_THE_SEVEN_3);
 		TELEPORT_WAYPOINT_BASE = block(ErModBlocks.TELEPORT_WAYPOINT_BASE);
 		TELEPORT_WAYPOINT = block(ErModBlocks.TELEPORT_WAYPOINT);
-		MEMORYOF_ROVING_GALES = REGISTRY.register("memoryof_roving_gales", MemoryofRovingGalesItem::new);
 		PRIMOGEM = REGISTRY.register("primogem", PrimogemItem::new);
 		A_BAG_OF_MORA = REGISTRY.register("a_bag_of_mora", ABagofMoraItem::new);
 		BLOSSOM_OF_WEALTH_SPAWN_EGG = REGISTRY.register("blossom_of_wealth_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.BLOSSOM_OF_WEALTH, -256, -3368704, new Item.Properties()));
@@ -347,6 +346,7 @@ public class ErModItems {
 	public static final DeferredItem<Item> FINE_ENHANCEMENT_ORE = REGISTRY.register("fine_enhancement_ore", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> ENHANCEMENT_ORE = REGISTRY.register("enhancement_ore", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> EMPTY_FORTUNA = REGISTRY.register("empty_fortuna", EmptyFortuna::new);
+	public static final DeferredItem<Item> MEMORY_OF_ROVING_GALES = REGISTRY.register("memory_of_roving_gales", MemoryOfRovingGalesItem::new);
 	public static final DeferredItem<Item> DAMAGED_MASK = REGISTRY.register("damaged_mask", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> STAINED_MASK = REGISTRY.register("stained_mask", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> OMINOUS_MASK = REGISTRY.register("ominous_mask", ErModItems::SimpeItem);

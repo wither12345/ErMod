@@ -31,7 +31,6 @@ public abstract class DisplayMessage {
     public abstract float getSize(float partialTick, long nowTime);
 
     public void render(Camera camera, MultiBufferSource.BufferSource bufferSource, PoseStack pose, float partialTick, long nowTime) {
-
         String s = this.getDisplayText();
         pose.pushPose();
         pose.translate(x, y, z);

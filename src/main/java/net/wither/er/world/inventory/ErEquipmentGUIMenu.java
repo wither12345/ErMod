@@ -2,7 +2,6 @@ package net.wither.er.world.inventory;
 
 import com.mojang.datafixers.util.Pair;
 import net.mcreator.er.ErMod;
-import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -20,7 +19,9 @@ import net.wither.er.entity.ArtifactSlot;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ErMenus;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.data.artifactdata.ArtifactData;
+import net.wither.er.item.fortuna.StellaFortuna;
 import net.wither.er.network.ErItemVariables;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -123,8 +124,12 @@ public class ErEquipmentGUIMenu extends AbstractContainerMenu{
         public void setChanged() {
             super.setChanged();
             ErItemVariables.PlayerVariables _vars = player.getData(ErItemVariables.PLAYER_VARIABLES);
+            if(_vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                fortuna.removeAttr(player);
+
             _vars.Stella_Fortuna = this.getItem().copy();
-            StellaFortuna.applyAttr(player, _vars.Stella_Fortuna);
+            if(_vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+                fortuna.applyAttr(player, FortunaData.get(_vars.Stella_Fortuna));
             _vars.syncPlayerVariables(player);
         }
     }

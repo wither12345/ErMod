@@ -6,19 +6,18 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwordItem;
 import net.wither.er.client.animations.TravelerAnimation;
 import net.wither.er.elements.Element;
 import net.wither.er.init.ErAttributeRegister;
+import net.wither.er.item.data.FortunaData;
+import net.wither.er.item.data.SkillData;
 import net.wither.er.network.ErCombatVariables;
 import org.jetbrains.annotations.Nullable;
 
 public class EmptyFortuna extends StellaFortuna {
     public EmptyFortuna() {
-        super(new Item.Properties().stacksTo(1).rarity(Rarity.RARE), 20, 2.5f, 57.23f, true);
+        super(20, 2.5f, 57.23f, true);
     }
 
     @Override
@@ -106,32 +105,32 @@ public class EmptyFortuna extends StellaFortuna {
     }
 
     @Override
-    public void animationTicking(LivingEntity entity, int animationId, float time, float speed) {
+    public void animationTicking(LivingEntity entity, int animationId, float time, float speed, FortunaData data) {
         if (entity.level() instanceof ServerLevel) {
             switch (animationId){
                 case 0 -> {
                     if(test(time, speed, 37))
-                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0));
+                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0, data.skills()));
                 }
                 case 1 -> {
                     if(test(time, speed, 40))
-                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0));
+                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0, data.skills()));
                 }
                 case 2 -> {
                     if(test(time, speed, 38))
-                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0));
+                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0, data.skills()));
                 }
                 case 3 -> {
                     if(test(time, speed, 34))
-                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0));
+                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0, data.skills()));
                 }
                 case 4 -> {
                     if(test(time, speed, 56))
-                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0));
+                        PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0, data.skills()));
                 }
             }
             if (animationId == 10 && test(time, speed, 25))
-                PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0));
+                PerformAttack(entity, 1, 2.2, 3, entity.getEyePosition(-0.3f), DamageMulti(animationId, 0, data.skills()));
         }
 
         if (time <= this.getFinishTick(entity, animationId) && animationId <= this.getNormal(entity) && entity.getPersistentData().getBoolean("WaitingChargeAttack")) {
@@ -150,7 +149,7 @@ public class EmptyFortuna extends StellaFortuna {
         }
     }
 
-    public float DamageMulti(int animationId, int index) {
+    public float DamageMulti(int animationId, int index, SkillData data) {
         return switch (animationId){
             case 0 -> 0.445f;
             case 1 -> 0.434f;

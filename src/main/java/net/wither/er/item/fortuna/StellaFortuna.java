@@ -27,11 +27,13 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -47,7 +49,7 @@ import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.ModifyTooltip;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.item.data.FortunaData;
-import net.wither.er.item.data.weapon.OnBurstAbility;
+import net.wither.er.item.data.ability.OnBurstAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 import net.wither.er.network.ErItemVariables;
 import net.wither.er.network.StellaFortunaData;
@@ -69,8 +71,8 @@ public abstract class StellaFortuna extends Item {
 	private static final ResourceLocation LOCATION_DAMAGE = ResourceLocation.parse("er:entity_level.damage");
 	private static final ResourceLocation LOCATION_ARMOR = ResourceLocation.parse("er:entity_level.armor");
 
-	public StellaFortuna(Properties properties, float health, float damage, float armor, boolean levelType) {
-		super(properties.stacksTo(1));
+	public StellaFortuna(float health, float damage, float armor, boolean levelType) {
+		super(new Item.Properties().stacksTo(1).rarity(Rarity.RARE));
 		this.health = health;
 		this.damage = damage;
 		this.armor = armor;
@@ -93,13 +95,16 @@ public abstract class StellaFortuna extends Item {
 
 	public abstract float getAnimationTick(LivingEntity entity, int animationId);
 
-	public abstract void animationTicking(LivingEntity entity, int animationId, float time, float speed);
+	public abstract void animationTicking(LivingEntity entity, int animationId, float time, float speed, FortunaData data);
 
 	public abstract float getFinishTick(LivingEntity entity, int animationId);
 
 	public abstract AnimationDefinition getAnimation(int animationId);
 
 	public abstract void receiveMessage(LivingEntity entity, CompoundTag message);
+
+    public void beAttacked(LivingEntity self, DamageSource source, EntityHurtEvent.DamageModifier modifier, float dmgAmount, FortunaData data){
+    }
 
     public boolean hasSkill(){
         return true;
@@ -120,9 +125,15 @@ public abstract class StellaFortuna extends Item {
         }
 	}
 
-	@Override
+    @Override
+    public @NotNull Component getName(@NotNull ItemStack itemStack) {
+        FortunaData data = FortunaData.get(itemStack);
+        return Component.translatable(this.getDescriptionId(itemStack)).append(Component.literal("(" + data.constellation() + ")"));
+    }
+
+    @Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack itemstack, Item.@NotNull TooltipContext context, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
+	public void appendHoverText(@NotNull ItemStack itemstack, Item.@NotNull TooltipContext context, @NotNull List<Component> list, @NotNull TooltipFlag flag) {
 		if (itemstack.getItem() instanceof StellaFortuna stella) {
 			FortunaData data = FortunaData.get(itemstack);
 			int level = data.level();
@@ -135,11 +146,16 @@ public abstract class StellaFortuna extends Item {
 			String greenBars = "|".repeat(percent);
 			String whiteBars = "|".repeat(40 - percent);
 			list.add(Component.literal("§a" + greenBars + "§f" + whiteBars));
-			list.add(Component.literal(Component.translatable("attribute.name.generic.max_health").getString() + ":" + new java.text.DecimalFormat("##.#").format(stella.health * levelScaling(level, stella.levelType, ascension))));
-			list.add(Component.literal(Component.translatable("attribute.name.generic.attack_damage").getString() + ":" + new java.text.DecimalFormat("##.#").format(stella.damage * levelScaling(level, stella.levelType, ascension))));
-			list.add(Component.literal(Component.translatable("attribute.name.generic.armor").getString() + ":" + new java.text.DecimalFormat("##.#").format(stella.armor * levelScaling(level, stella.levelType, ascension))));
+            stella.addAttributeDescr(list, level, ascension);
 		}
 	}
+
+    protected void addAttributeDescr(List<Component> list, int level, int ascension){
+        list.add(Component.literal(Component.translatable("attribute.name.generic.max_health").getString() + ": " + new java.text.DecimalFormat("##.#").format(this.health * levelScaling(level, this.levelType, ascension))));
+        list.add(Component.literal(Component.translatable("attribute.name.generic.attack_damage").getString() + ": " + new java.text.DecimalFormat("##.#").format(this.damage * levelScaling(level, this.levelType, ascension))));
+        list.add(Component.literal(Component.translatable("attribute.name.generic.armor").getString() + ": " + new java.text.DecimalFormat("##.#").format(this.armor * levelScaling(level, this.levelType, ascension))));
+
+    }
 
     public float getSpeed(LivingEntity entity, int animationId) {
         if (animationId < this.getNormal(entity)) {
@@ -169,27 +185,42 @@ public abstract class StellaFortuna extends Item {
 
 	public static void addExpToPlayer(Player entity, int amount) {
 		ErItemVariables.PlayerVariables _vars = entity.getData(ErItemVariables.PLAYER_VARIABLES);
-		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna) {
+		if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna) {
 			if (addExpToItem(_vars.Stella_Fortuna, amount)) {
-				applyAttr(entity, _vars.Stella_Fortuna);
+                fortuna.applyAttr(entity, FortunaData.get(_vars.Stella_Fortuna));
 			}
 		}
 	}
 
-    public static void applyAttr(LivingEntity entity, ItemStack item) {
-		if (item.getItem() instanceof StellaFortuna stella) {
-			FortunaData data = FortunaData.get(item);
-			int level = data.level();
-			int ascension = data.ascension();
-			entity.getAttribute(Attributes.MAX_HEALTH).addOrReplacePermanentModifier(new AttributeModifier(LOCATION_HEALTH, stella.health * levelScaling(level, stella.levelType, ascension) - 20, AttributeModifier.Operation.ADD_VALUE));
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).addOrReplacePermanentModifier(new AttributeModifier(LOCATION_DAMAGE, stella.damage * levelScaling(level, stella.levelType, ascension) - 1, AttributeModifier.Operation.ADD_VALUE));
-			entity.getAttribute(Attributes.ARMOR).addOrReplacePermanentModifier(new AttributeModifier(LOCATION_ARMOR, stella.armor * levelScaling(level, stella.levelType, ascension), AttributeModifier.Operation.ADD_VALUE));
-		} else {
-			entity.getAttribute(Attributes.MAX_HEALTH).removeModifier(LOCATION_HEALTH);
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(LOCATION_DAMAGE);
-			entity.getAttribute(Attributes.ARMOR).removeModifier(LOCATION_ARMOR);
-		}
-	}
+    public void applyAttr(LivingEntity entity, FortunaData data) {
+        int level = data.level();
+        int ascension = data.ascension();
+        AttributeInstance maxHealth = entity.getAttribute(Attributes.MAX_HEALTH);
+        if(maxHealth != null)
+            maxHealth.addOrReplacePermanentModifier(new AttributeModifier(LOCATION_HEALTH, this.health * levelScaling(level, this.levelType, ascension) - 20, AttributeModifier.Operation.ADD_VALUE));
+
+        AttributeInstance attackDamage = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+        if(attackDamage != null)
+            attackDamage.addOrReplacePermanentModifier(new AttributeModifier(LOCATION_DAMAGE, this.damage * levelScaling(level, this.levelType, ascension) - 1, AttributeModifier.Operation.ADD_VALUE));
+
+        AttributeInstance armor = entity.getAttribute(Attributes.ARMOR);
+        if(armor != null)
+            armor.addOrReplacePermanentModifier(new AttributeModifier(LOCATION_ARMOR, this.armor * levelScaling(level, this.levelType, ascension), AttributeModifier.Operation.ADD_VALUE));
+    }
+
+    public void removeAttr(LivingEntity entity){
+        AttributeInstance maxHealth = entity.getAttribute(Attributes.MAX_HEALTH);
+        if(maxHealth != null)
+            maxHealth.removeModifier(LOCATION_HEALTH);
+
+        AttributeInstance attackDamage = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+        if(attackDamage != null)
+            attackDamage.removeModifier(LOCATION_DAMAGE);
+
+        AttributeInstance armor = entity.getAttribute(Attributes.ARMOR);
+        if(armor != null)
+            armor.removeModifier(LOCATION_ARMOR);
+    }
 
 	public static float levelScaling(int level, boolean type, int ascension) {
 		float level_multiplier = (100f + 9 * level) / 109;
@@ -219,16 +250,16 @@ public abstract class StellaFortuna extends Item {
 		PacketDistributor.sendToAllPlayers(new StellaFortunaData(entity.getId(), message));
 	}
 
-	public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, Vec3 basicPos, float DamageMulti) {
-		Level world = entity.level();
+    public static void PerformAttack(LivingEntity entity, double RangeMulti, double rectWidth, double rectHeight, Vec3 basicPos, float DamageMulti) {
+		Level level = entity.level();
 		double attackRange = (entity instanceof Player ? entity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE) : 3) * RangeMulti;
 		float yaw = entity.getYRot();
 		Vec3 lookVec = new Vec3(-Math.sin(yaw * Math.PI / 180), 0, Math.cos(yaw * Math.PI / 180)).normalize();
 		Vec3 forward = lookVec.scale(attackRange);
 		AABB roughArea = new AABB(basicPos, basicPos.add(forward)).inflate(rectWidth + 1, rectHeight + 1, rectWidth + 1);
-        ElementSource elementSource = EntityHurtEvent.getElementSource(world, entity, entity);
+        ElementSource elementSource = EntityHurtEvent.getElementSource(level, entity, entity);
 
-        for (LivingEntity target : world.getEntitiesOfClass(LivingEntity.class, roughArea, e -> {
+        for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, roughArea, e -> {
             if (e == entity)
                 return false;
             AABB targetAABB = e.getBoundingBox().move(basicPos.scale(-1));
@@ -260,7 +291,7 @@ public abstract class StellaFortuna extends Item {
 		}
 		*/
         Element element = elementSource == null ? null : elementSource.getElement();
-        interactBlocks(roughArea, element, entity, world, basicPos, lookVec, attackRange, rectWidth, rectHeight);
+        interactBlocks(roughArea, element, entity, level, basicPos, lookVec, attackRange, rectWidth, rectHeight);
     }
 
 	private static boolean isAABBInRotatedRect(AABB aabb, Vec3 direction, double length, double width, double height) {

@@ -797,37 +797,6 @@
       }
     },
     {
-      "name": "LivingItemChange",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "living_item_change",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedCryo",
       "type": "recipe",
       "compiles": true,
@@ -1865,25 +1834,6 @@
       }
     },
     {
-      "name": "ItemLevel",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "item_level",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ItemLevelProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      }
-    },
-    {
       "name": "ElectroCrystalOreLoot",
       "type": "loottable",
       "compiles": true,
@@ -2018,25 +1968,6 @@
         ]
       },
       "path": "~/Multiplys"
-    },
-    {
-      "name": "GetWeaponMaxExp",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "get_weapon_max_exp",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/GetWeaponMaxExpProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      }
     },
     {
       "name": "ErTrade",
@@ -2276,36 +2207,6 @@
       }
     },
     {
-      "name": "CuihuaSaplingTick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "cuihua_sapling_tick",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/CuihuaSaplingTickProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "CuihuaPlanks",
       "type": "block",
       "compiles": true,
@@ -2502,45 +2403,6 @@
       }
     },
     {
-      "name": "DamagedMask",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "damaged_mask",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/damaged_mask.json",
-          "src/main/java/net/mcreator/er/item/DamagedMaskItem.java"
-        ]
-      }
-    },
-    {
-      "name": "StainedMask",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "stained_mask",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/stained_mask.json",
-          "src/main/java/net/mcreator/er/item/StainedMaskItem.java"
-        ]
-      }
-    },
-    {
-      "name": "OminousMask",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "ominous_mask",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/ominous_mask.json",
-          "src/main/java/net/mcreator/er/item/OminousMaskItem.java"
-        ]
-      }
-    },
-    {
       "name": "PlayerPickupItem",
       "type": "procedure",
       "compiles": true,
@@ -2687,24 +2549,6 @@
       }
     },
     {
-      "name": "ElementalProjectileUpdate",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "elemental_projectile_update",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ElementalProjectileUpdateProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ]
-      }
-    },
-    {
       "name": "FatuiElectroCicinMage",
       "type": "livingentity",
       "compiles": true,
@@ -2729,45 +2573,6 @@
         "files": [
           "src/main/java/net/mcreator/er/item/ElectroMistGrassLanternItem.java",
           "src/main/resources/assets/er/models/item/electro_mist_grass_lantern.json"
-        ]
-      }
-    },
-    {
-      "name": "MistGrassPollen",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mist_grass_pollen",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/MistGrassPollenItem.java",
-          "src/main/resources/assets/er/models/item/mist_grass_pollen.json"
-        ]
-      }
-    },
-    {
-      "name": "MistGrass",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mist_grass",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/MistGrassItem.java",
-          "src/main/resources/assets/er/models/item/mist_grass.json"
-        ]
-      }
-    },
-    {
-      "name": "MistGrassWick",
-      "type": "item",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "mist_grass_wick",
-      "metadata": {
-        "files": [
-          "src/main/resources/assets/er/models/item/mist_grass_wick.json",
-          "src/main/java/net/mcreator/er/item/MistGrassWickItem.java"
         ]
       }
     },
@@ -2930,7 +2735,7 @@
       "name": "StatueofTheSevenCore",
       "type": "block",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "statueof_the_seven_core",
       "metadata": {
         "files": [
@@ -3061,63 +2866,6 @@
       }
     },
     {
-      "name": "StatueofTheSevenCoreClick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "statueof_the_seven_core_click",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ],
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/StatueofTheSevenCoreClickProcedure.java"
-        ]
-      }
-    },
-    {
-      "name": "MemoryofRovingGales",
-      "type": "item",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "memoryof_roving_gales",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/item/MemoryofRovingGalesItem.java",
-          "src/main/resources/assets/er/models/item/memoryof_roving_gales.json"
-        ]
-      }
-    },
-    {
-      "name": "StellaFortuna",
-      "type": "tab",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "stella_fortuna",
-      "metadata": {
-        "files": []
-      }
-    },
-    {
       "name": "AnemoExplosion",
       "type": "particle",
       "compiles": true,
@@ -3227,25 +2975,6 @@
         "files": [
           "src/main/java/net/mcreator/er/entity/TravelerTornadoEntity.java",
           "src/main/java/net/mcreator/er/client/renderer/TravelerTornadoRenderer.java"
-        ]
-      }
-    },
-    {
-      "name": "TravelerTornadoAnemo",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "traveler_tornado_anemo",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ],
-        "return_type": "logic",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/TravelerTornadoAnemoProcedure.java"
         ]
       }
     },
@@ -3633,7 +3362,7 @@
       "name": "FatuiElectroCicinMageLoot",
       "type": "loottable",
       "compiles": true,
-      "locked_code": false,
+      "locked_code": true,
       "registry_name": "fatui_electro_cicin_mage_loot",
       "metadata": {
         "files": [
@@ -3666,24 +3395,6 @@
         "files": [
           "src/main/resources/assets/er/particles/blossom_of_revelation_particle.json",
           "src/main/java/net/mcreator/er/client/particle/BlossomOfRevelationParticleParticle.java"
-        ]
-      }
-    },
-    {
-      "name": "PlayerRespawn",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "player_respawn",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
-        ],
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/PlayerRespawnProcedure.java"
         ]
       }
     },
@@ -4084,10 +3795,6 @@
     "ITEMS:minecraft:planks": [
       "CUSTOM:CuihuaPlanks"
     ],
-    "ITEMS:er:stella_fortuna": [
-      "CUSTOM:MemoryofRovingGales",
-      "CUSTOM:TestStellaFortuna"
-    ],
     "ITEMS:minecraft:enchantable/bow": [
       "CUSTOM:PolarStar",
       "CUSTOM:HuntersBow"
@@ -4184,6 +3891,23 @@
       "item.er.dendro_moon_wheel": "Dendro Moon Wheel",
       "item.er.geo_moon_wheel": "Geo Moon Wheel",
       "item.er.anemo_moon_wheel": "Anemo Moon Wheel",
+      "er.reaction.melt": "Melt",
+      "er.reaction.burning": "Burning",
+      "er.reaction.vaporize": "Vaporize",
+      "er.reaction.quicken": "Quicken",
+      "er.reaction.overloaded": "Overloaded",
+      "er.reaction.aggravate": "Aggravate",
+      "er.reaction.spread": "Spread",
+      "er.reaction.crystalize": "Crystalize",
+      "er.reaction.electro_charged": "Electro Charged",
+      "er.reaction.frozen": "Frozen",
+      "er.reaction.swirl": "Swirl",
+      "er.reaction.bloom": "Bloom",
+      "er.reaction.burgeon": "Burgeon",
+      "er.reaction.hyperbloom": "Hyperbloom",
+      "er.reaction.lunar_crystallize": "Lunar Crystallize",
+      "er.reaction.lunar_charged": "Lunar Charged",
+      "er.reaction.superconduct": "Superconduct",
       "item.er.crystal_chunk": "Crystal Chunk",
       "death.attack.reaction": "%1$s died",
       "attribute.er.hydro_dmg_bonus": "Hydro DMG Bonus",
@@ -4205,7 +3929,6 @@
       "gamerule.runningStaminaConsumable": "Running Stamina Consumable",
       "entity.er.mist_flower": "Mist Flower",
       "item.er.minor_affix_shard": "Minor Affix Shard",
-      "item.er.damaged_mask": "Damaged Mask",
       "attribute.er.anemo_dmg_bonus": "Anemo DMG Bonus",
       "enchantment.er.electro_infusion_enchantment": "Electro Infusion",
       "block.er.cuihua_stairs": "Cuihua Planks",
@@ -4220,12 +3943,9 @@
       "block.er.element_anvil": "Element Anvil",
       "block.er.statueof_the_seven": "Statue of The Seven",
       "entity.er.anemo_crystalfly": "Anemo Crystalfly",
-      "item.er.mist_grass_wick": "Mist Grass Wick",
       "item.er.mist_flower_corolla": "Mist Flower Corolla",
       "message.er.get_vision": "You feel an presence watching you...",
-      "item.er.stained_mask": "Stained Mask",
       "attribute.er.pyro_dmg_bonus": "Pyro DMG Bonus",
-      "item.er.ominous_mask": "Ominous Mask",
       "item.er.rarity_gemstone": "Rarity Gemstone",
       "block.er.cuihua_fence_gate": "Cuihua Planks",
       "enchantment.er.elemental_master": "Elemental Master",
@@ -4255,14 +3975,12 @@
       "block.er.cuihua_fence": "Cuihua Planks",
       "enchantment.er.anemo_infusion_enchantment": "Anemo Infusion",
       "block.er.lotus_head": "Lotus Head",
-      "item.er.mist_grass": "Mist Grass",
       "enchantment.er.hard": "Hard",
       "item.er.polar_star": "Polar Star",
       "item.er.flaming_flower_stamen": "Flaming Flower Stamen",
       "item.er.electro_mist_grass_lantern": "Electro Mist Grass Lantern",
       "entity.er.electro_cicin": "Electro Cicin",
       "enchantment.er.dendro_infusion_enchantment": "Dendro Infusion",
-      "item.er.mist_grass_pollen": "Mist Grass Pollen",
       "enchantment.er.pyro_infusion_enchantment": "Hydro Infusion",
       "gamerule.runningStaminaConsumable.description": "Cost stamina when running.",
       "block.er.cuihua_leaves": "Cuihua Leaves",
@@ -4294,8 +4012,6 @@
       "item.er.electro_cicin_spawn_egg": "Electro Cicin Spawn Egg",
       "enchantment.er.cryo_infusion_enchantment": "Cryo Infusion",
       "item.er.hilichurl_spawn_egg": "Hilichurl Spawn Egg",
-      "item.er.memoryof_roving_gales": "Memory of Roving Gales",
-      "item_group.er.stella_fortuna": "Stella Fortuna",
       "entity.er.traveler_tornado": "Traveler Tornado",
       "attribute.er.crit_damage": "Crit Damage",
       "attribute.er.crit_rate": "Crit Rate",
@@ -4451,6 +4167,12 @@
       "item.er.slime_concentrate": "Slime Concentrate",
       "item.er.slime_secretions": "Slime Secretions",
       "item.er.slime_condensate": "Slime Condensate",
+      "item.er.damaged_mask": "Damaged Mask",
+      "item.er.stained_mask": "Stained Mask",
+      "item.er.ominous_mask": "Ominous Mask",
+      "item.er.mist_grass_pollen": "Mist Grass Pollen",
+      "item.er.mist_grass": "Mist Grass",
+      "item.er.mist_grass_wick": "Mist Grass Wick",
       "artifact_effect.er.lucky_dog": "Lucky Dog",
       "artifact_effect.er.lucky_dog.1": "  2-Piece Set: Armor increased by 100.",
       "artifact_effect.er.lucky_dog.2": "  4-Piece Set: Picking up Mora restores 6 HP.",
@@ -4735,6 +4457,18 @@
       "gui.er.fortuna_enhance.status_missing": "Missing materials or Mora",
       "gui.er.fortuna_enhance.status_need_exp": "Insert EXP books",
       "gui.er.fortuna_enhance.status_max": "Maximum level reached",
+      "gui.er.fortuna_enhance.tab_enhance": "Enhance",
+      "gui.er.fortuna_enhance.talents": "Talents",
+      "gui.er.fortuna_skill.normal": "Normal Attack",
+      "gui.er.fortuna_skill.skill": "Elemental Skill",
+      "gui.er.fortuna_skill.burst": "Elemental Burst",
+      "gui.er.fortuna_enhance.constellation": "Constellation",
+      "gui.er.fortuna_enhance.constellation_lore": "Constellation %s",
+      "gui.er.fortuna_enhance.status_constellation_max": "Maximum constellation reached",
+      "gui.er.fortuna_enhance.hint_constellation_transform": "Transform constellation",
+      "gui.er.fortuna_enhance.hint_constellation_click": "Click constellation",
+      "gui.er.fortuna_enhance.button_constellation_need_sacrifice": "Need sacrifice",
+      "gui.er.fortuna_enhance.button_constellation_need": "Materials required",
       "text.er.fortuna_health": "HP",
       "text.er.fortuna_attack": "ATK",
       "text.er.fortuna_armor": "DEF",
@@ -4742,7 +4476,18 @@
       "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
       "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
       "item.er.enhancement_ore": "Enhancement Ore",
-      "item.er.empty_fortuna": "Empty Fortuna"
+      "item_group.er.stella_fortuna": "Stella Fortuna",
+      "item.er.memory_of_roving_gales": "Memory of Roving Gales",
+      "lore.constellation.er.memory_of_roving_gales.1": "Raging Vortex",
+      "lore.constellation.er.memory_of_roving_gales.2": "Uprising Whirlwind",
+      "lore.constellation.er.memory_of_roving_gales.3": "Sweeping Gust",
+      "lore.constellation.er.memory_of_roving_gales.4": "Cherishing Breezes",
+      "lore.constellation.er.memory_of_roving_gales.5": "Vortex Stellaris",
+      "lore.constellation.er.memory_of_roving_gales.6": "Intertwined Winds",
+      "item.er.empty_fortuna": "Empty Fortuna",
+      "er.lore.jei.weapon_ascension": "Weapon Ascension",
+      "er.lore.jei.fortuna_ascension": "Fortuna Ascension",
+      "er.lore.jei.fortuna_skill": "Fortuna Skill"
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -4769,6 +4514,23 @@
       "item.er.dendro_moon_wheel": "草月之轮",
       "item.er.geo_moon_wheel": "岩月之轮",
       "item.er.anemo_moon_wheel": "风月之轮",
+      "er.reaction.melt": "融化",
+      "er.reaction.burning": "燃烧",
+      "er.reaction.vaporize": "蒸发",
+      "er.reaction.quicken": "激化",
+      "er.reaction.overloaded": "超载",
+      "er.reaction.aggravate": "超激化",
+      "er.reaction.spread": "蔓激化",
+      "er.reaction.crystalize": "结晶",
+      "er.reaction.electro_charged": "感电",
+      "er.reaction.frozen": "冻结",
+      "er.reaction.swirl": "扩散",
+      "er.reaction.bloom": "绽放",
+      "er.reaction.burgeon": "烈绽放",
+      "er.reaction.hyperbloom": "超绽放",
+      "er.reaction.lunar_crystallize": "月结晶",
+      "er.reaction.lunar_charged": "月感电",
+      "er.reaction.superconduct": "超导",
       "item.er.crystal_chunk": "水晶块",
       "death.attack.reaction": "%1$s died",
       "attribute.er.hydro_dmg_bonus": "水元素伤害加成",
@@ -4791,7 +4553,6 @@
       "entity.er.mist_flower": "冰雾花",
       "item.er.minor_affix_shard": "副属性碎片",
       "attribute.er.anemo_dmg_bonus": "风元素伤害加成",
-      "item.er.damaged_mask": "破损的面具",
       "enchantment.er.electro_infusion_enchantment": "雷附魔",
       "block.er.cuihua_stairs": "萃华楼梯",
       "item_group.er.er_materials": "原神起源：材料",
@@ -4805,13 +4566,10 @@
       "block.er.element_anvil": "元素铁砧",
       "block.er.statueof_the_seven": "七天神像",
       "entity.er.anemo_crystalfly": "风晶蝶",
-      "item.er.mist_grass_wick": "雾虚灯芯",
       "item.er.mist_flower_corolla": "冰雾花花朵",
       "message.er.get_vision": "你感受到有个东西在看着你……",
-      "item.er.stained_mask": "污秽的面具",
       "attribute.er.pyro_dmg_bonus": "火元素伤害加成",
       "item.er.rarity_gemstone": "稀有度宝石",
-      "item.er.ominous_mask": "不祥的面具",
       "attribute.er.crit_damage": "暴击伤害",
       "block.er.cuihua_fence_gate": "萃华木栅栏门",
       "enchantment.er.elemental_master": "元素精通",
@@ -4841,14 +4599,12 @@
       "block.er.cuihua_fence": "萃华木栅栏",
       "enchantment.er.anemo_infusion_enchantment": "风附魔",
       "block.er.lotus_head": "莲蓬",
-      "item.er.mist_grass": "雾虚草囊",
       "enchantment.er.hard": "硬化",
       "item.er.polar_star": "冬极白星",
       "item.er.flaming_flower_stamen": "烈焰花花蕊",
       "item.er.electro_mist_grass_lantern": "雾虚灯笼",
       "entity.er.electro_cicin": "雷萤",
       "enchantment.er.dendro_infusion_enchantment": "草附魔",
-      "item.er.mist_grass_pollen": "雾虚花粉",
       "enchantment.er.pyro_infusion_enchantment": "火附魔",
       "gamerule.runningStaminaConsumable.description": "跑步时候会消耗体力",
       "block.er.cuihua_leaves": "萃华叶",
@@ -4880,8 +4636,6 @@
       "item.er.electro_cicin_spawn_egg": "雷萤刷怪蛋",
       "enchantment.er.cryo_infusion_enchantment": "冰附魔",
       "item.er.hilichurl_spawn_egg": "丘丘人刷怪蛋",
-      "item.er.memoryof_roving_gales": "四方之风的记忆",
-      "item_group.er.stella_fortuna": "命星",
       "entity.er.traveler_tornado": "龙卷风",
       "attribute.er.crit_rate": "暴击率",
       "advancements.elemental_reaction.descr": "欢迎来到世界",
@@ -5036,6 +4790,12 @@
       "item.er.slime_concentrate": "史莱姆原浆",
       "item.er.slime_secretions": "史莱姆清",
       "item.er.slime_condensate": "史莱姆凝液",
+      "item.er.damaged_mask": "破损的面具",
+      "item.er.stained_mask": "污秽的面具",
+      "item.er.ominous_mask": "不祥的面具",
+      "item.er.mist_grass_pollen": "雾虚花粉",
+      "item.er.mist_grass": "雾虚草囊",
+      "item.er.mist_grass_wick": "雾虚灯芯",
       "artifact_effect.er.lucky_dog": "幸运儿",
       "artifact_effect.er.lucky_dog.1": "  2件套：护甲值提高100点。",
       "artifact_effect.er.lucky_dog.2": "  4件套：拾取摩拉时，恢复6点生命值。",
@@ -5311,6 +5071,18 @@
       "gui.er.fortuna_enhance.status_missing": "材料或摩拉不足",
       "gui.er.fortuna_enhance.status_need_exp": "放入经验书",
       "gui.er.fortuna_enhance.status_max": "已达最高等级",
+      "gui.er.fortuna_enhance.tab_enhance": "强化",
+      "gui.er.fortuna_enhance.talents": "天赋",
+      "gui.er.fortuna_skill.normal": "普通攻击",
+      "gui.er.fortuna_skill.skill": "元素战技",
+      "gui.er.fortuna_skill.burst": "元素爆发",
+      "gui.er.fortuna_enhance.constellation": "命座",
+      "gui.er.fortuna_enhance.constellation_lore": "命座 %s",
+      "gui.er.fortuna_enhance.status_constellation_max": "已达最大命座",
+      "gui.er.fortuna_enhance.hint_constellation_transform": "命座转换",
+      "gui.er.fortuna_enhance.hint_constellation_click": "点击命座",
+      "gui.er.fortuna_enhance.button_constellation_need_sacrifice": "需要牺牲品",
+      "gui.er.fortuna_enhance.button_constellation_need": "需要材料",
       "text.er.fortuna_health": "生命",
       "text.er.fortuna_attack": "攻击",
       "text.er.fortuna_armor": "护甲",
@@ -5318,7 +5090,18 @@
       "item.er.mystic_enhancement_ore": "精锻用魔矿",
       "item.er.fine_enhancement_ore": "精锻用良矿",
       "item.er.enhancement_ore": "精锻用杂矿",
-      "item.er.empty_fortuna": "空命星"
+      "item_group.er.stella_fortuna": "命星",
+      "item.er.memory_of_roving_gales": "四方之风的记忆",
+      "lore.constellation.er.memory_of_roving_gales.1": "回转的怒风",
+      "lore.constellation.er.memory_of_roving_gales.2": "革新的旋风",
+      "lore.constellation.er.memory_of_roving_gales.3": "天地的刚风",
+      "lore.constellation.er.memory_of_roving_gales.4": "眷护的和风",
+      "lore.constellation.er.memory_of_roving_gales.5": "群星的涡风",
+      "lore.constellation.er.memory_of_roving_gales.6": "纠缠的信风",
+      "item.er.empty_fortuna": "空命星",
+      "er.lore.jei.weapon_ascension": "武器突破",
+      "er.lore.jei.fortuna_ascension": "命星突破",
+      "er.lore.jei.fortuna_skill": "技能强化"
     }
   },
   "metadata": {
@@ -5365,7 +5148,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.3",
+    "version": "1.2.5",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

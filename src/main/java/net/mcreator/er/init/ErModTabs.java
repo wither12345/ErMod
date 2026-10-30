@@ -47,10 +47,6 @@ public class ErModTabs {
 				tabData.accept(ErModItems.POLAR_STAR.get());
 				tabData.accept(ErModItems.ELECTRO_MIST_GRASS_LANTERN.get());
 			}).withTabsBefore(ER_MATERIALS.getId()).build());
-	public static final DeferredHolder<CreativeModeTab, CreativeModeTab> STELLA_FORTUNA = REGISTRY.register("stella_fortuna",
-			() -> CreativeModeTab.builder().title(Component.translatable("item_group.er.stella_fortuna")).icon(() -> new ItemStack(ErModItems.MEMORYOF_ROVING_GALES.get())).displayItems((parameters, tabData) -> {
-				tabData.accept(ErModItems.MEMORYOF_ROVING_GALES.get());
-			}).withSearchBar().withTabsBefore(ER_WEAPON.getId()).build());
 
 	@SubscribeEvent
 	public static void buildTabContentsVanilla(BuildCreativeModeTabContentsEvent tabData) {

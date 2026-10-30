@@ -7,7 +7,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.wither.er.init.EffectRegister;
-import net.wither.er.item.data.weapon.KillAbility;
+import net.wither.er.item.data.ability.KillAbility;
 import net.wither.er.network.ErCombatVariables;
 
 public class Gambler extends AttrArtifactEffect implements KillAbility {

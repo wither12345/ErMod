@@ -1,5 +1,6 @@
 package net.wither.er.player;
 
+import net.mcreator.er.init.ErModAttributes;
 import net.mcreator.er.init.ErModMobEffects;
 import net.minecraft.world.Container;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,13 +11,16 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.ArmorHurtEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerXpEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
+import net.wither.er.item.data.FortunaData;
 import net.wither.er.item.fortuna.StellaFortuna;
+import net.wither.er.network.ErItemVariables;
 
 import java.util.Map;
 import java.util.Set;
@@ -62,5 +66,17 @@ public class OnEvents {
         if (entity != null && !entity.getPersistentData().contains("ErOpened")) {
             entity.getPersistentData().putBoolean("ErOpened", true);
         }
+    }
+
+    @SubscribeEvent
+    public static void onRespawn(PlayerEvent.PlayerRespawnEvent event){
+        Player player = event.getEntity();
+        ErItemVariables.PlayerVariables var = player.getData(ErItemVariables.PLAYER_VARIABLES);
+        if(var.Stella_Fortuna.getItem() instanceof StellaFortuna fortuna)
+            fortuna.applyAttr(player, FortunaData.get(var.Stella_Fortuna));
+        player.getAttribute(ErModAttributes.CRIT_DAMAGE).setBaseValue(0.5);
+
+        player.setHealth(player.getMaxHealth());
+
     }
 }

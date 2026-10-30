@@ -11,7 +11,7 @@ import net.wither.er.elements.AuraContainer;
 import net.wither.er.elements.Element;
 import net.wither.er.elements.ElementSource;
 import net.wither.er.init.EffectRegister;
-import net.wither.er.item.data.weapon.ReactionAbility;
+import net.wither.er.item.data.ability.ReactionAbility;
 import org.jetbrains.annotations.NotNull;
 
 public class Instructor extends AttrArtifactEffect implements ReactionAbility {

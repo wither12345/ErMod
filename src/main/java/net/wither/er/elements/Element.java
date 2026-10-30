@@ -204,7 +204,7 @@ public abstract class Element {
                                   @Nullable Entity applier){
         float gauge_reduction = reacting(source , boundAura) ;
         if(source.getElement() != ElementRegistry.FROZEN.get()) {
-            ReactionDisplay.trigger(Reaction.FROZEN, auraContainer.getOwner(), Category.ELECTRO, RenderDamageAmount.Display.NORMAL);
+            ReactionDisplay.trigger(Reaction.FROZEN, auraContainer.getOwner(), Category.CRYO, RenderDamageAmount.Display.NORMAL);
             auraContainer.addAura(new ElementSource(ElementRegistry.FROZEN.get(), null, gauge_reduction * 2, true), null, applier);
         }
         return gauge_reduction;

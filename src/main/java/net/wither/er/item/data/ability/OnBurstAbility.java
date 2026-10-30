@@ -1,4 +1,4 @@
-package net.wither.er.item.data.weapon;
+package net.wither.er.item.data.ability;
 
 import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.world.entity.LivingEntity;

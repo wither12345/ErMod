@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.wither.er.item.data.weapon.HealthFloatingAbility;
+import net.wither.er.item.data.ability.HealthFloatingAbility;
 
 public class Berserker extends AttrArtifactEffect implements HealthFloatingAbility {
     private static final AttributeModifier MODIFIER_LOW = new AttributeModifier(ResourceLocation.parse("er:berserker_low_hp"), 0.24, AttributeModifier.Operation.ADD_VALUE);

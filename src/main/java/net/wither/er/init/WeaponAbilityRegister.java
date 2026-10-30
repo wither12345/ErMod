@@ -3,7 +3,7 @@ package net.wither.er.init;
 import net.mcreator.er.ErMod;
 import net.minecraft.core.Holder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.wither.er.item.data.weapon.*;
+import net.wither.er.item.data.ability.*;
 
 public class WeaponAbilityRegister {
     public static final DeferredRegister<Object> WEAPON_ABILITIES = DeferredRegister.create(AdditionalRegistries.WEAPON_ABILITY_REGISTRY, ErMod.MODID);

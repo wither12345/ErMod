@@ -49,6 +49,6 @@ public record ReactionDisplayMessage(Reaction reaction, double x, double y, doub
     }
 
     public static void handle(final ReactionDisplayMessage data, final IPayloadContext context) {
-        context.enqueueWork(() -> RenderDamageAmount.addReaction(data.reaction(), data.x() + Math.random() - 0.5, data.y() + Math.random() + 2, data.z() + Math.random() - 0.5, data.color(), data.display()));
+        context.enqueueWork(() -> RenderDamageAmount.addReaction(data.reaction(), data.x() + Math.random() - 0.5, data.y() + Math.random() + 1, data.z() + Math.random() - 0.5, data.color(), data.display()));
     }
 }

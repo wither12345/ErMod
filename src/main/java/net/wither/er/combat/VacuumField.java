@@ -12,18 +12,34 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class VacuumField {
-    public static void vacuum(LevelAccessor world, Vec3 center, Entity entity, double range, double strength) {
-        world.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(range), e -> shouldVacuum(entity, e)).forEach(vacuumed -> {
+    /**
+     * 执行一次吸引实体操作
+     * <p>
+     * 该方法会将所有在指定范围内的实体向中心位置移动
+     * 移动距离与实体与中心位置的距离成反比
+     * 会计算实体体积和击退抗性
+     * 并根据这些因素计算移动距离。
+     * </p>
+     *
+     * @param level 所在世界
+     * @param center 吸引中心位置
+     * @param entity 引发吸引的实体
+     * @param range 吸引范围
+     * @param strength 吸引强度
+     */
+    public static void vacuum(LevelAccessor level, Vec3 center, Entity entity, double range, double strength) {
+        level.getEntitiesOfClass(Entity.class, new AABB(center, center).inflate(range), e -> shouldVacuum(entity, e)).forEach(vacuumed -> {
             double kb_res = Math.min(getKbRes(vacuumed), 1);
             double size = vacuumed.getBbHeight() * vacuumed.getBbWidth() * vacuumed.getBbWidth();
-            double str = strength * (1 - kb_res) / size / entity.distanceToSqr(vacuumed) * 5;
+            double str = (1 - kb_res) / size / entity.distanceToSqr(vacuumed) * 5;
             if(str > 1) str = 1;
+            str *= strength;
             Vec3 toPush = center.subtract(vacuumed.position()).normalize().scale(str);
             vacuumed.push(toPush);
         });
     }
 
-    public static double getKbRes(Entity entity){
+    private static double getKbRes(Entity entity){
         if(entity instanceof LivingEntity living){
             AttributeInstance instance = living.getAttribute(Attributes.KNOCKBACK_RESISTANCE);
             if(instance != null) return instance.getValue();
@@ -31,7 +47,18 @@ public class VacuumField {
         return 0;
     }
 
-    public static boolean shouldVacuum(Entity vacuumer, Entity vacuumed){
+    /**
+     * 判断是否应该吸引实体
+     * <p>
+     * 该方法会判断实体是否应该被吸引
+     * 在vacuumed是物品实体、经验球实体、或会被vacuumer伤害时，返回true
+     * </p>
+     * @param vacuumer 引发吸引的实体
+     * @param vacuumed 被吸引的实体
+     * @return 是否应该被吸引
+     * @see EntityHurtEvent#shouldHurt
+     */
+    private static boolean shouldVacuum(Entity vacuumer, Entity vacuumed){
         return vacuumed instanceof ItemEntity || vacuumed instanceof ExperienceOrb || EntityHurtEvent.shouldHurt(vacuumer, vacuumed);
     }
 }

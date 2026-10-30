@@ -12,7 +12,7 @@ import net.wither.er.item.artifact_effect.ArtifactEffect;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.init.ElementRegistry;
-import net.wither.er.item.data.weapon.ReactionAbility;
+import net.wither.er.item.data.ability.ReactionAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 
 import javax.annotation.Nullable;

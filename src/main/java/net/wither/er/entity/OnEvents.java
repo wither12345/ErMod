@@ -16,8 +16,8 @@ import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.wither.er.init.DataComponentsRegister;
 import net.wither.er.item.artifact_effect.ArtifactEffect;
-import net.wither.er.item.data.weapon.HealthFloatingAbility;
-import net.wither.er.item.data.weapon.TickAbility;
+import net.wither.er.item.data.ability.HealthFloatingAbility;
+import net.wither.er.item.data.ability.TickAbility;
 import net.wither.er.item.data.weapon.WeaponRefinement;
 
 @EventBusSubscriber

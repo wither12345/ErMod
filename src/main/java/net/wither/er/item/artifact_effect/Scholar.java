@@ -8,7 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ProjectileWeaponItem;
-import net.wither.er.item.data.weapon.EnergyOrbPickupAbility;
+import net.wither.er.item.data.ability.EnergyOrbPickupAbility;
 import net.wither.er.network.ErCombatVariables;
 import net.wither.er.network.ErItemVariables;
 

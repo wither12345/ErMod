@@ -90,7 +90,7 @@ public class Geo extends Element{
             if (entityToSpawn != null) {
                 if (applier != null) {
                     entityToSpawn.getPersistentData().putString("UUID", applier.getStringUUID());
-                    entityToSpawn.getPersistentData().putFloat("health", 5 * EntityHurtEvent.getEntityLevel(applier) * EntityHurtEvent.getElementalMasteryMultiply(1,EntityHurtEvent.getElementalMastery(applier)));
+                    entityToSpawn.getPersistentData().putFloat("health", 5 * EntityHurtEvent.getEntityLevel(applier) * EntityHurtEvent.ReactionMultiply.CRYSTALLIZE.getMulti(applier));
                 }
             }
         }

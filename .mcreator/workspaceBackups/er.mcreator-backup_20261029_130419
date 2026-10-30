@@ -797,37 +797,6 @@
       }
     },
     {
-      "name": "LivingItemChange",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": true,
-      "registry_name": "living_item_change",
-      "metadata": {
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "CraftCondensedCryo",
       "type": "recipe",
       "compiles": true,
@@ -1865,25 +1834,6 @@
       }
     },
     {
-      "name": "ItemLevel",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "item_level",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ItemLevelProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      }
-    },
-    {
       "name": "ElectroCrystalOreLoot",
       "type": "loottable",
       "compiles": true,
@@ -2018,25 +1968,6 @@
         ]
       },
       "path": "~/Multiplys"
-    },
-    {
-      "name": "GetWeaponMaxExp",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "get_weapon_max_exp",
-      "metadata": {
-        "return_type": "number",
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/GetWeaponMaxExpProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "itemstack",
-            "type": "itemstack"
-          }
-        ]
-      }
     },
     {
       "name": "ErTrade",
@@ -2272,36 +2203,6 @@
           "src/main/resources/data/er/worldgen/placed_feature/cuihua_tree.json",
           "src/main/resources/data/er/worldgen/configured_feature/cuihua_tree.json",
           "src/main/resources/data/er/neoforge/biome_modifier/cuihua_tree_biome_modifier.json"
-        ]
-      }
-    },
-    {
-      "name": "CuihuaSaplingTick",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "cuihua_sapling_tick",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/CuihuaSaplingTickProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "x",
-            "type": "number"
-          },
-          {
-            "name": "y",
-            "type": "number"
-          },
-          {
-            "name": "z",
-            "type": "number"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
         ]
       }
     },
@@ -2644,24 +2545,6 @@
       "metadata": {
         "files": [
           "src/main/java/net/mcreator/er/entity/ElementalProjectileEntity.java"
-        ]
-      }
-    },
-    {
-      "name": "ElementalProjectileUpdate",
-      "type": "procedure",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "elemental_projectile_update",
-      "metadata": {
-        "files": [
-          "src/main/java/net/mcreator/er/procedures/ElementalProjectileUpdateProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          }
         ]
       }
     },
@@ -4049,6 +3932,23 @@
       "item.er.dendro_moon_wheel": "Dendro Moon Wheel",
       "item.er.geo_moon_wheel": "Geo Moon Wheel",
       "item.er.anemo_moon_wheel": "Anemo Moon Wheel",
+      "er.reaction.melt": "Melt",
+      "er.reaction.burning": "Burning",
+      "er.reaction.vaporize": "Vaporize",
+      "er.reaction.quicken": "Quicken",
+      "er.reaction.overloaded": "Overloaded",
+      "er.reaction.aggravate": "Aggravate",
+      "er.reaction.spread": "Spread",
+      "er.reaction.crystalize": "Crystalize",
+      "er.reaction.electro_charged": "Electro Charged",
+      "er.reaction.frozen": "Frozen",
+      "er.reaction.swirl": "Swirl",
+      "er.reaction.bloom": "Bloom",
+      "er.reaction.burgeon": "Burgeon",
+      "er.reaction.hyperbloom": "Hyperbloom",
+      "er.reaction.lunar_crystallize": "Lunar Crystallize",
+      "er.reaction.lunar_charged": "Lunar Charged",
+      "er.reaction.superconduct": "Superconduct",
       "item.er.crystal_chunk": "Crystal Chunk",
       "death.attack.reaction": "%1$s died",
       "attribute.er.hydro_dmg_bonus": "Hydro DMG Bonus",
@@ -4607,7 +4507,10 @@
       "item.er.mystic_enhancement_ore": "Mystic Enhancement Ore",
       "item.er.fine_enhancement_ore": "Fine Enhancement Ore",
       "item.er.enhancement_ore": "Enhancement Ore",
-      "item.er.empty_fortuna": "Empty Fortuna"
+      "item.er.empty_fortuna": "Empty Fortuna",
+      "er.lore.jei.weapon_ascension": "Weapon Ascension",
+      "er.lore.jei.fortuna_ascension": "Fortuna Ascension",
+      "er.lore.jei.fortuna_skill": "Fortuna Skill"
     },
     "zh_cn": {
       "item.er.unowned_vision": "无主神之眼",
@@ -4634,6 +4537,23 @@
       "item.er.dendro_moon_wheel": "草月之轮",
       "item.er.geo_moon_wheel": "岩月之轮",
       "item.er.anemo_moon_wheel": "风月之轮",
+      "er.reaction.melt": "融化",
+      "er.reaction.burning": "燃烧",
+      "er.reaction.vaporize": "蒸发",
+      "er.reaction.quicken": "激化",
+      "er.reaction.overloaded": "超载",
+      "er.reaction.aggravate": "超激化",
+      "er.reaction.spread": "蔓激化",
+      "er.reaction.crystalize": "结晶",
+      "er.reaction.electro_charged": "感电",
+      "er.reaction.frozen": "冻结",
+      "er.reaction.swirl": "扩散",
+      "er.reaction.bloom": "绽放",
+      "er.reaction.burgeon": "烈绽放",
+      "er.reaction.hyperbloom": "超绽放",
+      "er.reaction.lunar_crystallize": "月结晶",
+      "er.reaction.lunar_charged": "月感电",
+      "er.reaction.superconduct": "超导",
       "item.er.crystal_chunk": "水晶块",
       "death.attack.reaction": "%1$s died",
       "attribute.er.hydro_dmg_bonus": "水元素伤害加成",
@@ -5183,7 +5103,10 @@
       "item.er.mystic_enhancement_ore": "精锻用魔矿",
       "item.er.fine_enhancement_ore": "精锻用良矿",
       "item.er.enhancement_ore": "精锻用杂矿",
-      "item.er.empty_fortuna": "空命星"
+      "item.er.empty_fortuna": "空命星",
+      "er.lore.jei.weapon_ascension": "武器突破",
+      "er.lore.jei.fortuna_ascension": "命星突破",
+      "er.lore.jei.fortuna_skill": "技能强化"
     }
   },
   "metadata": {
@@ -5230,7 +5153,7 @@
   "workspaceSettings": {
     "modid": "er",
     "modName": "er",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "author": "wither123, MCreator",
     "websiteURL": "https://mcreator.net",
     "license": "Academic Free License v3.0",

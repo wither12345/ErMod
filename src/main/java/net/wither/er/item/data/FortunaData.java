@@ -2,6 +2,7 @@ package net.wither.er.item.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.entity.Entity;
 import net.wither.er.item.fortuna.StellaFortuna;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -11,25 +12,24 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.network.ErItemVariables;
 
-public record FortunaData(int level, int ascension, int experience, int normal_level, int skill_level, int burst_level) {
+public record FortunaData(int level, int ascension, int experience, int constellation, SkillData skills) {
     public static final Codec<FortunaData> CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     Codec.INT.fieldOf("level").forGetter(FortunaData::level),
                     Codec.INT.fieldOf("ascension").forGetter(FortunaData::ascension),
                     Codec.INT.fieldOf("experience").forGetter(FortunaData::experience),
-                    Codec.INT.fieldOf("normal_level").forGetter(FortunaData::normal_level),
-                    Codec.INT.fieldOf("skill_level").forGetter(FortunaData::skill_level),
-                    Codec.INT.fieldOf("burst_level").forGetter(FortunaData::burst_level)
+                    Codec.INT.optionalFieldOf("constellation", 0).forGetter(FortunaData::constellation),
+                    SkillData.CODEC.lenientOptionalFieldOf("skills", SkillData.DEFAULT).forGetter(FortunaData::skills)
             ).apply(instance, FortunaData::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, FortunaData> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, FortunaData::level,
             ByteBufCodecs.INT, FortunaData::ascension,
             ByteBufCodecs.INT, FortunaData::experience,
-            ByteBufCodecs.INT, FortunaData::normal_level,
-            ByteBufCodecs.INT, FortunaData::skill_level,
-            ByteBufCodecs.INT, FortunaData::burst_level,
+            ByteBufCodecs.INT, FortunaData::constellation,
+            SkillData.STREAM_CODEC, FortunaData::skills,
             FortunaData::new
     );
 
@@ -52,7 +52,8 @@ public record FortunaData(int level, int ascension, int experience, int normal_l
                         tag.getInt("level") + 1,
                         tag.getInt("ascension"),
                         tag.getInt("experience"),
-                        0, 0, 0
+                        tag.getInt("constellation"),
+                        SkillData.DEFAULT
                 );
                 stack.set(DataComponentsRegister.FORTUNA.get(), migrated);
                 clearLegacyData(stack);
@@ -60,7 +61,13 @@ public record FortunaData(int level, int ascension, int experience, int normal_l
             }
         }
 
-        return new FortunaData(1, 0, 0, 0, 0, 0);
+        return new FortunaData(1, 0, 0, 0, SkillData.DEFAULT);
+    }
+
+    /** 从实体上读取 FortunaData */
+    public static FortunaData get(Entity entity){
+        ItemStack stack = entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna;
+        return get(stack);
     }
 
     /** 删除旧版写在 CustomData 里的强化字段，其他自定义数据保持不变。 */
@@ -84,9 +91,73 @@ public record FortunaData(int level, int ascension, int experience, int normal_l
 
     /** 只更新强化相关的 level/ascension/experience，保留 normal/skill/burst 等级。 */
     public FortunaData withEnhance(int newLevel, int newAscension, int newExperience) {
-        return new FortunaData(newLevel, newAscension, newExperience, this.normal_level, this.skill_level, this.burst_level);
+        return new FortunaData(newLevel, newAscension, newExperience, this.constellation, this.skills);
     }
 
+    /** 获取普通攻击等级
+     * @return 普通攻击等级
+     * */
+    public int normal() {
+        return this.skills().normal();
+    }
+
+    /** 获取普通攻击等级，命之座足够bonus时额外+3
+     * @param bonus 命之座要求等级
+     * @return 普通攻击等级
+     *  */
+    public int normal(int bonus){
+        return this.skills().normal() + this.constellation >= bonus ? 3 : 0;
+    }
+
+    /** 获取战技等级
+     * @return 战技等级
+     * */
+    public int skill() {
+        return this.skills().skill();
+    }
+
+    /** 获取战技等级，命之座足够bonus时额外+3
+     * @param bonus 命之座要求等级
+     * @return 战技等级
+     *  */
+    public int skill(int bonus){
+        return this.skills().skill() + this.constellation >= bonus ? 3 : 0;
+    }
+
+    /** 获取爆发等级
+     * @return 爆发等级
+     * */
+    public int burst() {
+        return this.skills().burst();
+    }
+
+    /** 获取爆发等级，命之座足够bonus时额外+3
+     * @param bonus 命之座要求等级
+     * @return 爆发等级
+     *  */
+    public int burst(int bonus){
+        return this.skills().burst() + this.constellation >= bonus ? 3 : 0;
+    }
+
+    /** 获取天赋最大等级
+     * @return 最大等级
+     */
+    public int getMaxTalentLevel(){
+        return switch (this.ascension) {
+            case 0 -> 1;
+            case 2 -> 2;
+            case 3 -> 4;
+            case 4 -> 6;
+            case 5 -> 8;
+            case 6 -> 10;
+            default -> this.ascension * 2;
+        };
+    }
+
+    /** 获取升级需要的经验值
+     * @param level 等级
+     * @return 经验值
+     * */
     public static int getExpReq(int level) {
         if (level <= 20)
             return (int) (0.402 * level * level + 12.31 * level + 27.49);
@@ -99,15 +170,19 @@ public record FortunaData(int level, int ascension, int experience, int normal_l
         return (int) (2300 * Math.exp(0.165 * (level - 80)));
     }
 
+    /** 获取最大等级
+     * @param ascension 强化等级
+     * @return 最大等级
+     * */
     public static int getMaxLevel(int ascension) {
         return switch (ascension){
-        case 0 -> 20;
-        case 1 -> 40;
-        case 2 -> 50;
-        case 3 -> 60;
-        case 4 -> 70;
-        case 8 -> 80;
-        default -> 90;
+            case 0 -> 20;
+            case 1 -> 40;
+            case 2 -> 50;
+            case 3 -> 60;
+            case 4 -> 70;
+            case 5 -> 80;
+            default -> 90;
         };
     }
 }

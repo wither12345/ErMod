@@ -1,0 +1,89 @@
+{
+  "items" : [
+    "er:memory_of_roving_gales"
+  ],
+  "type": "skill",
+  "ascension" : [
+    {
+      "mora": 12500,
+      "ingredient": [
+        {
+            "item": "minecraft:iron_ingot",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "mora": 17500,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 25000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "mora": 30000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 18
+        }
+      ]
+    },
+    {
+      "mora": 37500,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_ingot",
+          "count": 27
+        }
+      ]
+    },
+    {
+      "mora": 120000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "mora": 260000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "mora": 450000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 9
+        }
+      ]
+    },
+    {
+      "mora": 700000,
+      "ingredient": [
+        {
+          "item": "minecraft:iron_block",
+          "count": 12
+        }
+      ]
+    }
+  ]
+}

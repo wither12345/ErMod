@@ -10,26 +10,28 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 public class AscensionRecipe {
-    private final Single[] singles = new Single[6] ;
+    /** 武器/命星突破最多 6 条，技能等级 1→10 需要 9 条，这里统一放宽到 10。 */
+    private final Single[] singles = new Single[10] ;
 
     public AscensionRecipe(JsonArray ascensionArray){
         int i = 0 ;
         for(JsonElement element : ascensionArray){
-            if(i >= 6)
+            if(i >= singles.length)
                 break ;
             singles[i ++] = new Single(element);
         }
     }
 
+    @Nullable
     public Single getRecipe(int i){
-        if(i < 6)
+        if(i >= 0 && i < singles.length)
             return singles[i] ;
         return null ;
     }
 
     public static class Single{
         private final int mora;
-        private final Input[] inputs = new Input[4] ;
+        private final Input[] inputs = new Input[5] ;
 
         private Single(JsonElement element){
             this.mora = element.getAsJsonObject().get("mora").getAsInt() ;
