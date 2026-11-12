@@ -480,7 +480,7 @@ public class EntityHurtEvent {
 		if (entity instanceof Player) {
             FortunaData data = entity.getData(ErItemVariables.PLAYER_VARIABLES).Stella_Fortuna.get(DataComponentsRegister.FORTUNA);
 			if (data != null) {
-				return data.level() + 1;
+				return data.level();
 			}
 			return 1 ;
 		}

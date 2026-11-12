@@ -4,8 +4,9 @@ import net.mcreator.er.init.ErModEntities;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.wither.er.entity.reaction.BloomEntity;
 import net.wither.er.entity.hypostasiscube.HypostasisCube;
+import net.wither.er.entity.reaction.BloomEntity;
+import net.wither.er.entity.samachurl.HydroSamachurl;
 import net.wither.er.entity.slimes.AnemoSlime;
 import net.wither.er.entity.slimes.ElementalSlime;
 import net.wither.er.entity.whopperflower.CryoWhopperflower;
@@ -27,5 +28,6 @@ public class RegisterAttributes {
         event.put(ErModEntities.CRYO_WHOPPERFLOWER.get(),  CryoWhopperflower.createAttributes().build());
         event.put(ErModEntities.ELECTRO_HYPOSTASIS_CUBE.get(),  HypostasisCube.createAttributes().build());
         event.put(ErModEntities.ELECTRO_CUBE_CRYSTAL.get(),  HypostasisCube.createAttributes().build());
+        event.put(ErModEntities.HYDRO_SAMACHURL.get(),  HydroSamachurl.createAttributes().build());
     }
 }

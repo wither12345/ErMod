@@ -100,6 +100,7 @@ public class BloomEntity extends LivingEntity implements TraceableEntity{
 			return null;
 		}
 	}
+
 	@Override
 	public void addAdditionalSaveData(@NotNull CompoundTag tag) {
 		if (this.ownerUUID != null) {

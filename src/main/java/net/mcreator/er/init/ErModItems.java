@@ -353,6 +353,7 @@ public class ErModItems {
 	public static final DeferredItem<Item> MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
+    public static final DeferredItem<Item> RAIN_PRAYER = REGISTRY.register("rain_prayer", (RainPrayer::new));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

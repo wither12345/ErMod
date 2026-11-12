@@ -4,11 +4,13 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.wither.er.client.model.SamachurlModel;
 import net.wither.er.client.model.WhopperflowerModel;
-import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.LunarChargedCloudRenderer;
 import net.wither.er.client.renderer.LunarCrystallizeRenderer;
+import net.wither.er.client.renderer.block.LinkMechanismBaseRenderer;
 import net.wither.er.client.renderer.hypostasiscube.AbstractHypostasisCubeRenderer;
+import net.wither.er.client.renderer.samachurl.HydroSamachurlRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoSpikeRenderer;
 import net.wither.er.client.renderer.whopperflower.CryoWhopperflowerProjectileRenderer;
 import net.wither.er.client.renderer.whopperflower.PyroHomingRobRenderer;
@@ -27,5 +29,6 @@ public class LayerDefinitionsRegister {
         event.registerLayerDefinition(CryoWhopperflowerProjectileRenderer.LAYER_LOCATION, CryoWhopperflowerProjectileRenderer::createBodyLayer);
         event.registerLayerDefinition(LinkMechanismBaseRenderer.LAYER_LOCATION, LinkMechanismBaseRenderer::createBodyLayer);
         event.registerLayerDefinition(AbstractHypostasisCubeRenderer.LAYER_LOCATION, AbstractHypostasisCubeRenderer::createBodyLayer);
+        event.registerLayerDefinition(HydroSamachurlRenderer.LAYER_LOCATION, SamachurlModel::createBodyLayer);
     }
 }

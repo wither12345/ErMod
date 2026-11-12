@@ -58,8 +58,7 @@ public class CryoSpike extends Entity implements TraceableEntity {
                 dmg = instance == null ? 1 : instance.getValue();
             }
             else dmg = 1;
-            level().getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(1), e -> true).stream()
-                    .filter(e -> EntityHurtEvent.shouldHurt(e, owner) && e.hurtTime <= 0)
+            level().getEntitiesOfClass(LivingEntity.class, new AABB(center, center).inflate(1), e -> EntityHurtEvent.shouldHurt(e, owner) && e.hurtTime <= 0)
                     .forEach(
                             entity -> entity.hurt(
                                     ElementSource.createDamageSource(

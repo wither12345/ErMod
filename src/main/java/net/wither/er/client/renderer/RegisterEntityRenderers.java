@@ -11,6 +11,9 @@ import net.wither.er.client.renderer.block.StorageDeviceRenderer;
 import net.wither.er.client.renderer.hypostasiscube.ElectroCubeCrystalRenderer;
 import net.wither.er.client.renderer.hypostasiscube.ElectroCubeProjectileRenderer;
 import net.wither.er.client.renderer.hypostasiscube.ElectroHypostasisCubeRenderer;
+import net.wither.er.client.renderer.samachurl.FlowEntityRenderer;
+import net.wither.er.client.renderer.samachurl.HydroSamachurlRenderer;
+import net.wither.er.client.renderer.samachurl.RainCloudRenderer;
 import net.wither.er.client.renderer.slime.*;
 import net.wither.er.client.renderer.whopperflower.*;
 
@@ -37,14 +40,19 @@ public class RegisterEntityRenderers {
         event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER.get(), CryoWhopperflowerRenderer::new);
         event.registerEntityRenderer(ErModEntities.CRYO_SPIKE.get(), CryoSpikeRenderer::new);
         event.registerEntityRenderer(ErModEntities.CRYO_WHOPPERFLOWER_PROJECTILE.get(), CryoWhopperflowerProjectileRenderer::new);
-        event.registerBlockEntityRenderer(ErModBlockEntities.LINK_MECHANISM_ENTITY.get(), LinkMechanismBaseRenderer::new);
         event.registerEntityRenderer(ErModEntities.LINK_MECHANISM_TELPHER.get(), LinkMechanismTelpherRenderer::new);
-        event.registerBlockEntityRenderer(ErModBlockEntities.STORAGE_DEVICE.get(), StorageDeviceRenderer::new);
         event.registerEntityRenderer(ErModEntities.HEAL_ORB.get(), HealOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.SPEED_ORB.get(), SpeedOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.ENERGY_BUFF_ORB.get(), EnergyBuffOrbRenderer::new);
         event.registerEntityRenderer(ErModEntities.ELECTRO_HYPOSTASIS_CUBE.get(), ElectroHypostasisCubeRenderer::new);
         event.registerEntityRenderer(ErModEntities.ELECTRO_CUBE_PROJECTILE.get(), ElectroCubeProjectileRenderer::new);
         event.registerEntityRenderer(ErModEntities.ELECTRO_CUBE_CRYSTAL.get(), ElectroCubeCrystalRenderer::new);
+        event.registerEntityRenderer(ErModEntities.HYDRO_SAMACHURL.get(), HydroSamachurlRenderer::new);
+        event.registerEntityRenderer(ErModEntities.RAIN_CLOUD.get(), RainCloudRenderer::new);
+        event.registerEntityRenderer(ErModEntities.FLOW_ENTITY.get(), FlowEntityRenderer::new);
+
+
+        event.registerBlockEntityRenderer(ErModBlockEntities.LINK_MECHANISM_ENTITY.get(), LinkMechanismBaseRenderer::new);
+        event.registerBlockEntityRenderer(ErModBlockEntities.STORAGE_DEVICE.get(), StorageDeviceRenderer::new);
     }
 }
