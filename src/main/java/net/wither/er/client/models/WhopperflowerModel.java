@@ -144,7 +144,7 @@ public class WhopperflowerModel<T extends Whopperflower> extends EntityModel<T> 
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int i, int i1, float v, float v1, float v2, float v3) {
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int i, int i1, float v, float v1, float v2, float v3) {
         body.render(poseStack, vertexConsumer, i, i1, v, v1, v2, v3);
 		head.render(poseStack, vertexConsumer, i, i1, v, v1, v2, v3);
 	}

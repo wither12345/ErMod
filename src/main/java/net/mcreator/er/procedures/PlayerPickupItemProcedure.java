@@ -9,9 +9,9 @@ import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandler;
-import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.entity.IErEntity;
 import net.wither.er.init.DataComponentsRegister;
+import net.wither.er.item.artifact_effect.ArtifactEffectRegistry;
 import net.wither.er.item.data.artifactdata.ArtifactData;
 
 import static net.wither.er.init.DataComponentsRegister.ARTIFACT;

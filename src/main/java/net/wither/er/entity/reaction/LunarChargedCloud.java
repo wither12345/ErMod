@@ -38,8 +38,7 @@ public class LunarChargedCloud extends Entity{
     public void tick() {
         super.tick();
         activeTime ++ ;
-        if(activeTime > 200 && this.level() instanceof ServerLevel){
+        if(activeTime > 200 && this.level() instanceof ServerLevel)
             this.discard();
-        }
     }
 }

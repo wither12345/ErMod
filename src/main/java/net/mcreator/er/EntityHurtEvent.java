@@ -492,12 +492,8 @@ public class EntityHurtEvent {
      * @return 实体的等级
      */
 	public static int getEntityLevel(Entity entity) {
-		if (entity instanceof Player) {
-			ErItemVariables.PlayerVariables _vars = entity.getCapability(ErItemVariables.PLAYER_VARIABLES).orElse(new ErItemVariables.PlayerVariables());
-			if (_vars.Stella_Fortuna.getItem() instanceof StellaFortuna) {
-				return _vars.Stella_Fortuna.getOrCreateTag().getInt("level") + 1;
-			}
-			return 1 ;
+		if (entity instanceof Player player) {
+            return FortunaData.get(player).level();
 		}
 		else if(entity instanceof LivingEntity)
 			return entity.getPersistentData().getInt("erLevel");
