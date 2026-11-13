@@ -9,7 +9,7 @@ import net.wither.er.client.models.SamachurlModel;
 import net.wither.er.entity.samachurl.Samachurl;
 
 public abstract class SamachurlRenderer extends HumanoidMobRenderer<Samachurl, SamachurlModel<Samachurl>> {
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(ErMod.MODID, "samachurl"), "main");
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ErMod.MODID, "samachurl"), "main");
     public SamachurlRenderer(EntityRendererProvider.Context context) {
         super(context, new SamachurlModel<>(context.bakeLayer(LAYER_LOCATION)), 0.5f);
     }

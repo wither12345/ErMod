@@ -77,7 +77,7 @@ public class FlowEntity extends Entity implements TraceableEntity {
                                     ElementSource.createDamageSource(
                                             serverlevel.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.MOB_ATTACK),
                                             owner,
-                                            new ElementSource(ElementRegistry.HYDRO.get(), ResourceLocation.parse("er:hydro.flow"), 2, true)
+                                            new ElementSource(ElementRegistry.HYDRO.get(), new ResourceLocation("er:hydro.flow"), 2, true)
                                     ), (float) (dmg * 0.3))
                     );
         }

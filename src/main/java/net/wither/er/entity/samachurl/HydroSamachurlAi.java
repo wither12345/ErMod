@@ -37,7 +37,7 @@ public class HydroSamachurlAi {
 
     /** 友军实体标签：{@code #er:hilichurl}，命中该标签的生物都被视为友军。 */
     public static final TagKey<EntityType<?>> HILICHURL_TAG = TagKey.create(
-        Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("er", "hilichurl")
+        Registries.ENTITY_TYPE, new ResourceLocation("er", "hilichurl")
     );
 
     /** 近战触发距离（格）。 */
