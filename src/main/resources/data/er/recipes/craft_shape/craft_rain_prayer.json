@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "craft_rain_prayer",
+  "category": "misc",
+  "pattern": [
+    "shs",
+    " r ",
+    " r "
+  ],
+  "key": {
+    "s": {
+      "item": "er:forbidden_curse_scroll"
+    },
+    "r": {
+      "item": "minecraft:stick"
+    },
+    "h": {
+      "item": "er:condensed_hydro"
+    }
+  },
+  "result": {
+    "id": "er:rain_prayer"
+  }
+}

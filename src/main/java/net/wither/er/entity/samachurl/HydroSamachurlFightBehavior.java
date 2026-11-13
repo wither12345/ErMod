@@ -6,6 +6,8 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +30,6 @@ import java.util.Optional;
  * @see HydroSamachurl#flow(LivingEntity)
  */
 public class HydroSamachurlFightBehavior extends Behavior<HydroSamachurl> {
-
     /** 常驻时长（tick），足够长以免中途超时打断分支决策。 */
     private static final int STAY_DURATION = 1_000_000;
 
@@ -74,14 +75,28 @@ public class HydroSamachurlFightBehavior extends Behavior<HydroSamachurl> {
             return;
         }
         LivingEntity target = oTarget.get();
-        double dist = mob.distanceTo(target);
+        double dist = mob.distanceToSqr(target);
+
+        if(mob.getAction() != Samachurl.Action.NORMAL) {
+            if(mob.getAction() == Samachurl.Action.MELEE)
+                mob.lookAt(target, 10, 10);
+            return;
+        }
 
         if (dist < HydroSamachurlAi.MELEE_RANGE) {
             mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
             mob.meleeAttack(target);
         } else if (dist < HydroSamachurlAi.RETREAT_RANGE) {
-            Vec3 away = mob.position().subtract(target.position().subtract(mob.position()).normalize().scale(0.5));
-            mob.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(away, 1.0F, 2));
+            //Vec3 away = mob.position().subtract(target.position().subtract(mob.position()).normalize().scale(0.5));
+            Vec3 vec3 = DefaultRandomPos.getPosAway(mob, 16, 7, target.position());
+            if (vec3 != null && vec3.distanceToSqr(target.position()) > 16.0D) {
+
+                Path path = mob.getNavigation().createPath(vec3.x, vec3.y, vec3.z, 0);
+                if(path != null) {
+                    mob.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(vec3, 1.0F, 2));
+                    mob.getNavigation().moveTo(path, 0.5);
+                }
+            }
         } else {
             // 远距离：让高优先级的 FlowBehavior 接管，此处清除 WALK_TARGET 站桩等待
             mob.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);

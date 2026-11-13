@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "item": "er:sealed_scroll",
+      "count": 3
+    }
+  ],
+  "output": {
+    "item": "er:forbidden_curse_scroll",
+    "count": 1
+  },
+  "mora": 50
+}

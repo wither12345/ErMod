@@ -41,9 +41,9 @@ public class HydroSamachurlAi {
     );
 
     /** 近战触发距离（格）。 */
-    public static final double MELEE_RANGE = 2.0D;
+    public static final double MELEE_RANGE = 8;
     /** 「远离」判定距离（格），距离小于该值且大于/等于近战距离时后退。 */
-    public static final double RETREAT_RANGE = 5.0D;
+    public static final double RETREAT_RANGE = 25;
     /** 血量阈值：自身或友军血量低于最大血量的该比例时施放 CallRain 治疗。 */
     public static final double LOW_HEALTH_RATIO = 0.9D;
     /** Flow 技能冷却（tick）。 */
