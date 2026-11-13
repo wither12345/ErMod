@@ -29,14 +29,14 @@ import java.util.Optional;
 public class HydroSamachurlFlowBehavior extends Behavior<HydroSamachurl> {
 
     /** 引导总时长（tick，10 秒 = 200 tick）。 */
-    private static final int DURATION_TICKS = 80;
+    private static final int DURATION_TICKS = 89;
     /** 前摇时长（tick，1 秒 = 20 tick）。 */
     private static final int WINDUP_TICKS = 30;
     /** 每次召唤 FlowEntity 的间隔（tick，2 秒 = 40 tick）。 */
     private static final int SUMMON_INTERVAL = 20;
 
     private LivingEntity target;
-    private long startTick;
+    private long startTick = 0;
     private long nextSummonTick;
     private float lastHealth;
 
@@ -61,7 +61,7 @@ public class HydroSamachurlFlowBehavior extends Behavior<HydroSamachurl> {
     }
 
     @Override
-    protected boolean canStillUse(@NotNull ServerLevel level, HydroSamachurl mob, long gameTime) {
+    protected boolean canStillUse(@NotNull ServerLevel level, @NotNull HydroSamachurl mob, long gameTime) {
         // 目标死亡 → 停止
         if (this.target == null || !this.target.isAlive()) {
             return false;

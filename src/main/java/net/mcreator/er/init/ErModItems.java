@@ -354,6 +354,10 @@ public class ErModItems {
 	public static final DeferredItem<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
 	public static final DeferredItem<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
     public static final DeferredItem<Item> RAIN_PRAYER = REGISTRY.register("rain_prayer", (RainPrayer::new));
+    public static final DeferredItem<Item> DIVING_SCROLL = REGISTRY.register("divining_scroll", ErModItems::SimpeItem);
+    public static final DeferredItem<Item> SEALED_SCROLL = REGISTRY.register("sealed_scroll", ErModItems::SimpeItem);
+    public static final DeferredItem<Item> FORBIDDEN_CURSE_SCROLL = REGISTRY.register("forbidden_curse_scroll", ErModItems::SimpeItem);
+    public static final DeferredItem<Item> HYDRO_SAMACHURL_SPAWN_EGG = REGISTRY.register("hydro_samachurl_spawn_egg", () -> new DeferredSpawnEggItem(ErModEntities.HYDRO_SAMACHURL, 0xffffff, 0xffffff, new Item.Properties()));
 
 	@EventBusSubscriber(value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {

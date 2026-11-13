@@ -33,7 +33,22 @@ import org.jetbrains.annotations.Nullable;
  * @see HydroSamachurlAi
  */
 public class HydroSamachurl extends Samachurl {
-    /** 当前执行动作，便于后续渲染/表现使用。 */
+    /** 近战挥击的总时长（tick）。 */
+    private static final int MELEE_SWING_TICKS = 20;
+    /** 近战命中判定距离（格）。 */
+    private static final double MELEE_HIT_RANGE = 3.0D;
+    /** 近战伤害倍率：最终伤害 = 攻击力 × 该倍率。 */
+    private static final float MELEE_DMG_MULTIPLIER = 2.0F;
+    /** 近战冷却时长（tick，40 tick = 2 秒）。 */
+    private static final int MELEE_COOLDOWN_TICKS = 40;
+
+    /** 待近战结算的目标（非空表示正处于挥击中）。 */
+    @Nullable private LivingEntity pendingMeleeTarget;
+    /** 挥击剩余 tick，归零时结算伤害。 */
+    private int meleeSwingTicks;
+    /** 近战冷却剩余 tick，归零才允许再次挥击。 */
+    private int meleeCooldownTicks;
+
     public HydroSamachurl(EntityType<? extends Samachurl> entityType, Level level) {
         super(entityType, level);
     }
@@ -67,17 +82,69 @@ public class HydroSamachurl extends Samachurl {
         this.getBrain().tick((ServerLevel) this.level(), this);
         this.level().getProfiler().pop();
         HydroSamachurlAi.updateActivity(this);
+        this.tickMeleeSwing();
         super.customServerAiStep();
     }
 
     // ===== 三个技能：目前均留空，仅记录当前 Action 与看向目标 =====
 
-    /** 近战攻击：距离过近时触发，无冷却。 */
+    /** 近战攻击：距离过近时触发。先启动挥动动画，结束后结算伤害，进入 60 tick 冷却。 */
     protected void meleeAttack(LivingEntity target) {
+        // 冷却中，忽略触发
+        if (this.meleeCooldownTicks > 0) {
+            return;
+        }
+        // 已在挥击中，忽略重复触发，等待本次结算完成
+        if (this.pendingMeleeTarget != null) {
+            return;
+        }
+        this.navigation.stop();
         this.setAction(Action.MELEE);
         this.swing(InteractionHand.MAIN_HAND);
-        target.hurt(this.damageSources().mobAttack(this), (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 2));
         lookAt(target);
+        this.pendingMeleeTarget = target;
+        this.meleeSwingTicks = MELEE_SWING_TICKS;
+    }
+
+    /**
+     * 每 tick 推进近战冷却与结算：冷却递减；倒计时结束后按条件命中判定。
+     *
+     * <p>命中条件：目标仍存活，且其与本实体距离小于 {@value #MELEE_HIT_RANGE}，
+     * 且「目标位置 - 本实体位置」的向量点乘本实体目光向量为正（即目标位于面朝方向的半空间内）；
+     * 满足时对该目标造成 {@value #MELEE_DMG_MULTIPLIER} 倍攻击力伤害，并进入 {@value #MELEE_COOLDOWN_TICKS} tick 冷却。
+     */
+    private void tickMeleeSwing() {
+        if (this.meleeCooldownTicks > 0) {
+            this.meleeCooldownTicks--;
+        }
+
+        if (this.pendingMeleeTarget == null) {
+            return;
+        }
+        if (--this.meleeSwingTicks > 0) {
+            return;
+        }
+
+        LivingEntity target = this.pendingMeleeTarget;
+        this.pendingMeleeTarget = null;
+        this.meleeSwingTicks = 0;
+        this.setAction(Action.NORMAL);
+
+        if (!target.isAlive() || this.isRemoved()) {
+            return;
+        }
+
+        Vec3 toTarget = target.position().subtract(this.position());
+        boolean inRange = toTarget.lengthSqr() < MELEE_HIT_RANGE * MELEE_HIT_RANGE;
+        boolean facing = toTarget.dot(this.getLookAngle()) > 0.0D;
+        if (inRange && facing) {
+            target.hurt(
+                this.damageSources().mobAttack(this),
+                (float) (this.getAttributeValue(Attributes.ATTACK_DAMAGE) * MELEE_DMG_MULTIPLIER)
+            );
+        }
+        // 无论命中与否，本次挥击结束后进入冷却
+        this.meleeCooldownTicks = MELEE_COOLDOWN_TICKS;
     }
 
     /** 治疗技能（CallRain）：在指定位置施放，用于治疗友军或自身，带冷却。 */
@@ -86,12 +153,14 @@ public class HydroSamachurl extends Samachurl {
         lookAt(pos);
         RainCloud cloud = new RainCloud(this.level(), pos.add(0, 4, 0), this, 0.3f);
         this.level().addFreshEntity(cloud);
+        this.navigation.stop();
         return cloud;
     }
 
     /** 水流技能（Flow）：在目标处远程施放，带冷却。 */
     protected void flow(LivingEntity target) {
         this.setAction(Action.CONJURE);
+        this.navigation.stop();
         lookAt(target);
     }
 

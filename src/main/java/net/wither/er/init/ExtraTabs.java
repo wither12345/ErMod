@@ -137,6 +137,9 @@ public class ExtraTabs {
             tabData.accept(DAMAGED_MASK);
             tabData.accept(STAINED_MASK);
             tabData.accept(OMINOUS_MASK);
+            tabData.accept(DIVING_SCROLL);
+            tabData.accept(SEALED_SCROLL);
+            tabData.accept(FORBIDDEN_CURSE_SCROLL);
 			tabData.accept(SLIME_CONDENSATE);
 			tabData.accept(SLIME_SECRETIONS);
 			tabData.accept(SLIME_CONCENTRATE);
@@ -177,8 +180,10 @@ public class ExtraTabs {
 			tabData.accept(ANEMO_SLIME_SPAWN_EGG);
             tabData.accept(PYRO_FLOWER_SPAWN_EGG);
             tabData.accept(CRYO_FLOWER_SPAWN_EGG);
+            tabData.accept(HYDRO_SAMACHURL_SPAWN_EGG);
 		}else if(tabData.getTabKey() == ErModTabs.ER_WEAPON.getKey()) {
             tabData.accept(WOODEN_CLUB);
+            tabData.accept(RAIN_PRAYER);
             tabData.accept(PYRO_SWORD);
             tabData.accept(HYDRO_SWORD);
             tabData.accept(ANEMO_SWORD);

@@ -1,0 +1,14 @@
+{
+  "type": "er:alchemy_crafting",
+  "ingredients": [
+    {
+      "id": "er:divining_scroll",
+      "count": 3
+    }
+  ],
+  "output": {
+    "id": "er:sealed_scroll",
+    "count": 1
+  },
+  "mora": 25
+}

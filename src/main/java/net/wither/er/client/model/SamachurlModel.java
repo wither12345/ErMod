@@ -13,15 +13,16 @@ import org.jetbrains.annotations.NotNull;
 public class SamachurlModel<T extends Samachurl> extends HumanoidModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     private static final float ROT_90 = (float) Math.toRadians(90);
+    private static final float ROT_45 = (float) Math.toRadians(45);
     private static final float ROT_30 = (float) Math.toRadians(30);
     private static final float ROT_15 = (float) Math.toRadians(15);
 
-    private final ModelPart mask;
+    private static final float CYCLE = (float) Math.PI * 0.1f;
+
     private final ModelPart root;
 
     public SamachurlModel(ModelPart root) {
         super(root);
-        this.mask = this.head.getChild("mask");
         this.root = root;
     }
     public static LayerDefinition createBodyLayer() {
@@ -97,7 +98,54 @@ public class SamachurlModel<T extends Samachurl> extends HumanoidModel<T> {
 
                 this.rightLeg.zRot = -preZ;
                 this.leftLeg.zRot = -preZ;
+                this.root.zRot = preZ;
+            }
+            case CONJURE -> {
+                animationCheck(entity, ageInTicks, entity.getAction());
+                float t = (int) (ageInTicks - entity.startTick);
+                float s = Math.min(1, t / 5);
+                if(t > 30) {
+                    t = (t - 30) % 20;
+                    float f = (float) Math.cos(t * CYCLE);
+                    this.rightArm.xRot = -ROT_90 + ROT_45 * (f - 1);
+                    this.leftArm.xRot = -ROT_90 + ROT_45 * (f - 1);
+                }
+                else {
+                    this.rightArm.xRot = -ROT_90;
+                    this.leftArm.xRot = -ROT_90;
+                }
 
+                this.rightArm.yRot = -ROT_30 * s;
+                this.leftArm.yRot = ROT_30 * s;
+
+                float preZ = (float) (Math.sin(ageInTicks / 2) * ROT_15);
+                this.rightLeg.zRot = -preZ;
+                this.leftLeg.zRot = -preZ;
+                this.root.zRot = preZ;
+            }
+            case MELEE -> {
+                animationCheck(entity, ageInTicks, entity.getAction());
+                float t = (int) (ageInTicks - entity.startTick);
+                float s = Math.min(1, t / 5);
+
+                if(t <= 16) {
+                    this.rightArm.xRot = -ROT_90 * s * 2;
+                    this.leftArm.xRot = -ROT_90 * s * 2;
+
+                    this.rightArm.yRot = -ROT_30 * s;
+                    this.leftArm.yRot = ROT_30 * s;
+                }
+                else {
+                    float p = Math.max(0, 1 - (t - 16) / 4);
+                    this.rightArm.xRot = -ROT_90 * p * 2;
+                    this.leftArm.xRot = -ROT_90 * p * 2;
+                    this.rightArm.yRot = -ROT_30 * p;
+                    this.leftArm.yRot = ROT_30 * p;
+                }
+
+                float preZ = s * ROT_15;
+                this.rightLeg.zRot = -preZ;
+                this.leftLeg.zRot = -preZ;
                 this.root.zRot = preZ;
             }
             case NORMAL -> {

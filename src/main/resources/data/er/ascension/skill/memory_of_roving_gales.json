@@ -10,6 +10,10 @@
         {
             "item": "minecraft:iron_ingot",
           "count": 3
+        },
+        {
+          "item": "er:divining_scroll",
+          "count": 6
         }
       ]
     },
@@ -19,6 +23,10 @@
         {
           "item": "minecraft:iron_ingot",
           "count": 6
+        },
+        {
+          "item": "er:sealed_scroll",
+          "count": 3
         }
       ]
     },
@@ -28,6 +36,10 @@
         {
           "item": "minecraft:iron_ingot",
           "count": 12
+        },
+        {
+          "item": "er:sealed_scroll",
+          "count": 4
         }
       ]
     },
@@ -37,6 +49,10 @@
         {
           "item": "minecraft:iron_ingot",
           "count": 18
+        },
+        {
+          "item": "er:sealed_scroll",
+          "count": 6
         }
       ]
     },
@@ -46,6 +62,10 @@
         {
           "item": "minecraft:iron_ingot",
           "count": 27
+        },
+        {
+          "item": "er:sealed_scroll",
+          "count": 9
         }
       ]
     },
@@ -54,6 +74,10 @@
       "ingredient": [
         {
           "item": "minecraft:iron_block",
+          "count": 4
+        },
+        {
+          "item": "er:forbidden_curse_scroll",
           "count": 4
         }
       ]
@@ -64,6 +88,10 @@
         {
           "item": "minecraft:iron_block",
           "count": 6
+        },
+        {
+          "item": "er:forbidden_curse_scroll",
+          "count": 6
         }
       ]
     },
@@ -72,6 +100,10 @@
       "ingredient": [
         {
           "item": "minecraft:iron_block",
+          "count": 12
+        },
+        {
+          "item": "er:forbidden_curse_scroll",
           "count": 9
         }
       ]
@@ -81,6 +113,10 @@
       "ingredient": [
         {
           "item": "minecraft:iron_block",
+          "count": 16
+        },
+        {
+          "item": "er:forbidden_curse_scroll",
           "count": 12
         }
       ]

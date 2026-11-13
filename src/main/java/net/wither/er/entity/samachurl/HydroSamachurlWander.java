@@ -5,6 +5,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.level.pathfinder.Path;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -38,10 +41,20 @@ public class HydroSamachurlWander extends Behavior<HydroSamachurl> {
     }
 
     @Override
-    protected void start(ServerLevel level, HydroSamachurl mob, long gameTime) {
+    protected void start(@NotNull ServerLevel level, HydroSamachurl mob, long gameTime) {
         int range = mob.getRandom().nextInt(RANGE * 2) - RANGE;
         int range1 = mob.getRandom().nextInt(RANGE * 2) - RANGE;
         BlockPos target = new BlockPos(mob.blockPosition().getX() + range, mob.blockPosition().getY(), mob.blockPosition().getZ() + range1);
         mob.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(target, 0.6F, 2));
+
+        Vec3 vec3 = DefaultRandomPos.getPosAway(mob, 16, 7, target.getCenter());
+
+        if (vec3 != null) {
+            Path path = mob.getNavigation().createPath(vec3.x, vec3.y, vec3.z, 0);
+            if(path != null) {
+                mob.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(vec3, 1.0F, 2));
+                mob.getNavigation().moveTo(path, 0.3);
+            }
+        }
     }
 }
