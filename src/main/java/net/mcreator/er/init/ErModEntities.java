@@ -3,11 +3,11 @@
 */
 package net.mcreator.er.init;
 
-import net.wither.er.entity.samachurl.FlowEntity;
-import net.wither.er.entity.samachurl.HydroSamachurl;
-import net.wither.er.entity.samachurl.RainCloud;
 import net.wither.er.entity.whopperflower.*;
 import net.wither.er.entity.slimes.*;
+import net.wither.er.entity.samachurl.RainCloud;
+import net.wither.er.entity.samachurl.HydroSamachurl;
+import net.wither.er.entity.samachurl.FlowEntity;
 import net.wither.er.entity.reaction.*;
 import net.wither.er.entity.hypostasiscube.ElectroHypostasisCube;
 import net.wither.er.entity.hypostasiscube.ElectroCubeProjectile;
@@ -124,14 +124,14 @@ public class ErModEntities {
 			EntityType.Builder.<ElectroCubeProjectile>of(ElectroCubeProjectile::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).sized(0.5f, 0.5f));
 	public static final RegistryObject<EntityType<ElectroCubeCrystal>> ELECTRO_CUBE_CRYSTAL = register("electro_cube_crystal",
 			EntityType.Builder.<ElectroCubeCrystal>of(ElectroCubeCrystal::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).noSave().sized(0.8f, 0.8f));
-    public static final RegistryObject<EntityType<HydroSamachurl>> HYDRO_SAMACHURL = register("hydro_samachurl",
-            EntityType.Builder.of(HydroSamachurl::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 1.5f));
-    public static final RegistryObject<EntityType<RainCloud>> RAIN_CLOUD = register("rain_cloud",
-            EntityType.Builder.<RainCloud>of(RainCloud::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(32).setUpdateInterval(3).sized(4f, 2f));
-    public static final RegistryObject<EntityType<FlowEntity>> FLOW_ENTITY = register("flow_entity",
-            EntityType.Builder.<FlowEntity>of(FlowEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 1.5f));
+	public static final RegistryObject<EntityType<HydroSamachurl>> HYDRO_SAMACHURL = register("hydro_samachurl",
+			EntityType.Builder.of(HydroSamachurl::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 1.5f));
+	public static final RegistryObject<EntityType<RainCloud>> RAIN_CLOUD = register("rain_cloud",
+			EntityType.Builder.<RainCloud>of(RainCloud::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(32).setUpdateInterval(3).sized(4f, 2f));
+	public static final RegistryObject<EntityType<FlowEntity>> FLOW_ENTITY = register("flow_entity",
+			EntityType.Builder.<FlowEntity>of(FlowEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 1.5f));
 
-    // End of user code block custom entities
+	// End of user code block custom entities
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
 	}

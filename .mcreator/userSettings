@@ -15,7 +15,7 @@
     }
   },
   "bottomDockState": {
-    "expandedDock": "code_viewer",
+    "expandedDock": "console",
     "dockSizes": {
       "console": 202,
       "code_viewer": 282,

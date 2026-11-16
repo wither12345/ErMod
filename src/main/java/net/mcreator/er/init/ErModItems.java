@@ -346,11 +346,11 @@ public class ErModItems {
 	public static final RegistryObject<Item> MIST_GRASS_POLLEN = REGISTRY.register("mist_grass_pollen", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> MIST_GRASS = REGISTRY.register("mist_grass", ErModItems::SimpeItem);
 	public static final RegistryObject<Item> MIST_GRASS_WICK = REGISTRY.register("mist_grass_wick", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> RAIN_PRAYER = REGISTRY.register("rain_prayer", (RainPrayer::new));
-    public static final RegistryObject<Item> DIVING_SCROLL = REGISTRY.register("divining_scroll", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> SEALED_SCROLL = REGISTRY.register("sealed_scroll", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> FORBIDDEN_CURSE_SCROLL = REGISTRY.register("forbidden_curse_scroll", ErModItems::SimpeItem);
-    public static final RegistryObject<Item> HYDRO_SAMACHURL_SPAWN_EGG = REGISTRY.register("hydro_samachurl_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.HYDRO_SAMACHURL, 0xffffff, 0xffffff, new Item.Properties()));
+	public static final RegistryObject<Item> RAIN_PRAYER = REGISTRY.register("rain_prayer", (RainPrayer::new));
+	public static final RegistryObject<Item> DIVING_SCROLL = REGISTRY.register("divining_scroll", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> SEALED_SCROLL = REGISTRY.register("sealed_scroll", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> FORBIDDEN_CURSE_SCROLL = REGISTRY.register("forbidden_curse_scroll", ErModItems::SimpeItem);
+	public static final RegistryObject<Item> HYDRO_SAMACHURL_SPAWN_EGG = REGISTRY.register("hydro_samachurl_spawn_egg", () -> new ForgeSpawnEggItem(ErModEntities.HYDRO_SAMACHURL, 0xffffff, 0xffffff, new Item.Properties()));
 
 	@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 	public static class BowItemsClientSideHandler {
