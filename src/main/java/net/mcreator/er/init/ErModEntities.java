@@ -3,28 +3,35 @@
 */
 package net.mcreator.er.init;
 
-import net.mcreator.er.ErMod;
-import net.mcreator.er.entity.*;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.wither.er.entity.*;
-import net.wither.er.entity.hypostasiscube.ElectroCubeCrystal;
-import net.wither.er.entity.hypostasiscube.ElectroCubeProjectile;
-import net.wither.er.entity.hypostasiscube.ElectroHypostasisCube;
-import net.wither.er.entity.reaction.*;
-import net.wither.er.entity.samachurl.FlowEntity;
-import net.wither.er.entity.samachurl.HydroSamachurl;
-import net.wither.er.entity.samachurl.RainCloud;
-import net.wither.er.entity.slimes.*;
 import net.wither.er.entity.whopperflower.*;
+import net.wither.er.entity.slimes.*;
+import net.wither.er.entity.samachurl.RainCloud;
+import net.wither.er.entity.samachurl.HydroSamachurl;
+import net.wither.er.entity.samachurl.FlowEntity;
+import net.wither.er.entity.reaction.*;
+import net.wither.er.entity.hypostasiscube.ElectroHypostasisCube;
+import net.wither.er.entity.hypostasiscube.ElectroCubeProjectile;
+import net.wither.er.entity.hypostasiscube.ElectroCubeCrystal;
+import net.wither.er.entity.SpeedOrbEntity;
+import net.wither.er.entity.LinkMechanismTelpher;
+import net.wither.er.entity.HealOrbEntity;
+import net.wither.er.entity.EnergyOrb;
+import net.wither.er.entity.EnergyBuffOrbEntity;
+
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.bus.api.SubscribeEvent;
+
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.core.registries.Registries;
+
+import net.mcreator.er.entity.*;
+import net.mcreator.er.ErMod;
 
 @EventBusSubscriber
 public class ErModEntities {
@@ -120,10 +127,11 @@ public class ErModEntities {
 			EntityType.Builder.<ElectroCubeCrystal>of(ElectroCubeCrystal::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).setTrackingRange(32).setUpdateInterval(3).noSave().sized(0.8f, 0.8f));
 	public static final DeferredHolder<EntityType<?>, EntityType<HydroSamachurl>> HYDRO_SAMACHURL = register("hydro_samachurl",
 			EntityType.Builder.of(HydroSamachurl::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 1.5f));
-    public static final DeferredHolder<EntityType<?>, EntityType<RainCloud>> RAIN_CLOUD = register("rain_cloud",
+	public static final DeferredHolder<EntityType<?>, EntityType<RainCloud>> RAIN_CLOUD = register("rain_cloud",
 			EntityType.Builder.<RainCloud>of(RainCloud::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(32).setUpdateInterval(3).sized(4f, 2f));
-    public static final DeferredHolder<EntityType<?>, EntityType<FlowEntity>> FLOW_ENTITY = register("flow_entity",
+	public static final DeferredHolder<EntityType<?>, EntityType<FlowEntity>> FLOW_ENTITY = register("flow_entity",
 			EntityType.Builder.<FlowEntity>of(FlowEntity::new, MobCategory.MISC).setShouldReceiveVelocityUpdates(true).noSave().setTrackingRange(64).setUpdateInterval(3).sized(0.8f, 1.5f));
+
 	// End of user code block custom entities
 	private static <T extends Entity> DeferredHolder<EntityType<?>, EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));

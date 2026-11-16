@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "er:rain_prayer"
+    },
+    "title": {
+      "translate": "advancements.let_it_rain.title"
+    },
+    "description": {
+      "translate": "advancements.let_it_rain.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "wallet_0": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "er:rain_prayer"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "er:elemental_reaction"
+}
